@@ -9,9 +9,8 @@
 
   <ItemGroup>
     <Folder Include="Administrador\" />
-    <Folder Include="Empleador\" />
-    <Folder Include="Demandante\" />
     <Folder Include="Aspirante\" />
+    <Folder Include="Demandante\" />
   </ItemGroup>
 
 </Project>
