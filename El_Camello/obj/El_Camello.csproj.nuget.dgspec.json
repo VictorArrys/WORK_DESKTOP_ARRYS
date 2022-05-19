@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\reyes\\source\\repos\\VictorArrys\\DESER_EL_CAMELLO\\El_Camello\\El_Camello.csproj": {}
+    "D:\\8vo\\Sistemas en red\\Proyecto\\ProyectoElCamello\\DESER_EL_CAMELLO\\DESER_EL_CAMELLO\\El_Camello\\El_Camello.csproj": {}
   },
   "projects": {
-    "C:\\Users\\reyes\\source\\repos\\VictorArrys\\DESER_EL_CAMELLO\\El_Camello\\El_Camello.csproj": {
+    "D:\\8vo\\Sistemas en red\\Proyecto\\ProyectoElCamello\\DESER_EL_CAMELLO\\DESER_EL_CAMELLO\\El_Camello\\El_Camello.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\reyes\\source\\repos\\VictorArrys\\DESER_EL_CAMELLO\\El_Camello\\El_Camello.csproj",
+        "projectUniqueName": "D:\\8vo\\Sistemas en red\\Proyecto\\ProyectoElCamello\\DESER_EL_CAMELLO\\DESER_EL_CAMELLO\\El_Camello\\El_Camello.csproj",
         "projectName": "El_Camello",
-        "projectPath": "C:\\Users\\reyes\\source\\repos\\VictorArrys\\DESER_EL_CAMELLO\\El_Camello\\El_Camello.csproj",
-        "packagesPath": "C:\\Users\\reyes\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\reyes\\source\\repos\\VictorArrys\\DESER_EL_CAMELLO\\El_Camello\\obj\\",
+        "projectPath": "D:\\8vo\\Sistemas en red\\Proyecto\\ProyectoElCamello\\DESER_EL_CAMELLO\\DESER_EL_CAMELLO\\El_Camello\\El_Camello.csproj",
+        "packagesPath": "C:\\Users\\Daniel Cervantes\\.nuget\\packages\\",
+        "outputPath": "D:\\8vo\\Sistemas en red\\Proyecto\\ProyectoElCamello\\DESER_EL_CAMELLO\\DESER_EL_CAMELLO\\El_Camello\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\reyes\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Daniel Cervantes\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -61,7 +57,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
