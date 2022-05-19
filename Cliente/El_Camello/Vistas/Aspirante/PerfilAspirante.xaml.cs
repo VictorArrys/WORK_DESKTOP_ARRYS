@@ -12,18 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace El_Camello.Empleador
+namespace El_Camello.Aspirante
 {
     /// <summary>
-    /// Interaction logic for OfertasEmpleo.xaml
+    /// Interaction logic for PerfilAspirante.xaml
     /// </summary>
-    public partial class OfertasEmpleo : Window
+    public partial class PerfilAspirante : Window
     {
-        public OfertasEmpleo()
+        public PerfilAspirante()
         {
             InitializeComponent();
-
         }
-
     }
 }

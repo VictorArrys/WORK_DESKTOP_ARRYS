@@ -1,0 +1,95 @@
+﻿<Window x:Class="El_Camello.Empleador.SolcitudesEmpleos"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:El_Camello.Empleador"
+        mc:Ignorable="d"
+        Title="SolcitudesEmpleos" Height="540" Width="860">
+    <Grid Margin="0,0,0,-6">
+        <Grid RenderTransformOrigin="0.496,0.438" Margin="0,0,0,487">
+            <Grid.Background>
+                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
+            </Grid.Background>
+            <Button Content="Volver" HorizontalAlignment="Left" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Margin="756,13,0,0">
+                <Button.Background>
+                    <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
+                </Button.Background>
+                <Button.BorderBrush>
+                    <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
+                </Button.BorderBrush>
+            </Button>
+        </Grid>
+        <Grid RenderTransformOrigin="0.496,0.438" Margin="0,497,0,0">
+            <Grid.Background>
+                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
+            </Grid.Background>
+        </Grid>
+        <Label Content="Solicitudes de empleo" HorizontalAlignment="Center" Margin="0,-2,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="26"/>
+        <Rectangle HorizontalAlignment="Left" Height="199" Margin="25,66,0,0" Stroke="Black" VerticalAlignment="Top" Width="495"/>
+        <Rectangle HorizontalAlignment="Left" Height="198" Margin="25,294,0,0" Stroke="Black" VerticalAlignment="Top" Width="495"/>
+        <Rectangle HorizontalAlignment="Left" Height="426" Margin="540,66,0,0" Stroke="Black" VerticalAlignment="Top" Width="310"/>
+        <Button HorizontalAlignment="Left" Margin="756,12,0,0" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116">
+            <Button.Background>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
+            </Button.Background>
+            <Button.BorderBrush>
+                <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
+            </Button.BorderBrush>
+        </Button>
+        <Button Content="Aprobar" HorizontalAlignment="Left" Margin="639,460,0,0" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116">
+            <Button.Background>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
+            </Button.Background>
+            <Button.BorderBrush>
+                <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
+            </Button.BorderBrush>
+        </Button>
+        <Button Content="Rechazar" HorizontalAlignment="Left" Margin="747,460,0,0" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116">
+            <Button.Background>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
+            </Button.Background>
+            <Button.BorderBrush>
+                <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
+            </Button.BorderBrush>
+        </Button>
+        <DataGrid d:ItemsSource="{Binding}" Margin="46,108,360,285">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Aspirante" Binding= "{Binding nombreAspirante}" Width="250"/>
+                <DataGridTextColumn Header="Oficio" Binding= "{Binding oficio}" Width="100"/>
+                <DataGridTextColumn Header="Experiencia" Binding= "{Binding experiencia}" Width="100"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid d:ItemsSource="{Binding}" Margin="46,333,360,60">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Aspirante" Binding= "{Binding nombreAspirante}" Width="250"/>
+                <DataGridTextColumn Header="Oficio" Binding= "{Binding oficio}" Width="100"/>
+                <DataGridTextColumn Header="Experiencia" Binding= "{Binding experiencia}" Width="100"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="Solicitudes" HorizontalAlignment="Left" Margin="133,63,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26"/>
+        <Label Content="Vacantes ocupadas" HorizontalAlignment="Left" Margin="130,288,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26"/>
+        <Label Content="Ocupadas : ?" HorizontalAlignment="Left" Margin="383,302,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="12"/>
+        <Button Content="Ver más" HorizontalAlignment="Left" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Margin="742,81,0,0">
+            <Button.Background>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
+            </Button.Background>
+            <Button.BorderBrush>
+                <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
+            </Button.BorderBrush>
+        </Button>
+        <Image HorizontalAlignment="Left" Height="127" Margin="551,81,0,0" VerticalAlignment="Top" Width="135"/>
+        <Label Content="Nombre: " HorizontalAlignment="Left" Margin="695,122,0,0" VerticalAlignment="Top"/>
+        <Label Content="[Nombre]" HorizontalAlignment="Left" Margin="698,148,0,0" VerticalAlignment="Top" Width="143"/>
+        <Label Content="Telefono: " HorizontalAlignment="Left" Margin="695,184,0,0" VerticalAlignment="Top"/>
+        <Label Content="[Telefono]" HorizontalAlignment="Left" Margin="698,210,0,0" VerticalAlignment="Top" Width="143"/>
+        <Label Content="Dirección: " HorizontalAlignment="Left" Margin="565,239,0,0" VerticalAlignment="Top"/>
+        <Label Content="[Dirección]" HorizontalAlignment="Left" Margin="568,265,0,0" VerticalAlignment="Top" Width="268"/>
+        <Label Content="Experiencia: " HorizontalAlignment="Left" Margin="565,289,0,0" VerticalAlignment="Top"/>
+        <Label Content="[Experiencia]" HorizontalAlignment="Left" Margin="568,315,0,0" VerticalAlignment="Top" Width="143"/>
+        <Label Content="Días habiles: " HorizontalAlignment="Left" Margin="570,341,0,0" VerticalAlignment="Top"/>
+        <Label Content="[Días habiles]" HorizontalAlignment="Left" Margin="573,367,0,0" VerticalAlignment="Top" Width="143"/>
+
+
+    </Grid>
+</Window>

@@ -6,24 +6,30 @@
         xmlns:local="clr-namespace:El_Camello.Empleador"
         xmlns:System="clr-namespace:System;assembly=System.Runtime" x:Class="El_Camello.Empleador.OfertasEmpleo"
         mc:Ignorable="d"
-        Title="OfertasEmpleo" Height="488" Width="921">
-    <Grid Margin="0,0,0,3">
+        Title="OfertasEmpleo" Height="524" Width="921">
+    <Grid Margin="0,0,0,-6">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="326*"/>
+            <ColumnDefinition Width="595*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="167*"/>
+            <RowDefinition Height="90*"/>
+        </Grid.RowDefinitions>
         <Grid.Background>
-            <SolidColorBrush Color="#FF022D3D" Opacity="0.3"/>
+            <SolidColorBrush Color="#FFDFDFDF" Opacity="1"/>
         </Grid.Background>
-        <Menu Background="#0d8d95" Margin="0,206,762,26">
-            <Label Content="Perfil empleador" />
-
-            <Button Content="Mensajería" Height="36" Width="133"  Background="#FFCEE0DA" RenderTransformOrigin="1.376,-3.581"/>
-            <Button Content="Registrar oferta" Height="36" Width="133" Background="#FFCEE0DA"/>
-            <Button Content="Modificar oferta" Height="36" Width="133" Background="#FFCEE0DA"/>
-            <Button Content="Consultar empleo" Height="36" Width="133" Background="#FFCEE0DA"/>
-            <Button Content="Consultar solicitudes" Height="36" Width="133" Background="#FFCEE0DA"/>
-        </Menu>
-        <Grid RenderTransformOrigin="0.496,0.438" Margin="0,0,0,428" Background="#0d8d95"/>
-        <Rectangle HorizontalAlignment="Left" Height="128" Margin="0,73,0,0" Stroke="Black" VerticalAlignment="Top" Width="159" Fill="#FFCEE0DA"/>
-        <Image HorizontalAlignment="Left" Height="110" Margin="10,83,0,0" VerticalAlignment="Top" Width="128" RenderTransformOrigin="1.234,0.505"/>
-        <DataGrid d:ItemsSource="{Binding}" Margin="281,68,10,26" SelectionChanged="DataGrid_SelectionChanged">
+        <Grid RenderTransformOrigin="0.496,0.438" Margin="0,0,0,293" Grid.ColumnSpan="2">
+            <Grid.Background>
+                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
+            </Grid.Background>
+        </Grid>
+        <Rectangle HorizontalAlignment="Left" Height="186" Margin="0,55,0,0" Stroke="Black" VerticalAlignment="Top" Width="204">
+            <Rectangle.Fill>
+                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
+            </Rectangle.Fill>
+        </Rectangle>
+        <DataGrid d:ItemsSource="{Binding}" Margin="305,55,19,91" Grid.RowSpan="2" Grid.ColumnSpan="2">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nombre del empleo" Binding= "{Binding nombreEmpleo}" Width="250"/>
                 <DataGridTextColumn Header="Categoria" Binding= "{Binding categoriaEmpleo}" Width="100"/>
@@ -31,37 +37,71 @@
                 <DataGridTextColumn Header="Fecha de publicación" Binding= "{Binding fecha}" Width="150"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Editar perfil" HorizontalAlignment="Left" Margin="173,94,0,0" VerticalAlignment="Top" Width="94">
+        <Button Content="Editar perfil" HorizontalAlignment="Left" Margin="209,90,0,0" VerticalAlignment="Top" Width="91" Foreground="White" RenderTransformOrigin="-0.191,0.453" Height="18">
+            <Button.Background>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
+            </Button.Background>
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
             </Button.BorderBrush>
+        </Button>
+        <Button Content="Desactivar perfil" HorizontalAlignment="Left" Margin="209,127,0,0" VerticalAlignment="Top" Width="91" Foreground="White" Height="21">
             <Button.Background>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
+            </Button.Background>
+            <Button.BorderBrush>
                 <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
+            </Button.BorderBrush>
+        </Button>
+        <Button Content="Activar perfil" HorizontalAlignment="Left" Margin="209,167,0,0" VerticalAlignment="Top" Width="91" Foreground="White" Height="20">
+            <Button.Background>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
+            </Button.Background>
+            <Button.BorderBrush>
+                <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
+            </Button.BorderBrush>
+        </Button>
+        <Label Content="Ofertas empleo" HorizontalAlignment="Left" Margin="6,-4,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="26" Grid.Column="1"/>
+        <Button Content="Volver" HorizontalAlignment="Left" Margin="491,11,0,0" VerticalAlignment="Top" Width="94" Foreground="White" Grid.Column="1">
+            <Button.Background>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
+            </Button.Background>
+            <Button.BorderBrush>
+                <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
+            </Button.BorderBrush>
+        </Button>
+        <Grid RenderTransformOrigin="0.496,0.438" Margin="0,165,0,0" Height="15" Grid.Row="1" Grid.ColumnSpan="2">
+            <Grid.Background>
+                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
+            </Grid.Background>
+        </Grid>
+        <Label Content="Perfil empleador" Foreground="White" Margin="23,55,206,253"/>
+        <Button Content="Mensajería" Height="35" Width="120" RenderTransformOrigin="1.376,-3.581" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,272,0,0">
+            <Button.Background>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
             </Button.Background>
         </Button>
-        <Button Content="Desactivar perfil" HorizontalAlignment="Left" Margin="173,125,0,0" VerticalAlignment="Top" Width="94">
-            <Button.BorderBrush>
-                <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
-            </Button.BorderBrush>
+        <Label Content="Menú empleador" Foreground="White" Margin="10,246,212,62"/>
+
+        <Image x:Name="imgFoto" Margin="10,73,136,103"/>
+        <Button Content="Registrar oferta" Height="36" Width="116" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="-0.838,6.334" Margin="156,272,0,0">
             <Button.Background>
-                <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
             </Button.Background>
         </Button>
-        <Button Content="Activar perfil" HorizontalAlignment="Left" Margin="173,159,0,0" VerticalAlignment="Top" Width="94">
-            <Button.BorderBrush>
-                <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
-            </Button.BorderBrush>
+        <Button Content="Modificar oferta" Height="36" Width="116" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="156,10,0,0" Grid.Row="1">
             <Button.Background>
-                <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
             </Button.Background>
         </Button>
-        <Label Content="Ofertas empleo" HorizontalAlignment="Left" Margin="469,-4,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="26"/>
-        <Button Content="Volver" HorizontalAlignment="Left" Margin="10,48,0,0" VerticalAlignment="Top" Width="94">
-            <Button.BorderBrush>
-                <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
-            </Button.BorderBrush>
+        <Button Content="Consultar empleo" Height="36" Width="120" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Grid.Row="1">
             <Button.Background>
-                <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
+            </Button.Background>
+        </Button>
+        <Button Content="Consultar solicitudes" Height="36" Width="120" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" Grid.Row="1" RenderTransformOrigin="0.109,0.528">
+            <Button.Background>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
             </Button.Background>
         </Button>
 

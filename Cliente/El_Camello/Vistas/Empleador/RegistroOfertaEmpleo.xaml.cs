@@ -15,14 +15,13 @@ using System.Windows.Shapes;
 namespace El_Camello.Empleador
 {
     /// <summary>
-    /// Interaction logic for OfertasEmpleo.xaml
+    /// Interaction logic for RegistroOfertaEmpleo.xaml
     /// </summary>
-    public partial class OfertasEmpleo : Window
+    public partial class RegistroOfertaEmpleo : Window
     {
-        public OfertasEmpleo()
+        public RegistroOfertaEmpleo()
         {
             InitializeComponent();
-
         }
 
     }
