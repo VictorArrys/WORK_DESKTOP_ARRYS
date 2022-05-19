@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Vistas\Administrador\1\" />
+    <Folder Include="Vistas\Aspirante\2\" />
+    <Folder Include="Vistas\Demandante\3\" />
+    <Folder Include="Vistas\Usuario\5\" />
+  </ItemGroup>
+
+</Project>
