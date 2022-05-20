@@ -1,0 +1,4126 @@
+openapi: 3.0.2
+info:
+  title: ElCamelloAPI
+  description: '**ElCamelloAPI** es un API Rest que ayuda a la optimización de los
+    procesos para la busqueda y oferta de empleos.'
+  contact:
+    name: The Alchemist
+    email: zs18019636@estudiantes.uv.mx
+  version: "1.0"
+servers:
+- url: http://localhost:5000/v1
+  description: Servidor de desarrollo
+paths:
+  /iniciarSesion:
+    description: Login del sistema para que los usuarios puedan utilizala API
+    get:
+      tags:
+      - Acceso al sistema
+      summary: Iniciar sesíón y obtener token
+      description: Comprueba que el usuario se encuentre registrado en el sistema
+        y le retorna el perfil de usuario con el token que le permite usar el API
+      operationId: iniciarSesion
+      parameters:
+      - name: nombreUsuario
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: clave
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Inicio de sesion exitoso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PerfilUsuarios'
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      x-swagger-router-controller: AccesoAlSistema
+  /cerrarSesion:
+    description: 'Cierra la sesion del usuario '
+    get:
+      tags:
+      - Acceso al sistema
+      summary: Cierra sesión del usuario y desecha el token
+      description: Cierra la sesion del usuario y desecha el token
+      operationId: cerrarSesion
+      responses:
+        "200":
+          description: Sesion cerrada
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: AccesoAlSistema
+  /categoriasEmpleo:
+    description: El catalogo de las categorias de empleo
+    get:
+      tags:
+      - Gestion de Categorías de empleo
+      summary: Consultar lista de categorias de empleo
+      description: solicita la lista de todas las categorias de empleo registrada
+        para su posterior consulta
+      operationId: getCategoriasEmpleo
+      responses:
+        "200":
+          description: La lista de categorias de empleo se consultaron con éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CategoriaEmpleo'
+                x-content-type: application/json
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: GestionDeCategorasDeEmpleo
+    post:
+      tags:
+      - Gestion de Categorías de empleo
+      summary: Registrar categoria de empleo en catalogo de categorias
+      description: Se publica una nueva categoria de empleo enviando el nombre de
+        la categoria de empleo a registrar
+      operationId: categoriasEmpleoPOST
+      requestBody:
+        description: Información de la categoría
+        content:
+          aplication/json:
+            schema:
+              $ref: '#/components/schemas/categoriasEmpleo_body'
+        required: true
+      responses:
+        "201":
+          description: Categoria de empleo registrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoriaEmpleo'
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: GestionDeCategorasDeEmpleo
+  /categoriasEmpleo/{idCategoriaEmpleo}:
+    description: Categoria de empleo
+    delete:
+      tags:
+      - Gestion de Categorías de empleo
+      summary: Eliminar categoría de empleo
+      description: Elimina una categoria de empleo del catalogo de categorias de empleo
+      operationId: categoriasEmpleoIdCategoriaEmpleoDELETE
+      parameters:
+      - name: idCategoriaEmpleo
+        in: path
+        description: ID de la categoria empleo que se modificará
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Categoria de empleo eliminada
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: GestionDeCategorasDeEmpleo
+    patch:
+      tags:
+      - Gestion de Categorías de empleo
+      summary: Modificar categoria de empleo en catálogo de categorias
+      description: Actualiza el nombre de la categoria de empploe
+      operationId: categoriasEmpleoIdCategoriaEmpleoPATCH
+      parameters:
+      - name: idCategoriaEmpleo
+        in: path
+        description: ID de la categoria empleo que se modificará
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        description: Información de la categoría
+        content:
+          aplication/json:
+            schema:
+              $ref: '#/components/schemas/categoriasEmpleo_idCategoriaEmpleo_body'
+        required: true
+      responses:
+        "200":
+          description: Categoria de empleo actualizada
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: GestionDeCategorasDeEmpleo
+  /perfilUsuarios:
+    description: catalogo de todos los usuarios
+    get:
+      tags:
+      - Usuarios
+      summary: Consultar catalogo de perfiles de usuario
+      description: |
+        Consulta del catalogo de todos los perfiles de usuario registrados en el sistema
+      operationId: getPerfilUsuarios
+      responses:
+        "200":
+          description: Catalogo de usuarios consultados con exito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PerfilUsuarios'
+                x-content-type: application/json
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: Usuarios
+  /PerfilUsuarios/{idPerfilUsuario}:
+    description: perfil de un usuario en especifico
+    get:
+      tags:
+      - Usuarios
+      summary: Consultar perfil de usuario
+      description: |
+        Se consulta la informacion del usuario asi como sus datos personales
+      operationId: getPerfilUsuarioIdPerfilUsuario
+      parameters:
+      - name: idPerfilUsuario
+        in: path
+        description: identificador unico de una cuenta de usuario del sistema
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: Perfil de usuarios consultado con exito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PerfilUsuarios'
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: Usuarios
+  /restablecer:
+    description: restablecer la constraseña de un usuario
+    patch:
+      tags:
+      - Acceso al sistema
+      summary: Restablecer contraseña de usuario y enviar correo para notificar la
+        nueva contraseña del usuario
+      description: |
+        El usuario introduce su correo eletronico, una vez verificado que esta registrado en el sistema se le mandara
+        un correo con una constraseña nueva para poder acceder al sistema
+      operationId: patchRestablecer
+      parameters:
+      - name: correoElectronico
+        in: query
+        description: correo electronico que proporciona el usuario al momento de registrarse
+          ene le sistema
+        required: true
+        style: form
+        explode: true
+        allowReserved: true
+        schema:
+          type: string
+          format: email
+      responses:
+        "204":
+          description: contraseña restablecida y mandada a correo del usuario
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      x-swagger-router-controller: AccesoAlSistema
+  /perfilUsuarios/{idPerfilUsuario}/deshabilitar:
+    description: deshabilita el perfil de un usuario si este desactivo su cuenta del
+      sistema
+    patch:
+      tags:
+      - Usuarios
+      summary: Desabilitar perfil de usuario
+      description: |
+        Se Deshabilita el perfil de usuario
+      operationId: patchPerfilUsuariosDeshabilitar
+      parameters:
+      - name: idPerfilUsuario
+        in: path
+        description: identificador unico de una cuenta de usuario del sistema
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: perfil desactivado con exito
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: Usuarios
+  /perfilUsuarios/{idPerfilUsuario}/habilitar:
+    description: habilita el perfil de un usuario si este desactivo su cuenta del
+      sistema
+    patch:
+      tags:
+      - Usuarios
+      summary: habilitar perfil de usuario
+      description: |
+        se habilita el perfil de usuario que solicito anteriormente la desactivación de su perfil
+      operationId: patchPerfilUsuariosHabilitar
+      parameters:
+      - name: idPerfilUsuario
+        in: path
+        description: identificador unico de una cuenta de usuario del sistema
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          description: identificador unico del usuario
+          format: int32
+      responses:
+        "200":
+          description: perfil habilitado con éxito
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: Usuarios
+  /perfilAdministradores:
+    description: Consultar catalogo de perfiles de administrador
+    get:
+      tags:
+      - Usuarios
+      summary: consultar catalogo de perfiles administradores
+      description: |
+        Consulta del catalogo de todos los administradores registrados en el sistema
+      operationId: getPerfilAdministradores
+      responses:
+        "200":
+          description: Catalogo de administradores consultados con exito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PerfilAdministradores'
+                x-content-type: application/json
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: Usuarios
+  /perfilAdministradores/{idPerfilAdministrador}:
+    description: permite la modificacion u obtencion de los datos del perfil de administrador
+    get:
+      tags:
+      - Usuarios
+      summary: consulta el perfil de un administrador en especifico
+      description: |
+        consulta el perfil de un administrador en especifico buscandolo por su id
+      operationId: getPerfilAdministradoresIdPerfilAdministrador
+      parameters:
+      - name: idPerfilAdministrador
+        in: path
+        description: identificador unico del administrador
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: perfil de administrador consultado con exito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PerfilAdministradores'
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: Usuarios
+    put:
+      tags:
+      - Usuarios
+      summary: Modificar perfil administrador
+      description: |
+        el usuario administrador puede modificar la información de su perfil de usuario
+      operationId: putPerfilUsuariosIdPerfilAdminitrador
+      parameters:
+      - name: idPerfilAdministrador
+        in: path
+        description: identificador unico del administrador
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        $ref: '#/components/requestBodies/PerfilAdministradores'
+      responses:
+        "204":
+          description: Perfil de administrador modificado con exito
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: Usuarios
+  /perfilEmpleadores:
+    description: Catalogo de todos los perfiles empleador
+    get:
+      tags:
+      - Usuarios
+      summary: consultar catalogo de perfiles empleadores
+      description: |
+        Se consulta una lista de empleadores
+      operationId: getPerfilEmpleadores
+      responses:
+        "200":
+          description: Catalogo de empleadores consultados con exito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PerfilEmpleadores'
+                x-content-type: application/json
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: Usuarios
+    post:
+      tags:
+      - Usuarios
+      summary: Registrar empleador en catalogo de empleadores
+      description: Se agrega un nuevo empleador enviando la informacion a registrar
+      operationId: postPerfilEmpleadores
+      requestBody:
+        $ref: '#/components/requestBodies/PerfilEmpleadores'
+      responses:
+        "201":
+          description: usuario empleador creado con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PerfilEmpleadores'
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "500":
+          description: error interno desde el servidor
+      x-swagger-router-controller: Usuarios
+  /perfilEmpleadores/{idPerfilEmpleador}:
+    description: permite la modificacion u obtencion de los datos del perfil de usuario
+    get:
+      tags:
+      - Usuarios
+      summary: consulta el perfil de un empleador en especifico
+      description: |
+        consulta el perfil de un empleador en especifico buscandolo por su id
+      operationId: getPerfilEmpleadoresIdPerfilEmpleador
+      parameters:
+      - name: idPerfilEmpleador
+        in: path
+        description: identificador unico del empleador
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: Perfil de empleador consultado con exito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PerfilEmpleadores'
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: Usuarios
+    put:
+      tags:
+      - Usuarios
+      summary: Modificar perfil empleador
+      description: |
+        el usuario empleador puede modificar la información de su perfil de usuario
+      operationId: putPerfilEmpleadoresIdPerfilEmpleador
+      parameters:
+      - name: idPerfilEmpleador
+        in: path
+        description: identificador unico del empleador
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        $ref: '#/components/requestBodies/PerfilEmpleadores'
+      responses:
+        "204":
+          description: Perfil de administrador modificado con exito
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: Usuarios
+  /perfilDemandantes:
+    description: Catalogo de todos los perfiles demandantes
+    get:
+      tags:
+      - Usuarios
+      summary: Consultar informacion de perfil demandante
+      description: "Se consulta una lista de demandantes \n"
+      operationId: getPerfilDemandantes
+      responses:
+        "200":
+          description: Catalogo de demandantes consultados con exito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PerfilDemandantes'
+                x-content-type: application/json
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: Usuarios
+    post:
+      tags:
+      - Usuarios
+      summary: Registrar demandante en catalogo de demandantes
+      description: |
+        Se agrega un nuevo demandante enviando la información a registrar
+      operationId: postPerfilDemandantes
+      requestBody:
+        $ref: '#/components/requestBodies/PerfilDemandantes'
+      responses:
+        "201":
+          description: usuario demandante creado con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PerfilDemandantes'
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "500":
+          description: error interno desde el servidor
+      x-swagger-router-controller: Usuarios
+  /perfilDemandantes/{idPerfilDemandante}:
+    description: permite la modificacion u obtencion de los datos del perfil del demandante
+    get:
+      tags:
+      - Usuarios
+      summary: consulta el perfil de un demandante en especifico
+      description: |
+        Consulta el perfil de un administrador en especifico buscandolo por su id
+      operationId: getPerfilDemandantesIdPerfilDemandante
+      parameters:
+      - name: idPerfilDemandante
+        in: path
+        description: identificador unico del demandante
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: Perfil de demandante consultado con exito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PerfilDemandantes'
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: Usuarios
+    put:
+      tags:
+      - Usuarios
+      summary: Modificar perfil demandante
+      description: |
+        el demandante puede modificar la información de su perfil
+      operationId: putPerfilDemandantesIdPerfilDemandante
+      parameters:
+      - name: idPerfilDemandante
+        in: path
+        description: identificador unico del demandante
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        $ref: '#/components/requestBodies/PerfilDemandantes'
+      responses:
+        "204":
+          description: Perfil de administrador modificado con exito
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: Usuarios
+  /perfilAspirantes:
+    description: Catalogo de todos los perfiles aspirantes
+    get:
+      tags:
+      - Usuarios
+      summary: Consultar la lista  de los perfiles demandantes
+      description: |
+        Se consulta la lista de aspirantes a una oferta de empleo o servicio
+      operationId: getPerfilAspirantes
+      responses:
+        "200":
+          description: catalogo de aspirantes consultados con éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PerfilAspirantes'
+                x-content-type: application/json
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: Usuarios
+    post:
+      tags:
+      - Usuarios
+      summary: Registrar  un aspirante en catalogo de aspirantes
+      description: |
+        Se agrega un nuevo aspirantes enviando la información a registrar
+      operationId: postPerfilAspirantes
+      requestBody:
+        $ref: '#/components/requestBodies/PerfilAspirantes'
+      responses:
+        "201":
+          description: usuario aspirante creado con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PerfilAspirantes'
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "500":
+          description: error interno desde el servidor
+      x-swagger-router-controller: Usuarios
+  /perfilAspirantes/{idPerfilAspirante}:
+    description: permite la modificacion u obtencion de los datos del perfil del aspirante
+    get:
+      tags:
+      - Usuarios
+      summary: consulta el perfil de un aspirante en especifico
+      description: |
+        consulta el perfil de un aspirante en especifico buscandolo por su id
+      operationId: getPerfilAspirantesIdPerfilAspirante
+      parameters:
+      - name: idPerfilAspirante
+        in: path
+        description: identificador unico del aspirante
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: Perfil de aspirante consultado con exito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PerfilAspirantes'
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: Usuarios
+    put:
+      summary: Modificar perfil aspirante
+      description: |
+        el aspirante puede modificar la información de su perfil
+      operationId: perfilAspirantesIdPerfilAspirantePUT
+      parameters:
+      - name: idPerfilAspirante
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        $ref: '#/components/requestBodies/PerfilAspirantes'
+      responses:
+        "204":
+          description: Perfil de aspirante modificado con exito
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: Default
+  /reportesEmpleo:
+    description: Catalogo de todos los reportes de empleo realizados por aspirantes
+      de una oferta de empleo
+    get:
+      tags:
+      - Reporte Oferta Empleo - Adminstrador
+      summary: Consultar lista de reportes de ofertas de empleo
+      description: Solicita la lista de todos los reportes de ofertas de empleo realizado
+        por aspirantes a un empleo en especifico
+      operationId: getReportesEmpleos
+      responses:
+        "200":
+          description: La lista de reportes de empleo se consultaron con éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReporteEmpleo'
+                x-content-type: application/json
+        "400":
+          description: "No se pudo consultar los reportes de empleo, debido a sintaxis\
+            \ invalida"
+        "401":
+          description: Es necesario autenticar para obtener la respuesta solicitada
+        "404":
+          description: "Petición de consultar reportes de empleo incorrecta, debido\
+            \ a que no existe la acción"
+        "500":
+          description: Error interno del servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: ReporteOfertaEmpleoAdminstrador
+    post:
+      tags:
+      - Reporte Oferta Empleo - Aspirante
+      summary: Registrar reporte de empleo en catalogo de reportes empleo
+      description: Se agrega un nuevo reporte de empleo enviando la información del
+        reporte de empleo
+      operationId: postReportesEmpleos
+      requestBody:
+        $ref: '#/components/requestBodies/reporteEmpleo'
+      responses:
+        "200":
+          description: Reporte de empleo registrado exitoso
+        "400":
+          description: "No se pudo registrar el reporte de empleo, debido a sintaxis\
+            \ invalida"
+        "401":
+          description: Es necesario autenticar para obtener la respuesta solicitada
+        "404":
+          description: "Petición de registrar reporte de empleo incorrecta, debido\
+            \ a que no existe la acción"
+        "500":
+          description: Error interno del servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: ReporteOfertaEmpleoAspirante
+  /reportesEmpleo/{idReporteEmpleo}:
+    description: Reporte de empleo realizado por un aspirante
+    get:
+      tags:
+      - Reporte Oferta Empleo - Adminstrador
+      summary: Consulta reporte de empleo
+      description: Consulta la informacion de un reporte de empleo realizado por un
+        aspirante
+      operationId: getReporteEmpleo
+      parameters:
+      - name: idReporteEmpleo
+        in: path
+        description: ID del reporte de empleo que se esta consultando
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Devuelve el reporte de empleo con éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReporteEmpleo'
+                x-content-type: application/json
+        "400":
+          description: "No se pudo consultar el reporte, debido a sintaxis invalida"
+        "401":
+          description: Es necesario autenticar para obtener la respuesta solicitada
+        "404":
+          description: "Petición de consultar rechazado incorrecta, debido a que no\
+            \ existe la acción"
+        "500":
+          description: Error interno del servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: ReporteOfertaEmpleoAdminstrador
+  /reportesEmpleo/{idReporteEmpleo}/aceptado:
+    description: "Modificación del estatus de un reporte de empleo, este se dara si\
+      \ el administrador da clic en aceptar"
+    patch:
+      tags:
+      - Reporte Oferta Empleo - Adminstrador
+      summary: Aceptar reporte de oferta de empleo y Actualizar amonestaciones de
+        perfil empleador
+      description: Cambia de estatus a un reporte de oferta de empleo para actualizar
+        integerernamente el reporte y anotar una amonestacion al Empleador
+      operationId: patchReporteEmpleoAceptado
+      parameters:
+      - name: idReporteEmpleo
+        in: path
+        description: ID del reporte de empleo que se cambiara su estado a aceptado
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: "Reporte aceptado correctamente, se aplicara una amonestació\
+            n al empleador"
+        "400":
+          description: "No se pudo aceptar el reporte, debido a sintaxis invalida"
+        "401":
+          description: Es necesario autenticar para obtener la respuesta solicitada
+        "404":
+          description: "Petición de aceptar reporte incorrecta, debido a que no existe\
+            \ la acción"
+        "500":
+          description: Error interno del servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: ReporteOfertaEmpleoAdminstrador
+  /reportesEmpleo/{idReporteEmpleo}/rechazado:
+    description: "Modificacion del estatus de un reporte de empleo, este se dara si\
+      \ el adminstrador da clic en aceptar"
+    patch:
+      tags:
+      - Reporte Oferta Empleo - Adminstrador
+      summary: Descartar reporte de oferta de empleo
+      description: Cambia de estatus a un reporte de oferta de empleo para actualizar
+        integerernamente el reporte y descartar una amonestacion al Empleador
+      operationId: patchReporteEmpleoRechazado
+      parameters:
+      - name: idReporteEmpleo
+        in: path
+        description: ID del reporte de empleo que se cambiara su estado a rechazado
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: "Reporte rechazado correctamente, no se aplicara una amonestació\
+            n al empleador"
+        "400":
+          description: "No se pudo rechazar el reporte, debido a sintaxis invalida"
+        "401":
+          description: Es necesario autenticar para obtener la respuesta solicitada
+        "404":
+          description: "Petición de rechazar reporte incorrecta, debido a que no existe\
+            \ la acción"
+        "500":
+          description: Error interno del servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: ReporteOfertaEmpleoAdminstrador
+  /estadisticas/estadisticasUsoPlataforma:
+    description: Reporte estadistico del uso de la plataforma
+    get:
+      tags:
+      - Estadisticas
+      summary: Consulta de estadisticas del uso de la plataforma
+      description: Consultar información estadistica de los usuarios para ver el uso
+        de la plataforma
+      operationId: getEstadisticasUsoPlataforma
+      responses:
+        "200":
+          description: Estadisticas de uso de la plataforma generada exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EstadisticasUsoPlataforma'
+                x-content-type: application/json
+        "400":
+          description: "No se pudo generar las estadisticas de uso de la plataforma,\
+            \ debido a sintaxis invalida"
+        "404":
+          description: "Petición de generar las estadisticas de uso de la plataforma\
+            \ incorrecta, debido a que no existe la acción"
+        "500":
+          description: Error interno del servidor
+      x-swagger-router-controller: Estadisticas
+  /estadisticas/estadisiticasEmpleos:
+    description: Reporte estadistico de los empleos
+    get:
+      tags:
+      - Estadisticas
+      summary: Consulta de estadisticas de los empleos
+      description: "Consultar información estadistica de los empleos, tanto ofertas\
+        \ como solicitudes"
+      operationId: getEstadisticasEmpleos
+      responses:
+        "200":
+          description: Estadisticas de empleos generada exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EstadisticasEmpleos'
+                x-content-type: application/json
+        "400":
+          description: "No se pudo generar las estadisticas de los empleos, debido\
+            \ a sintaxis invalida"
+        "404":
+          description: "Petición de generar las estadisticas de los empleos incorrecta,\
+            \ debido a que no existe la acción"
+        "500":
+          description: Error interno del servidor
+      x-swagger-router-controller: Estadisticas
+  /estadisticas/valoracionesAspirantes:
+    description: Reporte de valoraciones de aspirantes
+    get:
+      tags:
+      - Estadisticas
+      summary: Consulta de valoraciones de los aspirantes
+      description: Consultar la información de valoración de los aspirantes
+      operationId: getValoracionesAspirantes
+      responses:
+        "200":
+          description: Valoraciones de los aspirantes consultada exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ValoracionAspirante'
+                x-content-type: application/json
+        "400":
+          description: "No se pudo consultar las valoraciones de los aspirantes, debido\
+            \ a sintaxis invalida"
+        "404":
+          description: "Petición de consultar las valoraciones de los aspirantes incorrecta,\
+            \ debido a que no existe la acción"
+        "500":
+          description: Error interno del servidor
+      x-swagger-router-controller: Estadisticas
+  /estadisticas/valoracionesEmpleadores:
+    description: Reporte de valoracione de empleadores
+    get:
+      tags:
+      - Estadisticas
+      summary: Consulta la valoración de los empleadores
+      description: Consultar la información de valoración de los empleadores
+      operationId: getValoracionesEmpleadores
+      responses:
+        "200":
+          description: Valoraciones de los empleadores consultada exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ValoracionEmpleador'
+                x-content-type: application/json
+        "400":
+          description: "No se pudo consultar las valoraciones de los empleadores,\
+            \ debido a sintaxis invalida"
+        "404":
+          description: "Petición de consultar las valoraciones de los empleadores\
+            \ incorrecta, debido a que no existe la acción"
+        "500":
+          description: Error interno del servidor
+      x-swagger-router-controller: Estadisticas
+  /estadisticas/ofertasEmpleo:
+    description: Reporte de ofertas de empleo
+    get:
+      tags:
+      - Estadisticas
+      summary: Consultar información estadistica de las ofertas de empleo
+      description: Consultar información estadistica de las ofertas de empleo creadas
+        agrupadas por año
+      operationId: getEstadisticasOfertasEmpleo
+      responses:
+        "200":
+          description: Información estadistica de las ofertas de empleo consultada
+            exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EstadisticasOfertasEmpleos'
+                x-content-type: application/json
+        "400":
+          description: "No se pudo consultar las valoraciones de los empleadores,\
+            \ debido a sintaxis invalida"
+        "404":
+          description: "Petición de consultar información estadistica de las ofertas\
+            \ de emple incorrecta, debido a que no existe la acción"
+        "500":
+          description: Error interno del servidor
+      x-swagger-router-controller: Estadisticas
+  /ofertasEmpleo-E:
+    description: El catalogo de las ofertas de empleo
+    get:
+      tags:
+      - Oferta de empleo - Empleador
+      summary: Consultar lista de ofertas de empleo de un empleador
+      description: solicita la lista de todas las ofertas de empleo registrada para
+        su posterior consulta
+      operationId: getOfertasEmpleoEmpleador
+      parameters:
+      - name: idPerfilEmpleador
+        in: query
+        description: ID del perfil empleador que consultara sus ofertas de empleo
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: La lista de ofertas de empleo se consultaron con éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OfertaEmpleo'
+                x-content-type: application/json
+        "400":
+          description: "No se pudo consultar el catalogo de ofertas de empleo, debido\
+            \ a sintaxis invalida"
+        "401":
+          description: Es necesario autenticar para obtener la respuesta solicitada
+        "404":
+          description: "Petición de consultar catalogo ofertas de empleo incorrecta,\
+            \ debido a que no existe la acción"
+        "500":
+          description: Error interno del servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: OfertaDeEmpleoEmpleador
+    post:
+      tags:
+      - Oferta de empleo - Empleador
+      summary: Registrar oferta de empleo en catalogo de ofertas empleo e internamente
+        se crea una contratación de empleo en el catalogo contrataciones de empleo
+      description: Se agrega una nueva oferta de empleo enviando la información de
+        la oferta e internamente se crea una contratación de empleo en el catalogo
+        contrataciones de empleo
+      operationId: postOfertaEmpleo
+      requestBody:
+        $ref: '#/components/requestBodies/ofertaEmpleo'
+      responses:
+        "200":
+          description: Oferta de empleo registrada exitosa
+        "400":
+          description: "No se pudo registrar la oferta de empleo, debido a sintaxis\
+            \ invalida"
+        "401":
+          description: Es necesario autenticar para obtener la respuesta solicitada
+        "404":
+          description: "Petición de registrar oferta de empleo incorrecta, debido\
+            \ a que no existe la acción"
+        "500":
+          description: Error interno del servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: OfertaDeEmpleoEmpleador
+  /ofertasEmpleo-E/{idOfertaEmpleo}:
+    description: Oferta de empleo
+    get:
+      tags:
+      - Oferta de empleo - Empleador
+      summary: Consultar una oferta de empleo
+      description: Solicita una oferta de empleo en especifico
+      operationId: getOfertaEmpleoEmpleador
+      parameters:
+      - name: idOfertaEmpleo
+        in: path
+        description: ID de la oferta de empleo que se consultara
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Oferta de empleo consultada con éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OfertaEmpleo'
+                x-content-type: application/json
+        "400":
+          description: "No se pudo consultar la oferta de empleo, debido a sintaxis\
+            \ invalida"
+        "401":
+          description: Es necesario autenticar para obtener la respuesta solicitada
+        "404":
+          description: "Petición de consultar oferta de empleo incorrecta, debido\
+            \ a que no existe la acción"
+        "500":
+          description: Error interno del servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: OfertaDeEmpleoEmpleador
+    put:
+      tags:
+      - Oferta de empleo - Empleador
+      summary: Modificar oferta de empleo en catálogo de ofertas de empleo
+      description: Actualiza la información de la oferta de empleo
+      operationId: putOfertaEmpleoEmpleador
+      parameters:
+      - name: idOfertaEmpleo
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        $ref: '#/components/requestBodies/ofertaEmpleo'
+      responses:
+        "200":
+          description: Oferta de empleo modificada exitosa
+        "400":
+          description: "No se pudo modificar la oferta de empleo, debido a sintaxis\
+            \ invalida"
+        "401":
+          description: Es necesario autenticar para obtener la respuesta solicitada
+        "404":
+          description: "Petición de modificar oferta de empleo incorrecta, debido\
+            \ a que no existe la acción"
+        "500":
+          description: Error interno del servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: OfertaDeEmpleoEmpleador
+  /solicitudesEmpleo:
+    description: Solicitudes de empleo respecto a alguna oferta de empleo
+    get:
+      tags:
+      - Solicitud de empleo - Empleador
+      summary: Consultar lista de solicitudes de empleo
+      description: solicita la lista de las solicitudes de empleo que ha recibido
+        la **idOfertaEmpleo**
+      operationId: getSolicitudesEmpleo
+      parameters:
+      - name: idOfertaEmpleo
+        in: query
+        description: ID de la oferta de empleo que tendra las solcitudes
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: La lista de solicitudes de empleo se consultaron con éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SolicitudEmpleo'
+                x-content-type: application/json
+        "400":
+          description: "No se pudo consultar las solicitudes de empleo, debido a sintaxis\
+            \ invalida"
+        "401":
+          description: Es necesario autenticar para obtener la respuesta solicitada
+        "404":
+          description: "Petición de consultar lista de solicitudes de empleo incorrecta,\
+            \ debido a que no existe la acción"
+        "500":
+          description: Error interno del servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: SolicitudDeEmpleoEmpleador
+  /solicitudesEmpleo/{idSolicitudEmpleo}:
+    description: Solicitud de empleo realizada por un aspirante
+    get:
+      tags:
+      - Solicitud de empleo - Empleador
+      summary: Consulta solicitud de empleo
+      description: Consulta la informacion de una solicitud de empleo realizada por
+        un aspirante
+      operationId: getSolicitudEmpleo
+      parameters:
+      - name: idSolicitudEmpleo
+        in: path
+        description: ID de la solicitud de empleo que se esta consultando
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: La solicitud de empleo se consulto con éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SolicitudEmpleo'
+                x-content-type: application/json
+        "400":
+          description: "No se pudo consultar la solicitud de empleo, debido a sintaxis\
+            \ invalida"
+        "401":
+          description: Es necesario autenticar para obtener la respuesta solicitada
+        "404":
+          description: "Petición de consultar solicitud de empleo incorrecta, debido\
+            \ a que no existe la acción"
+        "500":
+          description: Error interno del servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: SolicitudDeEmpleoEmpleador
+  /solicitudesEmpleo/{idSolicitudEmpleo}/aceptada:
+    description: Modificación del estatus de una solicitud si un empleador da clic
+      en aceptar
+    patch:
+      tags:
+      - Solicitud de empleo - Empleador
+      summary: Aceptar una solicitud de empleo y agrega el aspirante aceptado a la
+        contratación
+      description: Cambia de estatus a una solicitud para agregar el aspirante aceptado
+        a la contratació internamente
+      operationId: patchSolicitudEmpleoAceptada
+      parameters:
+      - name: idSolicitudEmpleo
+        in: path
+        description: ID de la solicitud de empleo que se cambiara su estado a aceptado
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Solicitud aceptada correctamente
+        "400":
+          description: "No se pudo aceptar la solicitud de empleo, debido a sintaxis\
+            \ invalida"
+        "401":
+          description: Es necesario autenticar para obtener la respuesta solicitada
+        "404":
+          description: "Petición de aceptar solicitud de empleo incorrecta, debido\
+            \ a que no existe la acción"
+        "500":
+          description: Error interno del servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: SolicitudDeEmpleoEmpleador
+  /solicitudesEmpleo/{idSolicitudEmpleo}/rechazada:
+    description: Modificación del estatus de una solicitud si un empleador da clic
+      en rechazar
+    patch:
+      tags:
+      - Solicitud de empleo - Empleador
+      summary: Rechazar una solicitud de empleo
+      description: Cambia de estatus a una solicitud
+      operationId: patchSolicitudEmpleoRechazada
+      parameters:
+      - name: idSolicitudEmpleo
+        in: path
+        description: ID de la solicitud de empleo que se cambiara su estado a rechazado
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Solicitud rechazada correctamente
+        "400":
+          description: "No se pudo rechazar la solicitud de empleo, debido a sintaxis\
+            \ invalida"
+        "401":
+          description: Es necesario autenticar para obtener la respuesta solicitada
+        "404":
+          description: "Petición de rechazar solicitud de empleo incorrecta, debido\
+            \ a que no existe la acción"
+        "500":
+          description: Error interno del servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: SolicitudDeEmpleoEmpleador
+  /contratacionesEmpleo/{idOfertaEmpleo}:
+    description: Contrataciones de empleo respecto a alguna oferta de empleo
+    get:
+      tags:
+      - Contrataciones - Empleador
+      summary: Consultar una contratación de empleo
+      description: solicita la  contratacion de empleo seleccionada
+      operationId: getContratacionEmpleo
+      parameters:
+      - name: idOfertaEmpleo
+        in: path
+        description: ID de la oferta de empleo de la contratación que consultara las
+          contrataciones de empleo a las que pertenece
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: La contratacion de empleo se consultaron con éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ContratacionEmpleo'
+                x-content-type: application/json
+        "400":
+          description: "No se pudo consultar la lista de contrataciones de empleo,\
+            \ debido a sintaxis invalida"
+        "401":
+          description: Es necesario autenticar para obtener la respuesta solicitada
+        "404":
+          description: "Petición de consultar lista de contrataciones de empleo incorrecta,\
+            \ debido a que no existe la acción"
+        "500":
+          description: Error interno del servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: ContratacionesEmpleador
+    patch:
+      tags:
+      - Contrataciones - Empleador
+      summary: Evaluar aspirante de una contratación
+      description: Se añade una evaluación a un aspirante que pertenece a una evaluación
+      operationId: patchEvaluarAspirante
+      parameters:
+      - name: idAspirante
+        in: query
+        description: ID del aspirante que se evaluara en una contratación
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: idOfertaEmpleo
+        in: path
+        description: ID de la oferta de empleo de la cual se hará una evaluación de
+          un aspirante en una contratación
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        $ref: '#/components/requestBodies/contratacionEmpleoAspirante'
+      responses:
+        "200":
+          description: "Evaluar aspirante realizado correctamente, no se aplicara\
+            \ una amonestación al empleador"
+        "400":
+          description: "No se pudo evaluar el asírante, debido a sintaxis invalida"
+        "401":
+          description: Es necesario autenticar para obtener la respuesta solicitada
+        "404":
+          description: "Petición de evaluar aspirante incorrecta, debido a que no\
+            \ existe la acción"
+        "500":
+          description: Error interno del servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: ContratacionesEmpleador
+  /perfilDemandantes/{idPerfilDemandante}/conversaciones:
+    description: Conversaciones del demandante con los aspirantes que aceptaron su
+      solicitud de servicio
+    get:
+      tags:
+      - Mensajeria
+      summary: Consultar una lista de conversaciones del demandante con los aspirantes
+        contratados
+      description: Consulta una lista de las conversaciones del del demandante con
+        los aspirante que han aceptado su solicitud de servicio
+      operationId: getConversacionesDemandate
+      parameters:
+      - name: idPerfilDemandante
+        in: path
+        description: ID del demandante que participa en una conversación
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Lista de conversaciones del demandante
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DatosConversacionDemandante'
+                x-content-type: application/json
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: Mensajeria
+  /perfilDemandantes/{idPerfilDemandante}/conversaciones/{idConversacion}:
+    description: Conversación entre un demandante y aspirante con un contrato de servicio
+    get:
+      tags:
+      - Mensajeria
+      summary: Consultar conversación con aspirante contratado
+      description: "Consulta la informacion de la conversacion entre un demandante\
+        \ y un aspirante contratado, y la lista de mensajes"
+      operationId: getConversacionDemandate
+      parameters:
+      - name: idPerfilDemandante
+        in: path
+        description: ID del demandante que participa en una conversación
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: idConversacion
+        in: path
+        description: ID de la conversacion en donde participa el demandante
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Conversación de demandante con aspirante y lista de mensajes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversacionDemandante'
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: Mensajeria
+    post:
+      tags:
+      - Mensajeria
+      summary: Registrar mensaje en conversacion con aspirante contratado
+      description: Registra el mensaje de un demandante en una conversacion con un
+        aspirante
+      operationId: postMensajeConversacionesDemandate
+      parameters:
+      - name: idPerfilDemandante
+        in: path
+        description: ID del demandante que participa en una conversación
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: idConversacion
+        in: path
+        description: ID de la conversacion en donde participa el demandante
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        description: Mensaje registrado por el demnadante en una conversación
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/conversaciones_idConversacion_body'
+        required: true
+      responses:
+        "200":
+          description: Conversación de demandante con aspirante y lista de mensajes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mensaje'
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: Mensajeria
+  /perfilEmpleadores/{idPerfilEmpleador}/conversaciones:
+    description: Conversaciones entre el empleador y los aspirantes contratados
+    get:
+      tags:
+      - Mensajeria
+      summary: Consultar conversaciones de las diferentes ofertas de empleo
+      description: Consulta lista de conversaciones de un empleador por cada oferta
+        de empleo
+      operationId: getConversacionesEmpleador
+      parameters:
+      - name: idPerfilEmpleador
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Lista de conversaciones del empleador
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DatosConversacionEmpleador'
+                x-content-type: application/json
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: Mensajeria
+  /perfilEmpleadores/{idPerfilEmpleador}/conversaciones/{idConversacion}:
+    description: Conversaciones empleador con aspirantes contratados
+    get:
+      tags:
+      - Mensajeria
+      summary: Consultar los mensajes de la conversación entre el empleador y los
+        aspirantes contratados de una oferta de empleo
+      description: Consulta datos de la conversacion de un empleador con los aspirantes
+        que contrato en una oferta de empleo y la lista de mensajes
+      operationId: getConversacionEmpleador
+      parameters:
+      - name: idPerfilEmpleador
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: idConversacion
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Conversación de empleador con aspirantes y lista de mensajes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversacionEmpleador'
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: Mensajeria
+    post:
+      tags:
+      - Mensajeria
+      summary: Registrar mensaje para aspirante contratado
+      description: Registra un mensaje de aspirante un una conversacion
+      operationId: postMensajeConversacionEmpleador
+      parameters:
+      - name: idPerfilEmpleador
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: idConversacion
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        description: Mensaje de Empleador
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/conversaciones_idConversacion_body_1'
+        required: true
+      responses:
+        "200":
+          description: Mebnsaje registrado por el empleador en una conversación
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mensaje'
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: Mensajeria
+  /perfilAspirantes/{idPerfilAspirante}/conversaciones:
+    description: Conversaciones de aspirante con empleadores o demandantes que lo
+      contrataron
+    get:
+      tags:
+      - Mensajeria
+      operationId: getConversacioneAspirante
+      parameters:
+      - name: idPerfilAspirante
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Lista de conversaciones del aspirante
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DatosConversacionAspirante'
+                x-content-type: application/json
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: Mensajeria
+  /perfilAspirantes/{idPerfilAspirante}/conversaciones/{idConversacion}:
+    description: Conversacion de aspirante con empleador o demandante que lo contrataron
+    get:
+      tags:
+      - Mensajeria
+      summary: Consultar conversación con empleador o demandante
+      description: Cosulta la informacion de la conversación del aspirante y la lista
+        de mensajes
+      operationId: getConversacionAspirante
+      parameters:
+      - name: idPerfilAspirante
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: idConversacion
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Conversación de aspirante con empleador o demandante y lista
+            de mensajes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversacionAspirante'
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: Mensajeria
+    post:
+      tags:
+      - Mensajeria
+      summary: Registrar mensaje en conversación
+      description: Registra mensaje para empleador o demandante en la conversación
+      operationId: postConversacionAspirante
+      parameters:
+      - name: idPerfilAspirante
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: idConversacion
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        description: Mensaje de Empleador
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/conversaciones_idConversacion_body_2'
+        required: true
+      responses:
+        "200":
+          description: Mensaje registrado por el aspirante en una conversación
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mensaje'
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: Mensajeria
+  /perfilDemandantes/{idPerfilDemandante}/solicitudesServicios:
+    description: Solicitudes de un servicio de parte de un demandante a un aspirante
+    get:
+      tags:
+      - Solicitudes de Servicio - Demandante
+      summary: Consultar lista de solicitudes de servicios
+      description: solicita la lista de las solicitudes de servicios que ha realizado
+        el demandante
+      operationId: getDemandanteSolicitudesServicio
+      parameters:
+      - name: idPerfilDemandante
+        in: path
+        description: Tipo de usuario Demandante o Aspirante
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: La lista de solicitudes de servicios se consultaron con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: SolicitudesDeServicioDemandante
+    post:
+      tags:
+      - Solicitudes de Servicio - Demandante
+      summary: Registrar solicitud de servicio en catalogo de solicitudes de servicios
+      description: Se agrega una nueva solicitud de servicio enviando la información
+        de la solicitud de servicio
+      operationId: postDemandanteSolicitudesServicio
+      parameters:
+      - name: idPerfilDemandante
+        in: path
+        description: Tipo de usuario Demandante o Aspirante
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        $ref: '#/components/requestBodies/SolicitudServicio'
+      responses:
+        "200":
+          description: Solicitud de servicio registrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SolicitudServicio'
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: SolicitudesDeServicioDemandante
+  /perfilAspirantes/{idPerfilAspirante}/solicitudesServicios:
+    description: Solicitudes de un servicio realizadas al aspirate
+    get:
+      tags:
+      - Solicitudes de Servicio - Aspirante
+      summary: Consultar lista de solicitudes de servicios
+      description: solicita la lista de las solicitudes de servicios que ha realizado
+        el demandante
+      operationId: getAspiranteSolicitudesServicio
+      parameters:
+      - name: idPerfilAspirante
+        in: path
+        description: ID de Aspirante
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: estatus
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          enum:
+          - Pendiente
+          - Aceptada
+          - Rechazada
+      responses:
+        "200":
+          description: La lista de solicitudes de servicios se consultaron con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: SolicitudesDeServicioAspirante
+  /perfilAspirantes/{idPerfilAspirante}/solicitudesServicios/{idSolicitudServicio}:
+    description: Solicitud de servicio realizada por un demandante
+    get:
+      tags:
+      - Solicitudes de Servicio - Aspirante
+      summary: Consulta solicitud de empleo
+      description: Consulta la informacion de una solicitud de servicio realizada
+        por un demandante
+      operationId: getAspiranteSolicitudServicio
+      parameters:
+      - name: idPerfilAspirante
+        in: path
+        description: ID del aspirante
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: idSolicitudServicio
+        in: path
+        description: ID de la solicitud de servicio que se esta consultando
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Solicitud de servicion hecha al aspirante
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SolicitudServicio'
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: SolicitudesDeServicioAspirante
+  /perfilAspirantes/{idPerfilAspirante}/solicitudesServicios/{idSolicitudServicio}/aceptada:
+    description: Modificación del estatus de una solicitud de servicio si un aspirante
+      da clic en aceptar
+    patch:
+      tags:
+      - Solicitudes de Servicio - Aspirante
+      summary: Aceptar una solicitud de servicio y crear contratación de servicio
+      description: Cambia de estatus a una solicitud de servicio para crear una contratación
+        de servicio internamente
+      operationId: aceptarSolicitudServicio
+      parameters:
+      - name: idPerfilAspirante
+        in: path
+        description: ID del aspirante que recibe la solicitud
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: idSolicitudServicio
+        in: path
+        description: ID de la solicitud de servicio que se esta consultando
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Solicitud de servicio aceptada correctamente
+        "400":
+          description: Petición de solicitud de serivicio aceptada incorrecta
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: Error interno del servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: SolicitudesDeServicioAspirante
+  /perfilAspirantes/{idPerfilAspirante}/solicitudesServicios/{idSolicitudServicio}/rechazada:
+    description: Modificación del estatus de una solicitud de servicio si un aspirante
+      da clic en rechazar
+    patch:
+      tags:
+      - Solicitudes de Servicio - Aspirante
+      summary: Rechaza una solicitud de servicio
+      description: Cambia de estatus a una solicitud de servicio
+      operationId: rechazarSolicitudServicio
+      parameters:
+      - name: idPerfilAspirante
+        in: path
+        description: ID del aspirante que recibe la solicitud
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: idSolicitudServicio
+        in: path
+        description: ID de la solicitud de servicio que se esta consultando
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Solicitud de servicio rechazada correctamente
+        "400":
+          description: Petición de solicitud de serivicio aceptada incorrecta
+        "401":
+          description: Token invalido por cliente
+        "404":
+          description: Peticion no encontrada
+        "500":
+          description: Error interno del servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: SolicitudesDeServicioAspirante
+  /perfilDemandantes/{idPerfilDemandante}/contratacionesServicios:
+    get:
+      tags:
+      - Contrataciones - Demandante
+      summary: Consultar contrataciones de servicio del demandnte
+      description: Consultar contrataciones del demandante
+      operationId: getContratacionesServicioDemandante
+      parameters:
+      - name: idPerfilDemandante
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: Lista de contrataciones de demandante
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ContratacionServicio'
+                x-content-type: application/json
+        "400":
+          description: Petición de solicitud de serivicio aceptada incorrecta
+        "401":
+          description: Token invalido por cliente
+        "404":
+          description: Peticion no encontrada
+        "500":
+          description: Error interno del servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: ContratacionesDemandante
+  /perfilAspirantes/{idPerfilAspirante}/contratacionesServicios:
+    get:
+      tags:
+      - Contrataciones - Aspirante
+      summary: Consultar contrataciones de servicio del demandnte
+      description: Consultar contrataciones del demandante
+      operationId: getContratacionesServicioAspirante
+      parameters:
+      - name: idPerfilAspirante
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: Lista de contrataciones de aspirante
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ContratacionServicio'
+                x-content-type: application/json
+        "400":
+          description: Petición de solicitud de serivicio aceptada incorrecta
+        "401":
+          description: Token invalido por cliente
+        "404":
+          description: Peticion no encontrada
+        "500":
+          description: Error interno del servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: ContratacionesAspirante
+  /perfilDemandantes/{idPerfilDemandante}/contratacionesServicios/{idContratacionServicio}/finalizada:
+    patch:
+      tags:
+      - Contrataciones - Demandante
+      summary: Finalizar contratacion de aspirante
+      operationId: finalizarContratacionServicio
+      parameters:
+      - name: idPerfilDemandante
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      - name: idContratacionServicio
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: Contratacion de servicio finalizada
+        "400":
+          description: Petición de solicitud de serivicio aceptada incorrecta
+        "401":
+          description: Token invalido por cliente
+        "404":
+          description: Peticion no encontrada
+        "500":
+          description: Error interno del servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: ContratacionesDemandante
+  /perfilDemandantes/{idPerfilDemandante}/contratacionesServicios/{idContratacionServicio}/evaluarAspirante:
+    patch:
+      tags:
+      - Contrataciones - Aspirante
+      description: Registrar reporte de oferta de empleo
+      operationId: registrarEvaluacionAspirante
+      parameters:
+      - name: idPerfilDemandante
+        in: path
+        description: Id del aspirante
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      - name: idContratacionServicio
+        in: path
+        description: Id de contratacion del aspirante
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        $ref: '#/components/requestBodies/EvaluacionAspirante'
+      responses:
+        "200":
+          description: Contratacion de servcion actualizada con evaluacion para el
+            aspirante
+        "400":
+          description: Servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: Token invalido por cliente
+        "404":
+          description: Peticion no encontrada
+        "500":
+          description: Error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: ContratacionesAspirante
+  /perfilAspirantes/{idPerfilAspirante}/contratacionesEmpleo:
+    description: Contrataciones del Asprante
+    get:
+      tags:
+      - Contrataciones - Aspirante
+      summary: Consultar registro de contrataciones
+      description: Consultar registro de contrataciones de empleo
+      operationId: getContratacionesEmpleoAspirante
+      parameters:
+      - name: idPerfilAspirante
+        in: path
+        description: ""
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: Lista de contrataciones del Aspirante
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ContratacionEmpleo'
+                x-content-type: application/json
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: ContratacionesAspirante
+  /perfilAspirantes/{idPerfilAspirante}/contratacionesEmpleo/{idContratacionEmpleoAspirante}:
+    description: Modificación del estatus de una solicitud de servicio si un aspirante
+      da clic en rechazar
+    get:
+      tags:
+      - Contrataciones - Aspirante
+      summary: Consultar registro de contrataciones
+      description: Consultar registro de contrataciones de empleo
+      operationId: getContratacionEmpleoAspirante
+      parameters:
+      - name: idPerfilAspirante
+        in: path
+        description: Id del aspirante
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      - name: idContratacionEmpleoAspirante
+        in: path
+        description: Id de contratacion del aspirante
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: Lista de contrataciones del Aspirante
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetallesContratacionEmpleo'
+        "400":
+          description: servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: token invalido por cliente
+        "404":
+          description: peticion no encontrada
+        "500":
+          description: Error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: ContratacionesAspirante
+  /perfilAspirantes/{idPerfilAspirante}/contratacionesEmpleo/{idContratacionEmpleoAspirante}/evaluarEmpleador:
+    description: Evaluacion de empleador
+    patch:
+      tags:
+      - Contrataciones - Aspirante
+      description: Registrar reporte de oferta de empleo
+      operationId: registrarEvaluacionEmpleador
+      parameters:
+      - name: idPerfilAspirante
+        in: path
+        description: Id del aspirante
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      - name: idContratacionEmpleoAspirante
+        in: path
+        description: Id de contratacion del aspirante
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        $ref: '#/components/requestBodies/EvaluacionEmpleador'
+      responses:
+        "200":
+          description: Contratacion actualizada con evaluacion para el empleador
+        "400":
+          description: Servidor no pudo interpretar la peticion dada ya que se presenta
+            sintaxis inválida
+        "401":
+          description: Token invalido por cliente
+        "404":
+          description: Peticion no encontrada
+        "500":
+          description: Error interno desde el servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: ContratacionesAspirante
+  /ofertasEmpleo-A:
+    description: Buscar ofertas de empleo
+    get:
+      tags:
+      - Oferta de empleo - Aspirante
+      summary: Buscar ofertas de empleo de empleadores con perfil habilitado
+      description: Buscar ofertas de empleo de empleadores con perfil habilitado y
+        con vacantes disponibles
+      operationId: getOfertasEmpleoAsprante
+      parameters:
+      - name: categoriasEmpleo
+        in: query
+        description: Categorias a las que pertenece el aspirante
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+      responses:
+        "200":
+          description: La lista de ofertas de empleo se consultaron con éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OfertaEmpleo'
+                x-content-type: application/json
+        "400":
+          description: "No se pudo consultar el catalogo de ofertas de empleo, debido\
+            \ a sintaxis invalida"
+        "401":
+          description: Es necesario autenticar para obtener la respuesta solicitada
+        "404":
+          description: "Petición de consultar catalogo ofertas de empleo incorrecta,\
+            \ debido a que no existe la acción"
+        "500":
+          description: Error interno del servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: OfertaDeEmpleoAspirante
+  /ofertasEmpleo-A/{idOfertaEmpleo}:
+    get:
+      tags:
+      - Oferta de empleo - Aspirante
+      summary: Consultar una oferta de empleo
+      description: Solicita una oferta de empleo en especifico
+      operationId: getOfertaEmpleoAspirante
+      parameters:
+      - name: idOfertaEmpleo
+        in: path
+        description: ID de la oferta de empleo que se consultara
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Oferta de empleo consultada con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OfertaEmpleo'
+        "400":
+          description: "No se pudo consultar la oferta de empleo, debido a sintaxis\
+            \ invalida"
+        "401":
+          description: Es necesario autenticar para obtener la respuesta solicitada
+        "404":
+          description: "Petición de consultar oferta de empleo incorrecta, debido\
+            \ a que no existe la acción"
+        "500":
+          description: Error interno del servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: OfertaDeEmpleoAspirante
+  /ofertasEmpleo-A/{idOfertaEmpleo}/solicitarVacante:
+    patch:
+      tags:
+      - Solicitud de empleo - Aspirante
+      operationId: patchSolicitarVacante
+      parameters:
+      - name: idOfertaEmpleo
+        in: path
+        description: ID de la oferta de empleo que se consultara
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        $ref: '#/components/requestBodies/SolicitudVacante'
+      responses:
+        "200":
+          description: Solicitud de vacante registrada con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SolicitudVacante'
+        "400":
+          description: "No se pudo consultar la oferta de empleo, debido a sintaxis\
+            \ invalida"
+        "401":
+          description: Es necesario autenticar para obtener la respuesta solicitada
+        "404":
+          description: Petición de solicitud de vacante de oferta de empleo incorrecta
+        "500":
+          description: Error interno del servidor
+      security:
+      - app_token: []
+      x-swagger-router-controller: SolicitudDeEmpleoAspirante
+components:
+  schemas:
+    OfertaEmpleo:
+      title: Oferta de empleo
+      required:
+      - cantidadPago
+      - descripcion
+      - diasLaborales
+      - direccion
+      - fechaDeFinalizacion
+      - fechaDeIinicio
+      - horaFin
+      - horaInicio
+      - nombre
+      - tipoOfertaEmpleo
+      - tipoPago
+      - vacantes
+      type: object
+      properties:
+        idOfertaEmpleo:
+          type: integer
+          description: ID de la oferta de empleo
+          example: 19
+        nombre:
+          maxLength: 50
+          minLength: 1
+          type: string
+          description: Nombre de la oferta de empleo
+          example: Carpintería don nacho
+        tipoOfertaEmpleo:
+          type: string
+          description: tipo de empleo para la oferta
+          example: Tiempo completo
+        horaInicio:
+          type: string
+          description: horario de inicio del día de trabajo
+          format: time
+          example: 10:00
+        horaFin:
+          type: string
+          description: horario de finalización del día de trabajo
+          format: time
+          example: 18:30
+        diasLaborales:
+          type: array
+          description: dias habiles de la oferta de empleo
+          example: "[2,3,4,5]"
+          items:
+            type: integer
+        vacantes:
+          type: integer
+          description: cantidad de vacantes maximas para la oferta de empleo
+          example: 5
+        fechaDeIinicio:
+          type: string
+          description: fecha cuando inicia el empleo
+          format: date
+          example: 2018-02-04
+        fechaDeFinalizacion:
+          type: string
+          description: fecha cuando acaba el empleo
+          format: date
+          example: 2018-05-12
+        tipoPago:
+          type: string
+          description: tipo sobre el cual se efectua el pago
+          example: Por día
+        cantidadPago:
+          type: number
+          description: cantidad de pago por la oferta de empleo
+          example: 200
+        direccion:
+          type: string
+          description: direccion del lugar donde se efectuara el trabajo
+          example: "Privada Adolfo López Mateos #12, Rafael Lucio, Ver."
+        descripcion:
+          type: string
+          description: descripcion breve sobre lo que abarca la oferta de empleo
+          example: "Realización de mesas, sillas, además de otros muebles de cocina,\
+            \ teniendo en cuenta que se hará lijado y pintado de los mismos muebles"
+        fotografia:
+          type: array
+          description: Fotografías de la oferta empleo
+          items:
+            $ref: '#/components/schemas/Fotografia'
+        contratados:
+          type: array
+          description: Empleados del empleador
+          items:
+            $ref: '#/components/schemas/ContratacionEmpleoAspirante'
+      example:
+        descripcion: "Realización de mesas, sillas, además de otros muebles de cocina,\
+          \ teniendo en cuenta que se hará lijado y pintado de los mismos muebles"
+        diasLaborales: "[2,3,4,5]"
+        fechaDeIinicio: 2018-02-04T00:00:00.000+00:00
+        direccion: "Privada Adolfo López Mateos #12, Rafael Lucio, Ver."
+        nombre: Carpintería don nacho
+        horaInicio: 10:00
+        fotografia:
+        - imagen: ""
+        - imagen: ""
+        contratados:
+        - idAspirante: 234
+          experiencia: 4
+          valoracionAspirante: 9
+          descripcionValoracionAspirante: Trabaja en tiempo y forma
+          nombreAspirante: Monica G. C.
+          oficio: Panadero
+        - idAspirante: 234
+          experiencia: 4
+          valoracionAspirante: 9
+          descripcionValoracionAspirante: Trabaja en tiempo y forma
+          nombreAspirante: Monica G. C.
+          oficio: Panadero
+        horaFin: 18:30
+        idOfertaEmpleo: 19
+        tipoOfertaEmpleo: Tiempo completo
+        cantidadPago: 200
+        tipoPago: Por día
+        vacantes: 5
+        fechaDeFinalizacion: 2018-05-12T00:00:00.000+00:00
+    Fotografia:
+      title: Fotografias de evidencia de la oferta de empleo
+      required:
+      - imagen
+      type: object
+      properties:
+        imagen:
+          type: string
+          format: binary
+      example:
+        imagen: ""
+    ContratacionEmpleoAspirante:
+      title: Contratación generada entre el aspirante y el empleo
+      required:
+      - estatus
+      - fechaContratacion
+      type: object
+      properties:
+        idAspirante:
+          type: integer
+          description: ID del aspirante perteneciente a una contratación de empleo
+          format: int32
+          example: 234
+        nombreAspirante:
+          type: string
+          description: Nombre del aspirante
+          example: Monica G. C.
+        oficio:
+          type: string
+          description: Nombre del oficio de la contratación perteneciente a una oferta
+            de empleo
+          example: Panadero
+        experiencia:
+          type: integer
+          description: Años de experiencia del aspirante
+          format: int32
+          example: 4
+        valoracionAspirante:
+          type: integer
+          description: Valoración del aspirante
+          format: int32
+          example: 9
+        descripcionValoracionAspirante:
+          type: string
+          description: Descripción de la valoración del aspirante
+          example: Trabaja en tiempo y forma
+      example:
+        idAspirante: 234
+        experiencia: 4
+        valoracionAspirante: 9
+        descripcionValoracionAspirante: Trabaja en tiempo y forma
+        nombreAspirante: Monica G. C.
+        oficio: Panadero
+    ContratacionEmpleo:
+      title: Contratación de empleo
+      required:
+      - estatus
+      - fechaContratacion
+      type: object
+      properties:
+        idContratacionEmpleo:
+          type: integer
+          description: ID de la contratación de empleo
+          format: int32
+          example: 3
+        idOfertaEmpleo:
+          type: integer
+          description: ID de la oferta de empleo a la que pertenece la contratación
+          format: int32
+          example: 3
+        estatus:
+          type: integer
+          description: Estado en el que se encuentra la contratación de empleo
+          format: int32
+        fechaContratacion:
+          type: string
+          description: Fecha en que se inicio la contratación
+          format: date
+          example: 2022-02-04
+        fechaFinalizacion:
+          type: string
+          description: Fecha en que se finaliza la contratación
+          format: date
+          example: 2022-05-04
+        nombreEmpleador:
+          type: string
+          description: Nombre del empleador
+          example: PedroSanchez Gomez
+        nombreEmpleo:
+          description: Nombre de la oferta de empleo
+          example: Reemplazo de instalacion electrica
+      example:
+        nombreEmpleo: Reemplazo de instalacion electrica
+        estatus: 0
+        idContratacionEmpleo: 3
+        fechaContratacion: 2022-02-04T00:00:00.000+00:00
+        idOfertaEmpleo: 3
+        nombreEmpleador: PedroSanchez Gomez
+        fechaFinalizacion: 2022-05-04T00:00:00.000+00:00
+    ReporteEmpleo:
+      title: Contratación de empleo
+      required:
+      - estatus
+      - fechaRegistro
+      - motivo
+      type: object
+      properties:
+        idReporteEmpleo:
+          type: integer
+          description: ID del reporte de empleo
+          format: int32
+          example: 16
+        estatus:
+          type: string
+          description: Estado del reporte de empleo
+          example: Pendiente
+        fechaRegistro:
+          type: string
+          description: Fecha en la que se registro el reporte de empleo
+          format: date
+          example: 2022-05-04
+        motivo:
+          type: string
+          description: Razón por la cual se creo el reporte de una oferta de empleo
+          example: No cumple con la paga establecida y no proporciona un correcto
+            liderazgo ni muestra organización
+      example:
+        motivo: No cumple con la paga establecida y no proporciona un correcto liderazgo
+          ni muestra organización
+        idReporteEmpleo: 16
+        estatus: Pendiente
+        fechaRegistro: 2022-05-04T00:00:00.000+00:00
+    SolicitudEmpleo:
+      title: Solicitud de empleo
+      required:
+      - estatus
+      - fechaRegistro
+      - idAspirante
+      type: object
+      properties:
+        idSolicitudEmpleo:
+          type: integer
+          description: ID de la solicitud de empleo hacia una oferta de empleo
+          format: int32
+          example: 21
+        fechaRegistro:
+          type: string
+          description: Fecha en la que se registro la solicitud de empleo
+          format: date
+          example: 2022-06-04
+        estatus:
+          type: string
+          description: Estado en el que se encuentra la solicitud de empleo
+          example: Rechazada
+        idAspirante:
+          type: string
+          description: Aspirante que realiza la solicitud de empleo
+          example: "22"
+      example:
+        idSolicitudEmpleo: 21
+        estatus: Rechazada
+        idAspirante: "22"
+        fechaRegistro: 2022-06-04T00:00:00.000+00:00
+    EstadisticasUsoPlataforma:
+      title: Estadisticas del uso de la plataforma
+      required:
+      - fechaAnio
+      - ofertas
+      - usuarios
+      type: object
+      properties:
+        usuarios:
+          type: integer
+          description: Cantidad de usuarios que utlizan la plataforma en un año
+          format: int32
+          example: 349
+        fechaAnio:
+          type: string
+          description: Año de la cantidad de usuarios
+          format: date
+        ofertas:
+          type: integer
+          description: Cantidad de ofertas de emleo generadas en un año especifico
+          format: int32
+          example: 891
+      example:
+        fechaAnio: 2000-01-23
+        ofertas: 891
+        usuarios: 349
+    EstadisticasEmpleos:
+      title: Estadisticas de empleos
+      required:
+      - categoria
+      - fechaAnio
+      - solicitudes
+      type: object
+      properties:
+        categoria:
+          type: string
+          description: Categoría por la cual se filtrara la cantidad de solicitudes
+            de empleo
+          example: Panadería
+        solicitudes:
+          type: integer
+          description: Cantidad de solicitudes de una categoría
+          format: int32
+          example: 390
+        fechaAnio:
+          type: string
+          description: Año que filtrara la cantidad de solicitudes
+          format: date
+      example:
+        fechaAnio: 2000-01-23
+        categoria: Panadería
+        solicitudes: 390
+    ValoracionAspirante:
+      title: Valoraciones de aspirantes
+      required:
+      - aspirante
+      - valoracionAspirante
+      type: object
+      properties:
+        valoracionAspirante:
+          type: array
+          description: Valoración del aspirante
+          format: int32
+          example: 7
+          items:
+            $ref: '#/components/schemas/ContratacionEmpleoAspirante'
+        aspirante:
+          type: string
+          description: Nombre del aspirante
+          example: Nathan Hernandez
+      example:
+        aspirante: Nathan Hernandez
+        valoracionAspirante: 7
+    ValoracionEmpleador:
+      title: Valoraciones de empleadores
+      required:
+      - empleador
+      - valoracionEmpleador
+      type: object
+      properties:
+        valoracionEmpleador:
+          type: integer
+          description: Valoración del empleador
+          format: int32
+          example: 7
+        empleador:
+          type: string
+          description: Nombre del empleador
+          example: Josias García Arevalo
+      example:
+        empleador: Josias García Arevalo
+        valoracionEmpleador: 7
+    EstadisticasOfertasEmpleos:
+      title: Estadisticas de la plataforma
+      required:
+      - fechaAnio
+      - ofertas
+      type: object
+      properties:
+        fechaAnio:
+          type: string
+          description: Año de la cantidad de ofertas de empleo que se pulicaron
+          format: date
+        ofertas:
+          type: integer
+          description: Cantidad de ofertas de emleo generadas en un año especifico
+          format: int32
+          example: 1431
+      example:
+        fechaAnio: 2000-01-23
+        ofertas: 1431
+    PerfilUsuarios:
+      title: Perfil de usuario
+      required:
+      - clave
+      - correoElectronico
+      - estatus
+      - fotografia
+      - nombreUsuario
+      - tipo
+      - token
+      type: object
+      properties:
+        idPerfilUsuario:
+          type: integer
+          description: Identificador unico del usuario
+          format: int32
+          example: 1
+        nombreUsuario:
+          maxLength: 50
+          minLength: 1
+          type: string
+          description: Sobre nombre que introduce el usuario al registrarse en el
+            sistema
+          example: skylake
+        clave:
+          maxLength: 50
+          minLength: 1
+          type: string
+          description: Codigo secreto que se introduce en una maquina para poder accionar
+            un mecanismo o para acceder a ciertas funciones informaticas
+          example: $2a$08$9ODrZxVW4w2LpaSng2.1zuAiN9btL4xGZsgP9xpATpE19OWwO7Srm
+        correoElectronico:
+          maxLength: 50
+          minLength: 1
+          type: string
+          description: Correspondencia que permite el intercambio de mensajes entre
+            usuarios que esten conectados a una red informatica
+          format: email
+          example: elcamello@outlook.com
+        estatus:
+          type: integer
+          description: "Estado en el cual esta el perfil, desactivado, habilitado\
+            \ o bloqueado"
+          format: int32
+          example: 1
+        fotografia:
+          type: string
+          description: Fotografia de la persona la cual actuara como un actor en el
+            sistema
+          example: $2a$08$9ODrZxVW4w2LpaSng2AiN9btL4xGZsgP9xpATpE19OWwO7Srm
+        token:
+          type: string
+          description: Cadena de autenticacion la cual sirve para validar si el usuario
+            que solicita una peticion es realmente un usuario del sistema
+          example: $2a$08$9ODrZxVW4w2LpaSng2.1zuAiN9btL4xGZsgP9xpATpE19OWwO7Srm
+        tipo:
+          type: integer
+          description: identificador para mapear que tipo de usuario pertenece la
+            cuenta del usuario al iniciar sesión
+          format: int32
+          example: 3
+      example:
+        clave: $2a$08$9ODrZxVW4w2LpaSng2.1zuAiN9btL4xGZsgP9xpATpE19OWwO7Srm
+        tipo: 3
+        estatus: 1
+        idPerfilUsuario: 1
+        nombreUsuario: skylake
+        correoElectronico: elcamello@outlook.com
+        fotografia: $2a$08$9ODrZxVW4w2LpaSng2AiN9btL4xGZsgP9xpATpE19OWwO7Srm
+        token: $2a$08$9ODrZxVW4w2LpaSng2.1zuAiN9btL4xGZsgP9xpATpE19OWwO7Srm
+    PerfilAdministradores:
+      title: Perfil de administrador
+      required:
+      - idPerfilAdministrador
+      - nombre
+      - telefono
+      - usuario
+      type: object
+      properties:
+        idPerfilAdministrador:
+          type: integer
+          description: Identificador unico del administrador
+          format: int32
+          example: 2
+        nombre:
+          maxLength: 50
+          minLength: 1
+          type: string
+          description: Nombre de la persona fisica
+          example: Jose gonzales
+        telefono:
+          maxLength: 10
+          minLength: 10
+          type: string
+          description: Numero para poder contactar al administrador
+          example: "5561151502"
+        usuario:
+          $ref: '#/components/schemas/PerfilUsuarios'
+      example:
+        idPerfilAdministrador: 2
+        usuario:
+          clave: $2a$08$9ODrZxVW4w2LpaSng2.1zuAiN9btL4xGZsgP9xpATpE19OWwO7Srm
+          tipo: 3
+          estatus: 1
+          idPerfilUsuario: 1
+          nombreUsuario: skylake
+          correoElectronico: elcamello@outlook.com
+          fotografia: $2a$08$9ODrZxVW4w2LpaSng2AiN9btL4xGZsgP9xpATpE19OWwO7Srm
+          token: $2a$08$9ODrZxVW4w2LpaSng2.1zuAiN9btL4xGZsgP9xpATpE19OWwO7Srm
+        telefono: "5561151502"
+        nombre: Jose gonzales
+    PerfilEmpleadores:
+      title: Perfil de empleador
+      required:
+      - direccion
+      - fechaNacimiento
+      - idPerfilEmpleador
+      - nombre
+      - nombreOrganizacion
+      - telefono
+      - usuario
+      type: object
+      properties:
+        idPerfilEmpleador:
+          type: integer
+          description: Identificador unico del empleador
+          format: int32
+          example: 2
+        nombreOrganizacion:
+          maxLength: 50
+          minLength: 1
+          type: string
+          example: the alchemist enterprice
+        nombre:
+          maxLength: 50
+          minLength: 1
+          type: string
+          description: Nopmbre real de la persona que actuara como empleador
+          example: Pedro valenzuela
+        direccion:
+          maxLength: 50
+          minLength: 1
+          type: string
+          description: Domicilio el cual introduce el empleador
+          example: "Xalapeños ilustres #40"
+        fechaNacimiento:
+          type: string
+          description: Fecha de nacimiento que introduce el empleador para calcular
+            su edad
+          format: date
+          example: 1980-05-11
+        telefono:
+          maxLength: 10
+          minLength: 10
+          type: string
+          description: Numero para poder contactar al empleador
+          example: "5561151502"
+        usuario:
+          $ref: '#/components/schemas/PerfilUsuarios'
+        advertenciaBloqueo:
+          type: integer
+          description: Amonestaciones anotadas al empleador por parte de los aspirantes
+            a una oferta de empleo que se halla reportado
+          format: int32
+          example: 2
+      example:
+        nombreOrganizacion: the alchemist enterprice
+        fechaNacimiento: 1980-05-11T00:00:00.000+00:00
+        idPerfilEmpleador: 2
+        direccion: "Xalapeños ilustres #40"
+        usuario:
+          clave: $2a$08$9ODrZxVW4w2LpaSng2.1zuAiN9btL4xGZsgP9xpATpE19OWwO7Srm
+          tipo: 3
+          estatus: 1
+          idPerfilUsuario: 1
+          nombreUsuario: skylake
+          correoElectronico: elcamello@outlook.com
+          fotografia: $2a$08$9ODrZxVW4w2LpaSng2AiN9btL4xGZsgP9xpATpE19OWwO7Srm
+          token: $2a$08$9ODrZxVW4w2LpaSng2.1zuAiN9btL4xGZsgP9xpATpE19OWwO7Srm
+        advertenciaBloqueo: 2
+        telefono: "5561151502"
+        nombre: Pedro valenzuela
+    PerfilDemandantes:
+      title: Perfil de demandante
+      required:
+      - direccion
+      - fechaNacimiento
+      - idPerfilDemandante
+      - nombre
+      - telefono
+      - usuario
+      type: object
+      properties:
+        idPerfilDemandante:
+          type: integer
+          description: Identificador unico del demandante
+          format: int32
+          example: 1
+        nombre:
+          maxLength: 50
+          minLength: 1
+          type: string
+          description: Nombre real de la persona que actuara como demandante
+          example: Josue buendia
+        direccion:
+          maxLength: 50
+          minLength: 1
+          type: string
+          description: Domicilio el cual introduce el demandante
+          example: "Xalapeños ilustres #40"
+        fechaNacimiento:
+          type: string
+          description: Fecha de nacimiento que introduce el demandante para calcular
+            su edad
+          format: date
+          example: 1968-12-11
+        telefono:
+          maxLength: 10
+          minLength: 10
+          type: string
+          description: Numero para poder contactar al demandante
+          example: "2969621184"
+        usuario:
+          $ref: '#/components/schemas/PerfilUsuarios'
+      example:
+        fechaNacimiento: 1968-12-11T00:00:00.000+00:00
+        direccion: "Xalapeños ilustres #40"
+        idPerfilDemandante: 1
+        usuario:
+          clave: $2a$08$9ODrZxVW4w2LpaSng2.1zuAiN9btL4xGZsgP9xpATpE19OWwO7Srm
+          tipo: 3
+          estatus: 1
+          idPerfilUsuario: 1
+          nombreUsuario: skylake
+          correoElectronico: elcamello@outlook.com
+          fotografia: $2a$08$9ODrZxVW4w2LpaSng2AiN9btL4xGZsgP9xpATpE19OWwO7Srm
+          token: $2a$08$9ODrZxVW4w2LpaSng2.1zuAiN9btL4xGZsgP9xpATpE19OWwO7Srm
+        telefono: "2969621184"
+        nombre: Josue buendia
+    PerfilAspirantes:
+      title: Perfil de aspirante
+      required:
+      - direccion
+      - fechaNacimiento
+      - idPerfilAspirante
+      - nombre
+      - oficios
+      - telefono
+      - usuario
+      - video
+      type: object
+      properties:
+        idPerfilAspirante:
+          type: integer
+          description: Identificador unico del aspirante
+          format: int32
+          example: 1
+        nombre:
+          maxLength: 50
+          minLength: 1
+          type: string
+          description: Nombre real de la persona que actuara como aspirante
+          example: Joaquin perez
+        direccion:
+          maxLength: 50
+          minLength: 1
+          type: string
+          description: Domicilio el cual introduce el aspirante
+          example: "Xalapeños ilustres #40"
+        fechaNacimiento:
+          type: string
+          description: Fecha de nacimiento que introduce el aspirante para calcular
+            su edad
+          format: date
+          example: 1980-05-24
+        telefono:
+          type: string
+          description: Numero para poder contactar al aspirante
+          example: "2285095502"
+        oficios:
+          type: array
+          items:
+            $ref: '#/components/schemas/PerfilAspirantes_oficios'
+        video:
+          type: string
+          description: Video en donde el aspirante de describe y por que ofrece sus
+            servicios para las ofertas o servicios de empleo
+          format: byte
+        curriculum:
+          type: string
+          description: "Parametro opcional, documento el cual puede describir el aspirante\
+            \ su experiencia profesional mas a detalle"
+          format: byte
+        usuario:
+          $ref: '#/components/schemas/PerfilUsuarios'
+      example:
+        oficios:
+        - idExperienciaLaboral: 1
+          cantidadAnios: 25
+          idCategoria: 1
+          nombre: albañilería
+        - idExperienciaLaboral: 1
+          cantidadAnios: 25
+          idCategoria: 1
+          nombre: albañilería
+        fechaNacimiento: 1980-05-24T00:00:00.000+00:00
+        direccion: "Xalapeños ilustres #40"
+        idPerfilAspirante: 1
+        usuario:
+          clave: $2a$08$9ODrZxVW4w2LpaSng2.1zuAiN9btL4xGZsgP9xpATpE19OWwO7Srm
+          tipo: 3
+          estatus: 1
+          idPerfilUsuario: 1
+          nombreUsuario: skylake
+          correoElectronico: elcamello@outlook.com
+          fotografia: $2a$08$9ODrZxVW4w2LpaSng2AiN9btL4xGZsgP9xpATpE19OWwO7Srm
+          token: $2a$08$9ODrZxVW4w2LpaSng2.1zuAiN9btL4xGZsgP9xpATpE19OWwO7Srm
+        video: ""
+        curriculum: ""
+        telefono: "2285095502"
+        nombre: Joaquin perez
+    CategoriaEmpleo:
+      title: Categoria de empleo
+      type: object
+      properties:
+        idCategoriaEmpleo:
+          type: integer
+          description: identificador unico de una categoria de empleo
+          example: 1
+        nombreCategoria:
+          maxLength: 50
+          minLength: 1
+          type: string
+          description: Nombre de la categoria a de empleo
+          example: Plomería
+      example:
+        idCategoriaEmpleo: 1
+        nombreCategoria: Plomería
+    DatosConversacionDemandante:
+      title: Datos de conversacion de demandante
+      type: object
+      properties:
+        idConversacion:
+          type: integer
+          description: ID de la conversación
+          example: 1
+        tituloSolicitud:
+          type: string
+          description: Titulo de la solicitud de servicio aceptada por el aspirante
+          example: Reemplazo de tuberias de cobre
+        nombreAspirante:
+          type: string
+          description: Nombre del Aspirante
+          example: Raúl Gomez Perez
+        fechaContratacion:
+          type: string
+          format: date
+          example: 2022-12-04
+      example:
+        tituloSolicitud: Reemplazo de tuberias de cobre
+        fechaContratacion: 2022-12-04T00:00:00.000+00:00
+        idConversacion: 1
+        nombreAspirante: Raúl Gomez Perez
+    ConversacionDemandante:
+      title: Conversacion de demandante
+      type: object
+      properties:
+        idConversacion:
+          type: integer
+          description: ID de la conversación
+          example: 1
+        tituloSolicitud:
+          type: string
+          description: Titulo de la solicitud de servicio aceptada por el aspirante
+          example: Reemplazo de tuberias de cobre
+        mensajes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Mensaje'
+      example:
+        tituloSolicitud: Reemplazo de tuberias de cobre
+        idConversacion: 1
+        mensajes:
+        - idMensaje: 1
+          idUsuarioRemitente: 1
+          fechaRegistro: 2022-05-04T00:00:00.000+00:00
+          remitente: Pedro Sanchez Gómez
+          contenidoMensaje: Este es un mensaje para el usuario
+          tipoUsuario: Empleador
+        - idMensaje: 1
+          idUsuarioRemitente: 1
+          fechaRegistro: 2022-05-04T00:00:00.000+00:00
+          remitente: Pedro Sanchez Gómez
+          contenidoMensaje: Este es un mensaje para el usuario
+          tipoUsuario: Empleador
+    DatosConversacionEmpleador:
+      title: Datos de conversacion de empleador
+      type: object
+      properties:
+        idConversacion:
+          type: integer
+          description: ID de la conversación
+          example: 1
+        tituloOfertaEmpleo:
+          type: string
+          description: Titulo de la oferta de empleo a la que pertenece la conversación
+          example: Construccion de edificio departamental
+        categoriaEmpleo:
+          type: string
+          description: Categoria de emploe
+          example: Plomeria
+      example:
+        idConversacion: 1
+        categoriaEmpleo: Plomeria
+        tituloOfertaEmpleo: Construccion de edificio departamental
+    ConversacionEmpleador:
+      title: Conversacion
+      type: object
+      properties:
+        idConversacion:
+          type: integer
+          description: ID de la conversación
+          example: 1
+        tituloOfertaEmpleo:
+          type: string
+          description: Titulo de la oferta de empleo a la que pertenece la conversación
+          example: Construccion de edificio departamental
+        mensajes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Mensaje'
+      example:
+        idConversacion: 1
+        mensajes:
+        - idMensaje: 1
+          idUsuarioRemitente: 1
+          fechaRegistro: 2022-05-04T00:00:00.000+00:00
+          remitente: Pedro Sanchez Gómez
+          contenidoMensaje: Este es un mensaje para el usuario
+          tipoUsuario: Empleador
+        - idMensaje: 1
+          idUsuarioRemitente: 1
+          fechaRegistro: 2022-05-04T00:00:00.000+00:00
+          remitente: Pedro Sanchez Gómez
+          contenidoMensaje: Este es un mensaje para el usuario
+          tipoUsuario: Empleador
+        tituloOfertaEmpleo: Construccion de edificio departamental
+    DatosConversacionAspirante:
+      title: Datos de conversacion de aspirante
+      type: object
+      properties:
+        idConversacion:
+          type: integer
+          description: ID de la conversación
+          example: 1
+        tituloOfertaEmpleo:
+          type: string
+          description: Titulo de la de la oferta de empleo o solicitud de servicio
+            de la contratacion relacionada con la conversación
+          example: Construccion de edificio departamental
+        categoriaEmpleo:
+          type: string
+          description: Categoria de emploe
+          example: Plomeria
+      example:
+        idConversacion: 1
+        categoriaEmpleo: Plomeria
+        tituloOfertaEmpleo: Construccion de edificio departamental
+    ConversacionAspirante:
+      title: Conversacion
+      type: object
+      properties:
+        idConversacion:
+          type: integer
+          description: ID de la conversación
+          example: 1
+        tituloOfertaEmpleo:
+          type: string
+          description: Titulo de la de la oferta de empleo o solicitud de servicio
+            de la contratacion relacionada con la conversación
+          example: Construccion de edificio departamental
+        mensajes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Mensaje'
+      example:
+        idConversacion: 1
+        mensajes:
+        - idMensaje: 1
+          idUsuarioRemitente: 1
+          fechaRegistro: 2022-05-04T00:00:00.000+00:00
+          remitente: Pedro Sanchez Gómez
+          contenidoMensaje: Este es un mensaje para el usuario
+          tipoUsuario: Empleador
+        - idMensaje: 1
+          idUsuarioRemitente: 1
+          fechaRegistro: 2022-05-04T00:00:00.000+00:00
+          remitente: Pedro Sanchez Gómez
+          contenidoMensaje: Este es un mensaje para el usuario
+          tipoUsuario: Empleador
+        tituloOfertaEmpleo: Construccion de edificio departamental
+    Mensaje:
+      title: Mensaje de conversación
+      type: object
+      properties:
+        idMensaje:
+          type: integer
+          description: Id del mensaje
+          example: 1
+        contenidoMensaje:
+          maxLength: 254
+          minLength: 1
+          type: string
+          description: Contenido del mensaje
+          example: Este es un mensaje para el usuario
+        fechaRegistro:
+          type: string
+          description: Fecha de registro del mensaje
+          format: date
+          example: 2022-05-04
+        remitente:
+          type: string
+          description: Nombre de usuario del que registro el mensaje
+          example: Pedro Sanchez Gómez
+        idUsuarioRemitente:
+          type: integer
+          description: Nombre de usuario del que registro el mensaje
+          example: 1
+        tipoUsuario:
+          type: string
+          description: Tipo de usuario que registra el menasje
+          example: Empleador
+      example:
+        idMensaje: 1
+        idUsuarioRemitente: 1
+        fechaRegistro: 2022-05-04T00:00:00.000+00:00
+        remitente: Pedro Sanchez Gómez
+        contenidoMensaje: Este es un mensaje para el usuario
+        tipoUsuario: Empleador
+    SolicitudServicio:
+      title: Solicitud de servicio
+      type: object
+      properties:
+        idSolicitudServicio:
+          type: integer
+          description: ID de la solicitud de servicio
+          example: 12
+        idPerfilDemandante:
+          type: integer
+          description: ID del Demandante que hace la solicitud
+          example: 19
+        idPerfilAspirante:
+          type: integer
+          description: ID del perfil aspirante al que se le solicita el servicio
+          example: 22
+        titulo:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: Descripcion general del demandante sobre el servicio que solicita
+          example: Intalación plemaria para baño
+        descripcion:
+          maxLength: 254
+          minLength: 1
+          type: string
+          description: Descripcion detallada del demandante sobre el servicio que
+            solicita
+          example: "Instalacion completa de plemeria para baño. Pago de 200 peso diarios.\
+            \ Ubicado en Fracc. Lomas de Santa Fé, Santa Lourdes #4, Xalapa."
+        fechaRegistro:
+          type: string
+          description: Fecha en que se registro la solicitud
+          format: date
+          example: 2022-05-04
+        estatus:
+          type: integer
+          description: Estatus de la solicitud de servicio
+          format: int32
+          example: 1
+      example:
+        descripcion: "Instalacion completa de plemeria para baño. Pago de 200 peso\
+          \ diarios. Ubicado en Fracc. Lomas de Santa Fé, Santa Lourdes #4, Xalapa."
+        idSolicitudServicio: 12
+        estatus: 1
+        fechaRegistro: 2022-05-04T00:00:00.000+00:00
+        idPerfilDemandante: 19
+        titulo: Intalación plemaria para baño
+        idPerfilAspirante: 22
+    SolicitudVacante:
+      title: Solicitud de Vacante
+      type: object
+      properties:
+        idSolicitudVacante:
+          type: integer
+          format: int32
+          example: 14
+        idOfertaEmpleo:
+          type: integer
+          format: int32
+          example: 12
+        idPerfilAspirante:
+          type: integer
+          format: int32
+          example: 9
+        estatus:
+          type: integer
+          format: int32
+          example: 1
+        fechaRegistro:
+          type: string
+          format: date
+          example: 2022-05-04
+      example:
+        idSolicitudVacante: 14
+        estatus: 1
+        fechaRegistro: 2022-05-04T00:00:00.000+00:00
+        idOfertaEmpleo: 12
+        idPerfilAspirante: 9
+    ContratacionServicio:
+      title: Contratacion de Servicio
+      type: object
+      properties:
+        idContratacionServicio:
+          type: integer
+          description: ID de la contratacion de servicio
+          format: int32
+          example: 3
+        idPerfilAspirante:
+          type: integer
+          description: ID del aspirante
+          format: int32
+          example: 34
+        idPErfilDemandante:
+          type: integer
+          description: ID del demandante
+          format: int32
+          example: 3
+        fechaContratacion:
+          type: string
+          description: Fecha de contratacion. Establecida en el momento en que el
+            aspirante acepto una solicitud de servicio
+          format: date
+          example: 2022-02-04
+        fechaFinalizacion:
+          type: string
+          description: Fecha donde el demandante finaliza la contratacion
+          format: date
+          example: 2022-02-04
+        estatus:
+          type: integer
+          description: Estatus de la contratación
+          format: int32
+          example: 34
+        valoracionDemandante:
+          maximum: 5
+          minimum: 1
+          type: integer
+          description: Valoracion del demandante hacia el empleador
+          format: int32
+          example: 34
+      example:
+        estatus: 34
+        fechaContratacion: 2022-02-04T00:00:00.000+00:00
+        valoracionDemandante: 34
+        idPerfilAspirante: 34
+        idPErfilDemandante: 3
+        idContratacionServicio: 3
+        fechaFinalizacion: 2022-02-04T00:00:00.000+00:00
+    DetallesContratacionEmpleo:
+      title: Detalles de contratacion de empleo
+      type: object
+      properties:
+        estatus:
+          type: integer
+          description: Estado en el que se encuentra la contratación de empleo
+          format: int32
+          example: 1
+        idContratacionEmpleo:
+          type: integer
+          description: ID de la contratación de empleo del aspirante
+          format: int32
+          example: 3
+        fechaContratacion:
+          type: string
+          description: Fecha en que se inicio la contratación
+          format: date
+          example: 2022-02-04
+        ofertaEmpleo:
+          $ref: '#/components/schemas/OfertaEmpleo'
+      example:
+        estatus: 1
+        idContratacionEmpleo: 3
+        fechaContratacion: 2022-02-04T00:00:00.000+00:00
+        ofertaEmpleo:
+          descripcion: "Realización de mesas, sillas, además de otros muebles de cocina,\
+            \ teniendo en cuenta que se hará lijado y pintado de los mismos muebles"
+          diasLaborales: "[2,3,4,5]"
+          fechaDeIinicio: 2018-02-04T00:00:00.000+00:00
+          direccion: "Privada Adolfo López Mateos #12, Rafael Lucio, Ver."
+          nombre: Carpintería don nacho
+          horaInicio: 10:00
+          fotografia:
+          - imagen: ""
+          - imagen: ""
+          contratados:
+          - idAspirante: 234
+            experiencia: 4
+            valoracionAspirante: 9
+            descripcionValoracionAspirante: Trabaja en tiempo y forma
+            nombreAspirante: Monica G. C.
+            oficio: Panadero
+          - idAspirante: 234
+            experiencia: 4
+            valoracionAspirante: 9
+            descripcionValoracionAspirante: Trabaja en tiempo y forma
+            nombreAspirante: Monica G. C.
+            oficio: Panadero
+          horaFin: 18:30
+          idOfertaEmpleo: 19
+          tipoOfertaEmpleo: Tiempo completo
+          cantidadPago: 200
+          tipoPago: Por día
+          vacantes: 5
+          fechaDeFinalizacion: 2018-05-12T00:00:00.000+00:00
+    categoriasEmpleo_body:
+      type: object
+      properties:
+        nombre:
+          type: string
+          example: Plomería
+    categoriasEmpleo_idCategoriaEmpleo_body:
+      type: object
+      properties:
+        nombre:
+          type: string
+          example: Plomería
+    conversaciones_idConversacion_body:
+      type: object
+      properties:
+        mensaje:
+          type: string
+          example: Mensaje del demandante para el usuario
+    conversaciones_idConversacion_body_1:
+      type: object
+      properties:
+        mensaje:
+          type: string
+          example: Mensaje del empleador para el aspirante
+    conversaciones_idConversacion_body_2:
+      type: object
+      properties:
+        mensaje:
+          type: string
+          example: Mensaje del empleador para el aspirante
+    inline_response_200:
+      type: object
+      properties:
+        resultado:
+          type: array
+          items:
+            $ref: '#/components/schemas/SolicitudServicio'
+      example:
+        resultado:
+        - descripcion: "Instalacion completa de plemeria para baño. Pago de 200 peso\
+            \ diarios. Ubicado en Fracc. Lomas de Santa Fé, Santa Lourdes #4, Xalapa."
+          idSolicitudServicio: 12
+          estatus: 1
+          fechaRegistro: 2022-05-04T00:00:00.000+00:00
+          idPerfilDemandante: 19
+          titulo: Intalación plemaria para baño
+          idPerfilAspirante: 22
+        - descripcion: "Instalacion completa de plemeria para baño. Pago de 200 peso\
+            \ diarios. Ubicado en Fracc. Lomas de Santa Fé, Santa Lourdes #4, Xalapa."
+          idSolicitudServicio: 12
+          estatus: 1
+          fechaRegistro: 2022-05-04T00:00:00.000+00:00
+          idPerfilDemandante: 19
+          titulo: Intalación plemaria para baño
+          idPerfilAspirante: 22
+    PerfilAspirantes_oficios:
+      properties:
+        idCategoria:
+          type: integer
+          description: Identificador unico de categoria
+          example: 1
+        nombre:
+          type: string
+          description: Nombre de la categoria
+          example: albañilería
+        idExperienciaLaboral:
+          type: integer
+          description: Identificador unico de la experiencia laboral
+          example: 1
+        cantidadAnios:
+          type: integer
+          description: Cantidad de años trabajados
+          example: 25
+      example:
+        idExperienciaLaboral: 1
+        cantidadAnios: 25
+        idCategoria: 1
+        nombre: albañilería
+  requestBodies:
+    ofertaEmpleo:
+      description: Oferta de empleo
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OfertaEmpleo'
+      required: true
+    reporteEmpleo:
+      description: Reporte de empleo
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ReporteEmpleo'
+      required: true
+    contratacionEmpleoAspirante:
+      description: Detalles de la contratación entre el aspirante y la contratación
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ContratacionEmpleoAspirante'
+      required: true
+    PerfilUsuarios:
+      content:
+        application/json:
+          schema:
+            required:
+            - clave
+            - correoElectreonico
+            - estatus
+            - fotgrafia
+            - nombreUsuario
+            properties:
+              idPerfilUsuario:
+                type: integer
+                description: Identificador unico del usuario
+                format: int32
+                example: 2
+              nombreusuario:
+                maxLength: 50
+                minLength: 1
+                type: string
+                description: Sobre nombre que introduce el usuario al registrarse
+                  en el sistema
+                example: skylake
+              clave:
+                maxLength: 50
+                minLength: 1
+                type: string
+                description: Codigo secreto que se introduce en una maquina para poder
+                  accionar un mecanismo o para acceder a ciertas funciones informaticas
+                example: $2a$08$9ODrZxVW4w2LpaSng2.1zuAiN9btL4xGZsgP9xpATpE19OWwO7Srm
+              correoElectronico:
+                maxLength: 50
+                minLength: 1
+                type: string
+                description: Correspondencia que permite el intercambio de mensajes
+                  entre usuarios que estén conectados a una red informatica
+                format: email
+                example: elcamello@outlook.com
+              estatus:
+                type: integer
+                description: "Estado en el cual esta el perfil, desactivado, habilitado\
+                  \ o bloqueado"
+                format: int32
+                example: 1
+              fotografia:
+                type: string
+                description: Fotografia de la persona la cual actuara como un actor
+                  en el sistema
+                example: $2a$08$9ODrZxVW4w2LpaSng2AiN9btL4xGZsgP9xpATpE19OWwO7Srm
+    PerfilAdministradores:
+      content:
+        application/json:
+          schema:
+            required:
+            - nombre
+            - telefono
+            - usuario
+            properties:
+              idPerfilAdministrador:
+                type: integer
+                description: Identificador unico del administrador
+                format: int32
+                example: 1
+              nombre:
+                maxLength: 50
+                minLength: 1
+                type: string
+                description: Nombre de la persona fisica
+                example: Juan Perez
+              telefono:
+                maxLength: 10
+                minLength: 10
+                type: string
+                description: Numero para poder contactar al administrador
+                example: "2296031675"
+              usuario:
+                $ref: '#/components/requestBodies/PerfilUsuarios'
+    PerfilEmpleadores:
+      content:
+        application/json:
+          schema:
+            required:
+            - direccion
+            - fechaNacimiento
+            - nombre
+            - nombreOrganizacion
+            - telefono
+            - usuario
+            properties:
+              idPerfilEmpleador:
+                type: integer
+                description: Identificador unico del empleador
+                format: int32
+                example: 1
+              nombreOrganizacion:
+                maxLength: 50
+                minLength: 1
+                type: string
+                description: Nombre de la organizacion o microempresa del empleador
+                example: the alchemist enterprice
+              nombre:
+                maxLength: 50
+                minLength: 1
+                type: string
+                description: Nombre de la persona fisica
+                example: Alberto Baxin
+              direccion:
+                maxLength: 50
+                minLength: 1
+                type: string
+                description: Domicilio el cual introduce el empleador
+                example: "Xalapeños ilustres #40"
+              fechaNacimiento:
+                type: string
+                description: Fecha de nacimiento que introduce el empleador para calcular
+                  su edad
+                format: date
+                example: 1980-05-11
+              telefono:
+                maxLength: 10
+                minLength: 10
+                type: string
+                description: Numero para poder contactar al empleador
+                example: "2296031675"
+              usuario:
+                $ref: '#/components/schemas/PerfilUsuarios'
+    PerfilDemandantes:
+      content:
+        application/json:
+          schema:
+            required:
+            - direccion
+            - fechaNacimiento
+            - nombre
+            - telefono
+            - usuario
+            properties:
+              idperfilDemandante:
+                type: integer
+                description: Identificador unico del demandante
+                format: int32
+                example: 1
+              nombre:
+                maxLength: 50
+                minLength: 1
+                type: string
+                description: Nombre real de la persona que actuara como demandante
+                example: Josue Buendia
+              direccion:
+                maxLength: 50
+                minLength: 1
+                type: string
+                description: Domicilio el cual introduce el demandante
+                example: "Xalapeños ilustres #40"
+              fechaNacimiento:
+                type: string
+                description: Fecha de nacimiento que introduce el demandante para
+                  calcular su edad
+                example: 1986-11-06
+              telefono:
+                maxLength: 50
+                minLength: 1
+                type: string
+                description: Numero para poder contactar al demandante
+                example: "5557008594"
+              usuario:
+                $ref: '#/components/schemas/PerfilUsuarios'
+    PerfilAspirantes:
+      content:
+        application/json:
+          schema:
+            required:
+            - direccion
+            - fechaNacimiento
+            - nombre
+            - oficios
+            - telefono
+            - usuario
+            - video
+            properties:
+              idPerfilAspirante:
+                type: integer
+                description: Identificador unico del aspirante
+                format: int32
+                example: 1
+              nombre:
+                maxLength: 50
+                minLength: 1
+                type: string
+                description: Nombre real de la persona que actuara como aspirante
+                example: Jordan Diaz
+              direccion:
+                maxLength: 50
+                minLength: 1
+                type: string
+                description: Domicilio el cual introduce el aspirante
+                example: "Xalapeños ilustres #40"
+              fechaNacimiento:
+                type: string
+                description: Fecha de nacimiento que introduce el aspirante para calcular
+                  su edad
+                format: date
+                example: 1972-03-15
+              telefono:
+                maxLength: 10
+                minLength: 10
+                type: string
+                description: Numero para poder contactar al aspirante
+                example: "5657408594"
+              oficios:
+                type: array
+                items:
+                  properties:
+                    idCategoria:
+                      type: integer
+                      description: Identificador unico de categoria
+                      example: 1
+                    nombre:
+                      type: string
+                      description: Nombre de la categoria
+                      example: plomeria
+                    idExperienciaLaboral:
+                      type: integer
+                      description: Identificador unico de la experiencia laboral
+                      example: 1
+                    cantidadAnios:
+                      type: integer
+                      description: Cantidad de años trabajados
+                      example: 25
+              video:
+                type: string
+                description: Video en donde el aspirante de describe y por que ofrece
+                  sus servicios para las ofertas o servicios de empleo
+                format: byte
+              curriculum:
+                type: string
+                description: "Parametro opcional, documento el cual puede describir\
+                  \ el aspirante su experiencia profesional mas a detalle"
+                format: byte
+              usuario:
+                $ref: '#/components/schemas/PerfilUsuarios'
+    EvaluacionEmpleador:
+      content:
+        application/json:
+          schema:
+            required:
+            - descripcion
+            - puntutacion
+            properties:
+              puntuacion:
+                maximum: 5
+                minimum: 1
+                type: integer
+                description: Puntaje dado por el aspirante al empleador
+                format: int32
+    EvaluacionAspirante:
+      content:
+        application/json:
+          schema:
+            required:
+            - descripcion
+            - puntutacion
+            properties:
+              puntuacion:
+                maximum: 5
+                minimum: 1
+                type: integer
+                description: Puntaje dado por el aspirante al empleador
+                format: int32
+    SolicitudVacante:
+      content:
+        application/json:
+          schema:
+            required:
+            - idOfertaEmpleo
+            - idPerfilAspirante
+            properties:
+              idOfertaEmpleo:
+                type: integer
+                description: ID de la oferta de empleo hace la solicitud
+                example: 19
+              idPerfilAspirante:
+                type: integer
+                description: ID del perfil aspirante al que se le solicita el servicio
+                example: 22
+    SolicitudServicio:
+      content:
+        application/json:
+          schema:
+            required:
+            - descripcion
+            - idPerfilAspirante
+            - idPerfilDemandante
+            - titulo
+            properties:
+              idPerfilDemandante:
+                type: integer
+                description: ID del Demandante que hace la solicitud
+                example: 19
+              idPerfilAspirante:
+                type: integer
+                description: ID del perfil aspirante al que se le solicita el servicio
+                example: 22
+              titulo:
+                maxLength: 100
+                minLength: 1
+                type: string
+                description: Descripcion general del demandante sobre el servicio
+                  que solicita
+                example: Intalación plemaria para baño
+              descripcion:
+                maxLength: 254
+                minLength: 1
+                type: string
+                description: Descripcion detallada del demandante sobre el servicio
+                  que solicita
+                example: "Instalacion completa de plemeria para baño. Pago de 200\
+                  \ peso diarios. Ubicado en Fracc. Lomas de Santa Fé, Santa Lourdes\
+                  \ #4, Xalapa."
+  securitySchemes:
+    app_token:
+      type: apiKey
+      name: x-access-token
+      in: header

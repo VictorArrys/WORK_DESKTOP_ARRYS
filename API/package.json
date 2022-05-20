@@ -1,0 +1,27 @@
+{
+  "name": "elcamelloapi",
+  "version": "1.0",
+  "description": "**ElCamelloAPI** es un API Rest que ayuda a la optimización de los procesos para la busqueda y oferta de empleos.",
+  "main": "index.js",
+  "scripts": {
+    "prestart": "npm install",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "swagger"
+  ],
+  "license": "Unlicense",
+  "private": true,
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "connect": "^3.2.0",
+    "express": "^4.18.1",
+    "express-handlebars": "^5.3.4",
+    "express-mysql-session": "^2.1.7",
+    "js-yaml": "^3.3.0",
+    "jsonwebtoken": "^8.5.1",
+    "mysql": "^2.18.1",
+    "oas3-tools": "^2.2.3"
+  }
+}
