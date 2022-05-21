@@ -23,7 +23,7 @@
         <Grid RenderTransformOrigin="0.496,0.438" Margin="0,0,0,428" Background="#0d8d95"/>
         <Rectangle HorizontalAlignment="Left" Height="128" Margin="0,73,0,0" Stroke="Black" VerticalAlignment="Top" Width="159" Fill="#FFCEE0DA"/>
         <Image HorizontalAlignment="Left" Height="110" Margin="10,83,0,0" VerticalAlignment="Top" Width="128" RenderTransformOrigin="1.234,0.505"/>
-        <DataGrid d:ItemsSource="{Binding}" Margin="281,68,10,26" SelectionChanged="DataGrid_SelectionChanged">
+        <DataGrid d:ItemsSource="{Binding}" Margin="281,68,10,26" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nombre del empleo" Binding= "{Binding nombreEmpleo}" Width="250"/>
                 <DataGridTextColumn Header="Categoria" Binding= "{Binding categoriaEmpleo}" Width="100"/>

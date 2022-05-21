@@ -8,7 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Vistas\Administrador\1\" />
+    <Compile Remove="Vistas\Administrador\1\**" />
+    <EmbeddedResource Remove="Vistas\Administrador\1\**" />
+    <None Remove="Vistas\Administrador\1\**" />
+    <Page Remove="Vistas\Administrador\1\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Vistas\Aspirante\2\" />
     <Folder Include="Vistas\Demandante\3\" />
     <Folder Include="Vistas\Usuario\5\" />
