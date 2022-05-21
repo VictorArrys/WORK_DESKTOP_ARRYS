@@ -1,5 +1,5 @@
 'use strict';
-const jsonwebtoken = require('jsonwebtoken');
+
 const jwt = require('jsonwebtoken');
 var mysqlConnection = require('../utils/conexion');
 const keys = require('../settings/keys');
@@ -13,8 +13,22 @@ const { response } = require('express');
  *
  * no response value expected for this operation
  **/
-exports.cerrarSesion = function() {
+
+//Ver este metodo en controller para saber de donde viene 'req' (req es el requestbody)
+exports.cerrarSesion = function(req) {
   return new Promise(function(resolve, reject) {
+    const token = req.headers['x-access-token'];
+    try{
+      const tokenData = jwt.verify(token, keys.key); 
+      console.log(tokenData);
+    } catch (error) {
+      reject({
+        "resBody" : {
+          "menssage" : "Token invalido", 
+        }, 
+        "statusCode" : 401
+      });
+    }
     resolve();
   });
 }
@@ -46,14 +60,27 @@ exports.iniciarSesion = function(nombreUsuario,clave) {
       }else if(results.length == 1){
         var usuario = results[0];
         if(usuario != null){
+          //Estatus = 3 - Cuenta bloqueda
+          if (usuario['estatus'] == 3) {
+            reject({
+              "resBody" : {
+                "menssage" : "Cuenta bloqueada", 
+              }, 
+              "statusCode" : 403
+            });
+          }
           const payload = {
-            nombreUsuario:usuario['nombre_usuario'],
-            clave:usuario['clave'],
-            tipo:usuario['tipo_usuario']
+            "idUsuario" : usuario['id_perfil_usuario'],
+            "clave" : usuario['clave'],
+            "tipo" : usuario['tipo_usuario']
           }
   
-          const token = jsonwebtoken.sign(payload, keys.key); // cambiar por el metodo a llamar
-          var resultadoRes = {};
+          const token = jwt.sign(payload, keys.key, {
+            expiresIn: 60 * 60 * 24
+          });
+
+
+          const resultadoRes = {};
           resultadoRes['application/json'] = {
             "resBody" : {
               "clave" : usuario['clave'],
@@ -74,21 +101,13 @@ exports.iniciarSesion = function(nombreUsuario,clave) {
       }else{
         reject({
           "resBody" : {
-            "menssage" : "Usuario no encontrado", 
+            "menssage" : "Crendeciales invalidas.", 
           }, 
           "statusCode" : 404
         });
-
       }
-  
-  
     })
-
-    
-    
   });
-
-
 }
 
 
