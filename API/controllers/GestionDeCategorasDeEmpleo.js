@@ -13,8 +13,8 @@ module.exports.categoriasEmpleoIdCategoriaEmpleoDELETE = function categoriasEmpl
     });
 };
 
-module.exports.categoriasEmpleoIdCategoriaEmpleoPATCH = function categoriasEmpleoIdCategoriaEmpleoPATCH (req, res, next, body, idCategoriaEmpleo) {
-  GestionDeCategorasDeEmpleo.categoriasEmpleoIdCategoriaEmpleoPATCH(body, idCategoriaEmpleo)
+module.exports.categoriasEmpleoIdCategoriaEmpleoPATCH = function categoriasEmpleoIdCategoriaEmpleoPATCH (body, res, next, idCategoriaEmpleo) {
+  GestionDeCategorasDeEmpleo.categoriasEmpleoIdCategoriaEmpleoPATCH(req, idCategoriaEmpleo)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -23,13 +23,13 @@ module.exports.categoriasEmpleoIdCategoriaEmpleoPATCH = function categoriasEmple
     });
 };
 
-module.exports.categoriasEmpleoPOST = function categoriasEmpleoPOST (req, res, next, body) {
-  GestionDeCategorasDeEmpleo.categoriasEmpleoPOST(body)
+module.exports.categoriasEmpleoPOST = function categoriasEmpleoPOST (reqBody, res, next, body) {
+  GestionDeCategorasDeEmpleo.categoriasEmpleoPOST(reqBody)
     .then(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response['resBody'], response['statusCode']);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response['resBody'], response['statusCode']);
     });
 };
 

@@ -1,5 +1,7 @@
 'use strict';
-
+const jwt = require('jsonwebtoken');
+var mysqlConnection = require('../utils/conexion');
+const keys = require('../settings/keys');
 
 /**
  * Eliminar categoría de empleo
@@ -23,8 +25,10 @@ exports.categoriasEmpleoIdCategoriaEmpleoDELETE = function(idCategoriaEmpleo) {
  * idCategoriaEmpleo Integer ID de la categoria empleo que se modificará
  * no response value expected for this operation
  **/
-exports.categoriasEmpleoIdCategoriaEmpleoPATCH = function(body,idCategoriaEmpleo) {
+exports.categoriasEmpleoIdCategoriaEmpleoPATCH = function(body, idCategoriaEmpleo) {
   return new Promise(function(resolve, reject) {
+    console.log(req.headers['x-access-token']);
+    console.log(idCategoriaEmpleo);
     resolve();
   });
 }
@@ -34,21 +38,67 @@ exports.categoriasEmpleoIdCategoriaEmpleoPATCH = function(body,idCategoriaEmpleo
  * Registrar categoria de empleo en catalogo de categorias
  * Se publica una nueva categoria de empleo enviando el nombre de la categoria de empleo a registrar
  *
- * body CategoriasEmpleo_body Información de la categoría
+ * reqBody CategoriasEmpleo_body Información de la categoría
  * returns CategoriaEmpleo
  **/
-exports.categoriasEmpleoPOST = function(body) {
+exports.categoriasEmpleoPOST = function(reqBody) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "idCategoriaEmpleo" : 1,
-  "nombreCategoria" : "Plomería"
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+    const token = reqBody.headers['x-access-token'];
+    try{
+      const tokenData = jwt.verify(token, keys.key);
+      if (tokenData["tipo"] == "Administrador") {
+        const nombreCategoria = reqBody.body.nombre;
+        if (nombreCategoria == null || nombreCategoria.length == 0) {
+          reject({
+            "resBody" : {
+              "menssage" : "Error de sintaxis", 
+            }, 
+            "statusCode" : 400
+          });
+        }
+        var query = 'INSERT INTO categoria_empleo(nombre) VALUES (?);'
+        mysqlConnection.query(query, [nombreCategoria], function (error, results, fields){
+
+          if (error){
+            reject({
+              "resBody" : {
+                "menssage" : "error interno desde el servidor", 
+              }, 
+              "statusCode" : 500
+            });
+          } else {
+            const categoriaCreada = {};
+            categoriaCreada['application/json'] = {
+              "resBody" : {
+                "idCategoriaEmpleo" : results.insertId,
+                "nombreCategoria" : nombreCategoria
+              }, 
+              "statusCode" : 201
+            }
+            resolve(categoriaCreada['application/json']);
+          }
+
+        });
+      } else {
+        reject({
+          "resBody" : {
+            "menssage" : "No tienes permisos de administrador", 
+          }, 
+          "statusCode" : 401
+        });
+      }
+    } catch (error) {
+      reject({
+        "resBody" : {
+          "menssage" : "Token invalido", 
+        }, 
+        "statusCode" : 401
+      });
     }
+
+
+
+    
   });
 }
 
@@ -63,12 +113,12 @@ exports.getCategoriasEmpleo = function() {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = [ {
-  "idCategoriaEmpleo" : 1,
-  "nombreCategoria" : "Plomería"
-}, {
-  "idCategoriaEmpleo" : 1,
-  "nombreCategoria" : "Plomería"
-} ];
+    "idCategoriaEmpleo" : 1,
+    "nombreCategoria" : "Plomería"
+  }, {
+    "idCategoriaEmpleo" : 1,
+    "nombreCategoria" : "Plomería"
+  } ];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
