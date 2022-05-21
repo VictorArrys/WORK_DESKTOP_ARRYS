@@ -16,10 +16,10 @@ module.exports.cerrarSesion = function cerrarSesion (req, res, next) {
 module.exports.iniciarSesion = function iniciarSesion (req, res, next, nombreUsuario, clave) {
   AccesoAlSistema.iniciarSesion(nombreUsuario, clave)
     .then(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response['resBody'], response['statusCode']);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response['resBody'], response['statusCode']);
     });
 };
 

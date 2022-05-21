@@ -1,8 +1,10 @@
 'use strict';
 const jsonwebtoken = require('jsonwebtoken');
 const jwt = require('jsonwebtoken');
-var conexionMysql = require('../utils/conexion');
+var mysqlConnection = require('../utils/conexion');
 const keys = require('../settings/keys');
+const { response } = require('express');
+// llamar el metodo token desde utils
 
 
 /**
@@ -27,62 +29,66 @@ exports.cerrarSesion = function() {
  * returns PerfilUsuarios
  **/
 exports.iniciarSesion = function(nombreUsuario,clave) {
-  var conn = conexionMysql.conn;
-  var user = null; 
-  
-  conn.connect(
-    function(err) {
-      if (err) {
-          console.error('Error de conexion: ' + err.stack);
-          return;
-      }
-      console.log('Conectado con el identificador ' + conn.threadId);
-    }
-  );
-
-  var query = 'SELECT * FROM perfil_usuario WHERE nombre_usuario = ? AND clave = ?;'
-
-  conn.query(query,[nombreUsuario, clave], function (error, results, fields) {
-    if (error)
-        throw error;
-
-    if(results.length == 1){
-      var usuario = results[0];
-      if(usuario != null){
-        const payload = {
-          nombreUsuario:usuario['nombre_usuario'],
-          clave:usuario['clave'],
-          tipo:usuario['tipo_usuario']
-        };
-    
-        const token = jsonwebtoken.sign(payload, keys.key); //pendiente
-        //console.log(usuario);
-      }
-    }
-
-    
-  });
-
+  //var conn = conexionMysql.conn;
 
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-      "clave" : "$2a$08$9ODrZxVW4w2LpaSng2AiN9btL4xGZsgP9xpATpE19OWwO7Srm",
-      "tipo" : 3,
-      "estatus" : 1,
-      "idPerfilUsuario" : 1,
-      "nombreUsuario" : "skylake",
-      "correoElectronico" : "elcamello@outlook.com",
-      "fotografia" : "$2a$08$9ODrZxVW4w2LpaSng2AiN9btL4xGZsgP9xpATpE19OWwO7Srm",
-      "token" : "$2a$08$9ODrZxVW4w2LpaSng2.1zuAiN9btL4xGZsgP9xpATpE19OWwO7Srm"
-    };
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-      console.log(examples);
-    } else {
-      resolve();
-    }
+    var query = 'SELECT * FROM perfil_usuario WHERE nombre_usuario = ? AND clave = ?;'
+    console.log('Conectado con el identificador ' + mysqlConnection.threadId);
+    
+    mysqlConnection.query(query, [nombreUsuario, clave], function (error, results, fields){
+      if(error){
+          reject({
+            "resBody" : {
+              "menssage" : "error interno desde el servidor", 
+            }, 
+            "statusCode" : 500
+          });
+      }else if(results.length == 1){
+        var usuario = results[0];
+        if(usuario != null){
+          const payload = {
+            nombreUsuario:usuario['nombre_usuario'],
+            clave:usuario['clave'],
+            tipo:usuario['tipo_usuario']
+          }
+  
+          const token = jsonwebtoken.sign(payload, keys.key); // cambiar por el metodo a llamar
+          var resultadoRes = {};
+          resultadoRes['application/json'] = {
+            "resBody" : {
+              "clave" : usuario['clave'],
+              "tipo" : usuario['tipo_usuario'],
+              "estatus" : usuario['estatus'],
+              "idPerfilusuario" : usuario['id_perfil_usuario'],
+              "correoElectronico" : usuario['correo_electronico'],
+              "fotografia" : usuario['fotografia'],
+              "tipoUsuario" : usuario['tipo_usuario'],
+              "token" : token
+            },
+            "statusCode" : 200
+          };
+  
+          resolve(resultadoRes['application/json']);
+          
+        }
+      }else{
+        reject({
+          "resBody" : {
+            "menssage" : "Usuario no encontrado", 
+          }, 
+          "statusCode" : 404
+        });
+
+      }
+  
+  
+    })
+
+    
+    
   });
+
+
 }
 
 
