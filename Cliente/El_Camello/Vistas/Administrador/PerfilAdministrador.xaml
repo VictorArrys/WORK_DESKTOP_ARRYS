@@ -34,6 +34,14 @@
         <TextBox Margin="165,273,97,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14"/>
         <TextBox Margin="165,134,97,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14"/>
         <TextBox Margin="165,69,97,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14"/>
+        <Button Content="Modificar" HorizontalAlignment="Left" Margin="382,397,0,0" VerticalAlignment="Top" Width="71" Height="23" Foreground="White" FontWeight="Bold" FontStyle="Normal">
+            <Button.Background>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+            </Button.Background>
+            <Button.BorderBrush>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+            </Button.BorderBrush>
+        </Button>
 
     </Grid>
 </Window>
