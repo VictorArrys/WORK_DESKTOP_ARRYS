@@ -15,12 +15,12 @@ exports.getReporteEmpleo = function(idReporteEmpleo) {
   "motivo" : "No cumple con la paga establecida y no proporciona un correcto liderazgo ni muestra organización",
   "idReporteEmpleo" : 16,
   "estatus" : "Pendiente",
-  "fechaRegistro" : "2022-05-04T00:00:00.000+00:00"
+  "fechaRegistro" : { }
 }, {
   "motivo" : "No cumple con la paga establecida y no proporciona un correcto liderazgo ni muestra organización",
   "idReporteEmpleo" : 16,
   "estatus" : "Pendiente",
-  "fechaRegistro" : "2022-05-04T00:00:00.000+00:00"
+  "fechaRegistro" : { }
 } ];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
@@ -44,12 +44,12 @@ exports.getReportesEmpleos = function() {
   "motivo" : "No cumple con la paga establecida y no proporciona un correcto liderazgo ni muestra organización",
   "idReporteEmpleo" : 16,
   "estatus" : "Pendiente",
-  "fechaRegistro" : "2022-05-04T00:00:00.000+00:00"
+  "fechaRegistro" : { }
 }, {
   "motivo" : "No cumple con la paga establecida y no proporciona un correcto liderazgo ni muestra organización",
   "idReporteEmpleo" : 16,
   "estatus" : "Pendiente",
-  "fechaRegistro" : "2022-05-04T00:00:00.000+00:00"
+  "fechaRegistro" : { }
 } ];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);

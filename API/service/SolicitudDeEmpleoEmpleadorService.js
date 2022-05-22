@@ -15,12 +15,12 @@ exports.getSolicitudEmpleo = function(idSolicitudEmpleo) {
   "idSolicitudEmpleo" : 21,
   "estatus" : "Rechazada",
   "idAspirante" : "22",
-  "fechaRegistro" : "2022-06-04T00:00:00.000+00:00"
+  "fechaRegistro" : { }
 }, {
   "idSolicitudEmpleo" : 21,
   "estatus" : "Rechazada",
   "idAspirante" : "22",
-  "fechaRegistro" : "2022-06-04T00:00:00.000+00:00"
+  "fechaRegistro" : { }
 } ];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
@@ -45,12 +45,12 @@ exports.getSolicitudesEmpleo = function(idOfertaEmpleo) {
   "idSolicitudEmpleo" : 21,
   "estatus" : "Rechazada",
   "idAspirante" : "22",
-  "fechaRegistro" : "2022-06-04T00:00:00.000+00:00"
+  "fechaRegistro" : { }
 }, {
   "idSolicitudEmpleo" : 21,
   "estatus" : "Rechazada",
   "idAspirante" : "22",
-  "fechaRegistro" : "2022-06-04T00:00:00.000+00:00"
+  "fechaRegistro" : { }
 } ];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);

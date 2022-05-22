@@ -116,7 +116,7 @@ paths:
       requestBody:
         description: Información de la categoría
         content:
-          aplication/json:
+          application/json:
             schema:
               $ref: '#/components/schemas/categoriasEmpleo_body'
         required: true
@@ -189,7 +189,7 @@ paths:
       requestBody:
         description: Información de la categoría
         content:
-          aplication/json:
+          application/json:
             schema:
               $ref: '#/components/schemas/categoriasEmpleo_idCategoriaEmpleo_body'
         required: true
@@ -827,6 +827,8 @@ paths:
       - app_token: []
       x-swagger-router-controller: Usuarios
     put:
+      tags:
+      - Usuarios
       summary: Modificar perfil aspirante
       description: |
         el aspirante puede modificar la información de su perfil
@@ -2638,12 +2640,10 @@ components:
           type: string
           description: fecha cuando inicia el empleo
           format: date
-          example: 2018-02-04
         fechaDeFinalizacion:
           type: string
           description: fecha cuando acaba el empleo
           format: date
-          example: 2018-05-12
         tipoPago:
           type: string
           description: tipo sobre el cual se efectua el pago
@@ -2675,7 +2675,7 @@ components:
         descripcion: "Realización de mesas, sillas, además de otros muebles de cocina,\
           \ teniendo en cuenta que se hará lijado y pintado de los mismos muebles"
         diasLaborales: "[2,3,4,5]"
-        fechaDeIinicio: 2018-02-04T00:00:00.000+00:00
+        fechaDeIinicio: {}
         direccion: "Privada Adolfo López Mateos #12, Rafael Lucio, Ver."
         nombre: Carpintería don nacho
         horaInicio: 10:00
@@ -2701,7 +2701,7 @@ components:
         cantidadPago: 200
         tipoPago: Por día
         vacantes: 5
-        fechaDeFinalizacion: 2018-05-12T00:00:00.000+00:00
+        fechaDeFinalizacion: {}
     Fotografia:
       title: Fotografias de evidencia de la oferta de empleo
       required:
@@ -2780,12 +2780,10 @@ components:
           type: string
           description: Fecha en que se inicio la contratación
           format: date
-          example: 2022-02-04
         fechaFinalizacion:
           type: string
           description: Fecha en que se finaliza la contratación
           format: date
-          example: 2022-05-04
         nombreEmpleador:
           type: string
           description: Nombre del empleador
@@ -2797,10 +2795,10 @@ components:
         nombreEmpleo: Reemplazo de instalacion electrica
         estatus: 0
         idContratacionEmpleo: 3
-        fechaContratacion: 2022-02-04T00:00:00.000+00:00
+        fechaContratacion: {}
         idOfertaEmpleo: 3
         nombreEmpleador: PedroSanchez Gomez
-        fechaFinalizacion: 2022-05-04T00:00:00.000+00:00
+        fechaFinalizacion: {}
     ReporteEmpleo:
       title: Contratación de empleo
       required:
@@ -2822,7 +2820,6 @@ components:
           type: string
           description: Fecha en la que se registro el reporte de empleo
           format: date
-          example: 2022-05-04
         motivo:
           type: string
           description: Razón por la cual se creo el reporte de una oferta de empleo
@@ -2833,7 +2830,7 @@ components:
           ni muestra organización
         idReporteEmpleo: 16
         estatus: Pendiente
-        fechaRegistro: 2022-05-04T00:00:00.000+00:00
+        fechaRegistro: {}
     SolicitudEmpleo:
       title: Solicitud de empleo
       required:
@@ -2851,7 +2848,6 @@ components:
           type: string
           description: Fecha en la que se registro la solicitud de empleo
           format: date
-          example: 2022-06-04
         estatus:
           type: string
           description: Estado en el que se encuentra la solicitud de empleo
@@ -2864,7 +2860,7 @@ components:
         idSolicitudEmpleo: 21
         estatus: Rechazada
         idAspirante: "22"
-        fechaRegistro: 2022-06-04T00:00:00.000+00:00
+        fechaRegistro: {}
     EstadisticasUsoPlataforma:
       title: Estadisticas del uso de la plataforma
       required:
@@ -2888,7 +2884,7 @@ components:
           format: int32
           example: 891
       example:
-        fechaAnio: 2000-01-23
+        fechaAnio: {}
         ofertas: 891
         usuarios: 349
     EstadisticasEmpleos:
@@ -2914,7 +2910,7 @@ components:
           description: Año que filtrara la cantidad de solicitudes
           format: date
       example:
-        fechaAnio: 2000-01-23
+        fechaAnio: {}
         categoria: Panadería
         solicitudes: 390
     ValoracionAspirante:
@@ -2974,7 +2970,7 @@ components:
           format: int32
           example: 1431
       example:
-        fechaAnio: 2000-01-23
+        fechaAnio: {}
         ofertas: 1431
     PerfilUsuarios:
       title: Perfil de usuario
@@ -3126,7 +3122,6 @@ components:
           description: Fecha de nacimiento que introduce el empleador para calcular
             su edad
           format: date
-          example: 1980-05-11
         telefono:
           maxLength: 10
           minLength: 10
@@ -3143,7 +3138,7 @@ components:
           example: 2
       example:
         nombreOrganizacion: the alchemist enterprice
-        fechaNacimiento: 1980-05-11T00:00:00.000+00:00
+        fechaNacimiento: {}
         idPerfilEmpleador: 2
         direccion: "Xalapeños ilustres #40"
         usuario:
@@ -3191,7 +3186,6 @@ components:
           description: Fecha de nacimiento que introduce el demandante para calcular
             su edad
           format: date
-          example: 1968-12-11
         telefono:
           maxLength: 10
           minLength: 10
@@ -3201,7 +3195,7 @@ components:
         usuario:
           $ref: '#/components/schemas/PerfilUsuarios'
       example:
-        fechaNacimiento: 1968-12-11T00:00:00.000+00:00
+        fechaNacimiento: {}
         direccion: "Xalapeños ilustres #40"
         idPerfilDemandante: 1
         usuario:
@@ -3250,7 +3244,6 @@ components:
           description: Fecha de nacimiento que introduce el aspirante para calcular
             su edad
           format: date
-          example: 1980-05-24
         telefono:
           type: string
           description: Numero para poder contactar al aspirante
@@ -3263,12 +3256,12 @@ components:
           type: string
           description: Video en donde el aspirante de describe y por que ofrece sus
             servicios para las ofertas o servicios de empleo
-          format: byte
+          format: binary
         curriculum:
           type: string
           description: "Parametro opcional, documento el cual puede describir el aspirante\
             \ su experiencia profesional mas a detalle"
-          format: byte
+          format: binary
         usuario:
           $ref: '#/components/schemas/PerfilUsuarios'
       example:
@@ -3281,7 +3274,7 @@ components:
           cantidadAnios: 25
           idCategoria: 1
           nombre: albañilería
-        fechaNacimiento: 1980-05-24T00:00:00.000+00:00
+        fechaNacimiento: {}
         direccion: "Xalapeños ilustres #40"
         idPerfilAspirante: 1
         usuario:
@@ -3333,10 +3326,9 @@ components:
         fechaContratacion:
           type: string
           format: date
-          example: 2022-12-04
       example:
         tituloSolicitud: Reemplazo de tuberias de cobre
-        fechaContratacion: 2022-12-04T00:00:00.000+00:00
+        fechaContratacion: {}
         idConversacion: 1
         nombreAspirante: Raúl Gomez Perez
     ConversacionDemandante:
@@ -3361,13 +3353,13 @@ components:
         mensajes:
         - idMensaje: 1
           idUsuarioRemitente: 1
-          fechaRegistro: 2022-05-04T00:00:00.000+00:00
+          fechaRegistro: {}
           remitente: Pedro Sanchez Gómez
           contenidoMensaje: Este es un mensaje para el usuario
           tipoUsuario: Empleador
         - idMensaje: 1
           idUsuarioRemitente: 1
-          fechaRegistro: 2022-05-04T00:00:00.000+00:00
+          fechaRegistro: {}
           remitente: Pedro Sanchez Gómez
           contenidoMensaje: Este es un mensaje para el usuario
           tipoUsuario: Empleador
@@ -3412,13 +3404,13 @@ components:
         mensajes:
         - idMensaje: 1
           idUsuarioRemitente: 1
-          fechaRegistro: 2022-05-04T00:00:00.000+00:00
+          fechaRegistro: {}
           remitente: Pedro Sanchez Gómez
           contenidoMensaje: Este es un mensaje para el usuario
           tipoUsuario: Empleador
         - idMensaje: 1
           idUsuarioRemitente: 1
-          fechaRegistro: 2022-05-04T00:00:00.000+00:00
+          fechaRegistro: {}
           remitente: Pedro Sanchez Gómez
           contenidoMensaje: Este es un mensaje para el usuario
           tipoUsuario: Empleador
@@ -3466,13 +3458,13 @@ components:
         mensajes:
         - idMensaje: 1
           idUsuarioRemitente: 1
-          fechaRegistro: 2022-05-04T00:00:00.000+00:00
+          fechaRegistro: {}
           remitente: Pedro Sanchez Gómez
           contenidoMensaje: Este es un mensaje para el usuario
           tipoUsuario: Empleador
         - idMensaje: 1
           idUsuarioRemitente: 1
-          fechaRegistro: 2022-05-04T00:00:00.000+00:00
+          fechaRegistro: {}
           remitente: Pedro Sanchez Gómez
           contenidoMensaje: Este es un mensaje para el usuario
           tipoUsuario: Empleador
@@ -3495,7 +3487,6 @@ components:
           type: string
           description: Fecha de registro del mensaje
           format: date
-          example: 2022-05-04
         remitente:
           type: string
           description: Nombre de usuario del que registro el mensaje
@@ -3511,7 +3502,7 @@ components:
       example:
         idMensaje: 1
         idUsuarioRemitente: 1
-        fechaRegistro: 2022-05-04T00:00:00.000+00:00
+        fechaRegistro: {}
         remitente: Pedro Sanchez Gómez
         contenidoMensaje: Este es un mensaje para el usuario
         tipoUsuario: Empleador
@@ -3549,7 +3540,6 @@ components:
           type: string
           description: Fecha en que se registro la solicitud
           format: date
-          example: 2022-05-04
         estatus:
           type: integer
           description: Estatus de la solicitud de servicio
@@ -3560,7 +3550,7 @@ components:
           \ diarios. Ubicado en Fracc. Lomas de Santa Fé, Santa Lourdes #4, Xalapa."
         idSolicitudServicio: 12
         estatus: 1
-        fechaRegistro: 2022-05-04T00:00:00.000+00:00
+        fechaRegistro: {}
         idPerfilDemandante: 19
         titulo: Intalación plemaria para baño
         idPerfilAspirante: 22
@@ -3587,11 +3577,10 @@ components:
         fechaRegistro:
           type: string
           format: date
-          example: 2022-05-04
       example:
         idSolicitudVacante: 14
         estatus: 1
-        fechaRegistro: 2022-05-04T00:00:00.000+00:00
+        fechaRegistro: {}
         idOfertaEmpleo: 12
         idPerfilAspirante: 9
     ContratacionServicio:
@@ -3618,12 +3607,10 @@ components:
           description: Fecha de contratacion. Establecida en el momento en que el
             aspirante acepto una solicitud de servicio
           format: date
-          example: 2022-02-04
         fechaFinalizacion:
           type: string
           description: Fecha donde el demandante finaliza la contratacion
           format: date
-          example: 2022-02-04
         estatus:
           type: integer
           description: Estatus de la contratación
@@ -3638,12 +3625,12 @@ components:
           example: 34
       example:
         estatus: 34
-        fechaContratacion: 2022-02-04T00:00:00.000+00:00
+        fechaContratacion: {}
         valoracionDemandante: 34
         idPerfilAspirante: 34
         idPErfilDemandante: 3
         idContratacionServicio: 3
-        fechaFinalizacion: 2022-02-04T00:00:00.000+00:00
+        fechaFinalizacion: {}
     DetallesContratacionEmpleo:
       title: Detalles de contratacion de empleo
       type: object
@@ -3662,18 +3649,17 @@ components:
           type: string
           description: Fecha en que se inicio la contratación
           format: date
-          example: 2022-02-04
         ofertaEmpleo:
           $ref: '#/components/schemas/OfertaEmpleo'
       example:
         estatus: 1
         idContratacionEmpleo: 3
-        fechaContratacion: 2022-02-04T00:00:00.000+00:00
+        fechaContratacion: {}
         ofertaEmpleo:
           descripcion: "Realización de mesas, sillas, además de otros muebles de cocina,\
             \ teniendo en cuenta que se hará lijado y pintado de los mismos muebles"
           diasLaborales: "[2,3,4,5]"
-          fechaDeIinicio: 2018-02-04T00:00:00.000+00:00
+          fechaDeIinicio: {}
           direccion: "Privada Adolfo López Mateos #12, Rafael Lucio, Ver."
           nombre: Carpintería don nacho
           horaInicio: 10:00
@@ -3699,7 +3685,7 @@ components:
           cantidadPago: 200
           tipoPago: Por día
           vacantes: 5
-          fechaDeFinalizacion: 2018-05-12T00:00:00.000+00:00
+          fechaDeFinalizacion: {}
     categoriasEmpleo_body:
       type: object
       properties:
@@ -3743,7 +3729,7 @@ components:
             \ diarios. Ubicado en Fracc. Lomas de Santa Fé, Santa Lourdes #4, Xalapa."
           idSolicitudServicio: 12
           estatus: 1
-          fechaRegistro: 2022-05-04T00:00:00.000+00:00
+          fechaRegistro: {}
           idPerfilDemandante: 19
           titulo: Intalación plemaria para baño
           idPerfilAspirante: 22
@@ -3751,7 +3737,7 @@ components:
             \ diarios. Ubicado en Fracc. Lomas de Santa Fé, Santa Lourdes #4, Xalapa."
           idSolicitudServicio: 12
           estatus: 1
-          fechaRegistro: 2022-05-04T00:00:00.000+00:00
+          fechaRegistro: {}
           idPerfilDemandante: 19
           titulo: Intalación plemaria para baño
           idPerfilAspirante: 22
@@ -3917,7 +3903,6 @@ components:
                 description: Fecha de nacimiento que introduce el empleador para calcular
                   su edad
                 format: date
-                example: 1980-05-11
               telefono:
                 maxLength: 10
                 minLength: 10
@@ -3958,7 +3943,7 @@ components:
                 type: string
                 description: Fecha de nacimiento que introduce el demandante para
                   calcular su edad
-                example: 1986-11-06
+                example: "{}"
               telefono:
                 maxLength: 50
                 minLength: 1
@@ -3969,7 +3954,7 @@ components:
                 $ref: '#/components/schemas/PerfilUsuarios'
     PerfilAspirantes:
       content:
-        application/json:
+        multipart/form-data:
           schema:
             required:
             - direccion
@@ -4002,7 +3987,6 @@ components:
                 description: Fecha de nacimiento que introduce el aspirante para calcular
                   su edad
                 format: date
-                example: 1972-03-15
               telefono:
                 maxLength: 10
                 minLength: 10

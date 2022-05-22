@@ -4,8 +4,8 @@
   "description": "**ElCamelloAPI** es un API Rest que ayuda a la optimización de los procesos para la busqueda y oferta de empleos.",
   "main": "index.js",
   "scripts": {
-    "prestart": "npm install",
-    "start": "node index.js"
+  	"prestart": "npm install",
+  	"start": "node index.js"
   },
   "keywords": [
     "swagger"

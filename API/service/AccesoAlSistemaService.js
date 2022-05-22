@@ -1,11 +1,8 @@
 'use strict';
-
 const jwt = require('jsonwebtoken');
 var mysqlConnection = require('../utils/conexion');
 const keys = require('../settings/keys');
 const { response } = require('express');
-// llamar el metodo token desde utils
-
 
 /**
  * Cierra sesión del usuario y desecha el token
@@ -13,9 +10,7 @@ const { response } = require('express');
  *
  * no response value expected for this operation
  **/
-
-//Ver este metodo en controller para saber de donde viene 'req' (req es el requestbody)
-exports.cerrarSesion = function(req) {
+exports.cerrarSesion = function() {
   return new Promise(function(resolve, reject) {
     const token = req.headers['x-access-token'];
     try{
@@ -43,8 +38,6 @@ exports.cerrarSesion = function(req) {
  * returns PerfilUsuarios
  **/
 exports.iniciarSesion = function(nombreUsuario,clave) {
-  //var conn = conexionMysql.conn;
-
   return new Promise(function(resolve, reject) {
     var query = 'SELECT * FROM perfil_usuario WHERE nombre_usuario = ? AND clave = ?;'
     console.log('Conectado con el identificador ' + mysqlConnection.threadId);

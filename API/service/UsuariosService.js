@@ -103,7 +103,7 @@ exports.getPerfilAspirantes = function() {
     "idCategoria" : 1,
     "nombre" : "albañilería"
   } ],
-  "fechaNacimiento" : "1980-05-24T00:00:00.000+00:00",
+  "fechaNacimiento" : { },
   "direccion" : "Xalapeños ilustres #40",
   "idPerfilAspirante" : 1,
   "usuario" : {
@@ -132,7 +132,7 @@ exports.getPerfilAspirantes = function() {
     "idCategoria" : 1,
     "nombre" : "albañilería"
   } ],
-  "fechaNacimiento" : "1980-05-24T00:00:00.000+00:00",
+  "fechaNacimiento" : { },
   "direccion" : "Xalapeños ilustres #40",
   "idPerfilAspirante" : 1,
   "usuario" : {
@@ -181,7 +181,7 @@ exports.getPerfilAspirantesIdPerfilAspirante = function(idPerfilAspirante) {
     "idCategoria" : 1,
     "nombre" : "albañilería"
   } ],
-  "fechaNacimiento" : "1980-05-24T00:00:00.000+00:00",
+  "fechaNacimiento" : { },
   "direccion" : "Xalapeños ilustres #40",
   "idPerfilAspirante" : 1,
   "usuario" : {
@@ -218,7 +218,7 @@ exports.getPerfilDemandantes = function() {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = [ {
-  "fechaNacimiento" : "1968-12-11T00:00:00.000+00:00",
+  "fechaNacimiento" : { },
   "direccion" : "Xalapeños ilustres #40",
   "idPerfilDemandante" : 1,
   "usuario" : {
@@ -234,7 +234,7 @@ exports.getPerfilDemandantes = function() {
   "telefono" : "2969621184",
   "nombre" : "Josue buendia"
 }, {
-  "fechaNacimiento" : "1968-12-11T00:00:00.000+00:00",
+  "fechaNacimiento" : { },
   "direccion" : "Xalapeños ilustres #40",
   "idPerfilDemandante" : 1,
   "usuario" : {
@@ -270,7 +270,7 @@ exports.getPerfilDemandantesIdPerfilDemandante = function(idPerfilDemandante) {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = {
-  "fechaNacimiento" : "1968-12-11T00:00:00.000+00:00",
+  "fechaNacimiento" : { },
   "direccion" : "Xalapeños ilustres #40",
   "idPerfilDemandante" : 1,
   "usuario" : {
@@ -306,7 +306,7 @@ exports.getPerfilEmpleadores = function() {
     var examples = {};
     examples['application/json'] = [ {
   "nombreOrganizacion" : "the alchemist enterprice",
-  "fechaNacimiento" : "1980-05-11T00:00:00.000+00:00",
+  "fechaNacimiento" : { },
   "idPerfilEmpleador" : 2,
   "direccion" : "Xalapeños ilustres #40",
   "usuario" : {
@@ -324,7 +324,7 @@ exports.getPerfilEmpleadores = function() {
   "nombre" : "Pedro valenzuela"
 }, {
   "nombreOrganizacion" : "the alchemist enterprice",
-  "fechaNacimiento" : "1980-05-11T00:00:00.000+00:00",
+  "fechaNacimiento" : { },
   "idPerfilEmpleador" : 2,
   "direccion" : "Xalapeños ilustres #40",
   "usuario" : {
@@ -362,7 +362,7 @@ exports.getPerfilEmpleadoresIdPerfilEmpleador = function(idPerfilEmpleador) {
     var examples = {};
     examples['application/json'] = {
   "nombreOrganizacion" : "the alchemist enterprice",
-  "fechaNacimiento" : "1980-05-11T00:00:00.000+00:00",
+  "fechaNacimiento" : { },
   "idPerfilEmpleador" : 2,
   "direccion" : "Xalapeños ilustres #40",
   "usuario" : {
@@ -483,13 +483,26 @@ exports.patchPerfilUsuariosHabilitar = function(idPerfilUsuario) {
 
 
 /**
+ * Modificar perfil aspirante
+ * el aspirante puede modificar la información de su perfil 
+ *
+ * idPerfilAspirante Integer 
+ * no response value expected for this operation
+ **/
+exports.perfilAspirantesIdPerfilAspirantePUT = function(idPerfilAspirante) {
+  return new Promise(function(resolve, reject) {
+    resolve();
+  });
+}
+
+
+/**
  * Registrar  un aspirante en catalogo de aspirantes
  * Se agrega un nuevo aspirantes enviando la información a registrar 
  *
- * body Object  (optional)
  * returns PerfilAspirantes
  **/
-exports.postPerfilAspirantes = function(body) {
+exports.postPerfilAspirantes = function() {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = {
@@ -504,7 +517,7 @@ exports.postPerfilAspirantes = function(body) {
     "idCategoria" : 1,
     "nombre" : "albañilería"
   } ],
-  "fechaNacimiento" : "1980-05-24T00:00:00.000+00:00",
+  "fechaNacimiento" : { },
   "direccion" : "Xalapeños ilustres #40",
   "idPerfilAspirante" : 1,
   "usuario" : {
@@ -542,7 +555,7 @@ exports.postPerfilDemandantes = function(body) {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = {
-  "fechaNacimiento" : "1968-12-11T00:00:00.000+00:00",
+  "fechaNacimiento" : { },
   "direccion" : "Xalapeños ilustres #40",
   "idPerfilDemandante" : 1,
   "usuario" : {
@@ -579,7 +592,7 @@ exports.postPerfilEmpleadores = function(body) {
     var examples = {};
     examples['application/json'] = {
   "nombreOrganizacion" : "the alchemist enterprice",
-  "fechaNacimiento" : "1980-05-11T00:00:00.000+00:00",
+  "fechaNacimiento" : { },
   "idPerfilEmpleador" : 2,
   "direccion" : "Xalapeños ilustres #40",
   "usuario" : {

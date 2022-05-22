@@ -15,18 +15,18 @@ exports.getContratacionEmpleo = function(idOfertaEmpleo) {
   "nombreEmpleo" : "Reemplazo de instalacion electrica",
   "estatus" : 0,
   "idContratacionEmpleo" : 3,
-  "fechaContratacion" : "2022-02-04T00:00:00.000+00:00",
+  "fechaContratacion" : { },
   "idOfertaEmpleo" : 3,
   "nombreEmpleador" : "PedroSanchez Gomez",
-  "fechaFinalizacion" : "2022-05-04T00:00:00.000+00:00"
+  "fechaFinalizacion" : { }
 }, {
   "nombreEmpleo" : "Reemplazo de instalacion electrica",
   "estatus" : 0,
   "idContratacionEmpleo" : 3,
-  "fechaContratacion" : "2022-02-04T00:00:00.000+00:00",
+  "fechaContratacion" : { },
   "idOfertaEmpleo" : 3,
   "nombreEmpleador" : "PedroSanchez Gomez",
-  "fechaFinalizacion" : "2022-05-04T00:00:00.000+00:00"
+  "fechaFinalizacion" : { }
 } ];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);

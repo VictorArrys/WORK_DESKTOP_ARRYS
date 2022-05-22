@@ -13,7 +13,7 @@ exports.patchSolicitarVacante = function(body,idOfertaEmpleo) {
     examples['application/json'] = {
   "idSolicitudVacante" : 14,
   "estatus" : 1,
-  "fechaRegistro" : "2022-05-04T00:00:00.000+00:00",
+  "fechaRegistro" : { },
   "idOfertaEmpleo" : 12,
   "idPerfilAspirante" : 9
 };

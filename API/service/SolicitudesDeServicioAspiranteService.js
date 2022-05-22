@@ -31,7 +31,7 @@ exports.getAspiranteSolicitudServicio = function(idPerfilAspirante,idSolicitudSe
   "descripcion" : "Instalacion completa de plemeria para baño. Pago de 200 peso diarios. Ubicado en Fracc. Lomas de Santa Fé, Santa Lourdes #4, Xalapa.",
   "idSolicitudServicio" : 12,
   "estatus" : 1,
-  "fechaRegistro" : "2022-05-04T00:00:00.000+00:00",
+  "fechaRegistro" : { },
   "idPerfilDemandante" : 19,
   "titulo" : "Intalación plemaria para baño",
   "idPerfilAspirante" : 22
@@ -61,7 +61,7 @@ exports.getAspiranteSolicitudesServicio = function(idPerfilAspirante,estatus) {
     "descripcion" : "Instalacion completa de plemeria para baño. Pago de 200 peso diarios. Ubicado en Fracc. Lomas de Santa Fé, Santa Lourdes #4, Xalapa.",
     "idSolicitudServicio" : 12,
     "estatus" : 1,
-    "fechaRegistro" : "2022-05-04T00:00:00.000+00:00",
+    "fechaRegistro" : { },
     "idPerfilDemandante" : 19,
     "titulo" : "Intalación plemaria para baño",
     "idPerfilAspirante" : 22
@@ -69,7 +69,7 @@ exports.getAspiranteSolicitudesServicio = function(idPerfilAspirante,estatus) {
     "descripcion" : "Instalacion completa de plemeria para baño. Pago de 200 peso diarios. Ubicado en Fracc. Lomas de Santa Fé, Santa Lourdes #4, Xalapa.",
     "idSolicitudServicio" : 12,
     "estatus" : 1,
-    "fechaRegistro" : "2022-05-04T00:00:00.000+00:00",
+    "fechaRegistro" : { },
     "idPerfilDemandante" : 19,
     "titulo" : "Intalación plemaria para baño",
     "idPerfilAspirante" : 22

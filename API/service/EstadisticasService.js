@@ -11,11 +11,11 @@ exports.getEstadisticasEmpleos = function() {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = [ {
-  "fechaAnio" : "2000-01-23",
+  "fechaAnio" : { },
   "categoria" : "Panadería",
   "solicitudes" : 390
 }, {
-  "fechaAnio" : "2000-01-23",
+  "fechaAnio" : { },
   "categoria" : "Panadería",
   "solicitudes" : 390
 } ];
@@ -38,10 +38,10 @@ exports.getEstadisticasOfertasEmpleo = function() {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = [ {
-  "fechaAnio" : "2000-01-23",
+  "fechaAnio" : { },
   "ofertas" : 1431
 }, {
-  "fechaAnio" : "2000-01-23",
+  "fechaAnio" : { },
   "ofertas" : 1431
 } ];
     if (Object.keys(examples).length > 0) {
@@ -63,11 +63,11 @@ exports.getEstadisticasUsoPlataforma = function() {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = [ {
-  "fechaAnio" : "2000-01-23",
+  "fechaAnio" : { },
   "ofertas" : 891,
   "usuarios" : 349
 }, {
-  "fechaAnio" : "2000-01-23",
+  "fechaAnio" : { },
   "ofertas" : 891,
   "usuarios" : 349
 } ];

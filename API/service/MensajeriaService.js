@@ -17,14 +17,14 @@ exports.getConversacionAspirante = function(idPerfilAspirante,idConversacion) {
   "mensajes" : [ {
     "idMensaje" : 1,
     "idUsuarioRemitente" : 1,
-    "fechaRegistro" : "2022-05-04T00:00:00.000+00:00",
+    "fechaRegistro" : { },
     "remitente" : "Pedro Sanchez Gómez",
     "contenidoMensaje" : "Este es un mensaje para el usuario",
     "tipoUsuario" : "Empleador"
   }, {
     "idMensaje" : 1,
     "idUsuarioRemitente" : 1,
-    "fechaRegistro" : "2022-05-04T00:00:00.000+00:00",
+    "fechaRegistro" : { },
     "remitente" : "Pedro Sanchez Gómez",
     "contenidoMensaje" : "Este es un mensaje para el usuario",
     "tipoUsuario" : "Empleador"
@@ -57,14 +57,14 @@ exports.getConversacionDemandate = function(idPerfilDemandante,idConversacion) {
   "mensajes" : [ {
     "idMensaje" : 1,
     "idUsuarioRemitente" : 1,
-    "fechaRegistro" : "2022-05-04T00:00:00.000+00:00",
+    "fechaRegistro" : { },
     "remitente" : "Pedro Sanchez Gómez",
     "contenidoMensaje" : "Este es un mensaje para el usuario",
     "tipoUsuario" : "Empleador"
   }, {
     "idMensaje" : 1,
     "idUsuarioRemitente" : 1,
-    "fechaRegistro" : "2022-05-04T00:00:00.000+00:00",
+    "fechaRegistro" : { },
     "remitente" : "Pedro Sanchez Gómez",
     "contenidoMensaje" : "Este es un mensaje para el usuario",
     "tipoUsuario" : "Empleador"
@@ -95,14 +95,14 @@ exports.getConversacionEmpleador = function(idPerfilEmpleador,idConversacion) {
   "mensajes" : [ {
     "idMensaje" : 1,
     "idUsuarioRemitente" : 1,
-    "fechaRegistro" : "2022-05-04T00:00:00.000+00:00",
+    "fechaRegistro" : { },
     "remitente" : "Pedro Sanchez Gómez",
     "contenidoMensaje" : "Este es un mensaje para el usuario",
     "tipoUsuario" : "Empleador"
   }, {
     "idMensaje" : 1,
     "idUsuarioRemitente" : 1,
-    "fechaRegistro" : "2022-05-04T00:00:00.000+00:00",
+    "fechaRegistro" : { },
     "remitente" : "Pedro Sanchez Gómez",
     "contenidoMensaje" : "Este es un mensaje para el usuario",
     "tipoUsuario" : "Empleador"
@@ -156,12 +156,12 @@ exports.getConversacionesDemandate = function(idPerfilDemandante) {
     var examples = {};
     examples['application/json'] = [ {
   "tituloSolicitud" : "Reemplazo de tuberias de cobre",
-  "fechaContratacion" : "2022-12-04T00:00:00.000+00:00",
+  "fechaContratacion" : { },
   "idConversacion" : 1,
   "nombreAspirante" : "Raúl Gomez Perez"
 }, {
   "tituloSolicitud" : "Reemplazo de tuberias de cobre",
-  "fechaContratacion" : "2022-12-04T00:00:00.000+00:00",
+  "fechaContratacion" : { },
   "idConversacion" : 1,
   "nombreAspirante" : "Raúl Gomez Perez"
 } ];
@@ -217,7 +217,7 @@ exports.postConversacionAspirante = function(body,idPerfilAspirante,idConversaci
     examples['application/json'] = {
   "idMensaje" : 1,
   "idUsuarioRemitente" : 1,
-  "fechaRegistro" : "2022-05-04T00:00:00.000+00:00",
+  "fechaRegistro" : { },
   "remitente" : "Pedro Sanchez Gómez",
   "contenidoMensaje" : "Este es un mensaje para el usuario",
   "tipoUsuario" : "Empleador"
@@ -246,7 +246,7 @@ exports.postMensajeConversacionEmpleador = function(body,idPerfilEmpleador,idCon
     examples['application/json'] = {
   "idMensaje" : 1,
   "idUsuarioRemitente" : 1,
-  "fechaRegistro" : "2022-05-04T00:00:00.000+00:00",
+  "fechaRegistro" : { },
   "remitente" : "Pedro Sanchez Gómez",
   "contenidoMensaje" : "Este es un mensaje para el usuario",
   "tipoUsuario" : "Empleador"
@@ -275,7 +275,7 @@ exports.postMensajeConversacionesDemandate = function(body,idPerfilDemandante,id
     examples['application/json'] = {
   "idMensaje" : 1,
   "idUsuarioRemitente" : 1,
-  "fechaRegistro" : "2022-05-04T00:00:00.000+00:00",
+  "fechaRegistro" : { },
   "remitente" : "Pedro Sanchez Gómez",
   "contenidoMensaje" : "Este es un mensaje para el usuario",
   "tipoUsuario" : "Empleador"

@@ -1,7 +1,4 @@
 'use strict';
-const bodyParser = require('body-parser');
-
-
 
 var path = require('path');
 var http = require('http');
@@ -18,13 +15,6 @@ var options = {
 
 var expressAppConfig = oas3Tools.expressAppConfig(path.join(__dirname, 'api/openapi.yaml'), options);
 var app = expressAppConfig.getApp();
-
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded())
-
-// parse application/json
-app.use(bodyParser.json())
-
 
 // Initialize the Swagger middleware
 http.createServer(app).listen(serverPort, function () {

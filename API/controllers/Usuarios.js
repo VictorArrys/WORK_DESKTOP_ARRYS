@@ -123,8 +123,18 @@ module.exports.patchPerfilUsuariosHabilitar = function patchPerfilUsuariosHabili
     });
 };
 
-module.exports.postPerfilAspirantes = function postPerfilAspirantes (req, res, next, body) {
-  Usuarios.postPerfilAspirantes(body)
+module.exports.perfilAspirantesIdPerfilAspirantePUT = function perfilAspirantesIdPerfilAspirantePUT (req, res, next, idPerfilAspirante) {
+  Usuarios.perfilAspirantesIdPerfilAspirantePUT(idPerfilAspirante)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
+module.exports.postPerfilAspirantes = function postPerfilAspirantes (req, res, next) {
+  Usuarios.postPerfilAspirantes()
     .then(function (response) {
       utils.writeJson(res, response);
     })

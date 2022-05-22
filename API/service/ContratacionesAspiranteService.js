@@ -15,11 +15,11 @@ exports.getContratacionEmpleoAspirante = function(idPerfilAspirante,idContrataci
     examples['application/json'] = {
   "estatus" : 1,
   "idContratacionEmpleo" : 3,
-  "fechaContratacion" : "2022-02-04T00:00:00.000+00:00",
+  "fechaContratacion" : { },
   "ofertaEmpleo" : {
     "descripcion" : "Realización de mesas, sillas, además de otros muebles de cocina, teniendo en cuenta que se hará lijado y pintado de los mismos muebles",
     "diasLaborales" : "[2,3,4,5]",
-    "fechaDeIinicio" : "2018-02-04T00:00:00.000+00:00",
+    "fechaDeIinicio" : { },
     "direccion" : "Privada Adolfo López Mateos #12, Rafael Lucio, Ver.",
     "nombre" : "Carpintería don nacho",
     "horaInicio" : "10:00",
@@ -49,7 +49,7 @@ exports.getContratacionEmpleoAspirante = function(idPerfilAspirante,idContrataci
     "cantidadPago" : 200,
     "tipoPago" : "Por día",
     "vacantes" : 5,
-    "fechaDeFinalizacion" : "2018-05-12T00:00:00.000+00:00"
+    "fechaDeFinalizacion" : { }
   }
 };
     if (Object.keys(examples).length > 0) {
@@ -75,18 +75,18 @@ exports.getContratacionesEmpleoAspirante = function(idPerfilAspirante) {
   "nombreEmpleo" : "Reemplazo de instalacion electrica",
   "estatus" : 0,
   "idContratacionEmpleo" : 3,
-  "fechaContratacion" : "2022-02-04T00:00:00.000+00:00",
+  "fechaContratacion" : { },
   "idOfertaEmpleo" : 3,
   "nombreEmpleador" : "PedroSanchez Gomez",
-  "fechaFinalizacion" : "2022-05-04T00:00:00.000+00:00"
+  "fechaFinalizacion" : { }
 }, {
   "nombreEmpleo" : "Reemplazo de instalacion electrica",
   "estatus" : 0,
   "idContratacionEmpleo" : 3,
-  "fechaContratacion" : "2022-02-04T00:00:00.000+00:00",
+  "fechaContratacion" : { },
   "idOfertaEmpleo" : 3,
   "nombreEmpleador" : "PedroSanchez Gomez",
-  "fechaFinalizacion" : "2022-05-04T00:00:00.000+00:00"
+  "fechaFinalizacion" : { }
 } ];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
@@ -109,20 +109,20 @@ exports.getContratacionesServicioAspirante = function(idPerfilAspirante) {
     var examples = {};
     examples['application/json'] = [ {
   "estatus" : 34,
-  "fechaContratacion" : "2022-02-04T00:00:00.000+00:00",
+  "fechaContratacion" : { },
   "valoracionDemandante" : 34,
   "idPerfilAspirante" : 34,
   "idPErfilDemandante" : 3,
   "idContratacionServicio" : 3,
-  "fechaFinalizacion" : "2022-02-04T00:00:00.000+00:00"
+  "fechaFinalizacion" : { }
 }, {
   "estatus" : 34,
-  "fechaContratacion" : "2022-02-04T00:00:00.000+00:00",
+  "fechaContratacion" : { },
   "valoracionDemandante" : 34,
   "idPerfilAspirante" : 34,
   "idPErfilDemandante" : 3,
   "idContratacionServicio" : 3,
-  "fechaFinalizacion" : "2022-02-04T00:00:00.000+00:00"
+  "fechaFinalizacion" : { }
 } ];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);

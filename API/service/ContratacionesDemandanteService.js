@@ -27,20 +27,20 @@ exports.getContratacionesServicioDemandante = function(idPerfilDemandante) {
     var examples = {};
     examples['application/json'] = [ {
   "estatus" : 34,
-  "fechaContratacion" : "2022-02-04T00:00:00.000+00:00",
+  "fechaContratacion" : { },
   "valoracionDemandante" : 34,
   "idPerfilAspirante" : 34,
   "idPErfilDemandante" : 3,
   "idContratacionServicio" : 3,
-  "fechaFinalizacion" : "2022-02-04T00:00:00.000+00:00"
+  "fechaFinalizacion" : { }
 }, {
   "estatus" : 34,
-  "fechaContratacion" : "2022-02-04T00:00:00.000+00:00",
+  "fechaContratacion" : { },
   "valoracionDemandante" : 34,
   "idPerfilAspirante" : 34,
   "idPErfilDemandante" : 3,
   "idContratacionServicio" : 3,
-  "fechaFinalizacion" : "2022-02-04T00:00:00.000+00:00"
+  "fechaFinalizacion" : { }
 } ];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);

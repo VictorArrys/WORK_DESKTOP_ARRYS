@@ -14,7 +14,7 @@ exports.getOfertaEmpleoAspirante = function(idOfertaEmpleo) {
     examples['application/json'] = {
   "descripcion" : "Realización de mesas, sillas, además de otros muebles de cocina, teniendo en cuenta que se hará lijado y pintado de los mismos muebles",
   "diasLaborales" : "[2,3,4,5]",
-  "fechaDeIinicio" : "2018-02-04T00:00:00.000+00:00",
+  "fechaDeIinicio" : { },
   "direccion" : "Privada Adolfo López Mateos #12, Rafael Lucio, Ver.",
   "nombre" : "Carpintería don nacho",
   "horaInicio" : "10:00",
@@ -44,7 +44,7 @@ exports.getOfertaEmpleoAspirante = function(idOfertaEmpleo) {
   "cantidadPago" : 200,
   "tipoPago" : "Por día",
   "vacantes" : 5,
-  "fechaDeFinalizacion" : "2018-05-12T00:00:00.000+00:00"
+  "fechaDeFinalizacion" : { }
 };
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
@@ -68,7 +68,7 @@ exports.getOfertasEmpleoAsprante = function(categoriasEmpleo) {
     examples['application/json'] = [ {
   "descripcion" : "Realización de mesas, sillas, además de otros muebles de cocina, teniendo en cuenta que se hará lijado y pintado de los mismos muebles",
   "diasLaborales" : "[2,3,4,5]",
-  "fechaDeIinicio" : "2018-02-04T00:00:00.000+00:00",
+  "fechaDeIinicio" : { },
   "direccion" : "Privada Adolfo López Mateos #12, Rafael Lucio, Ver.",
   "nombre" : "Carpintería don nacho",
   "horaInicio" : "10:00",
@@ -98,11 +98,11 @@ exports.getOfertasEmpleoAsprante = function(categoriasEmpleo) {
   "cantidadPago" : 200,
   "tipoPago" : "Por día",
   "vacantes" : 5,
-  "fechaDeFinalizacion" : "2018-05-12T00:00:00.000+00:00"
+  "fechaDeFinalizacion" : { }
 }, {
   "descripcion" : "Realización de mesas, sillas, además de otros muebles de cocina, teniendo en cuenta que se hará lijado y pintado de los mismos muebles",
   "diasLaborales" : "[2,3,4,5]",
-  "fechaDeIinicio" : "2018-02-04T00:00:00.000+00:00",
+  "fechaDeIinicio" : { },
   "direccion" : "Privada Adolfo López Mateos #12, Rafael Lucio, Ver.",
   "nombre" : "Carpintería don nacho",
   "horaInicio" : "10:00",
@@ -132,7 +132,7 @@ exports.getOfertasEmpleoAsprante = function(categoriasEmpleo) {
   "cantidadPago" : 200,
   "tipoPago" : "Por día",
   "vacantes" : 5,
-  "fechaDeFinalizacion" : "2018-05-12T00:00:00.000+00:00"
+  "fechaDeFinalizacion" : { }
 } ];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);

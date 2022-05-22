@@ -25,10 +25,8 @@ exports.categoriasEmpleoIdCategoriaEmpleoDELETE = function(idCategoriaEmpleo) {
  * idCategoriaEmpleo Integer ID de la categoria empleo que se modificará
  * no response value expected for this operation
  **/
-exports.categoriasEmpleoIdCategoriaEmpleoPATCH = function(body, idCategoriaEmpleo) {
+exports.categoriasEmpleoIdCategoriaEmpleoPATCH = function(body,idCategoriaEmpleo) {
   return new Promise(function(resolve, reject) {
-    console.log(req.headers['x-access-token']);
-    console.log(idCategoriaEmpleo);
     resolve();
   });
 }
@@ -48,7 +46,7 @@ exports.categoriasEmpleoPOST = function(reqBody) {
     try{
       const tokenData = jwt.verify(token, keys.key);
       if (tokenData["tipo"] == "Administrador") {
-        const nombreCategoria = "Albañilería";reqBody.body.nombre;
+        const nombreCategoria = reqBody.body.nombre;
         if (nombreCategoria == null || nombreCategoria.length == 0) {
           reject({
             "resBody" : {
@@ -114,12 +112,12 @@ exports.getCategoriasEmpleo = function() {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = [ {
-    "idCategoriaEmpleo" : 1,
-    "nombreCategoria" : "Plomería"
-  }, {
-    "idCategoriaEmpleo" : 1,
-    "nombreCategoria" : "Plomería"
-  } ];
+  "idCategoriaEmpleo" : 1,
+  "nombreCategoria" : "Plomería"
+}, {
+  "idCategoriaEmpleo" : 1,
+  "nombreCategoria" : "Plomería"
+} ];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
