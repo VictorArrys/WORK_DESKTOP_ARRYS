@@ -5,8 +5,42 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:El_Camello.Vistas.Administrador"
         mc:Ignorable="d"
-        Title="consultarPerfil" Height="450" Width="800">
-    <Grid>
-        
+        Title="consultarPerfil" Height="546" Width="761">
+    <Grid Background="#FFDFDFDF">
+        <Rectangle HorizontalAlignment="Center" Height="41" Stroke="Black" VerticalAlignment="Top" Width="760">
+            <Rectangle.Fill>
+                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Rectangle HorizontalAlignment="Center" Height="15" Stroke="Black" VerticalAlignment="Top" Width="760" Margin="0,515,0,0">
+            <Rectangle.Fill>
+                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
+            </Rectangle.Fill>
+        </Rectangle>
+        <StackPanel Margin="22,61,532,299" Background="White"/>
+        <Label Content="Nombre:" HorizontalAlignment="Left" Margin="233,65,0,0" VerticalAlignment="Top" Background="{x:Null}" FontSize="14" FontWeight="Bold"/>
+        <Label Content="Direccion:" HorizontalAlignment="Left" Margin="234,99,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label Content="Fecha Nacimiento:" HorizontalAlignment="Left" Margin="233,139,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label Content="nombre del perfil" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" Background="{x:Null}" FontSize="14" FontWeight="Bold" Foreground="White"/>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="370,140,0,0" VerticalAlignment="Top" Width="153" Background="#FFB7B6B6"/>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="370,102,0,0" VerticalAlignment="Top" Width="153" Background="#FFA39B9B"/>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="370,68,0,0" VerticalAlignment="Top" Width="153" Background="#FFB2B0B0"/>
+        <Label Content="Telefono:" HorizontalAlignment="Left" Margin="22,236,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label Content="Correo Electronico:" HorizontalAlignment="Left" Margin="234,181,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label Content="Tipo usuario:" HorizontalAlignment="Left" Margin="21,280,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label Content="Estatus:" HorizontalAlignment="Left" Margin="22,324,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="315,276,39,37"/>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="370,181,0,0" VerticalAlignment="Top" Width="153" Background="#FFC5C3C3"/>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="126,280,0,0" VerticalAlignment="Top" Width="152" Background="#FFC3BBBB"/>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="126,239,0,0" VerticalAlignment="Top" Width="152" Background="#FFDCD3D3"/>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="126,327,0,0" VerticalAlignment="Top" Width="152" Background="#FFC0B8B8"/>
+        <StackPanel Margin="546,66,20,303" Background="White"/>
+        <Label Content="Valoración:" HorizontalAlignment="Left" Margin="21,370,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label Content="odicios:" HorizontalAlignment="Left" Margin="315,250,0,0" VerticalAlignment="Top" FontStyle="Italic" FontWeight="Bold"/>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="126,373,0,0" VerticalAlignment="Top" Width="152" Background="#FFC0B8B8"/>
+        <Label Content="Curriculum:" HorizontalAlignment="Left" Margin="21,415,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="34,449,0,0" VerticalAlignment="Top" Width="244" Background="#FFC0B8B8"/>
+        <Label Content="Video:" HorizontalAlignment="Left" Margin="546,41,0,0" VerticalAlignment="Top" FontStyle="Italic" FontWeight="Bold"/>
+
     </Grid>
 </Window>
