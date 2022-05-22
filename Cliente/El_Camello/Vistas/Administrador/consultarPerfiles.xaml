@@ -1,0 +1,60 @@
+﻿<Window x:Class="El_Camello.Vistas.Administrador.consultarPerfiles"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:El_Camello.Vistas.Administrador"
+        mc:Ignorable="d"
+        Title="consultarPerfiles" Height="602" Width="959" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid Background="#FFDFDFDF">
+        <Rectangle HorizontalAlignment="Center" Height="41" VerticalAlignment="Top" Width="959">
+            <Rectangle.Stroke>
+                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
+            </Rectangle.Stroke>
+            <Rectangle.Fill>
+                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Rectangle HorizontalAlignment="Center" Height="15" Stroke="Black" VerticalAlignment="Top" Width="959" Margin="0,571,0,0">
+            <Rectangle.Fill>
+                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
+            </Rectangle.Fill>
+        </Rectangle>
+        <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="180,62,19,39"/>
+        <Button Content="Aspirantes" HorizontalAlignment="Left" Margin="53,272,0,0" VerticalAlignment="Top" Height="29" Width="127" Foreground="White" FontSize="15" FontWeight="Bold">
+            <Button.BorderBrush>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+            </Button.BorderBrush>
+            <Button.Background>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+            </Button.Background>
+        </Button>
+        <Button Content="Empleadores" HorizontalAlignment="Left" Margin="53,349,0,0" VerticalAlignment="Top" Height="29" Width="127" Foreground="White" FontSize="15" FontWeight="Bold">
+            <Button.BorderBrush>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+            </Button.BorderBrush>
+            <Button.Background>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+            </Button.Background>
+        </Button>
+        <Button Content="Demandantes" HorizontalAlignment="Left" Margin="53,310,0,0" VerticalAlignment="Top" Height="29" Width="127" Foreground="White" FontSize="15" FontWeight="Bold">
+            <Button.BorderBrush>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+            </Button.BorderBrush>
+            <Button.Background>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+            </Button.Background>
+        </Button>
+        <Button Content="Administradores" HorizontalAlignment="Left" Margin="53,233,0,0" VerticalAlignment="Top" Height="29" Width="127" Foreground="White" FontSize="15" FontWeight="Bold">
+            <Button.BorderBrush>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+            </Button.BorderBrush>
+            <Button.Background>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+            </Button.Background>
+        </Button>
+        <Label Content="Usuarios" HorizontalAlignment="Left" Margin="10,3,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="White"/>
+        <Button Content="Cerrar Sesión" HorizontalAlignment="Left" Margin="833,7,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}"/>
+
+    </Grid>
+</Window>
