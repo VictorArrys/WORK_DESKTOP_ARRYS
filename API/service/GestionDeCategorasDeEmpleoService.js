@@ -44,10 +44,11 @@ exports.categoriasEmpleoIdCategoriaEmpleoPATCH = function(body, idCategoriaEmple
 exports.categoriasEmpleoPOST = function(reqBody) {
   return new Promise(function(resolve, reject) {
     const token = reqBody.headers['x-access-token'];
+    console.log(reqBody.body)
     try{
       const tokenData = jwt.verify(token, keys.key);
       if (tokenData["tipo"] == "Administrador") {
-        const nombreCategoria = reqBody.body.nombre;
+        const nombreCategoria = "Albañilería";reqBody.body.nombre;
         if (nombreCategoria == null || nombreCategoria.length == 0) {
           reject({
             "resBody" : {
