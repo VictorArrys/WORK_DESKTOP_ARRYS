@@ -9,7 +9,7 @@ const keys = require('../settings/keys');
  *
  * no response value expected for this operation
  **/
-exports.cerrarSesion = function() {
+exports.cerrarSesion = function(req) {
   return new Promise(function(resolve, reject) {
     const token = req.headers['x-access-token'];
     try{
@@ -61,15 +61,7 @@ exports.iniciarSesion = function(nombreUsuario,clave) {
               "statusCode" : 403
             });
           }
-          const payload = {
-            "idUsuario" : usuario['id_perfil_usuario'],
-            "clave" : usuario['clave'],
-            "tipo" : usuario['tipo_usuario']
-          }
-  
-          const token = jwt.sign(payload, keys.key, {
-            expiresIn: 60 * 60 * 24
-          });
+          
           var idTipoUsuario = null;
           switch(usuario['tipo_usuario']) {
             case "Administrador":
@@ -85,7 +77,6 @@ exports.iniciarSesion = function(nombreUsuario,clave) {
               idTipoUsuario = usuario['id_aspirante'];
               break;
           }
-          console.log(idTipoUsuario);
           
           //Si el usuario no tiene un perfil de admin, empleoador, aspirante o demandante no podra inciar sesión.
           if (idTipoUsuario == null) {
@@ -96,6 +87,17 @@ exports.iniciarSesion = function(nombreUsuario,clave) {
               "statusCode" : 404
             });
           }
+
+          const payload = {
+            "idUsuario" : usuario['id_perfil_usuario'],
+            "clave" : usuario['clave'],
+            "tipo" : usuario['tipo_usuario'],
+            "idTipoUsuario" : idTipoUsuario,
+          }
+  
+          const token = jwt.sign(payload, keys.key, {
+            expiresIn: 60 * 60 * 24
+          });
 
           const resultadoRes = {};
           resultadoRes['application/json'] = {
