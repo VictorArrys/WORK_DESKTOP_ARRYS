@@ -1,5 +1,7 @@
 'use strict';
-
+const jwt = require('jsonwebtoken');
+const mysqlConnection = require('../utils/conexion');
+const keys = require('../settings/keys');
 
 /**
  * Consultar conversación con empleador o demandante
@@ -269,21 +271,77 @@ exports.postMensajeConversacionEmpleador = function(body,idPerfilEmpleador,idCon
  * idConversacion Integer ID de la conversacion en donde participa el demandante
  * returns Mensaje
  **/
-exports.postMensajeConversacionesDemandate = function(body,idPerfilDemandante,idConversacion) {
+exports.postMensajeConversacionDemandate = function(body,idPerfilDemandante,idConversacion) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "idMensaje" : 1,
-  "idUsuarioRemitente" : 1,
-  "fechaRegistro" : { },
-  "remitente" : "Pedro Sanchez Gómez",
-  "contenidoMensaje" : "Este es un mensaje para el usuario",
-  "tipoUsuario" : "Empleador"
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+    
+
+    //Validación de token
+    const token = body.headers['x-access-token'];
+    try{
+      const tokenData = jwt.verify(token, keys.key);
+
+      //Validar que el token le pertenezca al demandante
+      if (tokenData['idTipoUsuario'] == idPerfilDemandante) {
+        //Registrar mensaje en bd
+        var queryInsert = "INSERT INTO mensaje (id_conversación_mensaje, id_usuario_remitente, mensaje, fechaRegistro) VALUES (?, ?, ?, NOW());"
+        const mensaje = body.body["mensaje"];
+        const idUsuario = tokenData['idUsuario'];
+        mysqlConnection.query(queryInsert, [idConversacion, idUsuario, mensaje], function (error, results, fields){
+          if(error){
+            //Error al registrar
+            reject({
+              "resBody" : {
+                "menssage" : "Error interno desde el servidor", 
+              }, 
+              "statusCode" : 500
+            });
+          } else {
+            //registro exitoso
+            var querySelect = "SELECT M.*, PD.nombre FROM perfil_usuario AS PU JOIN mensaje AS M ON PU.id_perfil_usuario = M.id_usuario_remitente JOIN perfil_demandante AS PD ON PU.id_perfil_usuario = PD.id_perfil_usuario_demandante WHERE M.id_mensaje = ?"
+            const idMensaje = results.insertId;
+            mysqlConnection.query(queryInsert, [idMensaje], function (error, results, fields){
+               if (error) {
+                reject({
+                  "resBody" : {
+                    "menssage" : "Error interno desde el servidor", 
+                  }, 
+                  "statusCode" : 500
+                });
+               } else {
+                var mensaje = results[0];
+                var respuesta = {};
+                respuesta['application/json'] = {
+                  "resBody" : {
+                    "idMensaje" : mensaje['id_mensaje'],
+                    "idConversacion" : mensaje['id_conversación_mensaje'],
+                    "idUsuarioRemitente" : mensaje['id_usuario_remitente'],
+                    "fechaRegistro" : mensaje['fechaRegistro'],
+                    "remitente" : mensaje['nombre'],
+                    "contenidoMensaje" : mensaje['mensaje'],
+                    "tipoUsuario" : mensaje['tipo_usuario']
+                  }, 
+                  "statusCode" : 500
+                };
+                resolve(respuesta['application/json'])
+               }
+            });
+          }
+        });
+      } else {
+        reject({
+          "resBody" : {
+            "menssage" : "Token invalido", 
+          }, 
+          "statusCode" : 401
+        });
+      }
+    } catch (error) {
+      reject({
+        "resBody" : {
+          "menssage" : "Token invalido", 
+        }, 
+        "statusCode" : 401
+      });
     }
   });
 }
