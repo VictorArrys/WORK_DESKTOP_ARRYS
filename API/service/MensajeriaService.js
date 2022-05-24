@@ -268,7 +268,7 @@ exports.postMensajeConversacionEmpleador = function(body,idPerfilEmpleador,idCon
             //registro exitoso
             var querySelect = "SELECT M.*, PE.nombre, PU.tipo_usuario FROM perfil_usuario AS PU JOIN mensaje AS M ON PU.id_perfil_usuario = M.id_usuario_remitente JOIN perfil_empleador AS PE ON PU.id_perfil_usuario = PE.id_perfil_usuario_empleador WHERE M.id_mensaje = ?;"
             const idMensaje = results.insertId;
-            mysqlConnection.query(queryInsert, [idMensaje], function (error, results, fields){
+            mysqlConnection.query(querySelect, [idMensaje], function (error, results, fields){
                if (error) {
                 reject({
                   "resBody" : {
@@ -353,7 +353,7 @@ exports.postMensajeConversacionDemandate = function(body,idPerfilDemandante,idCo
             //registro exitoso
             var querySelect = "SELECT M.*, PD.nombre FROM perfil_usuario AS PU JOIN mensaje AS M ON PU.id_perfil_usuario = M.id_usuario_remitente JOIN perfil_demandante AS PD ON PU.id_perfil_usuario = PD.id_perfil_usuario_demandante WHERE M.id_mensaje = ?"
             const idMensaje = results.insertId;
-            mysqlConnection.query(queryInsert, [idMensaje], function (error, results, fields){
+            mysqlConnection.query(querySelect, [idMensaje], function (error, results, fields){
                if (error) {
                 reject({
                   "resBody" : {
