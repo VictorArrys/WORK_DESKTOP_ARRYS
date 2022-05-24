@@ -9,15 +9,21 @@
 
   <ItemGroup>
     <Compile Remove="Vistas\Administrador\1\**" />
+    <Compile Remove="Vistas\Aspirante\2\**" />
+    <Compile Remove="Vistas\Demandante\3\**" />
+    <Compile Remove="Vistas\Usuario\5\**" />
     <EmbeddedResource Remove="Vistas\Administrador\1\**" />
+    <EmbeddedResource Remove="Vistas\Aspirante\2\**" />
+    <EmbeddedResource Remove="Vistas\Demandante\3\**" />
+    <EmbeddedResource Remove="Vistas\Usuario\5\**" />
     <None Remove="Vistas\Administrador\1\**" />
+    <None Remove="Vistas\Aspirante\2\**" />
+    <None Remove="Vistas\Demandante\3\**" />
+    <None Remove="Vistas\Usuario\5\**" />
     <Page Remove="Vistas\Administrador\1\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Vistas\Aspirante\2\" />
-    <Folder Include="Vistas\Demandante\3\" />
-    <Folder Include="Vistas\Usuario\5\" />
+    <Page Remove="Vistas\Aspirante\2\**" />
+    <Page Remove="Vistas\Demandante\3\**" />
+    <Page Remove="Vistas\Usuario\5\**" />
   </ItemGroup>
 
 </Project>
