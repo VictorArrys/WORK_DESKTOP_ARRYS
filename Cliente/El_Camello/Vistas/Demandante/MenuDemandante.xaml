@@ -1,0 +1,61 @@
+﻿<Window x:Class="El_Camello.Vistas.Demandante.MenuDemandante"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:El_Camello.Vistas.Demandante"
+        mc:Ignorable="d"
+        Title="MenuDemandante" Height="545" Width="1026" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid Background="#FFDFDFDF">
+        <StackPanel Margin="22,50,844,342" Background="Snow" Width="163" Height="133"/>
+        <Button Content="Editar Perfil" HorizontalAlignment="Left" Margin="183,59,0,0" VerticalAlignment="Top" FontStyle="Italic" BorderBrush="#FFDFDFDF" Background="#FFDFDFDF" FontWeight="Normal"/>
+        <Button Content="Desactivar Perfil" HorizontalAlignment="Left" Margin="183,90,0,0" VerticalAlignment="Top" FontStyle="Italic" BorderBrush="#FFDFDFDF" Background="#FFDFDFDF" FontWeight="Normal"/>
+        <Button Content="Activar Perfil" HorizontalAlignment="Left" Margin="184,119,0,0" VerticalAlignment="Top" FontStyle="Italic" BorderBrush="#FFDFDFDF" Background="#FFDFDFDF" FontWeight="Normal"/>
+        <Button Content=" Consultar &#xA;Solicitudes" HorizontalAlignment="Left" Margin="513,90,0,0" VerticalAlignment="Top" Width="87" Height="41" FontSize="14" FontWeight="Bold" Foreground="White">
+            <Button.BorderBrush>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+            </Button.BorderBrush>
+            <Button.Background>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+            </Button.Background>
+        </Button>
+        <Button Content="Valoraciones" HorizontalAlignment="Left" Margin="641,91,0,0" VerticalAlignment="Top" Width="87" Height="41" FontSize="14" FontWeight="Bold" Foreground="White">
+            <Button.BorderBrush>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+            </Button.BorderBrush>
+            <Button.Background>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+            </Button.Background>
+        </Button>
+        <Button Content="Mensajería" HorizontalAlignment="Left" Margin="777,92,0,0" VerticalAlignment="Top" Width="87" Height="41" FontSize="14" FontWeight="Bold" Foreground="White">
+            <Button.BorderBrush>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+            </Button.BorderBrush>
+            <Button.Background>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.703"/>
+            </Button.Background>
+        </Button>
+        <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="22,223,22,40"/>
+        <Label Content="Categoría:" HorizontalAlignment="Left" Margin="23,192,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold"/>
+        <ComboBox HorizontalAlignment="Left" Margin="104,196,0,0" VerticalAlignment="Top" Width="182"/>
+        <Rectangle HorizontalAlignment="Center" Height="41" VerticalAlignment="Top" Width="1026">
+            <Rectangle.Stroke>
+                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
+            </Rectangle.Stroke>
+            <Rectangle.Fill>
+                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Rectangle HorizontalAlignment="Center" Height="15" VerticalAlignment="Bottom" Width="1026" Margin="0,107,0,0">
+            <Rectangle.Stroke>
+                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
+            </Rectangle.Stroke>
+            <Rectangle.Fill>
+                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Label Content="Nombre Demandante" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="White" FontStyle="Italic"/>
+        <Button Content="Cerrar Sesión" HorizontalAlignment="Left" Margin="893,4,0,0" VerticalAlignment="Top" Width="104" Height="33" FontSize="14" FontWeight="Bold" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
+
+    </Grid>
+</Window>

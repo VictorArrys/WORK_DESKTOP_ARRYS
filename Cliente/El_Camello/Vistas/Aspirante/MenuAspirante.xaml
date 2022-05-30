@@ -1,0 +1,80 @@
+﻿<Window x:Class="El_Camello.Vistas.Aspirante.MenuAspirante"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:El_Camello.Vistas.Aspirante"
+        mc:Ignorable="d"
+        Title="MenuAspirante" Height="545" Width="1026" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid Height="529" VerticalAlignment="Top">
+        <Grid.Background>
+            <SolidColorBrush Color="#FFDFDFDF" Opacity="1"/>
+        </Grid.Background>
+        <Button Content="Editar Perfil" HorizontalAlignment="Left" Margin="178,58,0,0" VerticalAlignment="Top" FontStyle="Italic" FontWeight="Normal" Width="71" Background="{x:Null}" BorderBrush="{x:Null}"/>
+        <Button Content="Desactivar Perfil" HorizontalAlignment="Left" Margin="178,82,0,0" VerticalAlignment="Top" FontStyle="Italic" FontWeight="Normal" Background="{x:Null}">
+            <Button.BorderBrush>
+                <SolidColorBrush Color="#FFDFDFDF" Opacity="0.1"/>
+            </Button.BorderBrush>
+        </Button>
+        <Button Content="Activar Perfil" HorizontalAlignment="Left" Margin="178,107,0,0" VerticalAlignment="Top" FontStyle="Italic" FontWeight="Normal" Background="{x:Null}" BorderBrush="{x:Null}"/>
+        <Button Content="  Solicitudes &#xA;  de empleo" HorizontalAlignment="Left" Margin="26,243,0,0" VerticalAlignment="Top" Width="113" Height="41" FontSize="14" FontWeight="Bold" Foreground="White">
+            <Button.BorderBrush>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+            </Button.BorderBrush>
+            <Button.Background>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+            </Button.Background>
+        </Button>
+        <Button Content="Contrataciones &#xD;&#xA;    y servicios" HorizontalAlignment="Left" Margin="157,243,0,0" VerticalAlignment="Top" Width="113" Height="41" FontSize="14" FontWeight="Bold" Foreground="White" >
+            <Button.BorderBrush>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+            </Button.BorderBrush>
+            <Button.Background>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+            </Button.Background>
+        </Button>
+        <Button Content="Valoraciones" HorizontalAlignment="Left" Margin="26,322,0,0" VerticalAlignment="Top" Width="113" Height="40" FontSize="14" FontWeight="Bold" Foreground="White">
+            <Button.BorderBrush>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+            </Button.BorderBrush>
+            <Button.Background>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+            </Button.Background>
+        </Button>
+        <Button Content="Mensajeria" HorizontalAlignment="Left" Margin="157,322,0,0" VerticalAlignment="Top" Width="113" Height="41" FontSize="14" FontWeight="Bold" Foreground="White">
+            <Button.BorderBrush>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+            </Button.BorderBrush>
+            <Button.Background>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+            </Button.Background>
+        </Button>
+        <StackPanel Margin="15,49,848,347" Background="White"/>
+        <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="319,78,37,32"/>
+        <Label Content="Ofertas de empleo recomendadas:" HorizontalAlignment="Left" Margin="319,43,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Rectangle HorizontalAlignment="Center" Height="41" VerticalAlignment="Top" Width="1026">
+            <Rectangle.Stroke>
+                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
+            </Rectangle.Stroke>
+            <Rectangle.Fill>
+                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Rectangle HorizontalAlignment="Left" Height="15" Stroke="Black" VerticalAlignment="Bottom" Width="1043" Margin="-7,0,0,0">
+            <Rectangle.Fill>
+                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Label Content="Nombre Aspirante" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="White" FontStyle="Italic"/>
+        <Button Content="Cerrar Sesión" HorizontalAlignment="Left" Margin="894,7,0,0" VerticalAlignment="Top" Height="30" Width="101" FontSize="14" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
+        <Button Content="Solicitudes de&#xD;&#xA;     servicio" HorizontalAlignment="Left" Margin="96,392,0,0" VerticalAlignment="Top" Width="114" Height="41" FontSize="14" FontWeight="Bold" Foreground="White">
+            <Button.BorderBrush>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+            </Button.BorderBrush>
+            <Button.Background>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+            </Button.Background>
+        </Button>
+
+    </Grid>
+</Window>
