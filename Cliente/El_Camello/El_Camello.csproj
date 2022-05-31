@@ -8,10 +8,35 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Vistas\Administrador\1\" />
-    <Folder Include="Vistas\Aspirante\2\" />
+    <Compile Remove="Vistas\Administrador\1\**" />
+    <Compile Remove="Vistas\Aspirante\2\**" />
+    <EmbeddedResource Remove="Vistas\Administrador\1\**" />
+    <EmbeddedResource Remove="Vistas\Aspirante\2\**" />
+    <None Remove="Vistas\Administrador\1\**" />
+    <None Remove="Vistas\Aspirante\2\**" />
+    <Page Remove="Vistas\Administrador\1\**" />
+    <Page Remove="Vistas\Aspirante\2\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Assets\imagenes\" />
+    <Folder Include="Assets\utilerias\" />
+    <Folder Include="Modelo\dao\" />
     <Folder Include="Vistas\Demandante\3\" />
     <Folder Include="Vistas\Usuario\5\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Vistas\Administrador\GraficasEstadisticas.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Vistas\Administrador\GraficasEstadisticas.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 
 </Project>
