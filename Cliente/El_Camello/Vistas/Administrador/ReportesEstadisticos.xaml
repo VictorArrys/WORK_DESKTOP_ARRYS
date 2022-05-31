@@ -1,0 +1,66 @@
+﻿<Window x:Class="El_Camello.Vistas.Administrador.ReportesEstadisticos"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:El_Camello.Vistas.Administrador"
+        mc:Ignorable="d"
+        Title="ReportesEstadisticos" Height="570" Width="913">
+    <Grid Margin="0,0,0,-6">
+        <Rectangle HorizontalAlignment="Left" Height="229" Margin="12,51,0,0" Stroke="Black" VerticalAlignment="Top" Width="416"/>
+
+        <Grid RenderTransformOrigin="0.496,0.438" Margin="0,0,0,517">
+            <Grid.Background>
+                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
+            </Grid.Background>
+            <Button Content="Volver" HorizontalAlignment="Left" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Margin="756,13,0,0">
+                <Button.Background>
+                    <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
+                </Button.Background>
+                <Button.BorderBrush>
+                    <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
+                </Button.BorderBrush>
+            </Button>
+        </Grid>
+        <Grid RenderTransformOrigin="0.496,0.438" Margin="0,536,0,0">
+            <Grid.Background>
+                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
+            </Grid.Background>
+        </Grid>
+        <Label Content="Reportes estadisticos" HorizontalAlignment="Left" Margin="300,-2,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="26" Width="356"/>
+        <DataGrid d:ItemsSource="{Binding}" Margin="30,98,505,306">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Año" Binding= "{Binding categoriaEstadisticas}" Width="110"/>
+                <DataGridTextColumn Header="Usuarios" Binding= "{Binding solicitudesEstadisticas}" Width="130"/>
+                <DataGridTextColumn Header="Ofertas empleo" Binding= "{Binding fechaEstadisticas}" Width="130"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="Uso de la plafaforma" HorizontalAlignment="Left" Margin="88,48,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26" Height="39"/>
+        <Rectangle HorizontalAlignment="Left" Height="229" Margin="464,51,0,0" Stroke="Black" VerticalAlignment="Top" Width="416"/>
+        <DataGrid d:ItemsSource="{Binding}" Margin="488,98,49,306">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Empleador" Binding= "{Binding nombreEmpleador}" Width="270"/>
+                <DataGridTextColumn Header="Valoración" Binding= "{Binding valoracionEmpleador}" Width="103"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="Valoraciones de empleadores" HorizontalAlignment="Left" Margin="498,54,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26" Height="39"/>
+        <Rectangle HorizontalAlignment="Left" Height="233" Margin="12,285,0,0" Stroke="Black" VerticalAlignment="Top" Width="416"/>
+        <DataGrid d:ItemsSource="{Binding}" Margin="36,324,505,71">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Categoria" Binding= "{Binding categoriaEstadisticas}" Width="210"/>
+                <DataGridTextColumn Header="Solicitudes" Binding= "{Binding solicitudesEstadisticas}" Width="80"/>
+                <DataGridTextColumn Header="Año" Binding= "{Binding fechaEstadisticas}" Width="90"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="Mayores Ofertas" HorizontalAlignment="Left" Margin="88,280,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26" Height="39"/>
+        <Rectangle HorizontalAlignment="Left" Height="233" Margin="466,285,0,0" Stroke="Black" VerticalAlignment="Top" Width="416"/>
+        <DataGrid d:ItemsSource="{Binding}" Margin="490,324,49,71">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Aspirante" Binding= "{Binding nombreAspirante}" Width="270"/>
+                <DataGridTextColumn Header="Valoración" Binding= "{Binding valoracionAspirante}" Width="103"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="Valoraciones de aspirantes" HorizontalAlignment="Left" Margin="531,280,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26" Height="39"/>
+
+    </Grid>
+</Window>

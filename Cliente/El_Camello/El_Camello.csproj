@@ -14,4 +14,17 @@
     <Folder Include="Vistas\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Vistas\Administrador\GraficasEstadisticas.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Vistas\Administrador\GraficasEstadisticas.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
 </Project>
