@@ -8,22 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Vistas\Administrador\1\**" />
-    <Compile Remove="Vistas\Aspirante\2\**" />
-    <EmbeddedResource Remove="Vistas\Administrador\1\**" />
-    <EmbeddedResource Remove="Vistas\Aspirante\2\**" />
-    <None Remove="Vistas\Administrador\1\**" />
-    <None Remove="Vistas\Aspirante\2\**" />
-    <Page Remove="Vistas\Administrador\1\**" />
-    <Page Remove="Vistas\Aspirante\2\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Assets\imagenes\" />
     <Folder Include="Assets\utilerias\" />
     <Folder Include="Modelo\dao\" />
-    <Folder Include="Vistas\Demandante\3\" />
-    <Folder Include="Vistas\Usuario\5\" />
+    <Folder Include="Vistas\" />
   </ItemGroup>
 
   <ItemGroup>

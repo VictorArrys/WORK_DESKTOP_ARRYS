@@ -30,6 +30,7 @@
             </Rectangle.Fill>
         </Rectangle>
         <DataGrid d:ItemsSource="{Binding}" Margin="305,55,19,91" Grid.RowSpan="2" Grid.ColumnSpan="2">
+
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nombre del empleo" Binding= "{Binding nombreEmpleo}" Width="250"/>
                 <DataGridTextColumn Header="Categoria" Binding= "{Binding categoriaEmpleo}" Width="100"/>
