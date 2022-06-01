@@ -1,0 +1,73 @@
+﻿<Window x:Class="El_Camello.Vistas.Administrador.MenuAdministrador"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:El_Camello.Vistas.Administrador"
+        mc:Ignorable="d"
+        Title="MenuAdministrador" Height="450" Width="800">
+    <DockPanel LastChildFill="True">
+        <Grid DockPanel.Dock="Top" Background="#FF062758" Opacity="0.85" VerticalAlignment="Top" Height="40">
+            <Label Content="Menu Admiinistrador" FontSize="18" Foreground="White" FontWeight="Bold"/>
+        </Grid>
+        <Grid DockPanel.Dock="Bottom" Background="#FF062758" Opacity="0.85" Height="15" VerticalAlignment="Bottom"/>
+        <StackPanel DockPanel.Dock="Left" Background="#FF062758" Opacity=".85">
+            <Button x:Name="btnPantallaPerfil" Content="Mi Perfil" Margin="0,10,0,0" FontSize="16" Padding="10,5" FontWeight="Bold" Foreground="White" Click="btnPantallaPerfil_Click">
+                <Button.BorderBrush>
+                    <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+                </Button.BorderBrush>
+                <Button.Background>
+                    <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+                </Button.Background>
+            </Button>
+            <Separator Height="20" Margin="0"/>
+            <Button x:Name="btnPantallaCategorias" Content="Categorias de empleo" Margin="0,10,0,0" FontSize="16" Padding="10,5" FontWeight="Bold" Foreground="White" Click="btnPantallaCategorias_Click">
+                <Button.BorderBrush>
+                    <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+                </Button.BorderBrush>
+                <Button.Background>
+                    <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="btnPantallaUsuarios" Content="Perfiles de Usuarios" Margin="0,10,0,0" FontSize="16" Padding="10,5" FontWeight="Bold" Foreground="White" Click="btnPantallaUsuarios_Click">
+                <Button.BorderBrush>
+                    <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+                </Button.BorderBrush>
+                <Button.Background>
+                    <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+                </Button.Background>
+            </Button>
+
+            <Button x:Name="btnPantallaRptEst" Content="Reportes estadísticos" Margin="0,10,0,0" FontSize="16" Padding="10,5" FontWeight="Bold" Foreground="White" Click="btnPantallaRptEst_Click">
+                <Button.BorderBrush>
+                    <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+                </Button.BorderBrush>
+                <Button.Background>
+                    <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+                </Button.Background>
+            </Button>
+
+            <Button x:Name="btnPantallaGrfEst" Content="Graficas Estadísticas" Margin="0,10,0,0" FontSize="16" Padding="10,5" FontWeight="Bold" Foreground="White" Click="btnPantallaGrfEst_Click">
+                <Button.BorderBrush>
+                    <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+                </Button.BorderBrush>
+                <Button.Background>
+                    <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+                </Button.Background>
+            </Button>
+
+            <Separator Height="20" Margin="0"/>
+            
+            <Button x:Name="btnCerrarSesion" Content="Cerrar sesión" Margin="0,10,0,0" FontSize="16" Padding="10,5" FontWeight="Bold" Foreground="White" Click="btnCerrarSesion_Click">
+                <Button.BorderBrush>
+                    <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+                </Button.BorderBrush>
+                <Button.Background>
+                    <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+                </Button.Background>
+            </Button>
+        </StackPanel>
+        <Frame x:Name="panelPrincipal" Background="White" NavigationUIVisibility="Hidden"/>
+
+    </DockPanel>
+</Window>

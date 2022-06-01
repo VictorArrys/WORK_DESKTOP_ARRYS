@@ -1,0 +1,25 @@
+﻿<Window x:Class="El_Camello.Vistas.Usuario.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:El_Camello.Vistas.Usuario"
+        mc:Ignorable="d"
+        Title="El Camello" Height="480" Width="500" ResizeMode="NoResize">
+    <DockPanel LastChildFill="True">
+        <Grid DockPanel.Dock="Top" Background="#FF062758" Opacity="0.85" VerticalAlignment="Top" Height="50">
+            <Label Content="El Camello" Foreground="White" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center"/>
+        </Grid>
+        <Grid DockPanel.Dock="Bottom" Background="#FF062758" Opacity="0.85" VerticalAlignment="Bottom" Height="50" Margin="0,0,0,20"></Grid>
+        <Grid>
+            <Label Content="Usuario" FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="60,100"/>
+            <TextBox x:Name="txtNombreUsuario" FontSize="16" Width="200" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,105,60,0"/>
+
+            <Label Content="Contraseña" FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="60,150,0,0"/>
+            <PasswordBox x:Name="pwdClave" FontSize="16" Width="200"  VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,155,60,0" />
+            <Button x:Name="btnIniciarSesion" FontSize="16" Content="Iniciar Sesión" HorizontalAlignment="Center" Margin="0,220,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.801,0.694" Click="btnIniciarSesion_Click"/>
+            <Button x:Name="btnRestablcerClave" FontSize="16" Content="Restablcer contrasela" HorizontalAlignment="Center" Margin="0,276,0,0" VerticalAlignment="Top" Click="btnRestablcerClave_Click"/>
+
+        </Grid>
+    </DockPanel>
+</Window>
