@@ -14,6 +14,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using El_Camello.Vistas.Administrador;
+using El_Camello.Vistas.Demandante;
+using El_Camello.Vistas.Aspirante;
+using El_Camello.Empleador;
+using El_Camello.Vistas.Empleador;
 
 namespace El_Camello.Vistas.Usuario
 {
@@ -37,15 +41,22 @@ namespace El_Camello.Vistas.Usuario
                 switch (usuario.Tipo)
                 {
                     case "Administrador":
-                        MenuAdministrador menu = new MenuAdministrador(usuario);
-                        menu.Show();
+                        MenuAdministrador menuAdministrador = new MenuAdministrador(usuario);
+                        menuAdministrador.Show();
                         this.Close();
                         break;
                     case "Aspirante":
+                        MenuAspirante menuAspirante = new MenuAspirante(usuario);
+                        menuAspirante.Show();
+                        this.Close();
                         break;
                     case "Demandante":
+                        MenuDemandante menuDemandante = new MenuDemandante(usuario);
+                        menuDemandante.Show();
+                        this.Close();
                         break;
                     case "Empleador":
+                        OfertasEmpleo menuEmpleador = new OfertasEmpleo(usuario);
                         break;
                 }
             }

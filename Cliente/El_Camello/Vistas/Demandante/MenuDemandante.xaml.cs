@@ -19,7 +19,7 @@ namespace El_Camello.Vistas.Demandante
     /// </summary>
     public partial class MenuDemandante : Window
     {
-        public MenuDemandante()
+        public MenuDemandante(Modelo.clases.Usuario usuarioConectado)
         {
             InitializeComponent();
         }
