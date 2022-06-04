@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="categoriasEmpleo" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid Background="#FFDFDFDF">
-        <TextBox HorizontalAlignment="Left" Margin="194,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="430" Height="22" RenderTransformOrigin="0.5,0.5">
+        <TextBox x:Name="tbNombreCategoria" HorizontalAlignment="Left" Margin="194,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="430" Height="22" RenderTransformOrigin="0.5,0.5">
             <TextBox.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -19,7 +19,11 @@
         </TextBox>
         <Label Content="NOMBRE:" HorizontalAlignment="Left" Margin="111,102,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="Black"/>
         <TextBox HorizontalAlignment="Left" Margin="90,212,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="35,237,36,31"/>
+        <DataGrid x:Name="dgCategorias" Margin="35,237,36,31" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeRows="False" IsReadOnly="True" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="166" Header="Nombre" Binding="{Binding NombreCategoria}" FontSize="25"/>
+            </DataGrid.Columns>
+        </DataGrid>
         <Label Content="Buscar:" HorizontalAlignment="Left" Margin="41,206,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold"/>
         <Rectangle HorizontalAlignment="Center" Height="41" VerticalAlignment="Top" Width="800">
             <Rectangle.Stroke>
@@ -37,7 +41,7 @@
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.Background>
         </Button>
-        <Button Content="Registrar" HorizontalAlignment="Left" Margin="504,201,0,0" VerticalAlignment="Top" Width="71" Height="23" FontSize="14" FontWeight="Bold" UseLayoutRounding="False" Foreground="White">
+        <Button x:Name="btnRegistrarCategoria" Content="Registrar" HorizontalAlignment="Left" Margin="504,201,0,0" VerticalAlignment="Top" Width="71" Height="23" FontSize="14" FontWeight="Bold" UseLayoutRounding="False" Foreground="White" Click="btnRegistrarCategoria_Click" >
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>
@@ -45,7 +49,7 @@
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.Background>
         </Button>
-        <Button Content="Modificar" HorizontalAlignment="Left" Margin="587,201,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Width="71" RenderTransformOrigin="0.5,0.5" Height="23" Foreground="White">
+        <Button x:Name="btnModificarCategoria" Content="Modificar" HorizontalAlignment="Left" Margin="587,201,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Width="71" RenderTransformOrigin="0.5,0.5" Height="23" Foreground="White" Click="btnModificarCategoria_Click">
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>
@@ -61,7 +65,7 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Button Content="Eliminar" HorizontalAlignment="Left" Margin="668,201,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Height="23" Width="72" Foreground="White">
+        <Button x:Name="btnEliminarCategoria" Content="Eliminar" HorizontalAlignment="Left" Margin="668,201,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Height="23" Width="72" Foreground="White" Click="btnEliminarCategoria_Click">
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>
