@@ -14,6 +14,13 @@ namespace El_Camello.Modelo.clases
         public int IdCategoria { get => idCategoria; set => idCategoria = value; }
         public string NombreCategoria { get => nombreCategoria; set => nombreCategoria = value; }
 
+        public override string ToString()
+        {
+            return nombreCategoria;
+        }
+
 
     }
+
+
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using El_Camello.Modelo.dao;
+using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +24,7 @@ namespace El_Camello.Vistas.Usuario
         public RegistrarAspirante()
         {
             InitializeComponent();
+            CargarVentana();
         }
 
         private void btnCancelar_Click(object sender, RoutedEventArgs e)
@@ -29,6 +32,38 @@ namespace El_Camello.Vistas.Usuario
             RegistroPerfil menuRegistro = new RegistroPerfil();
             menuRegistro.Show();
             this.Close();
+        }
+
+        private async void CargarVentana()
+        {
+            cbCategorias.ItemsSource =  await CategoriaDAO.GetCategorias();
+            cbExperienciaLaboral.Items.Clear();
+            cbExperienciaLaboral.Items.Add("1 a 4 meses");
+            cbExperienciaLaboral.Items.Add("4 a 6 meses");
+            cbExperienciaLaboral.Items.Add("6 meses a 1 año");
+            cbExperienciaLaboral.Items.Add("1 a 6 años");
+            cbExperienciaLaboral.Items.Add("Mayor a 6 años");
+        }
+
+        private void btnSeleccionarVideo_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog selectorVideo = new OpenFileDialog();
+            selectorVideo.Filter = "Archivo mp4|*.mp4";
+            if (selectorVideo.ShowDialog() == true)
+            {
+                tbRutaVideo.Text = selectorVideo.FileName;
+            }
+            
+        }
+
+        private void btnSeleccionarDocumento_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog selectorDocumento = new OpenFileDialog();
+            selectorDocumento.Filter = "Archivo pdf|*.pdf";
+            if (selectorDocumento.ShowDialog() == true)
+            {
+                tbRutaDocumento.Text = selectorDocumento.FileName;
+            }
         }
     }
 }

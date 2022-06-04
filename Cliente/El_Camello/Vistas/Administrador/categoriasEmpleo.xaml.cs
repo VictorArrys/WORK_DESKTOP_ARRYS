@@ -35,7 +35,7 @@ namespace El_Camello.Vistas.Administrador
         {
             List<Categoria> categoriasTabla = new List<Categoria>();
             //aqui pasar el token que viene desde el inicio de seción
-            categoriasTabla = await CategoriaDAO.GetCategorias("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFVzdWFyaW8iOjEsImNsYXZlIjoiMTExMDk4IiwidGlwbyI6IkFkbWluaXN0cmFkb3IiLCJpYXQiOjE2NTQzNTQ3NDAsImV4cCI6MTY1NDQ0MTE0MH0.1Nm4C3vVs-jH3_zpcYBmJTqH9DQA_LH6b3VPRJSucaw");
+            categoriasTabla = await CategoriaDAO.GetCategorias();
 
             dgCategorias.ItemsSource = categoriasTabla;
         }
