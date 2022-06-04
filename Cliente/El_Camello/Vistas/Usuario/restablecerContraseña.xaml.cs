@@ -17,11 +17,23 @@ namespace El_Camello.Vistas.Usuario
     /// <summary>
     /// Lógica de interacción para restablecerContraseña.xaml
     /// </summary>
-    public partial class restablecerContraseña : Window
+    public partial class RestablecerContraseña : Window
     {
-        public restablecerContraseña()
+        public RestablecerContraseña()
         {
             InitializeComponent();
+        }
+
+        private void btnCancelar_Click(object sender, RoutedEventArgs e)
+        {
+            Login ventanaLogin = new Login();
+            ventanaLogin.Show();
+            this.Close();
+        }
+
+        private void btnAceptar_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

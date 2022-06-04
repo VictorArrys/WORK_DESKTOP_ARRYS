@@ -57,6 +57,8 @@ namespace El_Camello.Vistas.Usuario
                         break;
                     case "Empleador":
                         OfertasEmpleo menuEmpleador = new OfertasEmpleo(usuario);
+                        menuEmpleador.Show();
+                        this.Close();
                         break;
                 }
             }
@@ -64,7 +66,16 @@ namespace El_Camello.Vistas.Usuario
 
         private void btnRestablcerClave_Click(object sender, RoutedEventArgs e)
         {
+            RestablecerContraseña ventanaRestablecer = new RestablecerContraseña();
+            ventanaRestablecer.Show();
+            this.Close();
+        }
 
+        private void btnResgistrarse_Click(object sender, RoutedEventArgs e)
+        {
+            RegistroPerfil menuRegistro = new RegistroPerfil();
+            menuRegistro.Show();
+            this.Close();
         }
     }
 }

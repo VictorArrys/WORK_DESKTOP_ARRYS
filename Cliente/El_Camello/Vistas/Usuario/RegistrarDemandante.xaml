@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:El_Camello.Vistas.Usuario"
         mc:Ignorable="d"
-        Title="RegistrarDemandante" Height="542" Width="963"  WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Registrar Demandante" Height="542" Width="963"  WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid Background="#FFDFDFDF">
         <Label Content="Nombre: *" HorizontalAlignment="Left" Margin="50,97,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Label Content="Dirección: *" HorizontalAlignment="Left" Margin="49,167,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
@@ -42,7 +42,7 @@
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.Background>
         </Button>
-        <Button Content="Cancelar" Margin="836,458,50,45" Foreground="White" FontSize="14" FontWeight="Bold">
+        <Button x:Name="btnCancelar" Content="Cancelar" Margin="0,0,50,22" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="White" FontSize="14" FontWeight="Bold" Click="btnCancelar_Click">
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>

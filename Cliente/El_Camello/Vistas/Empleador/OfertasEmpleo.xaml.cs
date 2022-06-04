@@ -22,6 +22,7 @@ namespace El_Camello.Vistas.Empleador
         public OfertasEmpleo(Modelo.clases.Usuario usuarioConectado)
         {
             InitializeComponent();
+
         }
 
     }
