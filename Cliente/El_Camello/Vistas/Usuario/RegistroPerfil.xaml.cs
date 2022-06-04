@@ -22,6 +22,40 @@ namespace El_Camello.Vistas.Usuario
         public RegistroPerfil()
         {
             InitializeComponent();
+            CargarPantalla();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            string tipoUsuario = cbxTipoUsuario.SelectedValue.ToString();
+            switch (tipoUsuario)
+            {
+                case "Empleador":
+                    RegistrarEmpleador ventanaRegistroEmp = new RegistrarEmpleador();
+                    ventanaRegistroEmp.Show();
+                    this.Close();
+                    break;
+                case "Aspirante":
+                    RegistrarAspirante ventanaRegistroAsp = new RegistrarAspirante();
+                    ventanaRegistroAsp.Show();
+                    this.Close();
+                    break;
+                case "Demandante":
+                    RegistrarDemandante ventanaRegistroDem = new RegistrarDemandante();
+                    ventanaRegistroDem.Show();
+                    this.Close();
+                    break;
+            }
+            
+        }
+
+        private void CargarPantalla()
+        {
+            cbxTipoUsuario.Items.Clear();
+            cbxTipoUsuario.Items.Add("Empleador");
+            cbxTipoUsuario.Items.Add("Demandante");
+            cbxTipoUsuario.Items.Add("Aspirante");
+            cbxTipoUsuario.SelectedIndex = 0;
         }
     }
 }

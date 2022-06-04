@@ -45,7 +45,7 @@
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>
         </Button>
-        <Button Content="Cancelar" Margin="836,451,50,0" VerticalAlignment="Top" Height="23" Foreground="White" FontSize="14" FontWeight="Bold">
+        <Button x:Name="btnCancelar" Content="Cancelar" Margin="836,451,50,0" VerticalAlignment="Top" Height="23" Foreground="White" FontSize="14" FontWeight="Bold" Click="btnCancelar_Click">
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>

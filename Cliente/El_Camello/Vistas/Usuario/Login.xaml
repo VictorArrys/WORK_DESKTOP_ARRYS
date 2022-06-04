@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:El_Camello.Vistas.Usuario"
         mc:Ignorable="d"
-        Title="El Camello" Height="480" Width="500" ResizeMode="NoResize">
+        Title="El Camello" Height="550" Width="500" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <DockPanel LastChildFill="True">
         <Grid DockPanel.Dock="Top" Background="#FF062758" Opacity="0.85" VerticalAlignment="Top" Height="50">
             <Label Content="El Camello" Foreground="White" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center"/>
@@ -17,8 +17,30 @@
 
             <Label Content="Contraseña" FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="60,150,0,0"/>
             <PasswordBox x:Name="pwdClave" FontSize="16" Width="200"  VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,155,60,0" />
-            <Button x:Name="btnIniciarSesion" FontSize="16" Content="Iniciar Sesión" HorizontalAlignment="Center" Margin="0,220,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.801,0.694" Click="btnIniciarSesion_Click"/>
-            <Button x:Name="btnRestablcerClave" FontSize="16" Content="Restablcer contrasela" HorizontalAlignment="Center" Margin="0,276,0,0" VerticalAlignment="Top" Click="btnRestablcerClave_Click"/>
+            <Button x:Name="btnIniciarSesion" FontSize="16" Content="Iniciar Sesión" HorizontalAlignment="Center" Margin="0,220,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.801,0.694" Foreground="White" Click="btnIniciarSesion_Click">
+                <Button.Background>
+                    <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
+                </Button.Background>
+                <Button.BorderBrush>
+                    <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
+                </Button.BorderBrush>
+            </Button>
+            <Button x:Name="btnRestablcerClave" FontSize="16" Content="Restablcer contraseña" HorizontalAlignment="Center" Margin="0,275,0,0" Foreground="White" VerticalAlignment="Top" Click="btnRestablcerClave_Click">
+                <Button.Background>
+                    <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
+                </Button.Background>
+                <Button.BorderBrush>
+                    <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
+                </Button.BorderBrush>
+            </Button>
+            <Button x:Name="btnResgistrarse" FontSize="16" Content="Registrarse" HorizontalAlignment="Center" Margin="0,330,0,0" Foreground="White" VerticalAlignment="Top" Click="btnResgistrarse_Click" >
+                <Button.Background>
+                    <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
+                </Button.Background>
+                <Button.BorderBrush>
+                    <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
+                </Button.BorderBrush>
+            </Button>
 
         </Grid>
     </DockPanel>

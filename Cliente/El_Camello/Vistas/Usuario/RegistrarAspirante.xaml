@@ -15,7 +15,7 @@
         <Label Content="Usuario" HorizontalAlignment="Left" Margin="641,56,0,0" VerticalAlignment="Top" FontStyle="Italic" Opacity="0.78" FontSize="16" FontWeight="Bold" FontFamily="Centaur"/>
         <Label Content="Sube aqui un video describiendo tu experiencia laboral*" HorizontalAlignment="Left" Margin="48,336,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Label Content="**Recomendación: duración no mayor a 1 minuto:*" HorizontalAlignment="Left" Margin="60,358,0,0" VerticalAlignment="Top" FontSize="10" FontWeight="Bold"/>
-        <Button Content="Añadir" HorizontalAlignment="Left" Margin="52,378,0,0" VerticalAlignment="Top" Height="23" Width="77" Foreground="White" FontSize="14" FontWeight="Bold">
+        <Button x:Name="btnSeleccionarVideo" Content="Añadir" HorizontalAlignment="Left" Margin="52,378,0,0" VerticalAlignment="Top" Height="23" Width="77" Foreground="White" FontSize="14" FontWeight="Bold">
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.Background>
@@ -23,8 +23,8 @@
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>
         </Button>
-        <TextBox HorizontalAlignment="Left" Margin="133,380,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="196"/>
-        <Button Content="Añadir" HorizontalAlignment="Left" Margin="50,444,0,0" VerticalAlignment="Top" Height="23" Width="77" FontSize="14" FontWeight="Bold" Foreground="White">
+        <TextBox x:Name="tbRutaVideo" HorizontalAlignment="Left" Margin="133,380,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="196"/>
+        <Button x:Name="btnSeleccionarDocumento" Content="Añadir" HorizontalAlignment="Left" Margin="50,444,0,0" VerticalAlignment="Top" Height="23" Width="77" FontSize="14" FontWeight="Bold" Foreground="White">
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.Background>
@@ -32,21 +32,21 @@
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>
         </Button>
-        <TextBox HorizontalAlignment="Left" Margin="133,447,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="196"/>
+        <TextBox x:Name="tbRutaDocumento" HorizontalAlignment="Left" Margin="133,447,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="196"/>
         <Label Content="Curriculum, certificado, etc. en formato pdf unico (Opcional)" HorizontalAlignment="Left" Margin="48,409,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-        <TextBox HorizontalAlignment="Left" Margin="195,230,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Height="24" SelectionOpacity="1" BorderBrush="#FF020202"/>
-        <TextBox HorizontalAlignment="Left" Margin="195,296,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Height="24" SelectionOpacity="1" BorderBrush="#FF020202"/>
-        <TextBox HorizontalAlignment="Left" Margin="195,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Height="24" SelectionOpacity="1" BorderBrush="#FF020202"/>
-        <TextBox HorizontalAlignment="Left" Margin="195,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Height="24" SelectionOpacity="1" BorderBrush="#FF020202"/>
-        <DatePicker HorizontalAlignment="Left" Margin="195,165,0,0" VerticalAlignment="Top" Width="164"/>
+        <TextBox x:Name="tbCorreoElectronico" HorizontalAlignment="Left" Margin="195,230,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Height="24" SelectionOpacity="1" BorderBrush="#FF020202"/>
+        <TextBox x:Name="tbtelefono" HorizontalAlignment="Left" Margin="195,296,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Height="24" SelectionOpacity="1" BorderBrush="#FF020202"/>
+        <TextBox x:Name="tbDireccion" HorizontalAlignment="Left" Margin="195,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Height="24" SelectionOpacity="1" BorderBrush="#FF020202"/>
+        <TextBox x:Name="tbNombreAspirante" HorizontalAlignment="Left" Margin="195,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Height="24" SelectionOpacity="1" BorderBrush="#FF020202"/>
+        <DatePicker x:Name="dpFechaNacimiento" HorizontalAlignment="Left" Margin="195,165,0,0" VerticalAlignment="Top" Width="164"/>
         <Label Content="Sube aquí tu fotografía. " HorizontalAlignment="Left" Margin="480,39,0,0" VerticalAlignment="Top" FontSize="11" FontWeight="Bold" Height="25" Opacity="0.75" FontStyle="Italic"/>
         <Label Content="Nombre de usuario:" HorizontalAlignment="Left" Margin="646,93,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Label Content="Contraseña:" HorizontalAlignment="Left" Margin="647,127,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Label Content="Confirmar constraseña:" HorizontalAlignment="Left" Margin="648,161,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-        <TextBox Margin="807,96,42,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" BorderBrush="Black"/>
-        <PasswordBox Margin="807,134,42,0" VerticalAlignment="Top" Height="22" Background="White" BorderBrush="Black"/>
-        <PasswordBox HorizontalAlignment="Left" Margin="807,167,0,0" VerticalAlignment="Top" Width="169" Height="22" Background="White" BorderBrush="Black"/>
-        <Button Content="+" HorizontalAlignment="Left" Margin="619,121,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" FontFamily="Arial Black" Foreground="White">
+        <TextBox x:Name="tbNombreUsuario" Margin="807,96,42,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" BorderBrush="Black"/>
+        <PasswordBox x:Name="pwdClave" Margin="807,134,42,0" VerticalAlignment="Top" Height="22" Background="White" BorderBrush="Black"/>
+        <PasswordBox x:Name="pwdClaveConfirmacion" HorizontalAlignment="Left" Margin="807,167,0,0" VerticalAlignment="Top" Width="169" Height="22" Background="White" BorderBrush="Black"/>
+        <Button x:Name="btnSeleccionarImagen" Content="+" HorizontalAlignment="Left" Margin="619,121,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" FontFamily="Arial Black" Foreground="White">
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.Background>
@@ -54,9 +54,14 @@
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>
         </Button>
-        <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="480,312,30,82"/>
+        <DataGrid x:Name="dgExperienciaCategoria" Margin="480,312,30,82">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Categoria"></DataGridTextColumn>
+                <DataGridTextColumn Header="Experiencia"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
         <Label Content="Oficios" HorizontalAlignment="Center" Margin="0,211,0,0" VerticalAlignment="Top" FontStyle="Italic" Opacity="0.78" FontSize="16" FontWeight="Bold" FontFamily="Centaur"/>
-        <ComboBox HorizontalAlignment="Left" Margin="485,242,0,0" VerticalAlignment="Top" Width="166" BorderBrush="White">
+        <ComboBox x:Name="cbCategorias" HorizontalAlignment="Left" Margin="485,242,0,0" VerticalAlignment="Top" Width="166" BorderBrush="White">
             <ComboBox.Background>
                 <LinearGradientBrush EndPoint="0,1">
                     <GradientStop Color="#FFF0F0F0"/>
@@ -65,7 +70,7 @@
             </ComboBox.Background>
         </ComboBox>
         <Label Content="Experciencia Laboral" HorizontalAlignment="Left" Margin="679,214,0,0" VerticalAlignment="Top" FontStyle="Italic" Opacity="0.78" FontSize="16" FontWeight="Bold" FontFamily="Centaur"/>
-        <ComboBox HorizontalAlignment="Left" Margin="685,242,0,0" VerticalAlignment="Top" Width="166" BorderBrush="White">
+        <ComboBox x:Name="cbExperienciaLaboral" HorizontalAlignment="Left" Margin="685,242,0,0" VerticalAlignment="Top" Width="166" BorderBrush="White">
             <ComboBox.Background>
                 <LinearGradientBrush EndPoint="0,1">
                     <GradientStop Color="#FFF0F0F0"/>
@@ -73,7 +78,7 @@
                 </LinearGradientBrush>
             </ComboBox.Background>
         </ComboBox>
-        <Button Content="Agregar" HorizontalAlignment="Left" Margin="489,277,0,0" VerticalAlignment="Top" Height="23" Width="77" FontSize="14" FontWeight="Bold" Foreground="White">
+        <Button x:Name="btnAgregarCategoria" Content="Agregar" HorizontalAlignment="Left" Margin="489,277,0,0" VerticalAlignment="Top" Height="23" Width="77" FontSize="14" FontWeight="Bold" Foreground="White">
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.Background>
@@ -81,7 +86,7 @@
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>
         </Button>
-        <Button Content="Quitar" HorizontalAlignment="Left" Margin="574,277,0,0" VerticalAlignment="Top" Height="23" Width="77" FontSize="14" FontWeight="Bold" Foreground="White">
+        <Button x:Name="btnQuitarCategoria" Content="Quitar" HorizontalAlignment="Left" Margin="574,277,0,0" VerticalAlignment="Top" Height="23" Width="77" FontSize="14" FontWeight="Bold" Foreground="White">
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.Background>
@@ -89,7 +94,7 @@
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>
         </Button>
-        <Button Content="Cancelar" HorizontalAlignment="Left" Margin="925,478,0,0" VerticalAlignment="Top" Height="23" Width="77" Foreground="White" FontSize="14" FontWeight="Bold">
+        <Button x:Name="btnCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="925,478,0,0" VerticalAlignment="Top" Height="23" Width="77" Foreground="White" FontSize="14" FontWeight="Bold" Click="btnCancelar_Click">
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.Background>
@@ -97,7 +102,7 @@
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>
         </Button>
-        <Button Content="Guardar" HorizontalAlignment="Left" Margin="838,478,0,0" VerticalAlignment="Top" Height="23" Width="77" Foreground="White" FontWeight="Bold" FontSize="14">
+        <Button x:Name="btnGuardarAspirante" Content="Guardar" HorizontalAlignment="Left" Margin="838,478,0,0" VerticalAlignment="Top" Height="23" Width="77" Foreground="White" FontWeight="Bold" FontSize="14">
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>
@@ -105,7 +110,7 @@
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.Background>
         </Button>
-        <StackPanel Margin="480,64,415,351" Background="White"/>
+        <StackPanel x:Name="spImagen" Margin="480,64,415,351" Background="White"/>
         <Rectangle HorizontalAlignment="Center" Height="41" VerticalAlignment="Top" Width="1033">
             <Rectangle.Stroke>
                 <SolidColorBrush Color="#FF062758" Opacity="0.85"/>

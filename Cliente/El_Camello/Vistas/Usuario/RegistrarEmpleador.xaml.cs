@@ -23,5 +23,12 @@ namespace El_Camello.Vistas.Usuario
         {
             InitializeComponent();
         }
+
+        private void btnCancelar_Click(object sender, RoutedEventArgs e)
+        {
+            RegistroPerfil menuRegistrarPerfil = new RegistroPerfil();
+            menuRegistrarPerfil.Show();
+            this.Close();
+        }
     }
 }
