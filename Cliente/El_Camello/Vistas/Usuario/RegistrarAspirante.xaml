@@ -46,7 +46,7 @@
         <TextBox x:Name="tbNombreUsuario" Margin="807,96,42,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" BorderBrush="Black"/>
         <PasswordBox x:Name="pwdClave" Margin="807,134,42,0" VerticalAlignment="Top" Height="22" Background="White" BorderBrush="Black"/>
         <PasswordBox x:Name="pwdClaveConfirmacion" HorizontalAlignment="Left" Margin="807,167,0,0" VerticalAlignment="Top" Width="169" Height="22" Background="White" BorderBrush="Black"/>
-        <Button x:Name="btnSeleccionarImagen" Content="+" HorizontalAlignment="Left" Margin="619,121,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" FontFamily="Arial Black" Foreground="White">
+        <Button x:Name="btnSeleccionarImagen" Content="+" HorizontalAlignment="Left" Margin="619,121,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" FontFamily="Arial Black" Foreground="White" Click="btnSeleccionarImagen_Click">
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.Background>
@@ -54,10 +54,10 @@
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>
         </Button>
-        <DataGrid x:Name="dgExperienciaCategoria" Margin="480,312,30,82">
+        <DataGrid x:Name="dgExperienciaCategoria" Margin="480,312,30,82" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeRows="False" IsReadOnly="True" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Categoria"></DataGridTextColumn>
-                <DataGridTextColumn Header="Experiencia"></DataGridTextColumn>
+                <DataGridTextColumn Header="Categoria" Binding="{Binding NombreCategoria}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Experiencia" Binding="{Binding Experiencia}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Oficios" HorizontalAlignment="Center" Margin="0,211,0,0" VerticalAlignment="Top" FontStyle="Italic" Opacity="0.78" FontSize="16" FontWeight="Bold" FontFamily="Centaur"/>
@@ -78,7 +78,7 @@
                 </LinearGradientBrush>
             </ComboBox.Background>
         </ComboBox>
-        <Button x:Name="btnAgregarCategoria" Content="Agregar" HorizontalAlignment="Left" Margin="489,277,0,0" VerticalAlignment="Top" Height="23" Width="77" FontSize="14" FontWeight="Bold" Foreground="White">
+        <Button x:Name="btnAgregarCategoria" Content="Agregar" HorizontalAlignment="Left" Margin="489,277,0,0" VerticalAlignment="Top" Height="23" Width="77" FontSize="14" FontWeight="Bold" Foreground="White" Click="btnAgregarCategoria_Click">
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.Background>
@@ -86,7 +86,7 @@
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>
         </Button>
-        <Button x:Name="btnQuitarCategoria" Content="Quitar" HorizontalAlignment="Left" Margin="574,277,0,0" VerticalAlignment="Top" Height="23" Width="77" FontSize="14" FontWeight="Bold" Foreground="White">
+        <Button x:Name="btnQuitarCategoria" Content="Quitar" HorizontalAlignment="Left" Margin="574,277,0,0" VerticalAlignment="Top" Height="23" Width="77" FontSize="14" FontWeight="Bold" Foreground="White" Click="btnQuitarCategoria_Click">
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.Background>
@@ -102,7 +102,7 @@
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>
         </Button>
-        <Button x:Name="btnGuardarAspirante" Content="Guardar" HorizontalAlignment="Left" Margin="838,478,0,0" VerticalAlignment="Top" Height="23" Width="77" Foreground="White" FontWeight="Bold" FontSize="14">
+        <Button x:Name="btnGuardarAspirante" Content="Guardar" HorizontalAlignment="Left" Margin="838,478,0,0" VerticalAlignment="Top" Height="23" Width="77" Foreground="White" FontWeight="Bold" FontSize="14" Click="btnGuardarAspirante_Click">
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>

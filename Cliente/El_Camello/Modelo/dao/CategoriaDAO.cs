@@ -74,7 +74,7 @@ namespace El_Camello.Modelo.dao
                     HttpRequestMessage cuerpoMensaje = new HttpRequestMessage();
                     string cuerpoJson = "{\"nombre\": \"" + nombre + "\"}";
 
-                    var data = new StringContent((string)cuerpoJson, Encoding.UTF8, "application/json");
+                    var data = new StringContent(cuerpoJson, Encoding.UTF8, "application/json");
 
 
                     HttpResponseMessage respuesta = await cliente.PostAsync(endpoint, data);

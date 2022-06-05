@@ -13,6 +13,7 @@ namespace El_Camello.Modelo.clases
         private string nombreAspirante;
         private string direccion;
         private DateTime fechaNacimiento;
+        private List<Oficio> oficios;
         private string telefono;
         private byte[] curriculum;
         private string rutaCurriculum;
@@ -29,5 +30,6 @@ namespace El_Camello.Modelo.clases
         public string RutaCurriculum { get => rutaCurriculum; set => rutaCurriculum = value; }
         public byte[] Video { get => video; set => video = value; }
         public string RutaVideo { get => rutaVideo; set => rutaVideo = value; }
+        internal List<Oficio> Oficios { get => oficios; set => oficios = value; }
     }
 }
