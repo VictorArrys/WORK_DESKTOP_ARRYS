@@ -22,7 +22,16 @@ namespace El_Camello.Vistas.Empleador
         public OfertasEmpleo(Modelo.clases.Usuario usuarioConectado)
         {
             InitializeComponent();
-
+            byte[] fotoPerfil = usuarioConectado.Fotografia;
+            using (var memoryStream = new System.IO.MemoryStream(fotoPerfil))
+            {
+                var imagen = new BitmapImage();
+                imagen.BeginInit();
+                imagen.CacheOption = BitmapCacheOption.OnLoad;
+                imagen.StreamSource = memoryStream;
+                imagen.EndInit();
+                this.imgFoto.Source = imagen;
+            }
         }
 
     }
