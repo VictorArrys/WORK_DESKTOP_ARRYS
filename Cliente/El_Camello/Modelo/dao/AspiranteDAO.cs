@@ -22,9 +22,9 @@ namespace El_Camello.Modelo.dao
             int res =  -1;
             using (var cliente = new HttpClient())
             {
+                string endpoint = "http://localhost:5000/v1/perfilAspirantes/1/fotografia";
+                //string endpoint = "http://localhost:5000/v1/perfilAspirantes";
 
-                string endpoint = "http://localhost:5000/v1/perfilAspirantes";
-                
                 try
                 {
                     JArray arregloOficiosJson = new JArray();
@@ -32,13 +32,13 @@ namespace El_Camello.Modelo.dao
                     {
                         JObject oficioJson = new JObject();
                         oficioJson.Add("idCategoria", item.IdCategoria);
-                        oficioJson.Add("experiencia",item.Experiencia);
+                        oficioJson.Add("experiencia", item.Experiencia);
                         arregloOficiosJson.Add(oficioJson);
                     }
-                    
+
                     HttpRequestMessage cuerpoMensaje = new HttpRequestMessage();
                     JObject objeto = new JObject();
-                    objeto.Add("clave",usuario.Clave);
+                    objeto.Add("clave", usuario.Clave);
                     objeto.Add("correoElectronico", usuario.CorreoElectronico);
                     objeto.Add("direccion", aspirante.Direccion);
                     objeto.Add("estatus", 1);
@@ -47,7 +47,6 @@ namespace El_Camello.Modelo.dao
                     objeto.Add("nombreUsuario", usuario.NombreUsuario);
                     objeto.Add("oficios", arregloOficiosJson);
                     string cuerpoJson = JsonConvert.SerializeObject(objeto);
-                    MessageBox.Show(cuerpoJson);
                     /*Dictionary<string, string> parametros = new Dictionary<string, string>();
 
                     //terminar diccionario
@@ -109,6 +108,18 @@ namespace El_Camello.Modelo.dao
                             MessageBox.Show(mensaje);
                             break;
                     }*/
+                    MultipartFormDataContent foto = new MultipartFormDataContent();
+
+                    var contenidoImagen = new ByteArrayContent(usuario.Fotografia);
+                    contenidoImagen.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
+                    foto.Add(contenidoImagen, "fotografia", "fotografiaPerfil.jpg");
+
+                    HttpResponseMessage respuesta = await cliente.PostAsync(endpoint, foto);
+                    //HttpContent fotoContenido = new StreamContent(File.OpenRead(usuario.RutaFotografia));
+                    //foto.Add(fotoContenido, "fotografia", "fotoPerfil.jpg");
+
+
+
                 }
                 catch (HttpRequestException ex)
                 {

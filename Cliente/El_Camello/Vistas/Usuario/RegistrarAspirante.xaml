@@ -110,7 +110,9 @@
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.Background>
         </Button>
-        <StackPanel x:Name="spImagen" Margin="480,64,415,351" Background="White"/>
+        <StackPanel Margin="480,64,415,351" Background="White">
+            <Image x:Name="imgFotografiaAspirante" HorizontalAlignment="Left" VerticalAlignment="Top" Height="143" Width="138"/>
+        </StackPanel>
         <Rectangle HorizontalAlignment="Center" Height="41" VerticalAlignment="Top" Width="1033">
             <Rectangle.Stroke>
                 <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
@@ -128,6 +130,7 @@
             </Rectangle.Fill>
         </Rectangle>
         <Label Content="Información registro" HorizontalAlignment="Left" Margin="11,6,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontStyle="Italic" Foreground="White" Background="{x:Null}"/>
+
 
     </Grid>
 </Window>

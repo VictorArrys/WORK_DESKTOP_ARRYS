@@ -77,7 +77,9 @@ namespace El_Camello.Vistas.Usuario
 
         private void btnGuardarAspirante_Click(object sender, RoutedEventArgs e)
         {
-            
+            Uri uriImagen;
+
+
             user = new Modelo.clases.Usuario();
             aspirante = new Modelo.clases.Aspirante();
             //oficios = new Modelo.clases.Oficios();
@@ -88,6 +90,8 @@ namespace El_Camello.Vistas.Usuario
             aspirante.Oficios = oficios.ToList();
             //isertar a ruta imagen
             user.RutaFotografia = rutaImagen;
+            uriImagen = new Uri(user.RutaFotografia);
+            user.Fotografia = System.IO.File.ReadAllBytes(uriImagen.LocalPath);
             aspirante.NombreAspirante = tbNombreAspirante.Text;
             aspirante.Direccion = tbDireccion.Text;
             aspirante.FechaNacimiento = (DateTime)dpFechaNacimiento.SelectedDate;
@@ -104,8 +108,13 @@ namespace El_Camello.Vistas.Usuario
             selectorDocumento.Filter = "Imagen jpg|*.jpg";
             if (selectorDocumento.ShowDialog() == true)
             {
+                Uri uriImagen;
                 rutaImagen = selectorDocumento.FileName;
+
+                uriImagen = new Uri(rutaImagen);
+                imgFotografiaAspirante.Source = new BitmapImage(uriImagen);
             }
+
         }
 
         private void btnAgregarCategoria_Click(object sender, RoutedEventArgs e)
