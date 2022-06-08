@@ -1,11 +1,11 @@
-﻿<Window x:Class="El_Camello.Vistas.Administrador.consultarPerfiles"
+﻿<Page x:Class="El_Camello.Vistas.Administrador.consultarPerfiles"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:El_Camello.Vistas.Administrador"
         mc:Ignorable="d"
-        Title="consultarPerfiles" Height="602" Width="959" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="consultarPerfiles" Height="602" Width="959">
     <Grid Background="#FFDFDFDF">
         <Rectangle HorizontalAlignment="Center" Height="41" VerticalAlignment="Top" Width="959">
             <Rectangle.Stroke>
@@ -57,4 +57,4 @@
         <Button Content="Cerrar Sesión" HorizontalAlignment="Left" Margin="833,7,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}"/>
 
     </Grid>
-</Window>
+</Page>

@@ -19,16 +19,42 @@ namespace El_Camello.Vistas.Usuario
     /// </summary>
     public partial class RegistrarEmpleador : Window
     {
+        private bool nuevoRegistro;
+        private Modelo.clases.Empleador perfilEmpleador;
+
         public RegistrarEmpleador()
         {
             InitializeComponent();
+            nuevoRegistro = true;
+            perfilEmpleador = new Modelo.clases.Empleador();
+        }
+
+        public RegistrarEmpleador(Modelo.clases.Empleador perfilEmpleador) : this()
+        {
+            nuevoRegistro = false;
+            this.perfilEmpleador = perfilEmpleador;
+            CargarFormulario();
         }
 
         private void btnCancelar_Click(object sender, RoutedEventArgs e)
         {
-            RegistroPerfil menuRegistrarPerfil = new RegistroPerfil();
-            menuRegistrarPerfil.Show();
+            if (nuevoRegistro) {
+                RegistroPerfil menuRegistrarPerfil = new RegistroPerfil();
+                menuRegistrarPerfil.Show();
+            }
             this.Close();
+        }
+
+
+        private void CargarFormulario()
+        {
+            //Preparar fomrulario
+
+
+            if(!nuevoRegistro)
+            {
+                //Cargar datos de empleador en formulario
+            }
         }
     }
 }

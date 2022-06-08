@@ -21,7 +21,7 @@ namespace El_Camello.Vistas.Administrador
     /// <summary>
     /// Interaction logic for ReportesEstadisticos.xaml
     /// </summary>
-    public partial class GraficasEstadisticas : Window
+    public partial class GraficasEstadisticas : Page
     {
 
         public ISeries[] Series { get; set; } = new ISeries[]

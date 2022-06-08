@@ -64,7 +64,7 @@ namespace El_Camello.Modelo.dao
                         case HttpStatusCode.InternalServerError:
                         case HttpStatusCode.NotFound:
                             JObject codigo = JObject.Parse(body);
-                            string mensaje = (string)codigo["resBody"]["menssage"];
+                            string mensaje = (string)codigo["type error"]["message"];
                             MessageBox.Show(mensaje);
                             usuario = null;
                             break;

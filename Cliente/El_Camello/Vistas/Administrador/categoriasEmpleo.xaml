@@ -1,11 +1,11 @@
-﻿<Window x:Class="El_Camello.Vistas.Administrador.categoriasEmpleo"
+﻿<Page x:Class="El_Camello.Vistas.Administrador.categoriasEmpleo"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:El_Camello.Vistas.Administrador"
         mc:Ignorable="d"
-        Title="categoriasEmpleo" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="categoriasEmpleo">
     <Grid Background="#FFDFDFDF">
         <TextBox x:Name="tbNombreCategoria" HorizontalAlignment="Left" Margin="194,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="430" Height="22" RenderTransformOrigin="0.5,0.5">
             <TextBox.RenderTransform>
@@ -85,4 +85,4 @@
         <Button Content="Regresar" Margin="702,5,23,0" VerticalAlignment="Top" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="14" FontWeight="Bold" FontStyle="Italic" Foreground="White"/>
 
     </Grid>
-</Window>
+</Page>

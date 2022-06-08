@@ -19,7 +19,7 @@ namespace El_Camello.Vistas.Administrador
     /// <summary>
     /// Lógica de interacción para categoriasEmpleo.xaml
     /// </summary>
-    public partial class categoriasEmpleo : Window
+    public partial class categoriasEmpleo : Page
     {
         //List<Categoria> categoriasTabla = null;
         Categoria categoriaSeleccionada = null; 
