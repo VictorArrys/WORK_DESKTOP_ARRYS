@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace El_Camello.Empleador
+namespace El_Camello.Vistas.Empleador
 {
     /// <summary>
     /// Interaction logic for SolcitudesEmpleos.xaml

@@ -21,34 +21,58 @@ namespace El_Camello.Vistas.Administrador
     /// </summary>
     public partial class MenuAdministrador : Window
     {
+        private categoriasEmpleo ventanaCategorias;
+        private consultarPerfiles ventanaConsultarPerfiles;
+        private ReportesEstadisticos ventanaRepEst;
+        private GraficasEstadisticas ventanaGrfEst;
+
+
         public MenuAdministrador(Modelo.clases.Usuario usuarioConectado)
         {
             InitializeComponent();
+
         }
 
         private void btnPantallaPerfil_Click(object sender, RoutedEventArgs e)
         {
-
+            PerfilAdministrador ventanaPerfilAdministrador = new PerfilAdministrador(/* Objeto Administrador */);
+            ventanaPerfilAdministrador.ShowDialog();
         }
 
         private void btnPantallaCategorias_Click(object sender, RoutedEventArgs e)
         {
-
+            if (ventanaCategorias == null)
+            {
+                ventanaCategorias = new categoriasEmpleo();
+            }
+            panelPrincipal.Content = ventanaCategorias;
         }
 
         private void btnPantallaUsuarios_Click(object sender, RoutedEventArgs e)
         {
-
+            if (ventanaConsultarPerfiles == null)
+            {
+                ventanaConsultarPerfiles = new consultarPerfiles();
+            }
+            panelPrincipal.Content = ventanaConsultarPerfiles;
         }
 
         private void btnPantallaRptEst_Click(object sender, RoutedEventArgs e)
         {
-
+            if (ventanaRepEst == null)
+            {
+                ventanaRepEst = new ReportesEstadisticos();
+            }
+            panelPrincipal.Content = ventanaRepEst;
         }
 
         private void btnPantallaGrfEst_Click(object sender, RoutedEventArgs e)
         {
-
+            if (ventanaGrfEst == null)
+            {
+                ventanaGrfEst = new GraficasEstadisticas();
+            }
+            panelPrincipal.Content = ventanaGrfEst;
         }
 
         private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)

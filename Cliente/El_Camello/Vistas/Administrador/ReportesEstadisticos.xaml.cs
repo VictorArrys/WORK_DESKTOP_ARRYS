@@ -17,7 +17,7 @@ namespace El_Camello.Vistas.Administrador
     /// <summary>
     /// Interaction logic for ReportesEstadisticos.xaml
     /// </summary>
-    public partial class ReportesEstadisticos : Window
+    public partial class ReportesEstadisticos : Page
     {
         public ReportesEstadisticos()
         {

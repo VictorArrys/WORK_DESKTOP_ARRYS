@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:El_Camello.Vistas.Administrador"
         mc:Ignorable="d"
-        Title="PerfilAdministrador" Height="484" Width="484"  WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="PerfilAdministrador" Height="484" Width="484" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid Background="#FFDFDFDF">
         <Rectangle HorizontalAlignment="Left" Height="41" VerticalAlignment="Top" Width="486">
             <Rectangle.Stroke>

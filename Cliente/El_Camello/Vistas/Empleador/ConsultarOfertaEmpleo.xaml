@@ -1,9 +1,9 @@
-﻿<Window x:Class="El_Camello.Empleador.ConsultarOfertaEmpleo"
+﻿<Window x:Class="El_Camello.Vistas.Empleador.ConsultarOfertaEmpleo"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:El_Camello.Empleador"
+        xmlns:local="clr-namespace:El_Camello.Vistas.Empleador"
         mc:Ignorable="d"
         Title="ConsultarOfertaEmpleo" Height="468" Width="892">
     <Grid Margin="0,0,0,-6">

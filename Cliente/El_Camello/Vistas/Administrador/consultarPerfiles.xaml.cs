@@ -17,7 +17,7 @@ namespace El_Camello.Vistas.Administrador
     /// <summary>
     /// Lógica de interacción para consultarPerfiles.xaml
     /// </summary>
-    public partial class consultarPerfiles : Window
+    public partial class consultarPerfiles : Page
     {
         public consultarPerfiles()
         {

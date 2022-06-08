@@ -1,11 +1,11 @@
-﻿<Window x:Class="El_Camello.Vistas.Administrador.ReportesEstadisticos"
+﻿<Page x:Class="El_Camello.Vistas.Administrador.ReportesEstadisticos"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:El_Camello.Vistas.Administrador"
         mc:Ignorable="d"
-        Title="ReportesEstadisticos" Height="570" Width="913">
+        Title="ReportesEstadisticos" Height="570" Width="913" Background="White">
     <Grid Margin="0,0,0,-6">
         <Rectangle HorizontalAlignment="Left" Height="229" Margin="12,51,0,0" Stroke="Black" VerticalAlignment="Top" Width="416"/>
 
@@ -63,4 +63,4 @@
         <Label Content="Valoraciones de aspirantes" HorizontalAlignment="Left" Margin="531,280,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26" Height="39"/>
 
     </Grid>
-</Window>
+</Page>
