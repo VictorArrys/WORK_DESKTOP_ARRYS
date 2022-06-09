@@ -49,7 +49,7 @@
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.Background>
         </Button>
-        <StackPanel Margin="15,49,848,347" Background="White"/>
+        <Image x:Name="imgFoto" Margin="15,49,848,347"/>
         <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="319,78,37,32"/>
         <Label Content="Ofertas de empleo recomendadas:" HorizontalAlignment="Left" Margin="319,43,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Rectangle HorizontalAlignment="Center" Height="41" VerticalAlignment="Top" Width="1026">

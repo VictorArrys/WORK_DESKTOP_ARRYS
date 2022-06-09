@@ -35,12 +35,13 @@ namespace El_Camello.Vistas.Usuario
         {
             string nombreUsuario = txtNombreUsuario.Text;
             string clave = pwdClave.Password;
-            Modelo.clases.Usuario usuario = await UsuarioDAO.iniciarSesion(nombreUsuario, clave);
+            Modelo.clases.Usuario usuario = await UsuarioDAO.iniciarSesion(nombreUsuario, clave); 
             if (usuario != null)
             {
                 switch (usuario.Tipo)
                 {
                     case "Administrador":
+
                         MenuAdministrador menuAdministrador = new MenuAdministrador(usuario);
                         menuAdministrador.Show();
                         this.Close();

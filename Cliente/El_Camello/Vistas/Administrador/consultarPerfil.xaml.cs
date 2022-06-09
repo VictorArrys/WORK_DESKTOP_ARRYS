@@ -22,6 +22,8 @@ namespace El_Camello.Vistas.Administrador
         public consultarPerfil()
         {
             InitializeComponent();
+
+
         }
     }
 }

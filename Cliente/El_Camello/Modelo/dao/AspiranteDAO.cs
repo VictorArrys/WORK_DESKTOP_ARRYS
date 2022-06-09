@@ -19,11 +19,13 @@ namespace El_Camello.Modelo.dao
 
         public static async Task<int> PostAspirante(Usuario usuario, clases.Aspirante aspirante)
         {
-            int res =  -1;
+
+            int res = -1;
+            Modelo.clases.Aspirante aspiranteRegistro = new Modelo.clases.Aspirante();
             using (var cliente = new HttpClient())
             {
-                string endpoint = "http://localhost:5000/v1/perfilAspirantes/1/fotografia";
-                //string endpoint = "http://localhost:5000/v1/perfilAspirantes";
+                
+                string endpoint = "http://localhost:5000/v1/perfilAspirantes";
 
                 try
                 {
@@ -42,12 +44,120 @@ namespace El_Camello.Modelo.dao
                     objeto.Add("correoElectronico", usuario.CorreoElectronico);
                     objeto.Add("direccion", aspirante.Direccion);
                     objeto.Add("estatus", 1);
-                    objeto.Add("fechaNacimiento", aspirante.FechaNacimiento);
+                    string fecha = string.Format("{0:yyyy-MM-dd}", aspirante.FechaNacimiento);
+                    objeto.Add("fechaNacimiento", fecha);
                     objeto.Add("nombre", aspirante.NombreAspirante);
                     objeto.Add("nombreUsuario", usuario.NombreUsuario);
                     objeto.Add("oficios", arregloOficiosJson);
+                    objeto.Add("telefono", aspirante.Telefono);
                     string cuerpoJson = JsonConvert.SerializeObject(objeto);
-                    /*Dictionary<string, string> parametros = new Dictionary<string, string>();
+
+                    var data = new StringContent(cuerpoJson, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage respuesta = await cliente.PostAsync(endpoint, data);
+                    string body = await respuesta.Content.ReadAsStringAsync();
+                    switch (respuesta.StatusCode)
+                    {
+                        case HttpStatusCode.OK:
+                            aspiranteRegistro = new Modelo.clases.Aspirante();
+                            JObject perfilAspirante = JObject.Parse(body);
+                            MessageBox.Show(body);
+                            /*JArray oficios = new JArray();
+                            aspiranteRegistro.Clave = (string)perfilAspirante["clave"];
+                            aspiranteRegistro.CorreoElectronico = (string)perfilAspirante["correo_electronico"];
+                            aspirante.Direccion = (string)perfilAspirante["direccion"];
+                            aspiranteRegistro.Estatus = (string)perfilAspirante["estatus"];
+                            aspiranteRegistro.FechaNacimiento = (DateTime)perfilAspirante["fecha_nacimiento"];
+                            aspiranteRegistro.IdPerfilusuario = (int)perfilAspirante["id_perfil_usuario"];
+                            aspiranteRegistro.NombreAspirante = (string)perfilAspirante["nombre"];
+                            aspiranteRegistro.NombreUsuario = (string)perfilAspirante["nombre_usuario"];*/
+
+                            break;
+                        case HttpStatusCode.Unauthorized:
+                        case HttpStatusCode.InternalServerError:
+                        case HttpStatusCode.NotFound:
+                            JObject codigo = JObject.Parse(body);
+                            string mensaje = (string)codigo["type error"]["message"];
+                            MessageBox.Show(mensaje);
+                            break;
+                    }
+
+                    MultipartFormDataContent foto = new MultipartFormDataContent();
+
+                    var contenidoImagen = new ByteArrayContent(usuario.Fotografia);
+                    contenidoImagen.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
+                    foto.Add(contenidoImagen, "fotografia", "fotografiaPerfil.jpg");
+
+                    //string endpointfoto = String.Format("http://localhost:5000/v1/perfilAspirantes/{0}/{1}",foto);
+
+                    //HttpResponseMessage respuesta = await cliente.PostAsync(endpoint, foto);
+                    //HttpContent fotoContenido = new StreamContent(File.OpenRead(usuario.RutaFotografia));
+                    //foto.Add(fotoContenido, "fotografia", "fotoPerfil.jpg");
+
+
+
+                }
+                catch (HttpRequestException ex)
+                {
+                    MessageBox.Show("servidor desconectado, no se puede establecer conexion");
+                }
+
+
+            }
+
+            return res;
+        }
+
+        public static async Task<Modelo.clases.Aspirante> GetAspirante(int idUsuarioAspirante, string token)
+        {
+            Modelo.clases.Aspirante aspirante = new Modelo.clases.Aspirante();
+            using (var cliente = new HttpClient())
+            {
+                cliente.DefaultRequestHeaders.Add("x-access-token", token);
+                string endpoint = string.Format("/v1/perfilAspirantes/{0}", idUsuarioAspirante);
+
+                try
+                {
+                    HttpResponseMessage respuesta = await cliente.GetAsync(endpoint);
+                    string body = await respuesta.Content.ReadAsStringAsync();
+                    switch (respuesta.StatusCode)
+                    {
+                        case HttpStatusCode.OK:
+                            JObject perfilAspirante = JObject.Parse(body);
+                            aspirante.IdAspirante = (int)perfilAspirante["id_perfil_aspirante"];
+                            aspirante.IdPerfilusuario = (int)perfilAspirante["id_perfil_usuario_aspirante"];
+                            aspirante.NombreAspirante = (string)perfilAspirante["nombre"];
+                            aspirante.Direccion = (string)perfilAspirante["direccion"];
+                            aspirante.FechaNacimiento = (DateTime)perfilAspirante["fecha_nacimiento"];
+                            aspirante.Telefono = (string)perfilAspirante["telefono"];
+                            //aspirante.Oficios = perfilAspirante["oficios"];
+                            //aspirante.Video = (byte[])perfilAspirante["video"];
+                            break;
+                        case HttpStatusCode.Unauthorized:
+                        case HttpStatusCode.InternalServerError:
+                        case HttpStatusCode.NotFound:
+                            JObject codigo = JObject.Parse(body);
+                            string mensaje = (string)codigo["resBody"]["menssage"];
+                            MessageBox.Show(mensaje);
+                            break;
+                    }
+                }
+                catch (HttpRequestException ex)
+                {
+                    MessageBox.Show("servidor desconectado, no se puede establecer conexion");
+                }
+
+
+            }
+
+            return aspirante;
+        }
+
+    }
+
+}
+
+/*Dictionary<string, string> parametros = new Dictionary<string, string>();
 
                     //terminar diccionario
                     parametros.Add("clave", usuario.Clave);
@@ -108,29 +218,3 @@ namespace El_Camello.Modelo.dao
                             MessageBox.Show(mensaje);
                             break;
                     }*/
-                    MultipartFormDataContent foto = new MultipartFormDataContent();
-
-                    var contenidoImagen = new ByteArrayContent(usuario.Fotografia);
-                    contenidoImagen.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
-                    foto.Add(contenidoImagen, "fotografia", "fotografiaPerfil.jpg");
-
-                    HttpResponseMessage respuesta = await cliente.PostAsync(endpoint, foto);
-                    //HttpContent fotoContenido = new StreamContent(File.OpenRead(usuario.RutaFotografia));
-                    //foto.Add(fotoContenido, "fotografia", "fotoPerfil.jpg");
-
-
-
-                }
-                catch (HttpRequestException ex)
-                {
-                    MessageBox.Show("servidor desconectado, no se puede establecer conexion");
-                }
-
-
-            }
-
-            return res;
-        }
-
-    }
-}

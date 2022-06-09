@@ -82,13 +82,11 @@ namespace El_Camello.Vistas.Usuario
 
             user = new Modelo.clases.Usuario();
             aspirante = new Modelo.clases.Aspirante();
-            //oficios = new Modelo.clases.Oficios();
 
             user.Clave = pwdClave.Password;
             user.NombreUsuario = tbNombreUsuario.Text;
             user.CorreoElectronico = tbCorreoElectronico.Text;
             aspirante.Oficios = oficios.ToList();
-            //isertar a ruta imagen
             user.RutaFotografia = rutaImagen;
             uriImagen = new Uri(user.RutaFotografia);
             user.Fotografia = System.IO.File.ReadAllBytes(uriImagen.LocalPath);
@@ -97,7 +95,7 @@ namespace El_Camello.Vistas.Usuario
             aspirante.FechaNacimiento = (DateTime)dpFechaNacimiento.SelectedDate;
             aspirante.Telefono = tbtelefono.Text;
             //aspirante.RutaVideo = tbRutaVideo.Text;
-            //aspirante.RutaCurriculum = tbRutaDocumento.Text;
+
 
             AspiranteDAO.PostAspirante(user, aspirante);
         }

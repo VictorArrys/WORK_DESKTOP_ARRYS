@@ -22,7 +22,6 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 string endpoint = string.Format("http://localhost:5000/v1/iniciarSesion?nombreUsuario={0}&clave={1}", nombreUsuario, clave);
-                //HttpResponseMessage respuesta = await client.GetAsync(query);
                 try
                 {
                     HttpResponseMessage respuesta = await cliente.GetAsync(endpoint);
@@ -33,32 +32,22 @@ namespace El_Camello.Modelo.dao
                             JObject user = JsonConvert.DeserializeObject<JObject>(body);
                             //usuario.Fotografia = Encoding.ASCII.GetBytes((string)user["fotografia"]);
 
-                            JObject arrayu = (JObject)user["fotografia"];
-                            byte[] segmentosFoto = new byte[arrayu.Count];
-                            //MessageBox.Show((string)arrayu);
+                            JObject arrayFoto = (JObject)user["fotografia"];
+                            byte[] segmentosFoto = new byte[arrayFoto.Count];
 
-                            for (int i =0; i < arrayu.Count; i++)
+                            for (int i =0; i < arrayFoto.Count; i++)
                             {
-                                segmentosFoto[i] = (byte)arrayu[i.ToString()];
+                                segmentosFoto[i] = (byte)arrayFoto[i.ToString()];
                             }
 
                             usuario.Fotografia = segmentosFoto;
                             usuario.Clave = (string)user["clave"];
-                            usuario.Tipo = (string)user["tipo"];
+                            usuario.Tipo = (string)user["tipoUsuario"];
                             usuario.Estatus = (string)user["estatus"];
                             usuario.IdPerfilusuario = (int)user["idPerfilusuario"];
                             usuario.CorreoElectronico = (string)user["correoElectronico"];
-                            usuario.Token = (string)user["token"];
-
-
-                            
-
-                            //JArray fotografia = (JArray)user["fotografia"];
-                            //BinaryFormatter bf = new BinaryFormatter();
-                            //MemoryStream ms = new MemoryStream();
-                            //bf.Serialize(ms, fotografia);
-
-                            //usuario.Fotografia = ms.ToArray();
+                            usuario.Token = respuesta.Headers.GetValues("x-access-token").First();
+                            //usuario.Token = (string)user["token"];
                             break;
                         case HttpStatusCode.Unauthorized:
                         case HttpStatusCode.InternalServerError:
