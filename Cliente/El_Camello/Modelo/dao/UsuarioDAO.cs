@@ -48,13 +48,7 @@ namespace El_Camello.Modelo.dao
                                 usuario.Fotografia = null;
                             }
                             
-                            /*JObject arrayFoto = (JObject)user["fotografia"];
-                            byte[] segmentosFoto = new byte[arrayFoto.Count];
 
-                            for (int i =0; i < arrayFoto.Count; i++)
-                            {
-                                segmentosFoto[i] = (byte)arrayFoto[i.ToString()];
-                            }*/
                             usuario.Clave = (string)user["clave"];
                             usuario.Tipo = (string)user["tipoUsuario"];
                             usuario.Estatus = (string)user["estatus"];

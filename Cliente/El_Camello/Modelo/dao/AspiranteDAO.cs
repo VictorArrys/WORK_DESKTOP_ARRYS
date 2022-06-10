@@ -114,7 +114,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = string.Format("/v1/perfilAspirantes/{0}", idUsuarioAspirante);
+                string endpoint = string.Format("http://localhost:5000/v1/perfilAspirantes/{0}", idUsuarioAspirante);
 
                 try
                 {
@@ -124,14 +124,16 @@ namespace El_Camello.Modelo.dao
                     {
                         case HttpStatusCode.OK:
                             JObject perfilAspirante = JObject.Parse(body);
-                            aspirante.IdAspirante = (int)perfilAspirante["id_perfil_aspirante"];
-                            aspirante.IdPerfilusuario = (int)perfilAspirante["id_perfil_usuario_aspirante"];
-                            aspirante.NombreAspirante = (string)perfilAspirante["nombre"];
                             aspirante.Direccion = (string)perfilAspirante["direccion"];
-                            aspirante.FechaNacimiento = (DateTime)perfilAspirante["fecha_nacimiento"];
-                            aspirante.Telefono = (string)perfilAspirante["telefono"];
+                            aspirante.FechaNacimiento = (DateTime)perfilAspirante["fechaNacimiento"];
+                            aspirante.IdAspirante = (int)perfilAspirante["idPerfilAspirante"];
+                            aspirante.NombreAspirante = (string)perfilAspirante["nombre"];
+                            aspirante.IdPerfilusuario = (int)perfilAspirante["idPerfilUsuario"];
                             //aspirante.Oficios = perfilAspirante["oficios"];
-                            //aspirante.Video = (byte[])perfilAspirante["video"];
+                            aspirante.Telefono = (string)perfilAspirante["telefono"];
+                            //video
+
+
                             break;
                         case HttpStatusCode.Unauthorized:
                         case HttpStatusCode.InternalServerError:
