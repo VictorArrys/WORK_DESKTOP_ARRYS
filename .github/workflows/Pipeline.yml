@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 env:
-  PROJECT_PATH: Cliente/ElCamello/El_Camello.csproj
+  PROJECT_PATH: "Cliente\\ElCamello\\El_Camello.csproj"
 
 jobs:
   build_and_deploy:
