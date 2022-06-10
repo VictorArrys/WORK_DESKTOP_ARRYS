@@ -30,17 +30,31 @@ namespace El_Camello.Modelo.dao
                     {
                         case HttpStatusCode.OK:
                             JObject user = JsonConvert.DeserializeObject<JObject>(body);
-                            //usuario.Fotografia = Encoding.ASCII.GetBytes((string)user["fotografia"]);
 
-                            JObject arrayFoto = (JObject)user["fotografia"];
+                            try
+                            {
+                                JObject arrayFoto = (JObject)user["fotografia"];
+                                byte[] segmentosFoto = new byte[arrayFoto.Count];
+
+                                for (int i = 0; i < arrayFoto.Count; i++)
+                                {
+                                    segmentosFoto[i] = (byte)arrayFoto[i.ToString()];
+                                }
+
+                                usuario.Fotografia = segmentosFoto;
+                            }
+                            catch (InvalidCastException)
+                            {
+                                usuario.Fotografia = null;
+                            }
+                            
+                            /*JObject arrayFoto = (JObject)user["fotografia"];
                             byte[] segmentosFoto = new byte[arrayFoto.Count];
 
                             for (int i =0; i < arrayFoto.Count; i++)
                             {
                                 segmentosFoto[i] = (byte)arrayFoto[i.ToString()];
-                            }
-
-                            usuario.Fotografia = segmentosFoto;
+                            }*/
                             usuario.Clave = (string)user["clave"];
                             usuario.Tipo = (string)user["tipoUsuario"];
                             usuario.Estatus = (string)user["estatus"];

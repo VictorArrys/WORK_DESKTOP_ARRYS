@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,10 +20,26 @@ namespace El_Camello.Vistas.Administrador
     /// </summary>
     public partial class consultarPerfil : Window
     {
+        string rutaVideo = "";
+        Uri video = null;
         public consultarPerfil()
         {
             InitializeComponent();
 
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog selectorVideo = new OpenFileDialog();
+            selectorVideo.Filter = "Archivo mp4|*.mp4";
+            if (selectorVideo.ShowDialog() == true)
+            {
+                rutaVideo = selectorVideo.FileName;
+            }
+
+            video = new Uri(rutaVideo);
+            meVideoAspirante.Source = video;
 
         }
     }

@@ -26,11 +26,12 @@ namespace El_Camello.Vistas.Aspirante
             InitializeComponent();
             perfilAspirante = new Modelo.clases.Aspirante();
             CargarMenuAspirante(usuarioConectado);
+            
         }
 
         private async void CargarMenuAspirante(Modelo.clases.Usuario usuarioConectado)
         {
-            perfilAspirante = await AspiranteDAO.GetAspirante(usuarioConectado.IdPerfilusuario, usuarioConectado.Token);
+            //perfilAspirante = await AspiranteDAO.GetAspirante(usuarioConectado.IdPerfilusuario, usuarioConectado.Token);
             perfilAspirante.Clave = usuarioConectado.Clave;
             perfilAspirante.Estatus = usuarioConectado.Estatus;
             perfilAspirante.IdPerfilusuario = usuarioConectado.IdPerfilusuario;
@@ -39,7 +40,7 @@ namespace El_Camello.Vistas.Aspirante
             perfilAspirante.TipoUsuario = usuarioConectado.TipoUsuario;
             perfilAspirante.Token = usuarioConectado.Token;
 
-            MessageBox.Show(perfilAspirante.ToString());
+            MessageBox.Show(perfilAspirante.Token);
             
 
             

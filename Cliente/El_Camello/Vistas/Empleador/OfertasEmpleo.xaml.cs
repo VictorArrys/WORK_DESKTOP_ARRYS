@@ -22,19 +22,38 @@ namespace El_Camello.Vistas.Empleador
     {
         public OfertasEmpleo(Modelo.clases.Usuario usuarioConectado)
         {
+
             InitializeComponent();
-            byte[] fotoPerfil = usuarioConectado.Fotografia;
-            if(fotoPerfil.Length > 0)
+            CargarImagen(usuarioConectado);
+            
+        }
+
+        private void CargarImagen(Modelo.clases.Usuario usuarioConectado)
+        {
+
+            try
             {
-                using (var memoryStream = new System.IO.MemoryStream(fotoPerfil))
+                byte[] fotoPerfil = usuarioConectado.Fotografia;
+                if (fotoPerfil == null)
                 {
-                    var imagen = new BitmapImage();
-                    imagen.BeginInit();
-                    imagen.CacheOption = BitmapCacheOption.OnLoad;
-                    imagen.StreamSource = memoryStream;
-                    imagen.EndInit();
-                    this.imgFoto.Source = imagen;
+                    fotoPerfil = null;
+                }else if (fotoPerfil.Length > 0)
+                {
+                    using (var memoryStream = new System.IO.MemoryStream(fotoPerfil))
+                    {
+                        var imagen = new BitmapImage();
+                        imagen.BeginInit();
+                        imagen.CacheOption = BitmapCacheOption.OnLoad;
+                        imagen.StreamSource = memoryStream;
+                        imagen.EndInit();
+                        this.imgFoto.Source = imagen;
+                    }
                 }
+                
+            }
+            catch (Exception)
+            {
+                imgFoto.Source = null;
             }
         }
 

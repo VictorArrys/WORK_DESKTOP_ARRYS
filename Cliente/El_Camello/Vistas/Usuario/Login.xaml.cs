@@ -41,7 +41,6 @@ namespace El_Camello.Vistas.Usuario
                 switch (usuario.Tipo)
                 {
                     case "Administrador":
-
                         MenuAdministrador menuAdministrador = new MenuAdministrador(usuario);
                         menuAdministrador.Show();
                         this.Close();
