@@ -16,13 +16,13 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-dotnet@v1
+      - uses: actions/setup-dotnet@v2
         with:
-          dotnet-version: 6.0.0
+          dotnet-version: "6.0.x"
       - run: dotnet restore ${{ env.PROJECT_PATH }}
       - run: dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
       #Test here!!
-      - run: dotnet publish ${{ env.PROJECT_PATH }} -c Release --self-contained -r WinExe -p:PublishSingleFile=true --no-build      
+      - run: dotnet publish ${{ env.PROJECT_PATH }} -c Release --self-contained -p:PublishSingleFile=true --no-build      
       
       - uses: actions/create-release@v1
         id: create_release
