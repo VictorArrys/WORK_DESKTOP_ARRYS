@@ -63,5 +63,5 @@ jobs:
         with:
           github-token: ${{ secrets.TOKEN_ELCAMELLO }}
           file: ./ElCamello.zip
-          release: ${{ steps.create_release.outputs.upload_url }}
+          release-url: ${{ steps.create_release.outputs.upload_url }}
           
