@@ -49,8 +49,7 @@ jobs:
       
       - name: Comprimiendo publicación
         run: "Compress-Archive Cliente/El_Camello/bin/Release/net6.0-windows/win10-x86/publish/* ElCamello"
-      
-      - run: dir .
+
       - name: Creando Release
         uses: ncipollo/release-action@v1.10.0
         id: create_release
