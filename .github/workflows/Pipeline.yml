@@ -24,13 +24,12 @@ jobs:
       #Test here!!
       - run: dotnet publish ${{ env.PROJECT_PATH }} -c Release -r win10-x86 --self-contained -p:PublishSingleFile=true      
       
-      - uses: actions/create-release@latest
+      
+      - name: Create Release
+        uses: ncipollo/release-action@v1.10.0
         id: create_release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
       
       - uses: csexton/release-asset-action@v2
         with:
