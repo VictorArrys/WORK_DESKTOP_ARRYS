@@ -5,7 +5,7 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-    <RuntimeIdentifier>win7-x86</RuntimeIdentifier>
+    <RuntimeIdentifier>win10-x86</RuntimeIdentifier>
   </PropertyGroup>
 
   <ItemGroup>
