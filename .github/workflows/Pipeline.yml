@@ -36,5 +36,6 @@ jobs:
       - uses: csexton/release-asset-action@v2
         with:
           github-token: ${{ secrets.TOKEN_ELCAMELLO }}
-          pattern: Cliente/El_Camello/bin/Release/net6.0-windows/win10-x86/publish/*
+          pattern: Cliente/El_Camello/bin/Release/net6.0-windows/publish/*.exe
           release: ${{ steps.create_release.outputs.upload_url }}
+          
