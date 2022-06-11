@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 
 namespace El_Camello.Vistas.Usuario
 {
-    /// <summary>
+    /// <summary> ¿Has oido hablar del manco de día y cojo de noche?
     /// Lógica de interacción para RegistroPerfil.xaml
     /// </summary>
     public partial class RegistroPerfil : Window
