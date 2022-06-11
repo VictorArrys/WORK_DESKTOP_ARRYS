@@ -26,17 +26,17 @@ jobs:
       - run: dotnet publish ${{ env.PROJECT_PATH }} -c Release -r win10-x86 --self-contained -p:PublishSingleFile=true      
       
       - name: Create Release
-        uses: actions/create-release@v1
+        uses: ncipollo/release-action@v1.10.0
         id: create_release
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN_ELCAMELLO }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
+          token: ${{ secrets.TOKEN_ELCAMELLO }}
+          tag: ${{ github.ref }}
+          name: Release ${{ github.ref }}
       
+      - run: "dir Cliente/El_Camello/bin/Release/net6.0-windows/publish/"
       - uses: csexton/release-asset-action@v2
         with:
           github-token: ${{ secrets.TOKEN_ELCAMELLO }}
-          pattern: Cliente/El_Camello/bin/Release/net6.0-windows/publish/*.exe
+          pattern: Cliente/El_Camello/bin/Release/net6.0-windows/publish/*
           release: ${{ steps.create_release.outputs.upload_url }}
           
