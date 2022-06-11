@@ -17,15 +17,14 @@ jobs:
     runs-on: windows-latest
     
     steps:
-      - name: Descargando repositorio
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
       
       - name: Descargando .net 6.0
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: "6.0.x"
       
-      - name: "Instaladd dependencias"
+      - name: Instalado dependencias
         run: dotnet restore ${{ env.PROJECT_PATH }}
       
       - name: Compilando código
@@ -37,8 +36,7 @@ jobs:
     runs-on: windows-latest
     
     steps:
-      - name: Descargando repositorio
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
       
       - name: Descargando .net 6.0
         uses: actions/setup-dotnet@v2
@@ -46,9 +44,9 @@ jobs:
           dotnet-version: "6.0.x"
           
       - run: dotnet publish ${{ env.PROJECT_PATH }} -c Release -r win10-x86 --self-contained -p:PublishSingleFile=true  
-      - run: "dir Cliente/El_Camello/bin/Release/net6.0-windows/win10-x86/publish/"
+      - run: "Compress-Archive Cliente/El_Camello/bin/Release/net6.0-windows/win10-x86/publish/* ElCamello"
       
-      - name: Create Release
+      - name: Creando Release
         uses: ncipollo/release-action@v1.10.0
         id: create_release
         with:
@@ -56,9 +54,10 @@ jobs:
           tag: ${{ github.ref }}
           name: Release ${{ github.ref }}
       
-      - uses: csexton/release-asset-action@v2
+      - name: Agregando ElCamello.zip
+        uses: csexton/release-asset-action@v2
         with:
           github-token: ${{ secrets.TOKEN_ELCAMELLO }}
-          pattern: Cliente/El_Camello/bin/Release/net6.0-windows/win10-x86/
+          file: ElCamello.zip
           release: ${{ steps.create_release.outputs.upload_url }}
           
