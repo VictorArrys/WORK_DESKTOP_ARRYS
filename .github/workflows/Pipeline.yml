@@ -3,11 +3,12 @@ name: "Pipeline Cliente ElCamello"
 on:
   push:
     branches: [ main ]
-
-  pull_request:
-    branches: [ main ]
+    tags:
+      - "v1.0.*"
+  #pull_request:
+  #  branches: [ main ]
     
-  workflow_dispatch:
+  #workflow_dispatch:
 
 env:
   PROJECT_PATH: Cliente/El_Camello/El_Camello.csproj
