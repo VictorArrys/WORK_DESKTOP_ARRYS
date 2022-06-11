@@ -6,23 +6,45 @@ on:
 
   pull_request:
     branches: [ main ]
-    # Allows you to run this workflow manually from the Actions tab
+    
   workflow_dispatch:
 
 env:
   PROJECT_PATH: Cliente/El_Camello/El_Camello.csproj
 
 jobs:
-  build_and_deploy:
+  Integracion:
     runs-on: windows-latest
+    
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-dotnet@v2
+      - name: Descargando repositorio
+        uses: actions/checkout@v3
+      
+      - name: Descargando .net 6.0
+        uses: actions/setup-dotnet@v2
         with:
           dotnet-version: "6.0.x"
-      - run: dotnet restore ${{ env.PROJECT_PATH }}
-      - run: dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
-      #Test here!!
+      
+      - name: "Instaladd dependencias"
+        run: dotnet restore ${{ env.PROJECT_PATH }}
+      
+      - name: Compilando código
+        run: dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
+      #Test here
+  
+  Entrega:
+    needs: Integracion
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Descargando repositorio
+        uses: actions/checkout@v3
+      
+      - name: Descargando .net 6.0
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: "6.0.x"
+          
       - run: dotnet publish ${{ env.PROJECT_PATH }} -c Release -r win10-x86 --self-contained -p:PublishSingleFile=true  
       - run: "dir Cliente/El_Camello/bin/Release/net6.0-windows/win10-x86/publish/"
       
@@ -37,6 +59,6 @@ jobs:
       - uses: csexton/release-asset-action@v2
         with:
           github-token: ${{ secrets.TOKEN_ELCAMELLO }}
-          pattern: Cliente/El_Camello/bin/Release/net6.0-windows/win10-x86/*
+          pattern: Cliente/El_Camello/bin/Release/net6.0-windows/win10-x86/
           release: ${{ steps.create_release.outputs.upload_url }}
           
