@@ -10,7 +10,7 @@
     <Grid Margin="0,0,0,-6">
         <Rectangle HorizontalAlignment="Left" Height="229" Margin="12,51,0,0" Stroke="Black" VerticalAlignment="Top" Width="416"/>
 
-        <Grid RenderTransformOrigin="0.496,0.438" Margin="0,0,0,517">
+        <Grid RenderTransformOrigin="0.496,0.438" Margin="0,0,0,533">
             <Grid.Background>
                 <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
             </Grid.Background>

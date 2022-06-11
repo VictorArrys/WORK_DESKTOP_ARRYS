@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 
 namespace El_Camello.Vistas.Usuario
 {
-    /// <summary>
+    /// <summary> THE THUNDER PANDAS FOREVER
     /// Lógica de interacción para restablecerContraseña.xaml
     /// </summary>
     public partial class RestablecerContraseña : Window

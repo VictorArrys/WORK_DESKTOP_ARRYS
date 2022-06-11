@@ -20,7 +20,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 //string token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFVzdWFyaW8iOjEsImNsYXZlIjoiMTExMDk4IiwidGlwbyI6IkFkbWluaXN0cmFkb3IiLCJpYXQiOjE2NTQzNTQ3NDAsImV4cCI6MTY1NDQ0MTE0MH0.1Nm4C3vVs-jH3_zpcYBmJTqH9DQA_LH6b3VPRJSucaw";
-                //cliente.DefaultRequestHeaders.Add("x-access-token", token);
+                cliente.DefaultRequestHeaders.Add("x-access-token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFVzdWFyaW8iOjQsImNsYXZlIjoidXNhZ2l0c3VraW5vIiwidGlwbyI6IkFkbWluaXN0cmFkb3IiLCJpYXQiOjE2NTQ4OTg3OTAsImV4cCI6MTY1NDk4NTE5MH0.QRMG1iDwfGOi8foajhG0JgBin_MVbP8QCieeeOJRosw");
                 string endpoint = "http://localhost:5000/v1/categoriasEmpleo";
                 //HttpResponseMessage respuesta = await client.GetAsync(query);
                 try
@@ -43,7 +43,7 @@ namespace El_Camello.Modelo.dao
                         case HttpStatusCode.InternalServerError:
                         case HttpStatusCode.NotFound:
                             JObject codigo = JObject.Parse(body);
-                            string mensaje = (string)codigo["resBody"]["menssage"];
+                            string mensaje = (string)codigo["type error"]["menssage"];
                             MessageBox.Show(mensaje);
                             break;
                     }
