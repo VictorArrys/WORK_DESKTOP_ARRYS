@@ -3,6 +3,8 @@ name: "Pipeline Cliente ElCamello"
 on:
   push:
     branches: [ main ]
+    tags: 
+      - "ElCamello/v1.0.*"
   pull_request:
     branches: [ main ]
   # Allows you to run this workflow manually from the Actions tab
@@ -23,7 +25,6 @@ jobs:
       - run: dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
       #Test here!!
       - run: dotnet publish ${{ env.PROJECT_PATH }} -c Release -r win10-x86 --self-contained -p:PublishSingleFile=true      
-      
       
       - name: Create Release
         uses: ncipollo/release-action@v1.10.0
