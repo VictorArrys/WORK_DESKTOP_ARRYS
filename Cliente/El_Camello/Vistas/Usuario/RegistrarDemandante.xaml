@@ -12,13 +12,15 @@
         <Label Content="Fecha Nacimiento:*" HorizontalAlignment="Left" Margin="50,255,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Label Content="Correo Electrónico:*" HorizontalAlignment="Left" Margin="46,332,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Label Content="Telefono:*" HorizontalAlignment="Left" Margin="52,415,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-        <TextBox HorizontalAlignment="Left" Margin="195,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Height="24" SelectionOpacity="1" BorderBrush="#FF020202"/>
-        <TextBox HorizontalAlignment="Left" Margin="195,172,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Height="24" BorderBrush="Black"/>
-        <TextBox HorizontalAlignment="Left" Margin="195,336,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Height="24" BorderBrush="Black"/>
-        <TextBox HorizontalAlignment="Left" Margin="195,417,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Height="24" BorderBrush="Black"/>
-        <DatePicker HorizontalAlignment="Left" Margin="195,260,0,0" VerticalAlignment="Top" Width="164"/>
-        <StackPanel Margin="442,97,353,303" Background="#FFFDFDFD"/>
-        <Button Content="+" HorizontalAlignment="Left" Margin="624,145,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" FontFamily="Arial Black" Foreground="White">
+        <TextBox x:Name="tbNombreDemandante" HorizontalAlignment="Left" Margin="195,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Height="24" SelectionOpacity="1" BorderBrush="#FF020202"/>
+        <TextBox x:Name="tbDireccion" HorizontalAlignment="Left" Margin="195,172,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Height="24" BorderBrush="Black"/>
+        <TextBox x:Name="tbCorreoElectronico" HorizontalAlignment="Left" Margin="195,336,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Height="24" BorderBrush="Black"/>
+        <TextBox x:Name="tbTelefono" HorizontalAlignment="Left" Margin="195,417,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Height="24" BorderBrush="Black"/>
+        <DatePicker x:Name="dpFechaNacimiento" HorizontalAlignment="Left" Margin="195,260,0,0" VerticalAlignment="Top" Width="164"/>
+        <StackPanel Margin="442,97,353,303" Background="#FFFDFDFD">
+            <Image x:Name="imgFotografiaDemandante" Height="128" Width="170"/>
+        </StackPanel>
+        <Button x:Name="btnSeleccionarImagen" Content="+" HorizontalAlignment="Left" Margin="624,145,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" FontFamily="Arial Black" Foreground="White" Click="btnSeleccionarImagen_Click">
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.Background>
@@ -26,15 +28,15 @@
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>
         </Button>
-        <Label Content="Sube aquí tu fotografía. " HorizontalAlignment="Left" Margin="442,67,0,0" VerticalAlignment="Top" FontSize="11" FontWeight="Bold" Height="25" Opacity="0.75"/>
+        <Label Content="Sube aquí tu fotografía. *" HorizontalAlignment="Left" Margin="442,67,0,0" VerticalAlignment="Top" FontSize="11" FontWeight="Bold" Height="25" Opacity="0.75"/>
         <Label Content="Usuario" HorizontalAlignment="Left" Margin="440,228,0,0" VerticalAlignment="Top" FontStyle="Italic" Opacity="0.78" FontSize="16" FontWeight="Normal" FontFamily="Centaur"/>
-        <Label Content="Nombre de usuario:" HorizontalAlignment="Left" Margin="439,258,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-        <Label Content="Contraseña:" HorizontalAlignment="Left" Margin="442,319,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-        <Label Content="Confirmar constraseña:" HorizontalAlignment="Left" Margin="440,374,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-        <TextBox Margin="609,263,82,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" BorderBrush="Black"/>
-        <PasswordBox HorizontalAlignment="Left" Margin="609,324,0,0" VerticalAlignment="Top" Width="164" Height="22" Background="White" BorderBrush="Black"/>
-        <PasswordBox HorizontalAlignment="Left" Margin="608,377,0,0" VerticalAlignment="Top" Width="164" Height="22" Background="White" BorderBrush="Black"/>
-        <Button Content="Guardar" HorizontalAlignment="Left" Margin="746,458,0,0" VerticalAlignment="Top" Height="23" Width="77" Foreground="White" FontSize="14" FontWeight="Bold">
+        <Label Content="Nombre de usuario:*" HorizontalAlignment="Left" Margin="439,258,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label Content="Contraseña:*" HorizontalAlignment="Left" Margin="442,319,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label Content="Confirmar constraseña:*" HorizontalAlignment="Left" Margin="440,374,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <TextBox x:Name="tbNombreUsuario" Margin="609,263,82,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" BorderBrush="Black"/>
+        <PasswordBox x:Name="pbContraseña" HorizontalAlignment="Left" Margin="609,324,0,0" VerticalAlignment="Top" Width="164" Height="22" Background="White" BorderBrush="Black"/>
+        <PasswordBox x:Name="pbConfirmarConstraseña" HorizontalAlignment="Left" Margin="608,377,0,0" VerticalAlignment="Top" Width="164" Height="22" Background="White" BorderBrush="Black"/>
+        <Button x:Name="btRegistrarDemandante" Content="Guardar" HorizontalAlignment="Left" Margin="746,458,0,0" VerticalAlignment="Top" Height="23" Width="77" Foreground="White" FontSize="14" FontWeight="Bold" Click="btRegistrarDemandante_Click">
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>

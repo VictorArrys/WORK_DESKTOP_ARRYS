@@ -65,15 +65,6 @@ namespace El_Camello.Vistas.Usuario
             
         }
 
-        private void btnSeleccionarDocumento_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog selectorDocumento = new OpenFileDialog();
-            selectorDocumento.Filter = "Archivo pdf|*.pdf";
-            if (selectorDocumento.ShowDialog() == true)
-            {
-                tbRutaDocumento.Text = selectorDocumento.FileName;
-            }
-        }
 
         private void btnGuardarAspirante_Click(object sender, RoutedEventArgs e)
         {

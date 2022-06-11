@@ -14,7 +14,7 @@
         <Label Content="Telefono:*" HorizontalAlignment="Left" Margin="50,294,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Label Content="Usuario" HorizontalAlignment="Left" Margin="641,56,0,0" VerticalAlignment="Top" FontStyle="Italic" Opacity="0.78" FontSize="16" FontWeight="Bold" FontFamily="Centaur"/>
         <Label Content="Sube aqui un video describiendo tu experiencia laboral*" HorizontalAlignment="Left" Margin="48,336,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-        <Label Content="**Recomendación: duración no mayor a 1 minuto:*" HorizontalAlignment="Left" Margin="60,358,0,0" VerticalAlignment="Top" FontSize="10" FontWeight="Bold"/>
+        <Label Content="**Recomendación: duración no mayor a 10 Mb:*" HorizontalAlignment="Left" Margin="60,358,0,0" VerticalAlignment="Top" FontSize="10" FontWeight="Bold"/>
         <Button x:Name="btnSeleccionarVideo" Content="Añadir" HorizontalAlignment="Left" Margin="52,378,0,0" VerticalAlignment="Top" Height="23" Width="77" Foreground="White" FontSize="14" FontWeight="Bold" Click="btnSeleccionarVideo_Click">
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
@@ -24,16 +24,6 @@
             </Button.BorderBrush>
         </Button>
         <TextBox x:Name="tbRutaVideo" HorizontalAlignment="Left" Margin="133,380,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="196" IsEnabled="False" />
-        <Button x:Name="btnSeleccionarDocumento" Content="Añadir" HorizontalAlignment="Left" Margin="50,444,0,0" VerticalAlignment="Top" Height="23" Width="77" FontSize="14" FontWeight="Bold" Foreground="White" Click="btnSeleccionarDocumento_Click">
-            <Button.Background>
-                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
-            </Button.Background>
-            <Button.BorderBrush>
-                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
-            </Button.BorderBrush>
-        </Button>
-        <TextBox x:Name="tbRutaDocumento" HorizontalAlignment="Left" Margin="133,447,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="196" IsEnabled="False"/>
-        <Label Content="Curriculum, certificado, etc. en formato pdf unico (Opcional)" HorizontalAlignment="Left" Margin="48,409,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <TextBox x:Name="tbCorreoElectronico" HorizontalAlignment="Left" Margin="195,230,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Height="24" SelectionOpacity="1" BorderBrush="#FF020202"/>
         <TextBox x:Name="tbtelefono" HorizontalAlignment="Left" Margin="195,296,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Height="24" SelectionOpacity="1" BorderBrush="#FF020202"/>
         <TextBox x:Name="tbDireccion" HorizontalAlignment="Left" Margin="195,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Height="24" SelectionOpacity="1" BorderBrush="#FF020202"/>
