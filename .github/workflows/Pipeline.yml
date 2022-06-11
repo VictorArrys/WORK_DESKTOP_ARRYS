@@ -24,17 +24,17 @@ jobs:
       #Test here!!
       - run: dotnet publish ${{ env.PROJECT_PATH }} -c Release -r win10-x86 --self-contained -p:PublishSingleFile=true      
       
-      - uses: actions/create-release@v1
+      - uses: actions/create-release@latest
         id: create_release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
       
       - uses: csexton/release-asset-action@v2
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN}}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           pattern: Cliente/El_Camello/bin/Release/net6.0-windows/publish/*.exe
           release: ${{ steps.create_release.outputs.upload_url }}
           
