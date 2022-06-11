@@ -56,7 +56,7 @@ jobs:
         with:
           token: ${{ secrets.TOKEN_ELCAMELLO }}
           tag: ${{ github.ref }}
-          name: Entrega ${{ github.ref }}
+          name: Entrega ${{ github.ref_name }}
       
       - name: Agregando ElCamello.zip
         uses: csexton/release-asset-action@v2
