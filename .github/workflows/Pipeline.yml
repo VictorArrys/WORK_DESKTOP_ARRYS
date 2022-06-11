@@ -23,7 +23,8 @@ jobs:
       - run: dotnet restore ${{ env.PROJECT_PATH }}
       - run: dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
       #Test here!!
-      - run: dotnet publish ${{ env.PROJECT_PATH }} -c Release -r win10-x86 --self-contained -p:PublishSingleFile=true      
+      - run: dotnet publish ${{ env.PROJECT_PATH }} -c Release -r win10-x86 --self-contained -p:PublishSingleFile=true  
+      - run: "dir Cliente/El_Camello/bin/Release/net6.0-windows/win10-x86/publish/"
       
       - name: Create Release
         uses: ncipollo/release-action@v1.10.0
