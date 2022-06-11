@@ -33,7 +33,7 @@ jobs:
       #Test here
   
   Entrega:
-    if: github.ref != refs/heads/main
+    if: github.ref != 'refs/heads/main'
     needs: Integracion
     runs-on: windows-latest
     
