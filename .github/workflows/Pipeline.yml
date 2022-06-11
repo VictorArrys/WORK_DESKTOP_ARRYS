@@ -29,13 +29,13 @@ jobs:
         uses: ncipollo/release-action@v1.10.0
         id: create_release
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.TOKEN_ELCAMELLO }}
           tag: ${{ github.ref }}
           name: Release ${{ github.ref }}
       
       - uses: csexton/release-asset-action@v2
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.TOKEN_ELCAMELLO }}
           pattern: Cliente/El_Camello/bin/Release/net6.0-windows/publish/*.exe
           release: ${{ steps.create_release.outputs.upload_url }}
           
