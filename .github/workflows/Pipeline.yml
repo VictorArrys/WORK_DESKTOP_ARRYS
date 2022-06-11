@@ -63,6 +63,6 @@ jobs:
         uses: csexton/release-asset-action@v2
         with:
           github-token: ${{ secrets.TOKEN_ELCAMELLO }}
-          file: ./ElCamello.zip
+          file: ./ElCamello_${{ github.ref_name }}.zip
           release-url: ${{ steps.create_release.outputs.upload_url }}
           
