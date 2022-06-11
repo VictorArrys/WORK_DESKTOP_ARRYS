@@ -3,8 +3,7 @@ name: "Pipeline Cliente ElCamello"
 on:
   push:
     branches: [ main ]
-    tags: 
-      - "ElCamello/v1.0.*"
+
   pull_request:
     branches: [ main ]
   # Allows you to run this workflow manually from the Actions tab
@@ -31,6 +30,8 @@ jobs:
         id: create_release
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ github.ref }}
+          name: Release ${{ github.ref }}
       
       - uses: csexton/release-asset-action@v2
         with:
