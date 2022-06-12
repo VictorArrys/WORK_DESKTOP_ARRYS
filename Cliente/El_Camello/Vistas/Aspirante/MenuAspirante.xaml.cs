@@ -40,7 +40,7 @@ namespace El_Camello.Vistas.Aspirante
             perfilAspirante.IdPerfilusuario = usuarioConectado.IdPerfilusuario;
             perfilAspirante.CorreoElectronico = usuarioConectado.CorreoElectronico;
             perfilAspirante.Fotografia = usuarioConectado.Fotografia;
-            perfilAspirante.TipoUsuario = usuarioConectado.TipoUsuario;
+            perfilAspirante.Tipo = usuarioConectado.Tipo;
             perfilAspirante.Token = usuarioConectado.Token;
 
             MessageBox.Show(perfilAspirante.Token);

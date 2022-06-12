@@ -51,9 +51,10 @@ namespace El_Camello.Modelo.dao
 
                             usuario.Clave = (string)user["clave"];
                             usuario.Tipo = (string)user["tipoUsuario"];
-                            usuario.Estatus = (string)user["estatus"];
+                            usuario.Estatus = (int)user["estatus"];
                             usuario.IdPerfilusuario = (int)user["idPerfilusuario"];
                             usuario.CorreoElectronico = (string)user["correoElectronico"];
+                            usuario.NombreUsuario = (string)user["nombre"];
                             usuario.Token = respuesta.Headers.GetValues("x-access-token").First();
                             //usuario.Token = (string)user["token"];
                             break;

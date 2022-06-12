@@ -27,7 +27,7 @@ namespace El_Camello.Vistas.Usuario
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            string tipoUsuario = cbxTipoUsuario.SelectedValue.ToString();
+            string tipoUsuario = cbTipoUsuario.SelectedValue.ToString();
             switch (tipoUsuario)
             {
                 case "Empleador":
@@ -51,11 +51,34 @@ namespace El_Camello.Vistas.Usuario
 
         private void CargarPantalla()
         {
-            cbxTipoUsuario.Items.Clear();
-            cbxTipoUsuario.Items.Add("Empleador");
-            cbxTipoUsuario.Items.Add("Demandante");
-            cbxTipoUsuario.Items.Add("Aspirante");
-            cbxTipoUsuario.SelectedIndex = 0;
+            cbTipoUsuario.Items.Clear();
+            cbTipoUsuario.Items.Add("Empleador");
+            cbTipoUsuario.Items.Add("Demandante");
+            cbTipoUsuario.Items.Add("Aspirante");
+            cbTipoUsuario.SelectedIndex = 0;
+        }
+
+        private void seleccionTipoUsuario(object sender, SelectionChangedEventArgs e)
+        {
+            int indiceSeleccion = cbTipoUsuario.SelectedIndex;
+            tbDescripcion.Text = "";
+            if (indiceSeleccion == 0)
+            {
+                tbDescripcion.Text = "Persona u organización encargada de emplear y mantener el vínculo contractual " +
+                    "laboral, poseen la capacidad de contratar a individuos que necesiten acorde a las necesidades operativas " +
+                    "o productivas puestos de trabajo de acuerdo con un oficio en particular";
+            }else if (indiceSeleccion == 1)
+            {
+                tbDescripcion.Text = "Aquella persona candidata a un puesto de trabajo formal o informal, de acuerdo " +
+                    "a sus necesidades especifica cuál es su experiencia laboral, asi como en una breve descripción de " +
+                    "sus habilidades duras y blandas, solicita vacantes de trabajo o acepta algún servicio a convenir con " +
+                    "los los usuarios postulantes de servicios.";
+            }else if (indiceSeleccion == 2)
+            {
+                tbDescripcion.Text = "Persona demandante de un servicio en un mercado determinado o ofertante de servicios" +
+                    " sin un contrato fijo, los demandantes de servicio pueden publicar algún servicio en particular en " +
+                    "la plataforma y los aspirantes de servicios pueden atender estas publicaciones";
+            }
         }
     }
 }

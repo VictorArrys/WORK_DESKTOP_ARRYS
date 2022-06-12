@@ -8,10 +8,10 @@
         Title="RegistroPerfil" Height="338" Width="642" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid Margin="0,0,0,-6">
         <Label Content="¿Qué tipo de usuario es con el que te identificas?" HorizontalAlignment="Left" Margin="10,46,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-        <ComboBox x:Name="cbxTipoUsuario" HorizontalAlignment="Center" Margin="0,87,0,0" VerticalAlignment="Top" Width="288" Height="30">
-            
+        <ComboBox x:Name="cbTipoUsuario" HorizontalAlignment="Center" Margin="0,87,0,0" VerticalAlignment="Top" Width="288" Height="30" SelectionChanged="seleccionTipoUsuario">
+
         </ComboBox>
-        <TextBox HorizontalAlignment="Center" Margin="0,143,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="288" Height="76" BorderBrush="#FF71747B"/>
+        <TextBox x:Name="tbDescripcion" HorizontalAlignment="Center" Margin="0,143,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="470" Height="91" BorderBrush="#FF71747B" IsEnabled="False" Foreground="Black" FontWeight="Bold" FontStyle="Normal" TextAlignment="Center"/>
         <Button Content="Siguiente" HorizontalAlignment="Center" Margin="0,245,0,0" VerticalAlignment="Top" Height="28" Width="85" Foreground="#FFFDFDFD" FontSize="14" FontWeight="Bold" Click="Button_Click" >
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
