@@ -59,6 +59,7 @@ namespace El_Camello.Modelo.dao
                         usuario.Estatus = (int)user["estatus"];
                         usuario.IdPerfilusuario = (int)user["idPerfilusuario"];
                         usuario.CorreoElectronico = (string)user["correoElectronico"];
+                        usuario.NombreUsuario = (string)user["nombre"];
                         usuario.Token = respuesta.Headers.GetValues("x-access-token").First();
 
                     }

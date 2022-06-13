@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:El_Camello.Assets.utilerias"
         mc:Ignorable="d"
-        Title="MensajesSistema" Height="268" Width="403" ResizeMode="NoResize">
+        Title="MensajesSistema" Height="268" Width="403" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid x:Name="gCuadroDeMensaje" Background="#FF282E35" Margin="0,0,0,-6">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0*"/>
