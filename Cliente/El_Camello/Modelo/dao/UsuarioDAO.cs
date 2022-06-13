@@ -1,4 +1,5 @@
-﻿using El_Camello.Modelo.clases;
+﻿using El_Camello.Assets.utilerias;
+using El_Camello.Modelo.clases;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -25,7 +26,51 @@ namespace El_Camello.Modelo.dao
                 try
                 {
                     HttpResponseMessage respuesta = await cliente.GetAsync(endpoint);
+
+                    RespuestasAPI respuestaAPI = new RespuestasAPI();
+                    
+
+                    if (respuesta.StatusCode == HttpStatusCode.OK)
+                    {
+                        string body = await respuesta.Content.ReadAsStringAsync();
+
+                        JObject user = JsonConvert.DeserializeObject<JObject>(body);
+
+                        try
+                        {
+                            JObject arrayFoto = (JObject)user["fotografia"];
+                            byte[] segmentosFoto = new byte[arrayFoto.Count];
+
+                            for (int i = 0; i < arrayFoto.Count; i++)
+                            {
+                                segmentosFoto[i] = (byte)arrayFoto[i.ToString()];
+                            }
+
+                            usuario.Fotografia = segmentosFoto;
+                        }
+                        catch (InvalidCastException)
+                        {
+                            usuario.Fotografia = null;
+                        }
+
+
+                        usuario.Clave = (string)user["clave"];
+                        usuario.Tipo = (string)user["tipoUsuario"];
+                        usuario.Estatus = (int)user["estatus"];
+                        usuario.IdPerfilusuario = (int)user["idPerfilusuario"];
+                        usuario.CorreoElectronico = (string)user["correoElectronico"];
+                        usuario.Token = respuesta.Headers.GetValues("x-access-token").First();
+
+                    }
+                    else
+                    {
+                        respuestaAPI.gestionRespuestasApi("Iniciar sesion", respuesta);
+                    }
+
+                    /*
                     string body = await respuesta.Content.ReadAsStringAsync();
+
+
                     switch (respuesta.StatusCode)
                     {
                         case HttpStatusCode.OK:
@@ -67,6 +112,7 @@ namespace El_Camello.Modelo.dao
                             usuario = null;
                             break;
                     }
+                    */
                 }
                 catch (HttpRequestException ex)
                 {

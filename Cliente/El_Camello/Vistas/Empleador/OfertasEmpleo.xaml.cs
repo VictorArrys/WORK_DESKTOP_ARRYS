@@ -1,4 +1,6 @@
-﻿using El_Camello.Vistas.Usuario;
+﻿using El_Camello.Modelo.clases;
+using El_Camello.Modelo.dao;
+using El_Camello.Vistas.Usuario;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,13 +22,33 @@ namespace El_Camello.Vistas.Empleador
     /// </summary>
     public partial class OfertasEmpleo : Window
     {
-        public OfertasEmpleo(Modelo.clases.Usuario usuarioConectado)
+        private int idPerfilEmpleador;
+        private string token;
+        public OfertasEmpleo(Modelo.clases.Usuario usuarioConectado, int idPerfilEmpleador)
         {
-
+            this.idPerfilEmpleador = idPerfilEmpleador;
+            this.token = usuarioConectado.Token;
             InitializeComponent();
-            CargarImagen(usuarioConectado);
+            CargarOfertasTabla();
             
         }
+
+        private async void CargarOfertasTabla()
+        {
+            List<OfertaEmpleo> ofertasTabla = new List<OfertaEmpleo>();
+            //aqui pasar el token que viene desde el inicio de seción
+            try
+            {
+                ofertasTabla = await OfertaEmpleoDAO.GetOfertasEmpleos(idPerfilEmpleador);
+
+                dgOfertasEmpleo.ItemsSource = ofertasTabla;
+            }
+            catch (Exception exceptionGetList)
+            {
+                MessageBox.Show("Error debido a: " + exceptionGetList.Message);
+            }
+        }
+
 
         private void CargarImagen(Modelo.clases.Usuario usuarioConectado)
         {
@@ -80,7 +102,7 @@ namespace El_Camello.Vistas.Empleador
 
         private void btnRegistrarOferta_Click(object sender, RoutedEventArgs e)
         {
-            RegistroOfertaEmpleo ventanaRegistroOferta = new RegistroOfertaEmpleo();
+            RegistroOfertaEmpleo ventanaRegistroOferta = new RegistroOfertaEmpleo(idPerfilEmpleador, token);
             ventanaRegistroOferta.ShowDialog();
             //actualizar tabla
         }
@@ -94,7 +116,7 @@ namespace El_Camello.Vistas.Empleador
 
         private void btnModificarOferta_Click(object sender, RoutedEventArgs e)
         {
-            RegistroOfertaEmpleo ventanaActualizarOferta = new RegistroOfertaEmpleo();
+            RegistroOfertaEmpleo ventanaActualizarOferta = new RegistroOfertaEmpleo(idPerfilEmpleador, token);
             ventanaActualizarOferta.ShowDialog();
             //actualizar tabla
         }
