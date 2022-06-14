@@ -15,10 +15,10 @@ namespace El_Camello.Modelo.clases
         private int idPerfilusuario;
         private string correoElectronico;
         private byte[] fotografia;
-        private string rutaFotografia; 
+        private string rutaFotografia;
         private string token;
 
-        public string Clave { get => clave; set => clave = value; }
+        public string Clave { get => clave; set =>  clave = value; }
         public string Tipo { get => tipo; set => tipo = value; }
         public int Estatus { get => estatus; set => estatus = value; }
         public string NombreUsuario { get => nombreUsuario; set => nombreUsuario = value; }
@@ -27,5 +27,6 @@ namespace El_Camello.Modelo.clases
         public byte[] Fotografia { get => fotografia; set => fotografia = value; }
         public string RutaFotografia { get => rutaFotografia; set => rutaFotografia = value; }
         public string Token { get => token; set => token = value; }
+
     }
 }
