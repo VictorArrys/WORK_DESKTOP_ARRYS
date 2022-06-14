@@ -39,8 +39,8 @@ namespace El_Camello.Assets.utilerias
 
             InitializeComponent();
             btnOk.IsEnabled = false;
-            lbException.IsEnabled = false;
-            lbUbicacionMsj.IsEnabled = false;
+            tbDetalles.IsEnabled = false;
+            tbUbicacion.IsEnabled = false;
 
 
         }
@@ -73,7 +73,8 @@ namespace El_Camello.Assets.utilerias
                     lbTipoMensaje.ContentStringFormat = "Acción no permitida";
                     winMensaje.Title = "Alerta de acción invalida";
                     btnOk.IsEnabled = true;
-                    lbUbicacionMsj.IsEnabled = true;
+                    tbUbicacion.IsEnabled = true;
+                    accionInvalida();
 
 
                     break;
@@ -87,9 +88,16 @@ namespace El_Camello.Assets.utilerias
 
         }
 
-        public void accionInvalida(string ubicacion)
+        public void accionInvalida()
         {
+            lbTipoMensaje.Content = "Mensaje informativo";
+            btnOk.IsEnabled = true;
+            tbDetalles.IsEnabled = true;
+            tbUbicacion.IsEnabled = true;
 
+            tbMensaje.Text = "Mensaje: " + mensaje;
+            tbUbicacion.Text = "Ubicación: " + ubicacion;
+            tbDetalles.Text = "Detalles: " + excepcionCapturada;
         }
 
         public void mensajeError()
@@ -97,12 +105,12 @@ namespace El_Camello.Assets.utilerias
             lbTipoMensaje.Content = "Se presento un error";
             winMensaje.Title = "Error";
             btnOk.IsEnabled = true;
-            lbException.IsEnabled = true;
-            lbUbicacionMsj.IsEnabled = true;
+            tbDetalles.IsEnabled = true;
+            tbUbicacion.IsEnabled = true;
 
-            lbMensaje.Content = "Mensaje: " + mensaje;
-            lbUbicacionMsj.Content = "Ubicación: " + ubicacion;
-            lbException.Content = "Detalles: " + excepcionCapturada;
+            tbMensaje.Text = "Mensaje: " + mensaje;
+            tbUbicacion.Text = "Ubicación: " + ubicacion;
+            tbDetalles.Text = "Detalles: " + excepcionCapturada;
 
         }
 
@@ -111,6 +119,5 @@ namespace El_Camello.Assets.utilerias
         {
             this.Close();
         }
-
     }
 }

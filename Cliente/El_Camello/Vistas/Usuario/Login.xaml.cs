@@ -56,7 +56,7 @@ namespace El_Camello.Vistas.Usuario
                         this.Close();
                         break;
                     case "Empleador":
-                        int idPerfilEmpleador = 1;
+                        int idPerfilEmpleador = 2;
                         OfertasEmpleo menuEmpleador = new OfertasEmpleo(usuario, idPerfilEmpleador);
                         menuEmpleador.Show();
                         this.Close();

@@ -6,27 +6,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:El_Camello.Assets.utilerias"
         mc:Ignorable="d"
-        Title="MensajesSistema" Height="268" Width="403" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="MensajesSistema" Height="347" Width="408" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid x:Name="gCuadroDeMensaje" Background="#FF282E35" Margin="0,0,0,-6">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="141*"/>
+            <RowDefinition Height="184*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0*"/>
-            <ColumnDefinition Width="403"/>
+            <ColumnDefinition Width="115"/>
+            <ColumnDefinition Width="288"/>
         </Grid.ColumnDefinitions>
-        <Rectangle x:Name="cdBarraTitulo" Fill="#FF075E8C" HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="400" Grid.ColumnSpan="2"/>
-        <Button x:Name="btnOk" Content="OK" HorizontalAlignment="Left" Margin="150,189,0,0" VerticalAlignment="Top" Background="#FF0089D2" Foreground="White" Height="35" Width="100" Click="enterado" FontFamily="Consolas" FontWeight="Bold" RenderTransformOrigin="0.65,0.501" Grid.Column="1"/>
-        <Label x:Name="lbUbicacionMsj" Content="Ubicación: " HorizontalAlignment="Left" Margin="9,48,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.92,-0.426" Width="382" Foreground="White" FontFamily="Consolas" FontWeight="Normal" FontSize="13" Grid.ColumnSpan="2" Height="25">
-            <Label.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="0.042"/>
-                    <TranslateTransform X="0.238" Y="0.442"/>
-                </TransformGroup>
-            </Label.RenderTransform>
-        </Label>
-        <Label x:Name="lbMensaje" Content="Mensaje: " HorizontalAlignment="Left" Margin="15,89,0,0" VerticalAlignment="Top" Width="380" Foreground="White" FontFamily="Consolas" FontWeight="Normal" FontSize="13" Grid.ColumnSpan="2" Height="25"/>
-        <Label x:Name="lbException" Content="Detalles: " HorizontalAlignment="Left" Margin="15,133,0,0" VerticalAlignment="Top" Width="380" Foreground="White" FontFamily="Consolas" FontWeight="Normal" FontSize="13" Grid.ColumnSpan="2" Height="25"/>
-        <Label x:Name="lbTipoMensaje" Content="Tipo de mensaje" HorizontalAlignment="Left" Margin="10,4,0,0" VerticalAlignment="Top" Width="393" Foreground="#FF091B35" FontFamily="Consolas" FontSize="20" FontWeight="Bold" Grid.ColumnSpan="2" Height="33"/>
+        <Rectangle x:Name="cdBarraTitulo" Fill="#FF075E8C" Height="40" VerticalAlignment="Top" Grid.ColumnSpan="3" Margin="0,0,-4,0"/>
+        <Button x:Name="btnOk" Content="OK" HorizontalAlignment="Left" Margin="41,127,0,0" VerticalAlignment="Top" Background="#FF0089D2" Foreground="White" Height="36" Width="100" Click="enterado" FontFamily="Consolas" FontWeight="Bold" RenderTransformOrigin="0.65,0.501" Grid.Column="2" Grid.Row="1"/>
+        <Label x:Name="lbTipoMensaje" Content="Tipo de mensaje" HorizontalAlignment="Left" Margin="0,4,0,0" VerticalAlignment="Top" Width="394" Foreground="#FF091B35" FontFamily="Consolas" FontSize="20" FontWeight="Bold" Grid.ColumnSpan="3" Height="32"/>
+        <TextBox x:Name="tbMensaje" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="15,98,0,0" TextWrapping="Wrap" Text="Mensaje: " VerticalAlignment="Top" Width="380" Height="95" Grid.RowSpan="2" Background="{x:Null}" Foreground="White" BorderBrush="{x:Null}"/>
+        <TextBox x:Name="tbUbicacion" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="14,45,0,0" TextWrapping="Wrap" Text="Ubicación: " VerticalAlignment="Top" Width="380" Height="47" Background="{x:Null}" Foreground="White" BorderBrush="{x:Null}"/>
+        <TextBox x:Name="tbDetalles" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Detalles: " VerticalAlignment="Center" Width="383" Height="52" Background="{x:Null}" Foreground="White" BorderBrush="{x:Null}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="15,0,0,0"/>
 
     </Grid>
 </Window>

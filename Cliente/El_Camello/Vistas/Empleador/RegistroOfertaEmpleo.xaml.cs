@@ -16,6 +16,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using El_Camello.Modelo.interfaz;
+
 namespace El_Camello.Vistas.Empleador
 {
     /// <summary>
@@ -23,9 +25,16 @@ namespace El_Camello.Vistas.Empleador
     /// </summary>
     public partial class RegistroOfertaEmpleo : Window
     {
-        private int idPerfilEmpleador;
+        private int idPerfilEmpleador = 0;
         private List<Categoria> categorias;
+        private List<string> tiposDePago;
+
         private string token ="";
+        private int idOfertaEmpleo = 0;
+
+        observadorRespuesta notificacion; ///
+        Boolean isNuevo = true; ///
+
 
         List<byte[]> imagenes = new List<byte[]>();
 
@@ -35,24 +44,79 @@ namespace El_Camello.Vistas.Empleador
 
         MensajesSistema error;
 
-        public RegistroOfertaEmpleo(int idPerfilEmpleador, string token)
+        public RegistroOfertaEmpleo(observadorRespuesta notificacion,int idPerfilEmpleador, string token)
         {
             this.idPerfilEmpleador = idPerfilEmpleador;
             this.token = token;
+            this.notificacion = notificacion;
             InitializeComponent();
             cargarDatosComponentes();
 
         }
 
-        private async void cargarOfertaEmpleo()
+        public RegistroOfertaEmpleo(observadorRespuesta notificacion,int idPerfilEmpleador, int idOfertaEmpleo, string token)
         {
+            this.idPerfilEmpleador = idPerfilEmpleador;
+            this.token = token;
+            this.notificacion = notificacion;
+            this.idOfertaEmpleo = idOfertaEmpleo;
+            isNuevo = false;
+            InitializeComponent();
+            cargarDatosComponentes();
+
+            cargarOfertaEmpleo();
 
         }
+
+            
+
+        private async void cargarOfertaEmpleo()
+        {
+            try
+            {
+                string tokenString = "" + token;
+
+                OfertaEmpleo ofertaEmpleoEdicion = await OfertaEmpleoDAO.GetOfertaEmpleo(idOfertaEmpleo, tokenString);
+
+                tbNombreEmpleo.Text = ofertaEmpleoEdicion.Nombre;
+
+                foreach (string tipoPago in tiposDePago)
+                {
+                    if (tipoPago == ofertaEmpleoEdicion.TipoPago)
+                    {
+                        cbTipoPago.SelectedItem = tipoPago;
+                    }
+                }
+
+                foreach (Categoria categoriaLista in categorias)
+                {
+                    if (categoriaLista.IdCategoria == ofertaEmpleoEdicion.IdCategoriaEmpleo)
+                    {
+                        cbCategorias.SelectedItem = categoriaLista;
+                    }
+                }
+
+                tbHoraInicio.Text = "" + ofertaEmpleoEdicion.HoraInicio;
+                tbHoraFin.Text = "" + ofertaEmpleoEdicion.HoraFin;
+                tbVacantes.Text = "" + ofertaEmpleoEdicion.Vacantes;
+                dpFechaInicio.SelectedDate = ofertaEmpleoEdicion.FechaInicio;
+                dpFechaFinalizacion.SelectedDate = ofertaEmpleoEdicion.FechaFinalizacion;
+                tbPago.Text = "" + ofertaEmpleoEdicion.CantidadPago;
+                tbDireccion.Text = ofertaEmpleoEdicion.Direccion;
+                tbDescripcion.Text = ofertaEmpleoEdicion.Descripcion;
+
+            }catch (Exception exception)
+            {
+                error = new MensajesSistema("Error", "Hubo un error al cargar la oferta de empleo, favor de intentar más tarde", exception.StackTrace, exception.Message);
+                error.ShowDialog();
+            }
+
+        }
+
 
         private void cargarDatosComponentes()
         {
             cargarCategoriasCombobox();
-            cargarTipoEmpleos();
             cargarTipoPago();
 
 
@@ -71,26 +135,28 @@ namespace El_Camello.Vistas.Empleador
             }
         }
 
-        private void cargarTipoEmpleos()
-        {
-            cbTipoEmpleo.Items.Clear();
-            cbTipoEmpleo.Items.Add("Medio tiempo");
-            cbTipoEmpleo.Items.Add("Tiempo completo");
-
-        }
-
         private void cargarTipoPago()
         {
+            tiposDePago = new List<string>();
             cbTipoPago.Items.Clear();
-            cbTipoPago.Items.Add("Por día");
-            cbTipoPago.Items.Add("Por hora");
+            tiposDePago.Add("Por día");
+            tiposDePago.Add("Por hora");
+
+            cbTipoPago.ItemsSource = tiposDePago;
 
         }
 
         private void guardarOfertaEmpleo(object sender, RoutedEventArgs e)
         {
             //Validar
-            registrarOfertaEmpleo();
+            if (isNuevo)
+            {
+                registrarOfertaEmpleo();
+            }
+            else
+            {
+
+            }
 
         }
 
@@ -115,6 +181,8 @@ namespace El_Camello.Vistas.Empleador
 
             string tipoPago = (string)cbTipoPago.SelectedItem;
             ofertaEmpleoNueva.TipoPago = tipoPago;
+
+
             ofertaEmpleoNueva.CantidadPago = int.Parse(tbPago.Text);
             ofertaEmpleoNueva.Direccion = tbDireccion.Text;
             string horaInicio = tbHoraInicio.Text;

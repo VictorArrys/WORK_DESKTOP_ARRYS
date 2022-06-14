@@ -25,6 +25,10 @@ namespace El_Camello.Modelo.clases
         private List<byte[]> fotografias;
         private string categoriaEmpleo;
         private string estado;
+
+        //Tiene una contratación
+        private ContratacionEmpleo ContratacionEmpleoOferta;
+
         public int CantidadPago { get => cantidadPago; set => cantidadPago = value; }
         public string Descripcion { get => descripcion; set => descripcion = value; }
         public string DiasLaborales { get => diasLaborales; set => diasLaborales = value; }
@@ -42,5 +46,7 @@ namespace El_Camello.Modelo.clases
         public List<byte[]> Fotografias { get => fotografias; set => fotografias = value; }
         public string CategoriaEmpleo { get => categoriaEmpleo; set => categoriaEmpleo = value; }
         public string Estado { get => estado; set => estado = value; }
+        public ContratacionEmpleo ContratacionEmpleo { get => ContratacionEmpleoOferta; set => ContratacionEmpleoOferta = value; }
+         
     }
 }

@@ -1,5 +1,7 @@
-﻿using El_Camello.Modelo.clases;
+﻿using El_Camello.Assets.utilerias;
+using El_Camello.Modelo.clases;
 using El_Camello.Modelo.dao;
+using El_Camello.Modelo.interfaz;
 using El_Camello.Vistas.Usuario;
 using System;
 using System.Collections.Generic;
@@ -20,10 +22,14 @@ namespace El_Camello.Vistas.Empleador
     /// <summary>
     /// Interaction logic for OfertasEmpleo.xaml
     /// </summary>
-    public partial class OfertasEmpleo : Window
+    public partial class OfertasEmpleo : Window, observadorRespuesta
     {
         private int idPerfilEmpleador;
         private string token;
+        List<OfertaEmpleo> ofertasTabla = new List<OfertaEmpleo>();
+
+        MensajesSistema error;
+
         public OfertasEmpleo(Modelo.clases.Usuario usuarioConectado, int idPerfilEmpleador)
         {
             this.idPerfilEmpleador = idPerfilEmpleador;
@@ -35,17 +41,17 @@ namespace El_Camello.Vistas.Empleador
 
         private async void CargarOfertasTabla()
         {
-            List<OfertaEmpleo> ofertasTabla = new List<OfertaEmpleo>();
             //aqui pasar el token que viene desde el inicio de seción
             try
             {
-                ofertasTabla = await OfertaEmpleoDAO.GetOfertasEmpleos(idPerfilEmpleador);
+                ofertasTabla = await OfertaEmpleoDAO.GetOfertasEmpleos(idPerfilEmpleador, token);
 
                 dgOfertasEmpleo.ItemsSource = ofertasTabla;
             }
             catch (Exception exceptionGetList)
             {
-                MessageBox.Show("Error debido a: " + exceptionGetList.Message);
+                error = new MensajesSistema("Error", "Hubo un error al intentar cargar las ofertas de empleo, favor de intentar más tarde", exceptionGetList.StackTrace, exceptionGetList.Message);
+                error.ShowDialog();
             }
         }
 
@@ -102,23 +108,49 @@ namespace El_Camello.Vistas.Empleador
 
         private void btnRegistrarOferta_Click(object sender, RoutedEventArgs e)
         {
-            RegistroOfertaEmpleo ventanaRegistroOferta = new RegistroOfertaEmpleo(idPerfilEmpleador, token);
+            RegistroOfertaEmpleo ventanaRegistroOferta = new RegistroOfertaEmpleo(this,idPerfilEmpleador, token);
             ventanaRegistroOferta.ShowDialog();
             //actualizar tabla
         }
 
         private void btnConsultarEmpleo_Click(object sender, RoutedEventArgs e)
         {
-            ConsultarOfertaEmpleo ventanaConsultarOferta = new ConsultarOfertaEmpleo();
-            ventanaConsultarOferta.ShowDialog();
-            //actualizar tabla
+            int indiceSeleccion = dgOfertasEmpleo.SelectedIndex;
+
+            if (indiceSeleccion >= 0)
+            {
+                OfertaEmpleo ofertaEmpleoConsultar = ofertasTabla[indiceSeleccion];
+
+                ConsultarOfertaEmpleo ventanaConsultarOferta = new ConsultarOfertaEmpleo(ofertaEmpleoConsultar.IdOfertaEmpleo, token);
+                ventanaConsultarOferta.ShowDialog();
+            }
+            else
+            {
+                error = new MensajesSistema("AccionInvalida", "La acción que ha realizado es invalida", "Intento de consultar oferta de empleo", "Selecciona una oferta de empleo para poder consultarla posteriormente");
+                error.ShowDialog();
+            }
         }
 
         private void btnModificarOferta_Click(object sender, RoutedEventArgs e)
         {
-            RegistroOfertaEmpleo ventanaActualizarOferta = new RegistroOfertaEmpleo(idPerfilEmpleador, token);
-            ventanaActualizarOferta.ShowDialog();
-            //actualizar tabla
+            int indiceSeleccion = dgOfertasEmpleo.SelectedIndex;
+
+            if (indiceSeleccion >= 0)
+            {
+                OfertaEmpleo ofertaEmpleoEditar = ofertasTabla[indiceSeleccion];
+
+
+                RegistroOfertaEmpleo ventanaActualizarOferta = new RegistroOfertaEmpleo(this, idPerfilEmpleador, ofertaEmpleoEditar.IdOfertaEmpleo, token);
+                ventanaActualizarOferta.ShowDialog();
+
+            }
+            else
+            {
+                error = new MensajesSistema("AccionInvalida", "La acción que ha realizado es invalida", "Intento de modificar oferta de empleo", "Selecciona una oferta de empleo para poder editarla posteriormente");
+                error.ShowDialog();
+            }
+
+            
         }
 
         private void btnConsultarSolicitudes_Click(object sender, RoutedEventArgs e)
@@ -131,6 +163,12 @@ namespace El_Camello.Vistas.Empleador
         private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        public void actualizarInformacion(string operacion)
+        {
+            ofertasTabla.Clear();
+            CargarOfertasTabla();
         }
     }
 }

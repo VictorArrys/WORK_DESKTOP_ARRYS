@@ -27,26 +27,26 @@ namespace El_Camello.Assets.utilerias
                     respuestaObjectBody = JObject.Parse(respuestaBody);
                     string tokenInvalido = (string)respuestaObjectBody["type error"]["message"];
 
-
+                    //Invocar clase para mensajes
                     errorMessage = new MensajesSistema("Error", "Credenciales incorrectas", ubicacion, tokenInvalido);
                     errorMessage.ShowDialog();
-                    //Invocar clase para mensajes
 
                     break;
                 case HttpStatusCode.InternalServerError:
                     respuestaObjectBody = JObject.Parse(respuestaBody);
                     string errorInterno = (string)respuestaObjectBody["type error"]["message"];
+                    //Invocar clase para mensajes
                     errorMessage = new MensajesSistema("Error", "Se ha generado un problema interno, de favor intente más tarde esta acción", ubicacion, errorInterno);
                     errorMessage.ShowDialog();
-                    //Invocar clase para mensajes
 
                     break;
                 case HttpStatusCode.NotFound:
                     respuestaObjectBody = JObject.Parse(respuestaBody);
                     string noEncontrado = (string)respuestaObjectBody["type error"]["message"];
-                    errorMessage = new MensajesSistema("Error", "Se ha generado un problema interno", ubicacion, noEncontrado);
-                    errorMessage.ShowDialog();
                     //Invocar clase para mensajes
+                    errorMessage = new MensajesSistema("Error", "No se pudo encontrar el recurso", ubicacion, noEncontrado);
+                    errorMessage.ShowDialog();
+                    
 
                     break;
             }
