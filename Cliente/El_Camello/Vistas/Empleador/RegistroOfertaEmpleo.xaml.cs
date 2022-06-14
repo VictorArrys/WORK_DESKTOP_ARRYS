@@ -105,11 +105,47 @@ namespace El_Camello.Vistas.Empleador
                 tbDireccion.Text = ofertaEmpleoEdicion.Direccion;
                 tbDescripcion.Text = ofertaEmpleoEdicion.Descripcion;
 
+                CargarImagenes(ofertaEmpleoEdicion.Fotografias);
+
             }catch (Exception exception)
             {
                 error = new MensajesSistema("Error", "Hubo un error al cargar la oferta de empleo, favor de intentar más tarde", exception.StackTrace, exception.Message);
                 error.ShowDialog();
             }
+
+        }
+
+        private void CargarImagenes(List<byte[]> fotografias)
+        {
+            // byte[] imagen1 = reporteDetallado.Evidencia[0];
+
+           
+            foreach (byte[] imagenAux in fotografias)
+            {
+                using (var ms1 = new System.IO.MemoryStream(imagenAux))
+                {
+                    var imagen = new BitmapImage();
+                    imagen.BeginInit();
+                    imagen.CacheOption = BitmapCacheOption.OnLoad;
+                    imagen.StreamSource = ms1;
+                    imagen.EndInit();
+                    if (imgFoto.Source == null)
+                    {
+                        imgFoto.Source = imagen;
+                    }
+                    else if (imgFoto2.Source == null)
+                    {
+                        imgFoto2.Source = imagen;
+                    }
+                    else if (imgFoto3.Source == null)
+                    {
+                        imgFoto3.Source = imagen;
+                    }
+
+                }
+
+            }
+
 
         }
 

@@ -25,13 +25,20 @@ namespace El_Camello.Modelo.dao
             JObject ofertaEmpleoConsultada = await GetOfertaEmpleoCompuesta(idOfertaEmpleo, token);
 
             //Obtener fotos
-            /*
-            JArray arrayFotos = JArray.Parse(body);
-            foreach (var foto in arrayFotos)
-            { 
+            JArray fotografias = (JArray)ofertaEmpleoConsultada["fotografia"];
 
-            }
-            */
+
+            foreach (JObject foto in fotografias)
+            {
+                    byte[] segmentosFoto = new byte[foto.Count];
+
+                    for (int i = 0; i < foto.Count; i++)
+                    {
+                        segmentosFoto[i] = (byte)foto[i.ToString()];
+                    }
+
+                    ofertaEmpleoGet.Fotografias.Add(segmentosFoto);
+            }                        
 
             ofertaEmpleoGet.CantidadPago = (int)ofertaEmpleoConsultada["cantidadPago"];
             ofertaEmpleoGet.Descripcion = (string)ofertaEmpleoConsultada["descripcion"];
@@ -169,6 +176,9 @@ namespace El_Camello.Modelo.dao
 
                     }
                     else
+                    {
+
+                    }
                     {
                         respuestaAPI.gestionRespuestasApi("Obtener oferta de empleo", respuesta);
                     }
@@ -372,6 +382,7 @@ namespace El_Camello.Modelo.dao
                         contenidoImagen.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
                         fotoOfertaEmpleo.Add(contenidoImagen, "fotografia", "fotografiaOferta.jpg");
 
+                        MessageBox.Show("Id de registro:" + idOfertaEmpleo);
                         string endpointfoto = String.Format("http://localhost:5000/v1/ofertasEmpleo-E/" + idOfertaEmpleo + "/fotografia");
 
                         HttpResponseMessage respuestaFoto = await cliente.PostAsync(endpointfoto, fotoOfertaEmpleo);

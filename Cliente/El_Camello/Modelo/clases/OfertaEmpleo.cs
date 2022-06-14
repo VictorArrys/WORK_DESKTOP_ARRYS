@@ -29,6 +29,11 @@ namespace El_Camello.Modelo.clases
         //Tiene una contratación
         private ContratacionEmpleo ContratacionEmpleoOferta;
 
+        public OfertaEmpleo()
+        {
+            this.fotografias = new List<byte[]>();
+        }
+
         public int CantidadPago { get => cantidadPago; set => cantidadPago = value; }
         public string Descripcion { get => descripcion; set => descripcion = value; }
         public string DiasLaborales { get => diasLaborales; set => diasLaborales = value; }

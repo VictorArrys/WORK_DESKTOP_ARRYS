@@ -64,6 +64,7 @@ namespace El_Camello.Vistas.Empleador
                     lbFechaContratacion.Text = fechaContratacion;
                 }
 
+
                 string fechaFin = string.Format("{0:yyyy-MM-dd}", ofertaEmpleoEdicion.FechaFinalizacion);
                 lbFechaFinalizacion.Text = fechaFin;
 
