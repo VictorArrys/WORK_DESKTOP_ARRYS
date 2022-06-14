@@ -14,7 +14,7 @@
         <Label Content="Correo Electrónico:*" HorizontalAlignment="Left" Margin="49,355,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Label Content="Nombre:*" HorizontalAlignment="Left" Margin="50,110,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <StackPanel Margin="443,97,353,305" Background="White" Width="168" Height="126"/>
-        <Button Content="+" HorizontalAlignment="Left" Margin="624,135,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" FontFamily="Arial Black" Foreground="White">
+        <Button x:Name="btnSeleccionarFotografia" Content="+" HorizontalAlignment="Left" Margin="624,135,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" FontFamily="Arial Black" Foreground="White" Click="btnSeleccionarFotografia_Click" >
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.Background>
@@ -26,18 +26,18 @@
         <Label Content="Nombre de usuario:" HorizontalAlignment="Left" Margin="445,256,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Label Content="Contraseña:" HorizontalAlignment="Left" Margin="443,310,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Label Content="Confirmar contraseña:" HorizontalAlignment="Left" Margin="445,369,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-        <TextBox Margin="611,261,60,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" BorderBrush="Black"/>
-        <PasswordBox HorizontalAlignment="Left" Margin="611,319,0,0" VerticalAlignment="Top" Width="164" Height="22" Background="White" BorderBrush="Black"/>
-        <PasswordBox HorizontalAlignment="Left" Margin="611,376,0,0" VerticalAlignment="Top" Width="164" Height="22" Background="White" BorderBrush="Black"/>
-        <TextBox Margin="199,53,564,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" BorderBrush="Black"/>
-        <TextBox Margin="199,115,564,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" BorderBrush="Black"/>
-        <TextBox Margin="199,197,564,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" BorderBrush="Black"/>
-        <TextBox Margin="199,360,564,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" BorderBrush="Black"/>
-        <TextBox Margin="199,441,564,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" BorderBrush="Black"/>
+        <TextBox x:Name="tbNombreUsuario" Margin="611,261,60,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" BorderBrush="Black"/>
+        <PasswordBox x:Name="pbConstraseña" HorizontalAlignment="Left" Margin="611,319,0,0" VerticalAlignment="Top" Width="164" Height="22" Background="White" BorderBrush="Black"/>
+        <PasswordBox x:Name="pbConfirmarContraseña" HorizontalAlignment="Left" Margin="611,376,0,0" VerticalAlignment="Top" Width="164" Height="22" Background="White" BorderBrush="Black"/>
+        <TextBox x:Name="tbNombreOrganizacion" Margin="199,53,564,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" BorderBrush="Black"/>
+        <TextBox x:Name="tbNombre" Margin="199,115,564,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" BorderBrush="Black"/>
+        <TextBox x:Name="tbDireccion" Margin="199,197,564,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" BorderBrush="Black"/>
+        <TextBox x:Name="tbCorreoElectronico" Margin="199,360,564,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" BorderBrush="Black"/>
+        <TextBox x:Name="tbTelefono" Margin="199,441,564,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" BorderBrush="Black"/>
         <Label Content="*  Campos obligatorios" HorizontalAlignment="Left" Margin="656,112,0,0" VerticalAlignment="Top" FontSize="10" FontWeight="Bold" Opacity="0.8" FontStyle="Italic"/>
-        <DatePicker HorizontalAlignment="Left" Margin="199,281,0,0" VerticalAlignment="Top" Width="200"/>
+        <DatePicker x:Name="dpFechaNacimiento" HorizontalAlignment="Left" Margin="199,281,0,0" VerticalAlignment="Top" Width="200"/>
         <Label Content="Sube aquí tu fotografía. " HorizontalAlignment="Left" Margin="443,72,0,0" VerticalAlignment="Top" FontSize="11" FontWeight="Bold" Height="25" Opacity="0.75"/>
-        <Button Content="Guardar" Margin="757,451,129,0" VerticalAlignment="Top" Height="23" FontSize="14" FontWeight="Bold" Foreground="White" >
+        <Button x:Name="btnGuardar" Content="Guardar" Margin="757,451,129,0" VerticalAlignment="Top" Height="23" FontSize="14" FontWeight="Bold" Foreground="White" Click="btnGuardar_Click" >
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.Background>
@@ -70,6 +70,7 @@
             </Rectangle.Stroke>
         </Rectangle>
         <Label Content="Información registro" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontStyle="Italic" Foreground="White"/>
+        <Image x:Name="imgFotografiaEmpleador" HorizontalAlignment="Left" Height="127" Margin="443,97,0,0" VerticalAlignment="Top" Width="168"/>
 
     </Grid>
 </Window>

@@ -11,12 +11,11 @@ namespace El_Camello.Modelo.clases
         private string clave;
         private string tipo;
         private int estatus;
-        private string nombreUsuario; // falta propiedad
+        private string nombreUsuario;
         private int idPerfilusuario;
         private string correoElectronico;
         private byte[] fotografia;
         private string rutaFotografia; 
-        //private string tipoUsuario;
         private string token;
 
         public string Clave { get => clave; set => clave = value; }
@@ -27,7 +26,6 @@ namespace El_Camello.Modelo.clases
         public string CorreoElectronico { get => correoElectronico; set => correoElectronico = value; }
         public byte[] Fotografia { get => fotografia; set => fotografia = value; }
         public string RutaFotografia { get => rutaFotografia; set => rutaFotografia = value; }
-        //public string TipoUsuario { get => tipoUsuario; set => tipoUsuario = value; }
         public string Token { get => token; set => token = value; }
     }
 }

@@ -110,9 +110,9 @@ namespace El_Camello.Modelo.dao
             return res;
         }
 
-        public static async Task<Modelo.clases.Aspirante> GetAspirante(int idUsuarioAspirante, string token)
+        public static async Task<clases.Aspirante> GetAspirante(int idUsuarioAspirante, string token)
         {
-            Modelo.clases.Aspirante aspirante = new Modelo.clases.Aspirante();
+            clases.Aspirante aspirante = new clases.Aspirante();
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
@@ -166,7 +166,7 @@ namespace El_Camello.Modelo.dao
                             break;
                     }
                 }
-                catch (HttpRequestException ex)
+                catch (HttpRequestException)
                 {
                     MessageBox.Show("servidor desconectado, no se puede establecer conexion");
                 }
@@ -175,6 +175,47 @@ namespace El_Camello.Modelo.dao
             }
 
             return aspirante;
+        }
+
+        public static async Task<List<clases.Aspirante>> GetAspirantes(string token)
+        {
+            List<clases.Aspirante> aspirantes = new List<clases.Aspirante>();
+            using (var cliente = new HttpClient())
+            {
+                cliente.DefaultRequestHeaders.Add("x-access-token", token);
+                string endpoint = string.Format("http://localhost:5000/v1/perfilAspirantes");
+
+                try
+                {
+                    HttpResponseMessage respuesta = await cliente.GetAsync(endpoint);
+                    string body = await respuesta.Content.ReadAsStringAsync();
+
+                    switch (respuesta.StatusCode)
+                    {
+                        case HttpStatusCode.OK:
+                            JArray arrayAspirantes = JArray.Parse(body);
+
+
+                            foreach (var item in arrayAspirantes)
+                            {
+                                clases.Aspirante aspirante = new clases.Aspirante();
+                                aspirante.Direccion = (string)item["direccion"];
+                                aspirante.FechaNacimiento = (DateTime)item["fechaNacimiento"];
+                                aspirante.IdAspirante = (int)item["idPerfilAspirante"];
+                                aspirante.NombreAspirante = (string)item["nombre"];
+                                aspirante.Telefono = (string)item["telefono"];
+                                aspirantes.Add(aspirante);
+                            }
+                            break;
+                    }
+                }
+                catch (HttpRequestException)
+                {
+                    MessageBox.Show("servidor desconectado, no se puede establecer conexion");
+                }
+            }
+
+            return aspirantes;
         }
 
     }

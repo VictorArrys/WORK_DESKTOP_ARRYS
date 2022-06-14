@@ -22,8 +22,9 @@ namespace El_Camello.Vistas.Usuario
     public partial class RegistrarDemandante : Window
     {
 
-        observadorRespuesta notificacion; ///
-        Boolean isNuevo = true; ///
+        observadorRespuesta notificacion; 
+        Boolean isNuevo = true;
+        Boolean nuevaFotografia = true;
         string rutaImagen = "";
         Modelo.clases.Demandante demandante = null;
 
@@ -56,6 +57,8 @@ namespace El_Camello.Vistas.Usuario
             pbContraseña.Password = demandante.Clave;
             pbConfirmarConstraseña.Password = demandante.Clave;
             tbTelefono.Text = demandante.Telefono;
+            nuevaFotografia = false;
+            btnCancelar.IsEnabled = false;
 
         }
 
@@ -98,37 +101,86 @@ namespace El_Camello.Vistas.Usuario
 
         private async void btRegistrarDemandante_Click(object sender, RoutedEventArgs e)
         {
-            Uri uriImagen;
-            Modelo.clases.Usuario user = new Modelo.clases.Usuario();
-            Modelo.clases.Demandante demandante = new Modelo.clases.Demandante();
-
-            user.RutaFotografia = rutaImagen;
-            uriImagen = new Uri(user.RutaFotografia);
-            user.Fotografia = System.IO.File.ReadAllBytes(uriImagen.LocalPath);
-            MessageBox.Show(user.Fotografia.ToString());
-
-            demandante.NombreDemandante = tbNombreDemandante.Text;
-            demandante.Direccion = tbDireccion.Text;
-            demandante.FechaNacimiento = (DateTime)dpFechaNacimiento.SelectedDate;
-            user.CorreoElectronico = tbCorreoElectronico.Text;
-            user.Estatus = 1;
-            demandante.Telefono = tbTelefono.Text;
-            user.NombreUsuario = tbNombreUsuario.Text;
-            user.Clave = pbContraseña.Password;
-            int registro = await DemandanteDAO.PostDemandante(user, demandante);
-            if (registro == 1)
+            if (isNuevo)
             {
-                MessageBox.Show("Registro en el sistema exitoso, favor de inciar con las credenciales registradas", "Operación exitosa");
-                MessageBox.Show("Nombre Usuario: "+user.NombreUsuario+"\n"+"Constraseña"+user.Clave, "Credenciales");
-                Login login = new Login();
-                login.Show();
-                this.Close();
+                Uri uriImagen;
+                Modelo.clases.Usuario user = new Modelo.clases.Usuario();
+                Modelo.clases.Demandante demandante = new Modelo.clases.Demandante();
+
+                user.RutaFotografia = rutaImagen;
+                uriImagen = new Uri(user.RutaFotografia);
+                user.Fotografia = System.IO.File.ReadAllBytes(uriImagen.LocalPath);
+
+                demandante.NombreDemandante = tbNombreDemandante.Text;
+                demandante.Direccion = tbDireccion.Text;
+                demandante.FechaNacimiento = (DateTime)dpFechaNacimiento.SelectedDate;
+                user.CorreoElectronico = tbCorreoElectronico.Text;
+                user.Estatus = 1;
+                demandante.Telefono = tbTelefono.Text;
+                user.NombreUsuario = tbNombreUsuario.Text;
+                user.Clave = pbContraseña.Password;
+                int registro = await DemandanteDAO.PostDemandante(user, demandante);
+                if (registro == 1)
+                {
+                    MessageBox.Show("Registro en el sistema exitoso, favor de inciar con las credenciales registradas", "Operación exitosa");
+                    MessageBox.Show("Nombre Usuario: " + user.NombreUsuario + "\n" + "Constraseña" + user.Clave, "Credenciales");
+                    Login login = new Login();
+                    login.Show();
+                    this.Close();
+
+                }
+                else
+                {
+                    //aqui poner si no se registrar
+                }
 
             }
             else
             {
-                //aqui poner si no se registrar
+                Modelo.clases.Usuario modificarUsuario = new Modelo.clases.Usuario();
+                Modelo.clases.Demandante modificarDemandante = new Modelo.clases.Demandante();
+                if (nuevaFotografia)
+                {
+                    Uri uriImagen;
+                    modificarUsuario.RutaFotografia = rutaImagen;
+                    uriImagen = new Uri(modificarUsuario.RutaFotografia);
+                    modificarUsuario.Fotografia = System.IO.File.ReadAllBytes(uriImagen.LocalPath);
+                    MessageBox.Show(modificarUsuario.Fotografia.ToString());
+                }
+                else
+                {
+                    byte[] fotografia;
+                    fotografia = demandante.Fotografia;
+                    modificarUsuario.Fotografia = fotografia;
+                }
+
+                modificarDemandante.NombreDemandante = tbNombreDemandante.Text;
+                modificarDemandante.Direccion = tbDireccion.Text;
+                modificarDemandante.FechaNacimiento = (DateTime)dpFechaNacimiento.SelectedDate;
+                modificarUsuario.CorreoElectronico = tbCorreoElectronico.Text;
+                modificarUsuario.Estatus = 1;
+                modificarDemandante.Telefono = tbTelefono.Text;
+                modificarUsuario.NombreUsuario = tbNombreUsuario.Text;
+                modificarUsuario.Clave = pbContraseña.Password;
+                modificarUsuario.Token = demandante.Token;
+                modificarUsuario.IdPerfilusuario = demandante.IdPerfilusuario;
+                modificarDemandante.IdDemandante = demandante.IdDemandante;
+                int resultado = await DemandanteDAO.putDemandante(modificarUsuario, modificarDemandante);
+                if (resultado == 1)
+                {
+                    Modelo.clases.Usuario usuario = null;
+                    usuario = await UsuarioDAO.getUsuario(modificarUsuario.IdPerfilusuario, modificarUsuario.Token);
+                    usuario.Token = demandante.Token;
+                    notificacion.actualizarInformacion(usuario);
+                    MessageBox.Show("Actualización de tu perfil exitosa", "Operacion");
+                    this.Close();
+                }
+                else
+                {
+                    //poner aqui cuando no entra
+                }
             }
+            
 
         }
 
@@ -144,6 +196,7 @@ namespace El_Camello.Vistas.Usuario
 
                 uriImagen = new Uri(rutaImagen);
                 imgFotografiaDemandante.Source = new BitmapImage(uriImagen);
+                nuevaFotografia = true;
 
             }
         }

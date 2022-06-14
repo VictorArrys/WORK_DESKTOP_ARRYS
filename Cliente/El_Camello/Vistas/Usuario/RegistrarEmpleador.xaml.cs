@@ -1,4 +1,7 @@
-﻿using System;
+﻿using El_Camello.Modelo.dao;
+using El_Camello.Modelo.interfaz;
+using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,46 +17,159 @@ using System.Windows.Shapes;
 
 namespace El_Camello.Vistas.Usuario
 {
-    /// <summary>
-    /// Lógica de interacción para RegistrarEmpleador.xaml
-    /// </summary>
     public partial class RegistrarEmpleador : Window
     {
-        private bool nuevoRegistro;
-        private Modelo.clases.Empleador perfilEmpleador;
+        observadorRespuesta notificacion;
+        Boolean isNuevo = true;
+        Boolean nuevaFotografia = true;
+        string rutaImagen = "";
+        Modelo.clases.Empleador empleador = null;
+
 
         public RegistrarEmpleador()
         {
             InitializeComponent();
-            nuevoRegistro = true;
-            perfilEmpleador = new Modelo.clases.Empleador();
+
         }
 
-        public RegistrarEmpleador(Modelo.clases.Empleador perfilEmpleador) : this()
+        public RegistrarEmpleador(observadorRespuesta notificacion) : this()
         {
-            nuevoRegistro = false;
-            this.perfilEmpleador = perfilEmpleador;
-            CargarFormulario();
+            this.notificacion = notificacion;
+        }
+
+        public RegistrarEmpleador(Modelo.clases.Empleador empleador, observadorRespuesta notificacion) : this(notificacion)
+        {
+            this.empleador = empleador;
+            isNuevo = false;
+            cargarInformacionEmpleador(empleador);
         }
 
         private void btnCancelar_Click(object sender, RoutedEventArgs e)
         {
-            if (nuevoRegistro) {
-                RegistroPerfil menuRegistrarPerfil = new RegistroPerfil();
-                menuRegistrarPerfil.Show();
-            }
+            RegistroPerfil menuRegistrarPerfil = new RegistroPerfil();
+            menuRegistrarPerfil.Show();
             this.Close();
         }
 
 
-        private void CargarFormulario()
+        private void cargarInformacionEmpleador(Modelo.clases.Empleador empleador)
         {
-            //Preparar fomrulario
 
+        }
 
-            if(!nuevoRegistro)
+        private void cargarImagen(Byte[] fotografia)
+        {
+            try
             {
-                //Cargar datos de empleador en formulario
+                byte[] fotoPerfilEdicion = fotografia;
+                if (fotoPerfilEdicion == null)
+                {
+                    fotoPerfilEdicion = null;
+                }
+                else if (fotoPerfilEdicion.Length > 0)
+                {
+                    using (var memoryStream = new System.IO.MemoryStream(fotoPerfilEdicion))
+                    {
+                        var imagen = new BitmapImage();
+                        imagen.BeginInit();
+                        imagen.CacheOption = BitmapCacheOption.OnLoad;
+                        imagen.StreamSource = memoryStream;
+                        imagen.EndInit();
+                        this.imgFotografiaEmpleador.Source = imagen;
+                    }
+                }
+
+            }
+            catch (Exception)
+            {
+                imgFotografiaEmpleador.Source = null;
+            }
+        }
+
+        private async void btnGuardar_Click(object sender, RoutedEventArgs e)
+        {
+            if (isNuevo)
+            {
+                Uri uriImagen;
+                Modelo.clases.Usuario usuario = new Modelo.clases.Usuario();
+                Modelo.clases.Empleador empleador = new Modelo.clases.Empleador();
+
+                if (tbNombreOrganizacion.Text == null)
+                {
+
+                }
+
+                if (pbConstraseña.Password != pbConfirmarContraseña.Password)
+                {
+                    MessageBox.Show("Por favor introduce la misma contraseña en los dos campos" +
+                        "para constraseña", "Operación Registrar");
+                }
+
+                usuario.RutaFotografia = rutaImagen;
+                uriImagen = new Uri(usuario.RutaFotografia);
+                usuario.Fotografia = System.IO.File.ReadAllBytes(uriImagen.LocalPath);
+
+                empleador.NombreOrganizacion = tbNombreOrganizacion.Text;
+                empleador.NombreEmpleador = tbNombre.Text;
+                empleador.Direccion = tbDireccion.Text;
+                empleador.FechaNacimiento = (DateTime)dpFechaNacimiento.SelectedDate;
+                usuario.CorreoElectronico = tbCorreoElectronico.Text;
+                empleador.Telefono = tbTelefono.Text;
+                usuario.NombreUsuario = tbNombreUsuario.Text;
+                usuario.Clave = pbConstraseña.Password;
+                usuario.Estatus = 1;
+
+                int resultado = await EmpleadorDAO.PostEmpleador(usuario, empleador);
+
+                if (resultado == 1)
+                {
+                    MessageBox.Show("Registro en el sistema exitoso, favor de inciar con las credenciales registradas", "Operación exitosa");
+                    MessageBox.Show("Nombre Usuario: " + usuario.NombreUsuario + "\n" + "Constraseña" + usuario.Clave, "Credenciales");
+                    Login login = new Login();
+                    login.Show();
+                    this.Close();
+
+                }
+                else
+                {
+                    //aqui poner si no se registrar
+                }
+            }
+            else
+            {
+                Modelo.clases.Usuario modificarUsuario = new Modelo.clases.Usuario();
+                Modelo.clases.Empleador modificarEmpleador = new Modelo.clases.Empleador();
+
+                if (nuevaFotografia)
+                {
+                    Uri uriImagen;
+                    modificarUsuario.RutaFotografia = rutaImagen;
+                    uriImagen = new Uri(modificarUsuario.RutaFotografia);
+                    modificarUsuario.Fotografia = System.IO.File.ReadAllBytes(uriImagen.LocalPath);
+                }
+                else
+                {
+                    byte[] fotografia;
+                    fotografia = empleador.Fotografia;
+                    modificarUsuario.Fotografia = fotografia;
+                }
+
+                //falta cargar datos y mandar a llamar el put
+            }
+        }
+
+        private void btnSeleccionarFotografia_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog selectorImagen = new OpenFileDialog();
+            selectorImagen.Filter = "Imagen jpg|*.jpg";
+            if (selectorImagen.ShowDialog() == true)
+            {
+                Uri uriImagen;
+                rutaImagen = selectorImagen.FileName;
+
+                uriImagen = new Uri(rutaImagen);
+                imgFotografiaEmpleador.Source = new BitmapImage(uriImagen);
+                nuevaFotografia = true;
             }
         }
     }

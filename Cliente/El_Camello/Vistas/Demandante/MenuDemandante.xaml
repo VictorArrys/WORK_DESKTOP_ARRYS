@@ -11,9 +11,9 @@
             <Image  x:Name="imgFoto" Height="133" Width="162"/>
         </StackPanel>
         <Button x:Name="btnEditarPerfil" Content="Editar Perfil" HorizontalAlignment="Left" Margin="183,59,0,0" VerticalAlignment="Top" FontStyle="Italic" BorderBrush="#FFDFDFDF" Background="#FFDFDFDF" FontWeight="Normal" Click="btnEditarPerfil_Click"/>
-        <Button Content="Desactivar Perfil" HorizontalAlignment="Left" Margin="183,90,0,0" VerticalAlignment="Top" FontStyle="Italic" BorderBrush="#FFDFDFDF" Background="#FFDFDFDF" FontWeight="Normal"/>
-        <Button Content="Activar Perfil" HorizontalAlignment="Left" Margin="184,119,0,0" VerticalAlignment="Top" FontStyle="Italic" BorderBrush="#FFDFDFDF" Background="#FFDFDFDF" FontWeight="Normal"/>
-        <Button Content=" Consultar &#xA;Solicitudes" HorizontalAlignment="Left" Margin="513,90,0,0" VerticalAlignment="Top" Width="87" Height="41" FontSize="14" FontWeight="Bold" Foreground="White">
+        <Button x:Name="btnDesactivar" Content="Desactivar Perfil" HorizontalAlignment="Left" Margin="183,90,0,0" VerticalAlignment="Top" FontStyle="Italic" BorderBrush="#FFDFDFDF" Background="#FFDFDFDF" FontWeight="Normal" Click="btnDesactivar_Click"/>
+        <Button x:Name="btnActivarPerfil" Content="Activar Perfil" HorizontalAlignment="Left" Margin="184,119,0,0" VerticalAlignment="Top" FontStyle="Italic" BorderBrush="#FFDFDFDF" Background="#FFDFDFDF" FontWeight="Normal"/>
+        <Button x:Name="btnConsultarSolicitudes" Content=" Consultar &#xA;Solicitudes" HorizontalAlignment="Left" Margin="513,90,0,0" VerticalAlignment="Top" Width="87" Height="41" FontSize="14" FontWeight="Bold" Foreground="White" Click="btnConsultarSolicitudes_Click">
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>
@@ -21,7 +21,7 @@
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.Background>
         </Button>
-        <Button Content="Valoraciones" HorizontalAlignment="Left" Margin="641,91,0,0" VerticalAlignment="Top" Width="87" Height="41" FontSize="14" FontWeight="Bold" Foreground="White">
+        <Button x:Name="btnConsultarValoraciones" Content="Valoraciones" HorizontalAlignment="Left" Margin="641,91,0,0" VerticalAlignment="Top" Width="87" Height="41" FontSize="14" FontWeight="Bold" Foreground="White" Click="btnConsultarValoraciones_Click">
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>
@@ -29,7 +29,7 @@
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.Background>
         </Button>
-        <Button Content="Mensajería" HorizontalAlignment="Left" Margin="777,92,0,0" VerticalAlignment="Top" Width="87" Height="41" FontSize="14" FontWeight="Bold" Foreground="White">
+        <Button x:Name="btnMensajeria" Content="Mensajería" HorizontalAlignment="Left" Margin="777,92,0,0" VerticalAlignment="Top" Width="87" Height="41" FontSize="14" FontWeight="Bold" Foreground="White" Click="btnMensajeria_Click">
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>
@@ -37,9 +37,9 @@
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.703"/>
             </Button.Background>
         </Button>
-        <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="22,223,22,40"/>
+        <DataGrid x:Name="dgAspirantes" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="22,223,22,40"/>
         <Label Content="Categoría:" HorizontalAlignment="Left" Margin="23,192,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold"/>
-        <ComboBox x:Name="cbCategorias" HorizontalAlignment="Left" Margin="104,196,0,0" VerticalAlignment="Top" Width="182"/>
+        <ComboBox x:Name="cbCategorias" HorizontalAlignment="Left" Margin="104,196,0,0" VerticalAlignment="Top" Width="182" SelectionChanged="cambioCategoria"/>
         <Rectangle HorizontalAlignment="Center" Height="41" VerticalAlignment="Top" Width="1026">
             <Rectangle.Stroke>
                 <SolidColorBrush Color="#FF062758" Opacity="0.85"/>

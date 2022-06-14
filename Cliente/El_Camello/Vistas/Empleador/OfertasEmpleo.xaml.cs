@@ -1,4 +1,5 @@
-﻿using El_Camello.Vistas.Usuario;
+﻿using El_Camello.Modelo.interfaz;
+using El_Camello.Vistas.Usuario;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,13 +19,16 @@ namespace El_Camello.Vistas.Empleador
     /// <summary>
     /// Interaction logic for OfertasEmpleo.xaml
     /// </summary>
-    public partial class OfertasEmpleo : Window
+    public partial class OfertasEmpleo : Window, observadorRespuesta
     {
+        Modelo.clases.Empleador empleador = null;
+
+        
         public OfertasEmpleo(Modelo.clases.Usuario usuarioConectado)
         {
 
             InitializeComponent();
-            CargarImagen(usuarioConectado);
+            CargarEmpleador(usuarioConectado);
             
         }
 
@@ -57,10 +61,33 @@ namespace El_Camello.Vistas.Empleador
             }
         }
 
+        private async void CargarEmpleador(Modelo.clases.Usuario usuarioConectado)
+        {
+            //demandante = await DemandanteDAO.getDemandante(usuarioConectado.IdPerfilusuario, usuarioConectado.Token);
+
+            /*categorias = await CategoriaDAO.GetCategorias(usuarioConectado.Token);
+            cbCategorias.ItemsSource = categorias;
+            CargarImagen(usuarioConectado);
+            demandante.Clave = usuarioConectado.Clave;
+            demandante.CorreoElectronico = usuarioConectado.CorreoElectronico;
+            demandante.Estatus = usuarioConectado.Estatus;
+            demandante.NombreUsuario = usuarioConectado.NombreUsuario;
+            demandante.Fotografia = usuarioConectado.Fotografia;
+            demandante.Tipo = usuarioConectado.Tipo;
+            demandante.Token = usuarioConectado.Token;
+            demandante.IdPerfilusuario = usuarioConectado.IdPerfilusuario;
+            aspirantes = await AspiranteDAO.GetAspirantes(demandante.Token);*/
+        }
+
         private void btnEditarPerfil_Click(object sender, RoutedEventArgs e)
         {
-            RegistrarEmpleador ventanaPerfil = new RegistrarEmpleador(new Modelo.clases.Empleador() /*Enviar datos de y empleador*/);
-            ventanaPerfil.ShowDialog();
+            RegistrarEmpleador registrarEmpleador = new RegistrarEmpleador(empleador, this);
+            registrarEmpleador.ShowDialog();
+        }
+
+        public void actualizarInformacion(Modelo.clases.Usuario usuarioContectado)
+        {
+            CargarEmpleador(usuarioContectado);
         }
 
         private void btnDesactivarPerfil_Click(object sender, RoutedEventArgs e)

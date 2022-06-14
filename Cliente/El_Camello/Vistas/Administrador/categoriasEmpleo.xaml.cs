@@ -35,9 +35,9 @@ namespace El_Camello.Vistas.Administrador
         {
             List<Categoria> categoriasTabla = new List<Categoria>();
             //aqui pasar el token que viene desde el inicio de seción
-            categoriasTabla = await CategoriaDAO.GetCategorias();
+            //categoriasTabla = await CategoriaDAO.GetCategorias();
 
-            dgCategorias.ItemsSource = categoriasTabla;
+            //gCategorias.ItemsSource = categoriasTabla;
         }
 
         private async void btnRegistrarCategoria_Click(object sender, RoutedEventArgs e)

@@ -23,10 +23,11 @@ namespace El_Camello.Vistas.Demandante
     public partial class MenuDemandante : Window, observadorRespuesta
     {
         Modelo.clases.Demandante demandante = null;
+        List<Modelo.clases.Aspirante> aspirantes = new List<Modelo.clases.Aspirante>();
+        List<Modelo.clases.Categoria> categorias = new List<Modelo.clases.Categoria>();
         public MenuDemandante(Modelo.clases.Usuario usuarioConectado)
         {
             InitializeComponent();
-            CargarImagen(usuarioConectado);
             demandante = new Modelo.clases.Demandante();
             cargarDemandante(usuarioConectado);
         }
@@ -62,8 +63,12 @@ namespace El_Camello.Vistas.Demandante
 
         private async void cargarDemandante(Modelo.clases.Usuario usuarioConectado)
         {
+            
             demandante = await DemandanteDAO.getDemandante(usuarioConectado.IdPerfilusuario, usuarioConectado.Token);
-            cbCategorias.ItemsSource = await CategoriaDAO.GetCategorias();
+            
+            categorias = await CategoriaDAO.GetCategorias(usuarioConectado.Token);
+            cbCategorias.ItemsSource = categorias;
+            CargarImagen(usuarioConectado);
             demandante.Clave = usuarioConectado.Clave;
             demandante.CorreoElectronico = usuarioConectado.CorreoElectronico;
             demandante.Estatus = usuarioConectado.Estatus;
@@ -71,23 +76,61 @@ namespace El_Camello.Vistas.Demandante
             demandante.Fotografia = usuarioConectado.Fotografia;
             demandante.Tipo = usuarioConectado.Tipo;
             demandante.Token = usuarioConectado.Token;
-            MessageBox.Show(usuarioConectado.NombreUsuario);
+            demandante.IdPerfilusuario = usuarioConectado.IdPerfilusuario;
+            aspirantes = await AspiranteDAO.GetAspirantes(demandante.Token);
+
+            dgAspirantes.ItemsSource = aspirantes;
+
         }
 
         private void btnEditarPerfil_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(demandante.Token);
-            MessageBox.Show(demandante.NombreDemandante);
-            MessageBox.Show(demandante.NombreUsuario);
-            
             RegistrarDemandante registrarDemandante = new RegistrarDemandante(demandante, this);
-            registrarDemandante.Show();
+            registrarDemandante.ShowDialog();
+        }
+
+        public void actualizarInformacion(Modelo.clases.Usuario usuarioContectado)
+        {
+            cargarDemandante(usuarioContectado);
+        }
+
+        private void btnDesactivar_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult opcionSeleccionada = MessageBox.Show("¿Estas seguro de desactivar tu perfil?", "Confirmacion", MessageBoxButton.OKCancel);
+            if (opcionSeleccionada == MessageBoxResult.OK)
+            {
+                MessageBox.Show("Tu perfil se desactivará y no se podra mostrar tus peticiones de servicio, podrás volver actiuvar tu perfil activando el boton 'Activar perfil'", "Advertencia!");
+
+            }
+            else
+            {
+                Console.WriteLine("no pasa nada");
+            }
+        }
+
+        private void btnConsultarSolicitudes_Click(object sender, RoutedEventArgs e)
+        {
+            //pasar usuario
+            ConsultarSolicitudServicio consultarSolicitudServicio = new ConsultarSolicitudServicio();
+            consultarSolicitudServicio.Show();
             this.Close();
         }
 
-        public void actualizarInformacion(string operacion)
+        private void btnConsultarValoraciones_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("Respuesta de formulario " + operacion);
+            //Eduardo
+        }
+
+        private void btnMensajeria_Click(object sender, RoutedEventArgs e)
+        {
+            //eduardo
+        }
+
+        private void cambioCategoria(object sender, SelectionChangedEventArgs e)
+        {
+            int seleccion = cbCategorias.SelectedIndex;
+            MessageBox.Show(categorias[seleccion].ToString());
+           
         }
     }
 }
