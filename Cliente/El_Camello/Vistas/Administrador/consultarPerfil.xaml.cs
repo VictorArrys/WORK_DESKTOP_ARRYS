@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using El_Camello.Modelo.dao;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,25 +24,28 @@ namespace El_Camello.Vistas.Administrador
     {
         string rutaVideo = "";
         Uri video = null;
+        Modelo.clases.Aspirante aspirante = null;
         public consultarPerfil()
         {
             InitializeComponent();
-
-
+            aspirante = new Modelo.clases.Aspirante();
+            cargarDatosAspirante();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog selectorVideo = new OpenFileDialog();
-            selectorVideo.Filter = "Archivo mp4|*.mp4";
-            if (selectorVideo.ShowDialog() == true)
-            {
-                rutaVideo = selectorVideo.FileName;
-            }
+            
 
-            video = new Uri(rutaVideo);
-            meVideoAspirante.Source = video;
+        }
 
+        private async void cargarDatosAspirante()
+        {
+            string token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFVzdWFyaW8iOjkwLCJjbGF2ZSI6IjEyMzQ1NiIsInRpcG8iOiJBc3BpcmFudGUiLCJpYXQiOjE2NTUzMjkzMjEsImV4cCI6MTY1NTQxNTcyMX0.qQ-5BohPBoWPdRXZ_vjPdGj5G7pWj9n8PNjXK6_J2aY";
+            aspirante = await AspiranteDAO.GetAspirante(90, token);
+
+            String urlCarpetaTemporal = System.Environment.GetEnvironmentVariable("TEMP");
+
+            MessageBox.Show(urlCarpetaTemporal);
         }
     }
 }

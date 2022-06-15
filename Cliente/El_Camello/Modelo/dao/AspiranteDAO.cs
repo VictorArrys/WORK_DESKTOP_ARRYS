@@ -121,11 +121,22 @@ namespace El_Camello.Modelo.dao
                 try
                 {
                     HttpResponseMessage respuesta = await cliente.GetAsync(endpoint);
-                    string body = await respuesta.Content.ReadAsStringAsync();
+                    var MS = new MemoryStream();
+                    respuesta.Content.CopyToAsync(MS).Wait();
+                    MS.Seek(0, SeekOrigin.Begin);
+                    StreamReader reader = new StreamReader(MS);
+                    string body = reader.ReadToEnd();
+
+                    MessageBox.Show("body antes");
+                    /*Stream bodyStream = respuesta.Content.ReadAsStream();
+                    //StreamReader reader = new StreamReader(bodyStream);
+                    string body = reader.ReadToEnd();*/
                     switch (respuesta.StatusCode)
                     {
                         case HttpStatusCode.OK:
+                            MessageBox.Show(body);
                             JObject perfilAspirante = JObject.Parse(body);
+                            //JArray segemntoVideo = (JArray)perfilAspirante["video"];
                             aspirante.Direccion = (string)perfilAspirante["direccion"];
                             aspirante.FechaNacimiento = (DateTime)perfilAspirante["fechaNacimiento"];
                             aspirante.IdAspirante = (int)perfilAspirante["idPerfilAspirante"];
@@ -133,7 +144,9 @@ namespace El_Camello.Modelo.dao
                             aspirante.IdPerfilusuario = (int)perfilAspirante["idPerfilUsuario"];
                             //aspirante.Oficios = perfilAspirante["oficios"];
                             aspirante.Telefono = (string)perfilAspirante["telefono"];
-                            aspirante.Video = (byte[])perfilAspirante["video"];
+                            //aspirante.Video = (byte[])perfilAspirante["video"];
+
+
 
 
                             break;
