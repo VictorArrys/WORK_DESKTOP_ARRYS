@@ -20,8 +20,16 @@
                 <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
             </Rectangle.Fill>
         </Rectangle>
-        <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="180,62,19,39"/>
-        <Button Content="Aspirantes" HorizontalAlignment="Left" Margin="53,272,0,0" VerticalAlignment="Top" Height="29" Width="127" Foreground="White" FontSize="15" FontWeight="Bold">
+        <DataGrid x:Name="dgUsuarios" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="180,62,19,39" SelectionChanged="dgSeleccionUsuario">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nombre Usuario" Binding= "{Binding NombreUsuario}" Width="155"/>
+                <DataGridTextColumn Header="Correo Electronico" Binding= "{Binding CorreoElectronico}" Width="200"/>
+                <DataGridTextColumn Header="Constraseña" Binding= "{Binding Clave}" Width="160"/>
+                <DataGridTextColumn Header="Tipo Usuario" Binding= "{Binding Tipo}" Width="140"/>
+                <DataGridTextColumn Header="Estatus" Binding= "{Binding EstatusUsuario}" Width="97"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="btnAspirantes" Content="Aspirantes" HorizontalAlignment="Left" Margin="53,272,0,0" VerticalAlignment="Top" Height="29" Width="127" Foreground="White" FontSize="15" FontWeight="Bold" Click="btnAspirantes_Click">
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>
@@ -29,7 +37,7 @@
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.Background>
         </Button>
-        <Button Content="Empleadores" HorizontalAlignment="Left" Margin="53,349,0,0" VerticalAlignment="Top" Height="29" Width="127" Foreground="White" FontSize="15" FontWeight="Bold">
+        <Button x:Name="btnEmpleadores" Content="Empleadores" HorizontalAlignment="Left" Margin="53,349,0,0" VerticalAlignment="Top" Height="29" Width="127" Foreground="White" FontSize="15" FontWeight="Bold" Click="btnEmpleadores_Click">
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>
@@ -37,7 +45,7 @@
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.Background>
         </Button>
-        <Button Content="Demandantes" HorizontalAlignment="Left" Margin="53,310,0,0" VerticalAlignment="Top" Height="29" Width="127" Foreground="White" FontSize="15" FontWeight="Bold">
+        <Button x:Name="btnDemandantes" Content="Demandantes" HorizontalAlignment="Left" Margin="53,310,0,0" VerticalAlignment="Top" Height="29" Width="127" Foreground="White" FontSize="15" FontWeight="Bold" Click="btnDemandantes_Click">
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>
@@ -45,7 +53,7 @@
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.Background>
         </Button>
-        <Button Content="Administradores" HorizontalAlignment="Left" Margin="53,233,0,0" VerticalAlignment="Top" Height="29" Width="127" Foreground="White" FontSize="15" FontWeight="Bold">
+        <Button x:Name="btnAdministradores" Content="Administradores" HorizontalAlignment="Left" Margin="53,233,0,0" VerticalAlignment="Top" Height="29" Width="127" Foreground="White" FontSize="15" FontWeight="Bold" Click="btnAdministradores_Click">
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>
@@ -55,6 +63,11 @@
         </Button>
         <Label Content="Usuarios" HorizontalAlignment="Left" Margin="10,3,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="White"/>
         <Button Content="Cerrar Sesión" HorizontalAlignment="Left" Margin="833,7,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}"/>
+        <Label Content="Leyenda Estatus:" HorizontalAlignment="Left" Margin="20,83,0,0" VerticalAlignment="Top" FontWeight="Bold" FontStyle="Italic"/>
+        <Label Content="1 : Activo" HorizontalAlignment="Left" Margin="34,109,0,0" VerticalAlignment="Top" FontWeight="Normal" FontStyle="Italic"/>
+        <Label Content="2 : Desactivado" HorizontalAlignment="Left" Margin="34,140,0,0" VerticalAlignment="Top" FontWeight="Normal" FontStyle="Italic"/>
+        <Label Content="3 : Bloqueado*" HorizontalAlignment="Left" Margin="34,171,0,0" VerticalAlignment="Top" FontWeight="Normal" FontStyle="Italic"/>
+        <Label Content="*Solo Empleadores" HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" FontWeight="Normal" FontStyle="Italic" FontSize="9"/>
 
     </Grid>
 </Page>

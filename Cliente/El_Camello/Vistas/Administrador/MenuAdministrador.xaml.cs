@@ -1,4 +1,5 @@
 ﻿
+using El_Camello.Modelo.dao;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,17 +26,28 @@ namespace El_Camello.Vistas.Administrador
         private consultarPerfiles ventanaConsultarPerfiles;
         private ReportesEstadisticos ventanaRepEst;
         private GraficasEstadisticas ventanaGrfEst;
-
+        Modelo.clases.Administrador administrador = null;
 
         public MenuAdministrador(Modelo.clases.Usuario usuarioConectado)
         {
             InitializeComponent();
+            administrador = new Modelo.clases.Administrador();
+            cargarAdministrador(usuarioConectado);
+        }
 
+        private async void cargarAdministrador(Modelo.clases.Usuario usuarioConectado)
+        {
+            administrador = await AdministradorDAO.getAdministrador(usuarioConectado.IdPerfilusuario, usuarioConectado.Token);
+            administrador.NombreUsuario = usuarioConectado.NombreUsuario;
+            administrador.Clave = usuarioConectado.Clave;
+            administrador.CorreoElectronico = usuarioConectado.CorreoElectronico;
+            administrador.Estatus = usuarioConectado.Estatus;
+            administrador.Token = usuarioConectado.Token;
         }
 
         private void btnPantallaPerfil_Click(object sender, RoutedEventArgs e)
         {
-            PerfilAdministrador ventanaPerfilAdministrador = new PerfilAdministrador(/* Objeto Administrador */);
+            PerfilAdministrador ventanaPerfilAdministrador = new PerfilAdministrador(administrador);
             ventanaPerfilAdministrador.ShowDialog();
         }
 
@@ -52,7 +64,7 @@ namespace El_Camello.Vistas.Administrador
         {
             if (ventanaConsultarPerfiles == null)
             {
-                ventanaConsultarPerfiles = new consultarPerfiles();
+                ventanaConsultarPerfiles = new consultarPerfiles(administrador);
             }
             panelPrincipal.Content = ventanaConsultarPerfiles;
         }
@@ -77,7 +89,7 @@ namespace El_Camello.Vistas.Administrador
 
         private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Close();
         }
     }
 }

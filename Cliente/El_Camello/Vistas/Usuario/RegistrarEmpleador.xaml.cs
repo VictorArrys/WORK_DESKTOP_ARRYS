@@ -54,6 +54,18 @@ namespace El_Camello.Vistas.Usuario
 
         private void cargarInformacionEmpleador(Modelo.clases.Empleador empleador)
         {
+            tbNombreOrganizacion.Text = empleador.NombreOrganizacion;
+            tbNombre.Text = empleador.NombreUsuario;
+            tbDireccion.Text = empleador.Direccion;
+            dpFechaNacimiento.SelectedDate = empleador.FechaNacimiento;
+            cargarImagen(empleador.Fotografia);
+            tbCorreoElectronico.Text = empleador.CorreoElectronico;
+            tbTelefono.Text = empleador.Telefono;
+            tbNombreUsuario.Text = empleador.NombreUsuario;
+            pbConstraseña.Password = empleador.Clave;
+            pbConfirmarContraseña.Password = empleador.Clave;
+            nuevaFotografia = false;
+            btnCancelar.IsEnabled = false;
 
         }
 
@@ -137,24 +149,48 @@ namespace El_Camello.Vistas.Usuario
             }
             else
             {
-                Modelo.clases.Usuario modificarUsuario = new Modelo.clases.Usuario();
                 Modelo.clases.Empleador modificarEmpleador = new Modelo.clases.Empleador();
 
                 if (nuevaFotografia)
                 {
                     Uri uriImagen;
-                    modificarUsuario.RutaFotografia = rutaImagen;
-                    uriImagen = new Uri(modificarUsuario.RutaFotografia);
-                    modificarUsuario.Fotografia = System.IO.File.ReadAllBytes(uriImagen.LocalPath);
+                    modificarEmpleador.RutaFotografia = rutaImagen;
+                    uriImagen = new Uri(modificarEmpleador.RutaFotografia);
+                    modificarEmpleador.Fotografia = System.IO.File.ReadAllBytes(uriImagen.LocalPath);
                 }
                 else
                 {
                     byte[] fotografia;
                     fotografia = empleador.Fotografia;
-                    modificarUsuario.Fotografia = fotografia;
+                    modificarEmpleador.Fotografia = fotografia;
                 }
 
-                //falta cargar datos y mandar a llamar el put
+                modificarEmpleador.NombreOrganizacion = tbNombreOrganizacion.Text;
+                modificarEmpleador.NombreEmpleador = tbNombre.Text;
+                modificarEmpleador.Direccion = tbDireccion.Text;
+                modificarEmpleador.FechaNacimiento = (DateTime)dpFechaNacimiento.SelectedDate;
+                modificarEmpleador.CorreoElectronico = tbCorreoElectronico.Text;
+                modificarEmpleador.Telefono = tbTelefono.Text;
+                modificarEmpleador.NombreUsuario = tbNombreUsuario.Text;
+                modificarEmpleador.Clave = pbConstraseña.Password;
+                modificarEmpleador.Estatus = empleador.Estatus;
+                modificarEmpleador.IdPerfilusuario = empleador.IdPerfilusuario;
+                modificarEmpleador.IdPerfilEmpleador = empleador.IdPerfilEmpleador;
+                modificarEmpleador.Token = empleador.Token;
+                int resultado = await EmpleadorDAO.putEmpleador(modificarEmpleador);
+                if (resultado == 1)
+                {
+                    Modelo.clases.Usuario usuario = null;
+                    usuario = await UsuarioDAO.getUsuario(modificarEmpleador.IdPerfilusuario, modificarEmpleador.Token);
+                    usuario.Token = modificarEmpleador.Token;
+                    notificacion.actualizarInformacion(usuario);
+                    MessageBox.Show("Actualización de tu perfil exitosa", "Operacion");
+                    this.Close();
+                }
+                else
+                {
+                    ///
+                }
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using El_Camello.Modelo.dao;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,14 +15,103 @@ using System.Windows.Shapes;
 
 namespace El_Camello.Vistas.Administrador
 {
-    /// <summary>
-    /// Lógica de interacción para consultarPerfiles.xaml
-    /// </summary>
+    
     public partial class consultarPerfiles : Page
     {
-        public consultarPerfiles()
+        Modelo.clases.Administrador administradorPerfiles = null;
+        List<Modelo.clases.Usuario> usuarios = null;
+        List<Modelo.clases.Usuario> usuariosAdministradores = null;
+        List<Modelo.clases.Usuario> usuariosEmpleadores = null;
+        List<Modelo.clases.Usuario> usuariosDemandantes = null;
+        List<Modelo.clases.Usuario> usuariosAspirantes = null;
+        public consultarPerfiles(Modelo.clases.Administrador administrador)
         {
             InitializeComponent();
+            administradorPerfiles = new Modelo.clases.Administrador();
+            usuariosAdministradores = new List<Modelo.clases.Usuario>();
+            usuariosEmpleadores = new List<Modelo.clases.Usuario>();
+            usuariosDemandantes = new List<Modelo.clases.Usuario>();
+            usuariosAspirantes = new List<Modelo.clases.Usuario>();
+            usuarios = new List<Modelo.clases.Usuario>();
+            cargarUsuarios(administrador.Token);
+            dgUsuarios.AutoGenerateColumns = false;
+        }
+
+        private async void cargarUsuarios(string token)
+        {
+            usuarios = await UsuarioDAO.getUsuarios(token);
+            MessageBox.Show(usuariosAdministradores.Count.ToString());
+            cargarListasUsuarios(usuarios);
+        }
+
+        private void cargarListasUsuarios(List<Modelo.clases.Usuario> usuarios)
+        {
+            
+            for (int i = 0; i < usuarios.Count; i++)
+            {
+
+                string tipo = usuarios[i].Tipo;
+                if (tipo != null)
+                {
+                    tipo.ToLower();
+                    switch (tipo)
+                    {
+                        case "Administrador":
+                            usuariosAdministradores.Add(usuarios[i]);
+                            break;
+                        case "Empleador":
+                            usuariosEmpleadores.Add(usuarios[i]);
+                            break;
+                        case "Demandante":
+                            usuariosDemandantes.Add(usuarios[i]);
+                            break;
+                        case "Aspirante":
+                            usuariosAspirantes.Add(usuarios[i]);
+                            break;
+                    }
+                } 
+            }
+            
+        }
+
+        private void btnAdministradores_Click(object sender, RoutedEventArgs e)
+        {
+            //dgUsuarios.SelectedItem = null;
+            dgUsuarios.ItemsSource = null;
+            dgUsuarios.ItemsSource = usuariosAdministradores;
+        }
+
+        private void btnAspirantes_Click(object sender, RoutedEventArgs e)
+        {
+            //dgUsuarios.SelectedItem = null;
+            dgUsuarios.ItemsSource = null;
+            dgUsuarios.ItemsSource = usuariosAspirantes;
+        }
+
+        private void btnDemandantes_Click(object sender, RoutedEventArgs e)
+        {
+            //dgUsuarios.SelectedItem = null;
+            dgUsuarios.ItemsSource = null;
+            dgUsuarios.ItemsSource = usuariosDemandantes;
+        }
+
+        private void btnEmpleadores_Click(object sender, RoutedEventArgs e)
+        {
+            //dgUsuarios.SelectedItem = null;
+            dgUsuarios.ItemsSource = null;
+            dgUsuarios.ItemsSource = usuariosEmpleadores;
+        }
+
+        private void dgSeleccionUsuario(object sender, SelectionChangedEventArgs e)
+        {
+
+            if (dgUsuarios.SelectedIndex > -1)
+            {
+                MessageBox.Show(dgUsuarios.SelectedItem.ToString());
+
+            }
+           
+
         }
     }
 }

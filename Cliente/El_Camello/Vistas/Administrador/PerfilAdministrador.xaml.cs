@@ -19,9 +19,32 @@ namespace El_Camello.Vistas.Administrador
     /// </summary>
     public partial class PerfilAdministrador : Window
     {
-        public PerfilAdministrador()
+        Modelo.clases.Administrador modificarAdministrador = null;
+        public PerfilAdministrador(Modelo.clases.Administrador administrador)
         {
             InitializeComponent();
+            modificarAdministrador = new Modelo.clases.Administrador();
+            cargarInformacionAdministrador(administrador);
+        }
+
+        private void cargarInformacionAdministrador(Modelo.clases.Administrador administrador)
+        {
+            modificarAdministrador.IdPerfilAdministrador = administrador.IdPerfilAdministrador;
+            modificarAdministrador.IdPerfilusuario = administrador.IdPerfilusuario;
+            modificarAdministrador.Estatus = administrador.Estatus;
+            modificarAdministrador.Token = administrador.Token;
+            tbNombre.Text = administrador.Nombre;
+            tbTelefono.Text = administrador.Telefono;
+            tbNombreUsuario.Text = administrador.NombreUsuario;
+            pbContraseña.Password = administrador.Clave;
+            pbConfirmarContraseña.Password = administrador.Clave;
+            tbCorreoElectronico.Text = administrador.CorreoElectronico;
+
+        }
+
+        private void btnModificar_Click(object sender, RoutedEventArgs e)
+        {
+            // mandar a llamar el dao
         }
     }
 }

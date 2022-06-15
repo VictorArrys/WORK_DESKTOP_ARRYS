@@ -24,17 +24,16 @@
             </Rectangle.Fill>
         </Rectangle>
         <Label Content="Nombre:" HorizontalAlignment="Left" Margin="25,61,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-        <Label Content="Telefono:" HorizontalAlignment="Left" Margin="25,126,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-        <Label Content="Nombre usuario:" HorizontalAlignment="Left" Margin="25,0,0,0" VerticalAlignment="Center" FontSize="14" FontWeight="Bold"/>
-        <Label Content="Clave:" HorizontalAlignment="Left" Margin="25,265,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label Content="Telefono:" HorizontalAlignment="Left" Margin="22,114,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label Content="Nombre usuario:" HorizontalAlignment="Left" Margin="25,169,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label Content="Contraseña:" HorizontalAlignment="Left" Margin="25,228,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Label Content="Correo electrónico:" HorizontalAlignment="Left" Margin="25,341,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Label Content="Perfil Administrador" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontWeight="Bold" FontStyle="Italic"/>
-        <TextBox Margin="165,209,97,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14"/>
-        <TextBox Margin="165,345,97,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14"/>
-        <TextBox Margin="165,273,97,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14"/>
-        <TextBox Margin="165,134,97,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14"/>
-        <TextBox Margin="165,69,97,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14"/>
-        <Button Content="Modificar" HorizontalAlignment="Left" Margin="382,397,0,0" VerticalAlignment="Top" Width="71" Height="23" Foreground="White" FontWeight="Bold" FontStyle="Normal">
+        <TextBox x:Name="tbNombreUsuario" Margin="165,177,97,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14"/>
+        <TextBox x:Name="tbCorreoElectronico" Margin="165,345,97,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14"/>
+        <TextBox x:Name="tbTelefono" Margin="165,122,97,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14"/>
+        <TextBox x:Name="tbNombre" Margin="165,69,97,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14"/>
+        <Button x:Name="btnModificar" Content="Modificar" HorizontalAlignment="Left" Margin="382,397,0,0" VerticalAlignment="Top" Width="71" Height="23" Foreground="White" FontWeight="Bold" FontStyle="Normal" Click="btnModificar_Click">
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.Background>
@@ -42,6 +41,9 @@
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>
         </Button>
+        <PasswordBox x:Name="pbContraseña" HorizontalAlignment="Left" Margin="165,234,0,0" VerticalAlignment="Top" Width="222"/>
+        <PasswordBox x:Name="pbConfirmarContraseña" HorizontalAlignment="Left" Margin="165,287,0,0" VerticalAlignment="Top" Width="222"/>
+        <Label Content="Confirmar &#xD;&#xA;Contraseña:" HorizontalAlignment="Left" Margin="25,272,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
 
     </Grid>
 </Window>

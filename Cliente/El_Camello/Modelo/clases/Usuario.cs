@@ -21,6 +21,28 @@ namespace El_Camello.Modelo.clases
         public string Clave { get => clave; set =>  clave = value; }
         public string Tipo { get => tipo; set => tipo = value; }
         public int Estatus { get => estatus; set => estatus = value; }
+
+        public string EstatusUsuario
+        {
+            get
+            {
+                if (estatus == 1)
+                {
+                    return "Activo";
+                }else if (estatus == 2)
+                {
+                    return "Desactivado";
+                }
+                else if (estatus == 3)
+                {
+                    return "Bloqueado";
+                }
+                else
+                {
+                    return "";
+                }
+            }
+        }
         public string NombreUsuario { get => nombreUsuario; set => nombreUsuario = value; }
         public int IdPerfilusuario { get => idPerfilusuario; set => idPerfilusuario = value; }
         public string CorreoElectronico { get => correoElectronico; set => correoElectronico = value; }

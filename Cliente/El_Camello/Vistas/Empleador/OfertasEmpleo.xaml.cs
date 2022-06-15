@@ -36,7 +36,7 @@ namespace El_Camello.Vistas.Empleador
             this.token = usuarioConectado.Token;
             InitializeComponent();
             CargarEmpleador(usuarioConectado);
-            CargarOfertasTabla();
+            //CargarOfertasTabla();
             
         }
 
@@ -88,20 +88,17 @@ namespace El_Camello.Vistas.Empleador
 
         private async void CargarEmpleador(Modelo.clases.Usuario usuarioConectado)
         {
-            // demandante = await DemandanteDAO.getDemandante(usuarioConectado.IdPerfilusuario, usuarioConectado.Token);
-
-            /*categorias = await CategoriaDAO.GetCategorias(usuarioConectado.Token);
-            cbCategorias.ItemsSource = categorias;
+            empleador = await EmpleadorDAO.getEmpleador(usuarioConectado.IdPerfilusuario, usuarioConectado.Token);
             CargarImagen(usuarioConectado);
-            demandante.Clave = usuarioConectado.Clave;
-            demandante.CorreoElectronico = usuarioConectado.CorreoElectronico;
-            demandante.Estatus = usuarioConectado.Estatus;
-            demandante.NombreUsuario = usuarioConectado.NombreUsuario;
-            demandante.Fotografia = usuarioConectado.Fotografia;
-            demandante.Tipo = usuarioConectado.Tipo;
-            demandante.Token = usuarioConectado.Token;
-            demandante.IdPerfilusuario = usuarioConectado.IdPerfilusuario;
-            aspirantes = await AspiranteDAO.GetAspirantes(demandante.Token);*/
+            empleador.Clave = usuarioConectado.Clave;
+            empleador.CorreoElectronico = usuarioConectado.CorreoElectronico;
+            empleador.Estatus = usuarioConectado.Estatus;
+            empleador.NombreUsuario = usuarioConectado.NombreUsuario;
+            empleador.Fotografia = usuarioConectado.Fotografia;
+            empleador.Tipo = usuarioConectado.Tipo;
+            empleador.Token = usuarioConectado.Token;
+            empleador.IdPerfilusuario = usuarioConectado.IdPerfilusuario;
+           
         }
 
         private void btnEditarPerfil_Click(object sender, RoutedEventArgs e)

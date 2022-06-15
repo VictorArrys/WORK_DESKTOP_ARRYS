@@ -19,10 +19,9 @@ namespace El_Camello.Modelo.dao
             List<Categoria> categorias = new List<Categoria>();
             using (var cliente = new HttpClient())
             {
-                //string token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFVzdWFyaW8iOjEsImNsYXZlIjoiMTExMDk4IiwidGlwbyI6IkFkbWluaXN0cmFkb3IiLCJpYXQiOjE2NTQzNTQ3NDAsImV4cCI6MTY1NDQ0MTE0MH0.1Nm4C3vVs-jH3_zpcYBmJTqH9DQA_LH6b3VPRJSucaw";
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
                 string endpoint = "http://localhost:5000/v1/categoriasEmpleo";
-                //HttpResponseMessage respuesta = await client.GetAsync(query);
+
                 try
                 {
                     HttpResponseMessage respuesta = await cliente.GetAsync(endpoint);

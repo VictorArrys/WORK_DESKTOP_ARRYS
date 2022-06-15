@@ -126,26 +126,7 @@ namespace El_Camello.Modelo.dao
                     {
                         case HttpStatusCode.OK:
                             JObject perfilAspirante = JObject.Parse(body);
-                            JObject arrayVideo = (JObject)perfilAspirante["video"];
 
-
-                            try
-                            {
-                                byte[] segmentoVideo = new byte[arrayVideo.Count];
-
-                                for (int i = 0; i < arrayVideo.Count; i++)
-                                {
-                                    segmentoVideo[i] = (byte)arrayVideo[i.ToString()];
-
-                                   
-                                }
-
-                                aspirante.Video = segmentoVideo;
-                            }
-                            catch (Exception)
-                            {
-                                arrayVideo = null;
-                            }
                             aspirante.Direccion = (string)perfilAspirante["direccion"];
                             aspirante.FechaNacimiento = (DateTime)perfilAspirante["fechaNacimiento"];
                             aspirante.IdAspirante = (int)perfilAspirante["idPerfilAspirante"];
@@ -153,7 +134,7 @@ namespace El_Camello.Modelo.dao
                             aspirante.IdPerfilusuario = (int)perfilAspirante["idPerfilUsuario"];
                             //aspirante.Oficios = perfilAspirante["oficios"];
                             aspirante.Telefono = (string)perfilAspirante["telefono"];
-                            //video
+                            aspirante.Video = (byte[])perfilAspirante["video"];
 
 
                             break;

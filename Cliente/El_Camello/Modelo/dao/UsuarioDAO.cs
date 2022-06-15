@@ -185,5 +185,44 @@ namespace El_Camello.Modelo.dao
 
                 return usuario;
         }
+
+        public static async Task<List<clases.Usuario>> getUsuarios(string token)
+        {
+            List<clases.Usuario> usuarios = new List<clases.Usuario>();
+            using (var cliente = new HttpClient())
+            {
+                cliente.DefaultRequestHeaders.Add("x-access-token", token);
+                string endpoint = "http://localhost:5000/v1/perfilUsuarios";
+                try
+                {
+                    HttpResponseMessage respuesta = await cliente.GetAsync(endpoint);
+                    string body = await respuesta.Content.ReadAsStringAsync();
+
+                    switch (respuesta.StatusCode)
+                    {
+                        case HttpStatusCode.OK:
+                            JArray arrayUsuarios = JArray.Parse(body);
+                            foreach (var item in arrayUsuarios)
+                            {
+                                clases.Usuario usuario = new clases.Usuario();
+                                usuario.IdPerfilusuario = (int)item["idPerfilUsuario"];
+                                usuario.NombreUsuario = (string)item["nombreUsuario"];
+                                usuario.Estatus = (int)item["estatus"];
+                                usuario.Clave = (string)item["clave"];
+                                usuario.CorreoElectronico = (string)item["correoElectronico"];
+                                usuario.Tipo = (string)item["tipoUsuario"];
+                                usuarios.Add(usuario);
+                            }
+                            break;
+                    }
+                }
+                catch (HttpRequestException)
+                {
+                    MessageBox.Show("verificar servidor");
+                }
+            }
+
+            return usuarios;
+        }
     }
 }

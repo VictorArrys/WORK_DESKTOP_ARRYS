@@ -33,15 +33,15 @@ namespace El_Camello.Vistas.Aspirante
         {
             int idPerfil = usuarioConectado.IdPerfilusuario;
             string token = usuarioConectado.Token;
-            await AspiranteDAO.GetAspirante(idPerfil, token);
+            perfilAspirante = await AspiranteDAO.GetAspirante(idPerfil, token);
             //perfilAspirante = await AspiranteDAO.GetAspirante(usuarioConectado.IdPerfilusuario, usuarioConectado.Token);
-            perfilAspirante.Clave = usuarioConectado.Clave;
+            /*perfilAspirante.Clave = usuarioConectado.Clave;
             perfilAspirante.Estatus = usuarioConectado.Estatus;
             perfilAspirante.IdPerfilusuario = usuarioConectado.IdPerfilusuario;
             perfilAspirante.CorreoElectronico = usuarioConectado.CorreoElectronico;
             perfilAspirante.Fotografia = usuarioConectado.Fotografia;
             perfilAspirante.Tipo = usuarioConectado.Tipo;
-            perfilAspirante.Token = usuarioConectado.Token;
+            perfilAspirante.Token = usuarioConectado.Token;*/
 
             MessageBox.Show(perfilAspirante.Token);
             

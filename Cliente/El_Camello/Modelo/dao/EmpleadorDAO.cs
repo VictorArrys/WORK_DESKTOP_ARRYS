@@ -15,7 +15,7 @@ namespace El_Camello.Modelo.dao
 {
     internal class EmpleadorDAO
     {
-        public static async Task<int> PostEmpleador(Usuario usuario, clases.Empleador empleador)
+        public static async Task<int> PostEmpleador(Usuario usuario, clases.Empleador empleador)//listo
         {
             int resultado = -1;
             int idUsuario = -1;
@@ -70,9 +70,9 @@ namespace El_Camello.Modelo.dao
             return resultado;
         }
 
-        public static async Task<Modelo.clases.Empleador> getEmpleador(int idUsuarioEmpleador, string token)//probar
+        public static async Task<clases.Empleador> getEmpleador(int idUsuarioEmpleador, string token)//listo
         {
-            Modelo.clases.Empleador empleador = new Modelo.clases.Empleador();
+            clases.Empleador empleador = new clases.Empleador();
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
@@ -87,9 +87,14 @@ namespace El_Camello.Modelo.dao
                         case HttpStatusCode.OK:
 
                             JObject perfilEmpleador = JObject.Parse(body);
-                            /*empleador.Direccion = (string)perfilEmpleador["direccion"];
+                            empleador.IdPerfilusuario = (int)perfilEmpleador["idPerfilUsuarioEmpleador"];
+                            empleador.IdPerfilEmpleador = (int)perfilEmpleador["idPerfilEmpleador"];
+                            empleador.NombreOrganizacion = (string)perfilEmpleador["nombreOrganizacion"];
+                            empleador.NombreEmpleador = (string?)perfilEmpleador["nombre"];
+                            empleador.Direccion = (string)perfilEmpleador["direccion"];
                             empleador.FechaNacimiento = (DateTime)perfilEmpleador["fechaNacimiento"];
-                            empleador.NombreEmpleador = */
+                            empleador.Telefono = (string)perfilEmpleador["telefono"];
+                            empleador.Amonestaciones = (int)perfilEmpleador["amonestaciones"];
                             break;
 
                     }
@@ -147,7 +152,7 @@ namespace El_Camello.Modelo.dao
             return empleadores;
         }
 
-        public static async Task<int> putEmpleador(Modelo.clases.Empleador empleador) //probar
+        public static async Task<int> putEmpleador(clases.Empleador empleador) //listo
         {
             int resultado = -1;
             int idUsuario = 0;
@@ -157,7 +162,7 @@ namespace El_Camello.Modelo.dao
                 try
                 {
                     cliente.DefaultRequestHeaders.Add("x-access-token", empleador.Token);
-                    string endpoint = string.Format("http://localhost:5000/v1/perfilEmpleadores/{0}", empleador.IdPerfilusuario);
+                    string endpoint = string.Format("http://localhost:5000/v1/perfilEmpleadores/{0}", empleador.IdPerfilEmpleador);
 
                     HttpRequestMessage cuerpoMensaje = new HttpRequestMessage();
                     JObject objeto = new JObject();
@@ -165,11 +170,13 @@ namespace El_Camello.Modelo.dao
                     objeto.Add("correoElectronico", empleador.CorreoElectronico);
                     objeto.Add("direccion", empleador.Direccion);
                     objeto.Add("estatus", empleador.Estatus);
-                    string fecha = string.Format("{0:yyyy-MM-dd}", empleador.NombreEmpleador);
-                    objeto.Add("fechaNacimiento", empleador.NombreEmpleador);
+                    string fecha = string.Format("{0:yyyy-MM-dd}", empleador.FechaNacimiento);
+                    objeto.Add("fechaNacimiento", fecha);
                     objeto.Add("nombreOrganizacion", empleador.NombreOrganizacion);
                     objeto.Add("telefono", empleador.Telefono);
                     objeto.Add("nombreusuario", empleador.NombreUsuario);
+                    objeto.Add("nombre", empleador.NombreEmpleador);
+                    objeto.Add("idPerfilUsuario", empleador.IdPerfilusuario);
 
                     string cuerpoJson = JsonConvert.SerializeObject(objeto);
                     var data = new StringContent(cuerpoJson, Encoding.UTF8, "application/json");
@@ -180,10 +187,11 @@ namespace El_Camello.Modelo.dao
                     switch (respuesta.StatusCode)
                     {
                         case HttpStatusCode.OK:
-                            Modelo.clases.Empleador modificarEmpleador = new Modelo.clases.Empleador();
+                            clases.Empleador modificarEmpleador = new clases.Empleador();
                             JObject perfilEmpleador = JObject.Parse(body);
+                            MessageBox.Show(body.ToString());
                             idUsuario = (int)perfilEmpleador["idPerfilUsuario"];
-                            idPerfilEmpleador = (int)perfilEmpleador["idPerfilAspirante"];
+                            idPerfilEmpleador = (int)perfilEmpleador["idPerfilEmpleador"];
 
                             MultipartFormDataContent foto = new MultipartFormDataContent();
                             var contenidoImagen = new ByteArrayContent(empleador.Fotografia);
