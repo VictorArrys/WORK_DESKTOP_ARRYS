@@ -32,6 +32,7 @@ namespace El_Camello.Modelo.clases
         public OfertaEmpleo()
         {
             this.fotografias = new List<byte[]>();
+            this.ContratacionEmpleoOferta = new ContratacionEmpleo();
         }
 
         public int CantidadPago { get => cantidadPago; set => cantidadPago = value; }

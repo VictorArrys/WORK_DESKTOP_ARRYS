@@ -53,18 +53,18 @@
                 <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
             </Button.BorderBrush>
         </Button>
-        <DataGrid d:ItemsSource="{Binding}" Margin="46,108,360,285">
+        <DataGrid x:Name="dgSolicitudes" d:ItemsSource="{Binding}" Margin="46,108,360,285" AutoGenerateColumns="False" IsReadOnly="true" SelectionChanged="dgSolicitudes_SelectionChanged">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Aspirante" Binding= "{Binding nombreAspirante}" Width="250"/>
-                <DataGridTextColumn Header="Oficio" Binding= "{Binding oficio}" Width="100"/>
-                <DataGridTextColumn Header="Experiencia" Binding= "{Binding experiencia}" Width="100"/>
+                <DataGridTextColumn Header="Aspirante" Binding= "{Binding Nombre}" Width="250"/>
+                <DataGridTextColumn Header="Fecha registro" Binding= "{Binding FechaRegistro}" Width="100"/>
+                <DataGridTextColumn Header="Estado" Binding= "{Binding Estatus}" Width="100"/>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid d:ItemsSource="{Binding}" Margin="46,333,360,60">
+        <DataGrid x:Name="dgVacantesEnUso" d:ItemsSource="{Binding}" Margin="46,333,360,60" AutoGenerateColumns="False" IsReadOnly="true">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Aspirante" Binding= "{Binding nombreAspirante}" Width="250"/>
-                <DataGridTextColumn Header="Oficio" Binding= "{Binding oficio}" Width="100"/>
-                <DataGridTextColumn Header="Experiencia" Binding= "{Binding experiencia}" Width="100"/>
+                <DataGridTextColumn Header="Aspirante" Binding= "{Binding Nombre}" Width="250"/>
+                <DataGridTextColumn Header="Feche registro" Binding= "{Binding FechaRegistro}" Width="100"/>
+                <DataGridTextColumn Header="Estado" Binding= "{Binding Estatus}" Width="100"/>
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Solicitudes" HorizontalAlignment="Left" Margin="133,63,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26"/>
@@ -80,15 +80,15 @@
         </Button>
         <Image HorizontalAlignment="Left" Height="127" Margin="551,81,0,0" VerticalAlignment="Top" Width="135"/>
         <Label Content="Nombre: " HorizontalAlignment="Left" Margin="695,122,0,0" VerticalAlignment="Top"/>
-        <Label Content="[Nombre]" HorizontalAlignment="Left" Margin="698,148,0,0" VerticalAlignment="Top" Width="143"/>
+        <Label x:Name="lbNombreAspirante" Content="[Nombre]" HorizontalAlignment="Left" Margin="698,148,0,0" VerticalAlignment="Top" Width="143"/>
         <Label Content="Telefono: " HorizontalAlignment="Left" Margin="695,184,0,0" VerticalAlignment="Top"/>
-        <Label Content="[Telefono]" HorizontalAlignment="Left" Margin="698,210,0,0" VerticalAlignment="Top" Width="143"/>
+        <Label x:Name="lbTelefono" Content="[Telefono]" HorizontalAlignment="Left" Margin="698,210,0,0" VerticalAlignment="Top" Width="143"/>
         <Label Content="Dirección: " HorizontalAlignment="Left" Margin="565,239,0,0" VerticalAlignment="Top"/>
-        <Label Content="[Dirección]" HorizontalAlignment="Left" Margin="568,265,0,0" VerticalAlignment="Top" Width="268"/>
+        <Label x:Name="lbDireccion" Content="[Dirección]" HorizontalAlignment="Left" Margin="568,265,0,0" VerticalAlignment="Top" Width="268"/>
         <Label Content="Experiencia: " HorizontalAlignment="Left" Margin="565,289,0,0" VerticalAlignment="Top"/>
         <Label Content="[Experiencia]" HorizontalAlignment="Left" Margin="568,315,0,0" VerticalAlignment="Top" Width="143"/>
         <Label Content="Días habiles: " HorizontalAlignment="Left" Margin="570,341,0,0" VerticalAlignment="Top"/>
-        <Label Content="[Días habiles]" HorizontalAlignment="Left" Margin="573,367,0,0" VerticalAlignment="Top" Width="143"/>
+        <Label x:Name="lbDiasExperiencia" Content="[Días habiles]" HorizontalAlignment="Left" Margin="573,367,0,0" VerticalAlignment="Top" Width="143"/>
 
 
     </Grid>

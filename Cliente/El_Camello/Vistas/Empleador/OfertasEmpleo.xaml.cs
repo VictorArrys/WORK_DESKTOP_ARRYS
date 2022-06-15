@@ -179,9 +179,21 @@ namespace El_Camello.Vistas.Empleador
 
         private void btnConsultarSolicitudes_Click(object sender, RoutedEventArgs e)
         {
-            SolcitudesEmpleos ventanaSolicitudes = new SolcitudesEmpleos();
-            ventanaSolicitudes.ShowDialog();
-          
+            int indiceSeleccion = dgOfertasEmpleo.SelectedIndex;
+
+            if (indiceSeleccion >= 0)
+            {
+                OfertaEmpleo ofertaEmpleoEditar = ofertasTabla[indiceSeleccion];
+
+                SolcitudesEmpleos ventanaSolicitudes = new SolcitudesEmpleos(token, ofertaEmpleoEditar.IdOfertaEmpleo);
+                ventanaSolicitudes.ShowDialog();
+            }
+            else
+            {
+                error = new MensajesSistema("AccionInvalida", "La acción que ha realizado es invalida", "Intento de consultar solicitudes", "Selecciona una oferta de empleo para poder consultarla posteriormente");
+                error.ShowDialog();
+            }
+
         }
 
         private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
