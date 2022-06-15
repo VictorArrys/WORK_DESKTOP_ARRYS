@@ -24,21 +24,25 @@ namespace El_Camello.Modelo.dao
 
             JObject ofertaEmpleoConsultada = await GetOfertaEmpleoCompuesta(idOfertaEmpleo, token);
 
+            Console.WriteLine(ofertaEmpleoConsultada);
+            MessageBox.Show("Consulta: " + ofertaEmpleoConsultada);
+
+
             //Obtener fotos
             JArray fotografias = (JArray)ofertaEmpleoConsultada["fotografia"];
-
-
+           
             foreach (JObject foto in fotografias)
             {
-                    byte[] segmentosFoto = new byte[foto.Count];
+                FotografiaOferta fotografiaGet = new FotografiaOferta();
+                
+                fotografiaGet.IdFotografia = (int)foto["idFoto"];
+                byte[] segmentosFoto = (byte[])foto["imagen"];
+                fotografiaGet.Imagen = segmentosFoto;
+                MessageBox.Show("");
 
-                    for (int i = 0; i < foto.Count; i++)
-                    {
-                        segmentosFoto[i] = (byte)foto[i.ToString()];
-                    }
-
-                    ofertaEmpleoGet.Fotografias.Add(segmentosFoto);
-            }                        
+                ofertaEmpleoGet.FotografiasEdicion.Add(fotografiaGet);
+            }                       
+            
 
             ofertaEmpleoGet.CantidadPago = (int)ofertaEmpleoConsultada["cantidadPago"];
             ofertaEmpleoGet.Descripcion = (string)ofertaEmpleoConsultada["descripcion"];
@@ -164,19 +168,24 @@ namespace El_Camello.Modelo.dao
                 {
                     HttpResponseMessage respuesta = await cliente.GetAsync(endpoint);
 
+                    Console.WriteLine(respuesta);
+                    //MessageBox.Show("Respuesta: " + respuesta);
+
                     RespuestasAPI respuestaAPI = new RespuestasAPI();
 
                     if (respuesta.StatusCode == HttpStatusCode.OK)
                     {
-                        string body = await respuesta.Content.ReadAsStringAsync();
+                        //MessageBox.Show("Respuesta: " + respuesta.Content);
+                        String body = await respuesta.Content.ReadAsStringAsync();
+
+                        //Console.WriteLine(body);
+                        MessageBox.Show(body);
 
                         ofertaEmpleoConsultada = JsonConvert.DeserializeObject<JObject>(body);
+                        MessageBox.Show("Prueba" + ofertaEmpleoConsultada);
 
                     }
                     else
-                    {
-
-                    }
                     {
                         respuestaAPI.gestionRespuestasApi("Obtener oferta de empleo", respuesta);
                     }

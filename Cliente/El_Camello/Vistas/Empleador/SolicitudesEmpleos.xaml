@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:El_Camello.Vistas.Empleador"
         mc:Ignorable="d"
-        Title="SolcitudesEmpleos" Height="540" Width="860">
+        Title="SolcitudesEmpleos" Height="540" Width="860" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid Margin="0,0,0,-6">
         <Grid RenderTransformOrigin="0.496,0.438" Margin="0,0,0,487">
             <Grid.Background>

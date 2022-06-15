@@ -103,9 +103,12 @@ namespace El_Camello.Vistas.Empleador
                 tbDireccion.Text = ofertaEmpleoEdicion.Direccion;
                 tbDescripcion.Text = ofertaEmpleoEdicion.Descripcion;
 
-                CargarImagenes(ofertaEmpleoEdicion.Fotografias);
 
-            }catch (Exception exception)
+                CargarImagenes(ofertaEmpleoEdicion.FotografiasEdicion);
+                marcarChecksDias(ofertaEmpleoEdicion.DiasLaborales);
+
+            }
+            catch (Exception exception)
             {
                 error = new MensajesSistema("Error", "Hubo un error al cargar la oferta de empleo, favor de intentar más tarde", exception.StackTrace, exception.Message);
                 error.ShowDialog();
@@ -113,14 +116,14 @@ namespace El_Camello.Vistas.Empleador
 
         }
 
-        private void CargarImagenes(List<byte[]> fotografias)
+        private void CargarImagenes(List<FotografiaOferta> fotografias)
         {
             // byte[] imagen1 = reporteDetallado.Evidencia[0];
 
            
-            foreach (byte[] imagenAux in fotografias)
+            foreach (FotografiaOferta imagenAux in fotografias)
             {
-                using (var ms1 = new System.IO.MemoryStream(imagenAux))
+                using (var ms1 = new System.IO.MemoryStream(imagenAux.Imagen))
                 {
                     var imagen = new BitmapImage();
                     imagen.BeginInit();
@@ -289,6 +292,46 @@ namespace El_Camello.Vistas.Empleador
 
         }
 
+        private void marcarChecksDias(string diasLaborales)
+        {
+            int cantidad = diasLaborales.Length;
+
+            for (int i= 0; i < cantidad; i++)
+            {
+
+                if (diasLaborales[i].Equals('1'))
+                {
+                    chkLunes.IsChecked = true;
+                }
+                if (diasLaborales[i].Equals('2'))
+                {
+                    chkMartes.IsChecked = true;
+                }
+                if (diasLaborales[i].Equals('3'))
+                {
+                    chkMartes.IsChecked = true;
+                }
+                if (diasLaborales[i].Equals('4'))
+                {
+                    chkJueves.IsChecked = true;
+                }
+                if (diasLaborales[i].Equals('5'))
+                {
+                    chkViernes.IsChecked = true;
+                }
+                if (diasLaborales[i].Equals('6'))
+                {
+                    chkSabado.IsChecked = true;
+                }
+                if (diasLaborales[i].Equals('7'))
+                {
+                    chkDomingo.IsChecked = true;
+                }
+            }
+
+
+        }
+
         private string diasLaborales()
         {
             string diasLaborales = "";
@@ -332,6 +375,7 @@ namespace El_Camello.Vistas.Empleador
             this.Close();
 
         }
+
         private void agregarFoto(object sender, RoutedEventArgs e)
         {
             
@@ -373,5 +417,15 @@ namespace El_Camello.Vistas.Empleador
             }
 
         }
+
+        private void removerFotos(object sender, RoutedEventArgs e)
+        {
+            imagenes.Clear();
+            imgFoto.Source = null;
+            imgFoto2.Source = null;
+            imgFoto3.Source = null;
+
+        }
     }
+    
 }

@@ -61,30 +61,20 @@ namespace El_Camello.Vistas.Empleador
                 error.ShowDialog();
             }
 
-            //cargarSolicitudesAceptadas();
+            dgVacantesEnUso.ItemsSource = solicitudes.FindAll(
 
-        }
-
-        private void cargarSolicitudesAceptadas()
-        {
-
-            foreach (var solicitudAceptada in solicitudes)
+            delegate (SolicitudEmpleo solicitudAceptada)
             {
-                if(solicitudAceptada.EstatusInt == 0)
-                {
-                    solicitudesAceptadas.Add(solicitudAceptada);
-                    solicitudes.Remove(solicitudAceptada);
-                    
-
-                }
-
-
+                return solicitudAceptada.Estatus == "Aprobada";
             }
+            );
 
-            dgVacantesEnUso.ItemsSource = solicitudesAceptadas;
-
-            dgSolicitudes.ItemsSource = solicitudes;
-
+            dgSolicitudes.ItemsSource = solicitudes.FindAll(
+            delegate (SolicitudEmpleo solicitudAceptada)
+            {
+                return solicitudAceptada.Estatus == "Pendiente";
+            }
+            );
 
         }
 
