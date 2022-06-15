@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace El_Camello.Modelo.clases
 {
@@ -23,6 +20,7 @@ namespace El_Camello.Modelo.clases
         private int idOfertaEmpleo;
         private int idPerfilEmpleador;
         private List<byte[]> fotografias;
+        private List<FotografiaOferta> fotografiasEdicion;
         private string categoriaEmpleo;
         private string estado;
 
@@ -32,6 +30,8 @@ namespace El_Camello.Modelo.clases
         public OfertaEmpleo()
         {
             this.fotografias = new List<byte[]>();
+            this.FotografiasEdicion = new List<FotografiaOferta>();
+            this.ContratacionEmpleoOferta = new ContratacionEmpleo();
         }
 
         public int CantidadPago { get => cantidadPago; set => cantidadPago = value; }
@@ -52,6 +52,6 @@ namespace El_Camello.Modelo.clases
         public string CategoriaEmpleo { get => categoriaEmpleo; set => categoriaEmpleo = value; }
         public string Estado { get => estado; set => estado = value; }
         public ContratacionEmpleo ContratacionEmpleo { get => ContratacionEmpleoOferta; set => ContratacionEmpleoOferta = value; }
-         
+        public List<FotografiaOferta> FotografiasEdicion { get => fotografiasEdicion; set => fotografiasEdicion = value; }
     }
 }

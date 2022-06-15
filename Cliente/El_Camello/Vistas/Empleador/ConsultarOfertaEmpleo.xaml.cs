@@ -42,17 +42,14 @@ namespace El_Camello.Vistas.Empleador
             {
                 string tokenString = "" + token;
 
-                OfertaEmpleo ofertaEmpleoEdicion = await OfertaEmpleoDAO.GetOfertaEmpleoCompleta(idOfertaEmpleo, tokenString);
+                OfertaEmpleo ofertaEmpleoConsulta = await OfertaEmpleoDAO.GetOfertaEmpleoCompleta(idOfertaEmpleo, tokenString);
 
-                lbNombreEmpleo.Text = ofertaEmpleoEdicion.Nombre;
+                lbNombreEmpleo.Text = ofertaEmpleoConsulta.Nombre;
+                lbTipoPago.Text = ofertaEmpleoConsulta.TipoPago;
+                lbCategoria.Text = ofertaEmpleoConsulta.CategoriaEmpleo;
+                lbPago.Text = "$" + ofertaEmpleoConsulta.CantidadPago;
 
-                //tipoPago
-                lbTipoPago.Text = ofertaEmpleoEdicion.TipoPago;
-                //categoria
-                lbCategoria.Text = ofertaEmpleoEdicion.CategoriaEmpleo;
-                lbPago.Text = "$" + ofertaEmpleoEdicion.CantidadPago;
-
-                string fechaContratacion = string.Format("{0:yyyy-MM-dd}", ofertaEmpleoEdicion.ContratacionEmpleo.FechaContratacion);
+                string fechaContratacion = string.Format("{0:yyyy-MM-dd}", ofertaEmpleoConsulta.ContratacionEmpleo.FechaContratacion);
 
                 if (fechaContratacion == "0001-01-01")
                 {
@@ -64,8 +61,9 @@ namespace El_Camello.Vistas.Empleador
                     lbFechaContratacion.Text = fechaContratacion;
                 }
 
+                cargarEmpleados(ofertaEmpleoConsulta.ContratacionEmpleo.ContratacionesAspirantes);
 
-                string fechaFin = string.Format("{0:yyyy-MM-dd}", ofertaEmpleoEdicion.FechaFinalizacion);
+                string fechaFin = string.Format("{0:yyyy-MM-dd}", ofertaEmpleoConsulta.FechaFinalizacion);
                 lbFechaFinalizacion.Text = fechaFin;
 
             }
@@ -73,6 +71,20 @@ namespace El_Camello.Vistas.Empleador
             {
                 error = new MensajesSistema("Error", "Hubo un error al cargar la oferta de empleo, favor de intentar más tarde", exception.StackTrace, exception.Message);
                 error.ShowDialog();
+            }
+
+        }
+
+        private void cargarEmpleados(List<ContratacionEmpleoAspirante> listaEmpleados)
+        {
+
+            if (listaEmpleados.Count == 0)
+            {
+
+            }
+            else
+            {
+                dgEmpleados.ItemsSource = listaEmpleados;
             }
 
         }

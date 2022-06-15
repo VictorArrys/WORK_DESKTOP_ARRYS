@@ -126,7 +126,6 @@ namespace El_Camello.Modelo.dao
                     {
                         case HttpStatusCode.OK:
                             JObject perfilAspirante = JObject.Parse(body);
-
                             aspirante.Direccion = (string)perfilAspirante["direccion"];
                             aspirante.FechaNacimiento = (DateTime)perfilAspirante["fechaNacimiento"];
                             aspirante.IdAspirante = (int)perfilAspirante["idPerfilAspirante"];

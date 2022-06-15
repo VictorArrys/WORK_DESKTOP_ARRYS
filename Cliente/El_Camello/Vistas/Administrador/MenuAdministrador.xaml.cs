@@ -28,8 +28,11 @@ namespace El_Camello.Vistas.Administrador
         private GraficasEstadisticas ventanaGrfEst;
         Modelo.clases.Administrador administrador = null;
 
+        private string token;
+
         public MenuAdministrador(Modelo.clases.Usuario usuarioConectado)
         {
+            this.token = usuarioConectado.Token;
             InitializeComponent();
             administrador = new Modelo.clases.Administrador();
             cargarAdministrador(usuarioConectado);
@@ -73,7 +76,7 @@ namespace El_Camello.Vistas.Administrador
         {
             if (ventanaRepEst == null)
             {
-                ventanaRepEst = new ReportesEstadisticos();
+                ventanaRepEst = new ReportesEstadisticos(token);
             }
             panelPrincipal.Content = ventanaRepEst;
         }
@@ -82,7 +85,7 @@ namespace El_Camello.Vistas.Administrador
         {
             if (ventanaGrfEst == null)
             {
-                ventanaGrfEst = new GraficasEstadisticas();
+                //ventanaGrfEst = new GraficasEstadisticas();
             }
             panelPrincipal.Content = ventanaGrfEst;
         }

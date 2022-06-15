@@ -26,8 +26,10 @@ namespace El_Camello.Vistas.Usuario
     /// </summary>
     public partial class Login : Window
     {
+        Uri fileUri1;
         public Login()
         {
+
             InitializeComponent();
         }
 

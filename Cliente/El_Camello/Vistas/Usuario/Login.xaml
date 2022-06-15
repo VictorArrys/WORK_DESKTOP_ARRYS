@@ -12,12 +12,12 @@
         </Grid>
         <Grid DockPanel.Dock="Bottom" Background="#FF062758" Opacity="0.85" VerticalAlignment="Bottom" Height="50" Margin="0,0,0,20"></Grid>
         <Grid>
-            <Label Content="Usuario" FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="60,100"/>
-            <TextBox x:Name="txtNombreUsuario" FontSize="16" Width="200" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,105,60,0"/>
+            <Label Content="Usuario" FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="51,116,0,0"/>
+            <TextBox x:Name="txtNombreUsuario" FontSize="16" Width="200" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,121,69,0"/>
 
-            <Label Content="Contraseña" FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="60,150,0,0"/>
-            <PasswordBox x:Name="pwdClave" FontSize="16" Width="200"  VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,155,60,0" />
-            <Button x:Name="btnIniciarSesion" FontSize="16" Content="Iniciar Sesión" HorizontalAlignment="Center" Margin="0,220,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.801,0.694" Foreground="White" Click="btnIniciarSesion_Click">
+            <Label Content="Contraseña" FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="51,166,0,0"/>
+            <PasswordBox x:Name="pwdClave" FontSize="16" Width="200"  VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,171,69,0" />
+            <Button x:Name="btnIniciarSesion" FontSize="16" Content="Iniciar Sesión" HorizontalAlignment="Left" Margin="193,236,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.801,0.694" Foreground="White" Click="btnIniciarSesion_Click">
                 <Button.Background>
                     <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
                 </Button.Background>
@@ -25,7 +25,7 @@
                     <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
                 </Button.BorderBrush>
             </Button>
-            <Button x:Name="btnRestablcerClave" FontSize="16" Content="Restablcer contraseña" HorizontalAlignment="Center" Margin="0,275,0,0" Foreground="White" VerticalAlignment="Top" Click="btnRestablcerClave_Click">
+            <Button x:Name="btnRestablcerClave" FontSize="16" Content="Restablcer contraseña" HorizontalAlignment="Left" Margin="162,291,0,0" Foreground="White" VerticalAlignment="Top" Click="btnRestablcerClave_Click">
                 <Button.Background>
                     <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
                 </Button.Background>
@@ -33,7 +33,7 @@
                     <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
                 </Button.BorderBrush>
             </Button>
-            <Button x:Name="btnResgistrarse" FontSize="16" Content="Registrarse" HorizontalAlignment="Center" Margin="0,330,0,0" Foreground="White" VerticalAlignment="Top" Click="btnResgistrarse_Click" >
+            <Button x:Name="btnResgistrarse" FontSize="16" Content="Registrarse" HorizontalAlignment="Center" Margin="0,358,0,0" Foreground="White" VerticalAlignment="Top" Click="btnResgistrarse_Click" >
                 <Button.Background>
                     <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
                 </Button.Background>

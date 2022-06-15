@@ -1,4 +1,6 @@
-﻿using LiveChartsCore;
+﻿using El_Camello.Modelo.clases;
+using El_Camello.Modelo.dao;
+using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using SkiaSharp;
@@ -23,6 +25,13 @@ namespace El_Camello.Vistas.Administrador
     /// </summary>
     public partial class GraficasEstadisticas : Page
     {
+        private string tokenAdministrador;
+        private List<EstadisticasOfertasEmpleo> estadisticasPlataforma;
+        private List<EstadisticasEmpleoDemanda> estadisticasEmpleoDemandas;
+        private List<ValoracionEmpleador> valoracionesEmpleadores;
+
+        private string[] fechasEstadisticas;
+        private Array ofertasPublicadas;
 
         public ISeries[] Series { get; set; } = new ISeries[]
         {
@@ -35,37 +44,48 @@ namespace El_Camello.Vistas.Administrador
                 Stroke = null
             }
         };
+        public List<Axis> XAxes1 { get => XAxes; set => XAxes = value; }
 
         List<Axis> XAxes = new List<Axis>
         {
             new Axis
             {
+                
+
                 // Use the labels property to define named labels.
-                Labels = new string[] { "Anne", "Johnny", "Zac", "Rosa" },
+                Labels = new string[] { "" },
                 LabelsRotation = 45
             }
         };
 
-public GraficasEstadisticas()
+    public GraficasEstadisticas(string token)
         {
+            this.tokenAdministrador = token;
             InitializeComponent();
 
+            //cargarEstadisticas();
+            this.crPlataforma.Series = Series;
+            this.crPlataforma.XAxes = XAxes1;
 
-            this.chart1.Series = Series;
-            this.chart1.XAxes = XAxes;
-               /*
-            Dictionary<string, int> dic = new Dictionary<string, int>();
-            dic.Add("19-FEB-2017", 576);
-            dic.Add("20-FEB-2017", 1087);
-            dic.Add("21-FEB-2017", 1061);
-            dic.Add("22-FEB-2017", 660);
-            dic.Add("23-FEB-2017", 774);
 
-            foreach (KeyValuePair<string, int> d in dic)
-            {
-                chart1.Series["Series1"].Points.AddXY(d.Key, d.Value);
-            }*/
 
         }
+        
+        private void cargarEstadisticas()
+        {
+            cargarEstadisticasPlataforma();
+        }
+
+        private async void cargarEstadisticasPlataforma()
+        {
+            estadisticasPlataforma = await EstadisticasDAO.GetEstadisticasOfertas(tokenAdministrador);
+            estadisticasEmpleoDemandas = await EstadisticasDAO.GetEstadisticasDemanda(tokenAdministrador);
+            valoracionesEmpleadores = await EstadisticasDAO.GetValoracionesEmpleadores(tokenAdministrador);
+
+
+        }
+ 
+
+
     }
 }

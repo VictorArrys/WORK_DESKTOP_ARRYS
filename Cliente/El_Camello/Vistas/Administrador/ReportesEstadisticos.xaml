@@ -9,7 +9,7 @@
     <Grid Margin="0,0,0,-6">
         <Rectangle HorizontalAlignment="Left" Height="229" Margin="12,51,0,0" Stroke="Black" VerticalAlignment="Top" Width="416"/>
 
-        <Grid RenderTransformOrigin="0.496,0.438" Margin="0,0,0,517">
+        <Grid RenderTransformOrigin="0.496,0.438" Margin="0,0,0,533">
             <Grid.Background>
                 <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
             </Grid.Background>
@@ -28,36 +28,37 @@
             </Grid.Background>
         </Grid>
         <Label Content="Reportes estadisticos" HorizontalAlignment="Left" Margin="300,-2,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="26" Width="356"/>
-        <DataGrid d:ItemsSource="{Binding}" Margin="30,98,505,306">
+        <DataGrid x:Name="dgPlataforma" d:ItemsSource="{Binding}" Margin="30,98,505,306" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Año" Binding= "{Binding categoriaEstadisticas}" Width="110"/>
-                <DataGridTextColumn Header="Usuarios" Binding= "{Binding solicitudesEstadisticas}" Width="130"/>
-                <DataGridTextColumn Header="Ofertas empleo" Binding= "{Binding fechaEstadisticas}" Width="130"/>
+                <DataGridTextColumn Header="Mes" Binding= "{Binding MesFecha}" Width="60"/>
+                <DataGridTextColumn Header="Año" Binding= "{Binding YearFecha}" Width="90"/>
+                <DataGridTextColumn Header="Ofertas publicadas" Binding= "{Binding OfertasPublicadas}" Width="110"/>
+                <DataGridTextColumn Header="Ofertas Categoria" Binding= "{Binding CategoriaEmpleo}" Width="115"/>
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Uso de la plafaforma" HorizontalAlignment="Left" Margin="88,48,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26" Height="39"/>
         <Rectangle HorizontalAlignment="Left" Height="229" Margin="464,51,0,0" Stroke="Black" VerticalAlignment="Top" Width="416"/>
-        <DataGrid d:ItemsSource="{Binding}" Margin="488,98,49,306">
+        <DataGrid x:Name="dgValoracionesEmpleadores" d:ItemsSource="{Binding}" Margin="488,98,49,306" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Empleador" Binding= "{Binding nombreEmpleador}" Width="270"/>
-                <DataGridTextColumn Header="Valoración" Binding= "{Binding valoracionEmpleador}" Width="103"/>
+                <DataGridTextColumn Header="Empleador" Binding= "{Binding NombreEmpleador}" Width="270"/>
+                <DataGridTextColumn Header="Valoración" Binding= "{Binding ValoracionEmpleador}" Width="103"/>
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Valoraciones de empleadores" HorizontalAlignment="Left" Margin="498,54,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26" Height="39"/>
         <Rectangle HorizontalAlignment="Left" Height="233" Margin="12,285,0,0" Stroke="Black" VerticalAlignment="Top" Width="416"/>
-        <DataGrid d:ItemsSource="{Binding}" Margin="36,324,505,71">
+        <DataGrid x:Name="dgMayoresOfertas" d:ItemsSource="{Binding}" Margin="36,324,505,71" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Categoria" Binding= "{Binding categoriaEstadisticas}" Width="210"/>
-                <DataGridTextColumn Header="Solicitudes" Binding= "{Binding solicitudesEstadisticas}" Width="80"/>
-                <DataGridTextColumn Header="Año" Binding= "{Binding fechaEstadisticas}" Width="90"/>
+                <DataGridTextColumn Header="Categoria" Binding= "{Binding CategoriaEmpleo}" Width="210"/>
+                <DataGridTextColumn Header="Solicitudes" Binding= "{Binding SolicitudesEstadisticas}" Width="80"/>
+                <DataGridTextColumn Header="Año" Binding= "{Binding FechaEstadisticas}" Width="90"/>
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Mayores Ofertas" HorizontalAlignment="Left" Margin="88,280,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26" Height="39"/>
         <Rectangle HorizontalAlignment="Left" Height="233" Margin="466,285,0,0" Stroke="Black" VerticalAlignment="Top" Width="416"/>
-        <DataGrid d:ItemsSource="{Binding}" Margin="490,324,49,71">
+        <DataGrid x:Name="dgValoracionesAspirantes" d:ItemsSource="{Binding}" Margin="490,324,49,71" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Aspirante" Binding= "{Binding nombreAspirante}" Width="270"/>
-                <DataGridTextColumn Header="Valoración" Binding= "{Binding valoracionAspirante}" Width="103"/>
+                <DataGridTextColumn Header="Aspirante" Binding= "{Binding NombreAspirante}" Width="270"/>
+                <DataGridTextColumn Header="Valoración" Binding= "{Binding EvaluacionAspirante}" Width="103"/>
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Valoraciones de aspirantes" HorizontalAlignment="Left" Margin="531,280,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26" Height="39"/>

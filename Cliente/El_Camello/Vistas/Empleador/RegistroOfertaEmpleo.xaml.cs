@@ -66,9 +66,7 @@ namespace El_Camello.Vistas.Empleador
 
             cargarOfertaEmpleo();
 
-        }
-
-            
+        }            
 
         private async void cargarOfertaEmpleo()
         {
@@ -105,9 +103,12 @@ namespace El_Camello.Vistas.Empleador
                 tbDireccion.Text = ofertaEmpleoEdicion.Direccion;
                 tbDescripcion.Text = ofertaEmpleoEdicion.Descripcion;
 
-                CargarImagenes(ofertaEmpleoEdicion.Fotografias);
 
-            }catch (Exception exception)
+                CargarImagenes(ofertaEmpleoEdicion.FotografiasEdicion);
+                marcarChecksDias(ofertaEmpleoEdicion.DiasLaborales);
+
+            }
+            catch (Exception exception)
             {
                 error = new MensajesSistema("Error", "Hubo un error al cargar la oferta de empleo, favor de intentar más tarde", exception.StackTrace, exception.Message);
                 error.ShowDialog();
@@ -115,14 +116,14 @@ namespace El_Camello.Vistas.Empleador
 
         }
 
-        private void CargarImagenes(List<byte[]> fotografias)
+        private void CargarImagenes(List<FotografiaOferta> fotografias)
         {
             // byte[] imagen1 = reporteDetallado.Evidencia[0];
 
            
-            foreach (byte[] imagenAux in fotografias)
+            foreach (FotografiaOferta imagenAux in fotografias)
             {
-                using (var ms1 = new System.IO.MemoryStream(imagenAux))
+                using (var ms1 = new System.IO.MemoryStream(imagenAux.Imagen))
                 {
                     var imagen = new BitmapImage();
                     imagen.BeginInit();
@@ -146,15 +147,12 @@ namespace El_Camello.Vistas.Empleador
 
             }
 
-
         }
-
 
         private void cargarDatosComponentes()
         {
             cargarCategoriasCombobox();
             cargarTipoPago();
-
 
         }
 
@@ -184,6 +182,7 @@ namespace El_Camello.Vistas.Empleador
 
         private void guardarOfertaEmpleo(object sender, RoutedEventArgs e)
         {
+
             //Validar
             if (isNuevo)
             {
@@ -191,11 +190,10 @@ namespace El_Camello.Vistas.Empleador
             }
             else
             {
-
+                actualizarOfertaEmpleo();
             }
 
         }
-
 
         private async void registrarOfertaEmpleo()
         {
@@ -244,41 +242,131 @@ namespace El_Camello.Vistas.Empleador
 
         }
 
+        private async void actualizarOfertaEmpleo()
+        {
+            OfertaEmpleo ofertaEmpleoNueva = new OfertaEmpleo();
+
+            try
+            {
+
+
+                ofertaEmpleoNueva.IdOfertaEmpleo = idOfertaEmpleo;
+                ofertaEmpleoNueva.IdPerfilEmpleador = idPerfilEmpleador;
+                Categoria categoria = (Categoria)cbCategorias.SelectedItem;
+                int idCategoria = categoria.IdCategoria;
+
+
+                ofertaEmpleoNueva.IdCategoriaEmpleo = idCategoria;
+                ofertaEmpleoNueva.Nombre = tbNombreEmpleo.Text;
+                ofertaEmpleoNueva.Descripcion = tbDescripcion.Text;
+                ofertaEmpleoNueva.Vacantes = int.Parse(tbVacantes.Text);
+                ofertaEmpleoNueva.DiasLaborales = diasLaborales();
+
+                string tipoPago = (string)cbTipoPago.SelectedItem;
+                ofertaEmpleoNueva.TipoPago = tipoPago;
+
+
+                ofertaEmpleoNueva.CantidadPago = int.Parse(tbPago.Text);
+                ofertaEmpleoNueva.Direccion = tbDireccion.Text;
+                string horaInicio = tbHoraInicio.Text;
+                string horaFin = tbHoraFin.Text;
+
+                ofertaEmpleoNueva.HoraInicio = TimeOnly.Parse(horaInicio);
+                ofertaEmpleoNueva.HoraFin = TimeOnly.Parse(horaFin);
+
+
+                ofertaEmpleoNueva.FechaInicio = dpFechaInicio.SelectedDate.Value;
+                ofertaEmpleoNueva.FechaFinalizacion = dpFechaFinalizacion.SelectedDate.Value;
+
+                ofertaEmpleoNueva.Fotografias = imagenes;
+
+
+                await OfertaEmpleoDAO.PutOfertaEmpleo(ofertaEmpleoNueva, token);
+
+            }
+            catch (Exception exception)
+            {
+                error = new MensajesSistema("Error", "Hubo un error al intentar registrar, favor de intentar más tarde", exception.StackTrace, exception.Message);
+                error.ShowDialog();
+            }
+
+        }
+
+        private void marcarChecksDias(string diasLaborales)
+        {
+            int cantidad = diasLaborales.Length;
+
+            for (int i= 0; i < cantidad; i++)
+            {
+
+                if (diasLaborales[i].Equals('1'))
+                {
+                    chkLunes.IsChecked = true;
+                }
+                if (diasLaborales[i].Equals('2'))
+                {
+                    chkMartes.IsChecked = true;
+                }
+                if (diasLaborales[i].Equals('3'))
+                {
+                    chkMartes.IsChecked = true;
+                }
+                if (diasLaborales[i].Equals('4'))
+                {
+                    chkJueves.IsChecked = true;
+                }
+                if (diasLaborales[i].Equals('5'))
+                {
+                    chkViernes.IsChecked = true;
+                }
+                if (diasLaborales[i].Equals('6'))
+                {
+                    chkSabado.IsChecked = true;
+                }
+                if (diasLaborales[i].Equals('7'))
+                {
+                    chkDomingo.IsChecked = true;
+                }
+            }
+
+
+        }
+
         private string diasLaborales()
         {
             string diasLaborales = "";
 
-            if (chkLunes.IsPressed)
+            if (chkLunes.IsChecked == true)
             {
                 diasLaborales += "1";
             }
-            if (chkMartes.IsPressed)
+            if (chkMartes.IsChecked == true)
             {
                 diasLaborales += "2";
             }
-            if (chkMiercoles.IsPressed)
+            if (chkMiercoles.IsChecked == true)
             {
                 diasLaborales += "3";
             }
-            if (chkJueves.IsPressed)
+            if (chkJueves.IsChecked == true)
             {
                 diasLaborales += "4";
             }
-            if (chkViernes.IsPressed)
+            if (chkViernes.IsChecked == true)
             {
                 diasLaborales += "5";
             }
-            if (chkSabado.IsPressed)
+            if (chkSabado.IsChecked == true)
             {
                 diasLaborales += "6";
             }
-            if (chkDomingo.IsPressed)
+            if (chkDomingo.IsChecked == true)
             {
                 diasLaborales += "7";
             }
 
 
-
+            MessageBox.Show("Días seleccionados: " + diasLaborales);
             return diasLaborales;
         }
 
@@ -287,12 +375,13 @@ namespace El_Camello.Vistas.Empleador
             this.Close();
 
         }
+
         private void agregarFoto(object sender, RoutedEventArgs e)
         {
             
 
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Image files (*.jpg, *.png) | *.jpg; *.png";
+            openFileDialog.Filter = "Image files (*.jpg) | *.jpg;";
 
             if (openFileDialog.ShowDialog() == true)
             {
@@ -328,5 +417,15 @@ namespace El_Camello.Vistas.Empleador
             }
 
         }
+
+        private void removerFotos(object sender, RoutedEventArgs e)
+        {
+            imagenes.Clear();
+            imgFoto.Source = null;
+            imgFoto2.Source = null;
+            imgFoto3.Source = null;
+
+        }
     }
+    
 }
