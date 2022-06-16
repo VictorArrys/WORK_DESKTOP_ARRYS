@@ -32,7 +32,6 @@ namespace El_Camello.Vistas.Administrador
 
         public MenuAdministrador(Modelo.clases.Usuario usuarioConectado)
         {
-            this.token = usuarioConectado.Token;
             InitializeComponent();
             administrador = new Modelo.clases.Administrador();
             cargarAdministrador(usuarioConectado);
@@ -46,6 +45,7 @@ namespace El_Camello.Vistas.Administrador
             administrador.CorreoElectronico = usuarioConectado.CorreoElectronico;
             administrador.Estatus = usuarioConectado.Estatus;
             administrador.Token = usuarioConectado.Token;
+            token = administrador.Token;
         }
 
         private void btnPantallaPerfil_Click(object sender, RoutedEventArgs e)
@@ -58,7 +58,7 @@ namespace El_Camello.Vistas.Administrador
         {
             if (ventanaCategorias == null)
             {
-                ventanaCategorias = new categoriasEmpleo();
+                ventanaCategorias = new categoriasEmpleo(token);
             }
             panelPrincipal.Content = ventanaCategorias;
         }

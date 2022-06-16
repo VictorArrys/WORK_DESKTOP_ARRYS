@@ -1,6 +1,6 @@
 ﻿using El_Camello.Modelo.clases;
 using El_Camello.Modelo.dao;
-using El_Camello.Vistas.Aspirante.controles;
+using El_Camello.Vistas.Demandante.controles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,30 +15,28 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace El_Camello.Vistas.Aspirante
+namespace El_Camello.Vistas.Demandante
 {
     /// <summary>
     /// Lógica de interacción para Mensajeria.xaml
     /// </summary>
     public partial class Mensajeria : Window
     {
-        Modelo.clases.Aspirante perfilAspirante;
+        Modelo.clases.Demandante perfilDemandante;
         Modelo.clases.Conversacion conversacionSeleccionada;
 
-        public Mensajeria(Modelo.clases.Aspirante perfilAspirante)
+        public Mensajeria(Modelo.clases.Demandante perfilDemandante)
         {
             InitializeComponent();
-            this.perfilAspirante = perfilAspirante;
+            this.perfilDemandante = perfilDemandante;
             CargarListaConversaciones();
         }
-
-        
 
         private async void CtrlConversacion_MouseDown(object sender, MouseButtonEventArgs e)
         {
             //Cargar conversacion y habilitar botones
             int idConversacion = ((ConversacionControl)e.Source).Conversacion.IdConversacion;
-            conversacionSeleccionada = await ConversacionesDAO.GetConversacionAspirante(idConversacion ,perfilAspirante.IdAspirante, perfilAspirante.Token);
+            conversacionSeleccionada = await ConversacionesDAO.GetConversacionDemandante(idConversacion, perfilDemandante.IdDemandante, perfilDemandante.Token);
             CargarConversacion();
         }
 
@@ -46,10 +44,10 @@ namespace El_Camello.Vistas.Aspirante
         {
             btnEnviarMensajeAsync();
         }
-        
+
         private async void CargarListaConversaciones()
         {
-            List<Conversacion> listaConversaciones = await ConversacionesDAO.GetConversacionesAspirante(perfilAspirante.IdAspirante, perfilAspirante.Token);
+            List<Conversacion> listaConversaciones = await ConversacionesDAO.GetConversacionesDemandante(perfilDemandante.IdDemandante, perfilDemandante.Token);
             foreach (Conversacion conversacion in listaConversaciones)
             {
                 ConversacionControl ctrlConversacion = new ConversacionControl();
@@ -66,7 +64,7 @@ namespace El_Camello.Vistas.Aspirante
             txtMensaje.Text = "";
             txtMensaje.IsEnabled = true;
             btnEnviarMensaje.IsEnabled = true;
-            foreach(var mensaje in conversacionSeleccionada.Mensajes)
+            foreach (var mensaje in conversacionSeleccionada.Mensajes)
             {
                 MostrarMensaje(mensaje);
             }
@@ -74,26 +72,26 @@ namespace El_Camello.Vistas.Aspirante
 
         private void MostrarMensaje(Mensaje mensaje)
         {
-            bool esRemitente = (mensaje.IdUsuarioRemitente == perfilAspirante.IdPerfilusuario) ? true : false;
+            bool esRemitente = (mensaje.IdUsuarioRemitente == perfilDemandante.IdPerfilusuario) ? true : false;
             CuadroMensaje nuevoMensaje = new CuadroMensaje(mensaje, esRemitente);
             pnl_Chat.Children.Add(nuevoMensaje);
             scrollConversacion.ScrollToBottom();
         }
 
-        
+
 
         private async void btnEnviarMensajeAsync()
         {
             string contenidoMensaje = txtMensaje.Text;
             if (contenidoMensaje.Length > 0)
             {
-                Mensaje mensaje = await ConversacionesDAO.PostMensajeAspirante(
-                    conversacionSeleccionada.IdConversacion, 
-                    perfilAspirante.IdAspirante, 
-                    contenidoMensaje, 
-                    perfilAspirante.Token);
+                Mensaje mensaje = await ConversacionesDAO.PostMensajeDemandante(
+                    conversacionSeleccionada.IdConversacion,
+                    perfilDemandante.IdDemandante,
+                    contenidoMensaje,
+                    perfilDemandante.Token);
                 txtMensaje.Text = "";
-                if (mensaje.IdMensaje > 0)
+                if(mensaje.IdMensaje > 0)
                 {
                     MostrarMensaje(mensaje);
                 }

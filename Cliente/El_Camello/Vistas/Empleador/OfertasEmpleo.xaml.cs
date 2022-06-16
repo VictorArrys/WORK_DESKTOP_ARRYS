@@ -130,7 +130,8 @@ namespace El_Camello.Vistas.Empleador
 
         private void btnMensajeria_Click(object sender, RoutedEventArgs e)
         {
-
+            Mensajeria ventanaMensajeria = new Mensajeria(empleador);
+            ventanaMensajeria.ShowDialog();
         }
 
         private void btnRegistrarOferta_Click(object sender, RoutedEventArgs e)

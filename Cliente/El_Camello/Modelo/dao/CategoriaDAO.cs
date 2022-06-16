@@ -1,4 +1,5 @@
-﻿using El_Camello.Modelo.clases;
+﻿using El_Camello.Assets.utilerias;
+using El_Camello.Modelo.clases;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -14,38 +15,37 @@ namespace El_Camello.Modelo.dao
 {
     internal class CategoriaDAO
     {
-        public static async Task<List<Categoria>> GetCategorias()
+        public static async Task<List<Categoria>> GetCategorias(string token) // listo en cliente
         {
             List<Categoria> categorias = new List<Categoria>();
             using (var cliente = new HttpClient())
             {
-                
+                cliente.DefaultRequestHeaders.Add("x-access-token", token);
                 string endpoint = "http://localhost:5000/v1/categoriasEmpleo";
 
                 try
                 {
+                    
                     HttpResponseMessage respuesta = await cliente.GetAsync(endpoint);
                     string body = await respuesta.Content.ReadAsStringAsync();
-                    switch (respuesta.StatusCode)
+                    RespuestasAPI respuestaAPI = new RespuestasAPI();
+
+                    if (respuesta.StatusCode == HttpStatusCode.OK)
                     {
-                        case HttpStatusCode.OK:
-                            JArray arrayCategorias = JArray.Parse(body);
-                            foreach (var item in arrayCategorias)
-                            {
-                                Categoria categoria = new Categoria();
-                                categoria.IdCategoria = (int)item["id_categoria_empleo"];
-                                categoria.NombreCategoria = (string)item["nombre"];
-                                categorias.Add(categoria);
-                            }
-                            break;
-                        case HttpStatusCode.Unauthorized:
-                        case HttpStatusCode.InternalServerError:
-                        case HttpStatusCode.NotFound:
-                            JObject codigo = JObject.Parse(body);
-                            string mensaje = (string)codigo["type error"]["menssage"];
-                            MessageBox.Show(mensaje);
-                            break;
+                        JArray listaCategorias = JArray.Parse(body);
+                        foreach (var item in listaCategorias)
+                        {
+                            Categoria categoria = new Categoria();
+                            categoria.IdCategoria = (int)item["idCategoriaEmpleo"];
+                            categoria.NombreCategoria = (string)item["nombre"];
+                            categorias.Add(categoria);
+                        }
                     }
+                    else
+                    {
+                        respuestaAPI.gestionRespuestasApi("Get Categoria", respuesta);
+                    }
+
                 }
                 catch (HttpRequestException ex)
                 {
@@ -58,17 +58,19 @@ namespace El_Camello.Modelo.dao
             return categorias;
         }
 
-        public static async Task<int> PostCategoria(string nombre, string token)
+        public static async Task<int> PostCategoria(string nombre, string token) // listo cliente
         {
-            int res = -1;
+            int resultado = -1;
+            int idCategoria = -1;
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
                 string endpoint = "http://localhost:5000/v1/categoriasEmpleo";
-                //HttpResponseMessage respuesta = await client.GetAsync(query);
+
                 try
                 {
                     HttpRequestMessage cuerpoMensaje = new HttpRequestMessage();
+                    RespuestasAPI respuestaAPI = new RespuestasAPI();
                     string cuerpoJson = "{\"nombre\": \"" + nombre + "\"}";
 
                     var data = new StringContent(cuerpoJson, Encoding.UTF8, "application/json");
@@ -76,21 +78,18 @@ namespace El_Camello.Modelo.dao
 
                     HttpResponseMessage respuesta = await cliente.PostAsync(endpoint, data);
                     string body = await respuesta.Content.ReadAsStringAsync();
-                    switch (respuesta.StatusCode)
+                    if (respuesta.StatusCode == HttpStatusCode.Created)
                     {
-                        case HttpStatusCode.Created:
+                        JObject registroCategoria = JObject.Parse(body);
+                        idCategoria = (int)registroCategoria["idCategoriaEmpleo"];
+                        resultado = 1;
 
-                            JObject id = JObject.Parse(body);
-                            res = (int)id["id_Categoria_empleo"];
-                            break;
-                        case HttpStatusCode.Unauthorized:
-                        case HttpStatusCode.InternalServerError:
-                        case HttpStatusCode.NotFound:
-                            JObject codigo = JObject.Parse(body);
-                            string mensaje = (string)codigo["resBody"]["menssage"];
-                            MessageBox.Show(mensaje);
-                            break;
                     }
+                    else
+                    {
+                        respuestaAPI.gestionRespuestasApi("Post Categorias", respuesta);
+                    }
+                    
                 }
                 catch (HttpRequestException ex)
                 {
@@ -99,37 +98,31 @@ namespace El_Camello.Modelo.dao
 
 
             }
-            return res;
+            return resultado;
         }
 
-        public static async Task<bool> DeleteCategoria(int idCategoria, string token)
+        public static async Task<int> DeleteCategoria(int idCategoria, string token)// listo cliente
         {
-            bool res = false;
+            int resultado = -1;
             using (var cliente = new HttpClient())
             {
-                //string token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFVzdWFyaW8iOjEsImNsYXZlIjoiMTExMDk4IiwidGlwbyI6IkFkbWluaXN0cmFkb3IiLCJpYXQiOjE2NTQzNTQ3NDAsImV4cCI6MTY1NDQ0MTE0MH0.1Nm4C3vVs-jH3_zpcYBmJTqH9DQA_LH6b3VPRJSucaw";
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
                 string endpoint = String.Format("http://localhost:5000/v1/categoriasEmpleo/{0}", idCategoria);
-                //HttpResponseMessage respuesta = await client.GetAsync(query);
                 try
                 {
-
-
                     HttpResponseMessage respuesta = await cliente.DeleteAsync(endpoint);
                     string body = await respuesta.Content.ReadAsStringAsync();
-                    switch (respuesta.StatusCode)
+                    RespuestasAPI respuestaAPI = new RespuestasAPI();
+
+                    if (respuesta.StatusCode == HttpStatusCode.NoContent)
                     {
-                        case HttpStatusCode.NoContent:
-                            res = true;
-                            break;
-                        case HttpStatusCode.Unauthorized:
-                        case HttpStatusCode.InternalServerError:
-                        case HttpStatusCode.NotFound:
-                            JObject codigo = JObject.Parse(body);
-                            string mensaje = (string)codigo["type error"]["message"];
-                            MessageBox.Show(mensaje);
-                            break;
+                        resultado = 1;
                     }
+                    else
+                    {
+                        respuestaAPI.gestionRespuestasApi("Delete Categorias", respuesta);
+                    }
+
                 }
                 catch (HttpRequestException ex)
                 {
@@ -138,47 +131,42 @@ namespace El_Camello.Modelo.dao
 
 
             }
-            return res;
+            return resultado;
 
         }
 
-        public static async Task<bool> PatchCategoria(Categoria categoria, string token)
+        public static async Task<int> PatchCategoria(Categoria categoria, string token) // listo cliente
         {
-            bool res = false;
+            int resultado = -1;
+            int idCategoria = -1;
             using (var cliente = new HttpClient())
             {
                 
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
                 string endpoint = String.Format("http://localhost:5000/v1/categoriasEmpleo/{0}", categoria.IdCategoria);
-                //HttpResponseMessage respuesta = await client.GetAsync(query);
+
                 try
                 {
                     HttpRequestMessage cuerpoMensaje = new HttpRequestMessage();
                     string cuerpoJson = "{\"nombre\": \"" + categoria.NombreCategoria + "\"}";
-
+                    RespuestasAPI respuestaAPI = new RespuestasAPI();
                     var data = new StringContent(cuerpoJson, Encoding.UTF8, "application/json");
 
 
                     HttpResponseMessage respuesta = await cliente.PatchAsync(endpoint, data);
                     string body = await respuesta.Content.ReadAsStringAsync();
-                    switch (respuesta.StatusCode)
+                    
+                    if (respuesta.StatusCode == HttpStatusCode.OK)
                     {
-                        case HttpStatusCode.OK:
-                            JObject registroCategoria = JObject.Parse(body);
-
-                            if (categoria.NombreCategoria == (string)registroCategoria["nombre"])
-                            {
-                                res = true;
-                            }
-                            break;
-                        case HttpStatusCode.Unauthorized:
-                        case HttpStatusCode.InternalServerError:
-                        case HttpStatusCode.NotFound:
-                            JObject codigo = JObject.Parse(body);
-                            string mensaje = (string)codigo["resBody"]["menssage"];
-                            MessageBox.Show(mensaje);
-                            break;
+                        JObject registroCategoria = JObject.Parse(body);
+                        idCategoria = (int)registroCategoria["idCategoriaEmpleo"];
+                        resultado = 1;
                     }
+                    else
+                    {
+                        respuestaAPI.gestionRespuestasApi("Put Categorias", respuesta);
+                    }
+
                 }
                 catch (HttpRequestException ex)
                 {
@@ -188,7 +176,7 @@ namespace El_Camello.Modelo.dao
 
             }
 
-            return res;
+            return resultado;
 
         }
     }

@@ -40,12 +40,12 @@ namespace El_Camello.Vistas.Administrador
 
         private async void cargarDatosAspirante()
         {
-            string token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFVzdWFyaW8iOjkwLCJjbGF2ZSI6IjEyMzQ1NiIsInRpcG8iOiJBc3BpcmFudGUiLCJpYXQiOjE2NTUzMjkzMjEsImV4cCI6MTY1NTQxNTcyMX0.qQ-5BohPBoWPdRXZ_vjPdGj5G7pWj9n8PNjXK6_J2aY";
+            /*string token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFVzdWFyaW8iOjkwLCJjbGF2ZSI6IjEyMzQ1NiIsInRpcG8iOiJBc3BpcmFudGUiLCJpYXQiOjE2NTUzMjkzMjEsImV4cCI6MTY1NTQxNTcyMX0.qQ-5BohPBoWPdRXZ_vjPdGj5G7pWj9n8PNjXK6_J2aY";
             aspirante = await AspiranteDAO.GetAspirante(90, token);
 
             String urlCarpetaTemporal = System.Environment.GetEnvironmentVariable("TEMP");
 
-            MessageBox.Show(urlCarpetaTemporal);
+            MessageBox.Show(urlCarpetaTemporal);*/
         }
     }
 }

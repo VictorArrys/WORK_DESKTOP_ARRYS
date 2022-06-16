@@ -15,30 +15,28 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace El_Camello.Vistas.Aspirante
+namespace El_Camello.Vistas.Empleador
 {
     /// <summary>
     /// Lógica de interacción para Mensajeria.xaml
     /// </summary>
     public partial class Mensajeria : Window
     {
-        Modelo.clases.Aspirante perfilAspirante;
+        private Modelo.clases.Empleador perfilEmpleador;
         Modelo.clases.Conversacion conversacionSeleccionada;
 
-        public Mensajeria(Modelo.clases.Aspirante perfilAspirante)
+        public Mensajeria(Modelo.clases.Empleador empleador)
         {
             InitializeComponent();
-            this.perfilAspirante = perfilAspirante;
+            perfilEmpleador = empleador;
             CargarListaConversaciones();
         }
-
-        
 
         private async void CtrlConversacion_MouseDown(object sender, MouseButtonEventArgs e)
         {
             //Cargar conversacion y habilitar botones
             int idConversacion = ((ConversacionControl)e.Source).Conversacion.IdConversacion;
-            conversacionSeleccionada = await ConversacionesDAO.GetConversacionAspirante(idConversacion ,perfilAspirante.IdAspirante, perfilAspirante.Token);
+            conversacionSeleccionada = await ConversacionesDAO.GetConversacionEmpleador(idConversacion, perfilEmpleador.IdPerfilEmpleador, perfilEmpleador.Token);
             CargarConversacion();
         }
 
@@ -46,10 +44,10 @@ namespace El_Camello.Vistas.Aspirante
         {
             btnEnviarMensajeAsync();
         }
-        
+
         private async void CargarListaConversaciones()
         {
-            List<Conversacion> listaConversaciones = await ConversacionesDAO.GetConversacionesAspirante(perfilAspirante.IdAspirante, perfilAspirante.Token);
+            List<Conversacion> listaConversaciones = await ConversacionesDAO.GetConversacionesEmpleador(perfilEmpleador.IdPerfilEmpleador, perfilEmpleador.Token);
             foreach (Conversacion conversacion in listaConversaciones)
             {
                 ConversacionControl ctrlConversacion = new ConversacionControl();
@@ -66,7 +64,7 @@ namespace El_Camello.Vistas.Aspirante
             txtMensaje.Text = "";
             txtMensaje.IsEnabled = true;
             btnEnviarMensaje.IsEnabled = true;
-            foreach(var mensaje in conversacionSeleccionada.Mensajes)
+            foreach (var mensaje in conversacionSeleccionada.Mensajes)
             {
                 MostrarMensaje(mensaje);
             }
@@ -74,36 +72,34 @@ namespace El_Camello.Vistas.Aspirante
 
         private void MostrarMensaje(Mensaje mensaje)
         {
-            bool esRemitente = (mensaje.IdUsuarioRemitente == perfilAspirante.IdPerfilusuario) ? true : false;
+            bool esRemitente = (mensaje.IdUsuarioRemitente == perfilEmpleador.IdPerfilusuario) ? true : false;
             CuadroMensaje nuevoMensaje = new CuadroMensaje(mensaje, esRemitente);
             pnl_Chat.Children.Add(nuevoMensaje);
             scrollConversacion.ScrollToBottom();
         }
 
-        
+
 
         private async void btnEnviarMensajeAsync()
         {
             string contenidoMensaje = txtMensaje.Text;
             if (contenidoMensaje.Length > 0)
             {
-                Mensaje mensaje = await ConversacionesDAO.PostMensajeAspirante(
-                    conversacionSeleccionada.IdConversacion, 
-                    perfilAspirante.IdAspirante, 
-                    contenidoMensaje, 
-                    perfilAspirante.Token);
+                Mensaje mensaje = await ConversacionesDAO.PostMensajeEmpleador(
+                    conversacionSeleccionada.IdConversacion,
+                    perfilEmpleador.IdPerfilEmpleador,
+                    contenidoMensaje,
+                    perfilEmpleador.Token);
                 txtMensaje.Text = "";
                 if (mensaje.IdMensaje > 0)
                 {
                     MostrarMensaje(mensaje);
                 }
+
             }
         }
     }
 
-    /// <summary>
-    /// Contenedor WPF para los mensaje recibidos del chat
-    /// </summary>
     class CuadroMensaje : StackPanel
     {
         TextBlock mensaje;

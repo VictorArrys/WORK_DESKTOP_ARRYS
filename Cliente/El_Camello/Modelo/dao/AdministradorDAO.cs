@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using El_Camello.Assets.utilerias;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace El_Camello.Modelo.dao
 {
     internal class AdministradorDAO
     {
-        public static async Task<clases.Administrador> getAdministrador(int idUsuario, string token) // listo
+        public static async Task<clases.Administrador> getAdministrador(int idUsuario, string token) // listo cliente
         {
             clases.Administrador administrador = new clases.Administrador();
             using (var cliente = new HttpClient())
@@ -25,58 +26,67 @@ namespace El_Camello.Modelo.dao
                 {
                     HttpResponseMessage respuesta = await cliente.GetAsync(endpoint);
                     string body = await respuesta.Content.ReadAsStringAsync();
-                    switch (respuesta.StatusCode)
+                    RespuestasAPI respuestaAPI = new RespuestasAPI();
+
+                    if (respuesta.StatusCode == HttpStatusCode.OK)
                     {
-                        case HttpStatusCode.OK:
-                            JObject perfilAdministrador = JObject.Parse(body);
-                            administrador.IdPerfilAdministrador = (int)perfilAdministrador["idPerfilAdministrador"];
-                            administrador.IdPerfilusuario = (int)perfilAdministrador["idPerfilUsuarioAdmin"];
-                            administrador.Nombre = (string)perfilAdministrador["nombre"];
-                            administrador.Telefono = (string)perfilAdministrador["telefono"];   
-                            break;
+                        JObject perfilAdministrador = JObject.Parse(body);
+                        administrador.IdPerfilAdministrador = (int)perfilAdministrador["idPerfilAdministrador"];
+                        administrador.IdPerfilusuario = (int)perfilAdministrador["idPerfilUsuarioAdmin"];
+                        administrador.Nombre = (string)perfilAdministrador["nombre"];
+                        administrador.Telefono = (string)perfilAdministrador["telefono"];
+                    }
+                    else
+                    {
+                        respuestaAPI.gestionRespuestasApi("Get Administrador", respuesta);
                     }
                 }
                 catch (HttpRequestException)
                 {
-                    MessageBox.Show("verificar servidor");
+                    MessageBox.Show("Conexion en este momento no disponible", "¡Operacion!");
                 }
             }
             
             return administrador;
         }
 
-        public static async Task<List<clases.Administrador>> getAdministradores(string token) // probar
+        public static async Task<List<clases.Administrador>> getAdministradores(string token) // listo cliente
         {
             List<clases.Administrador> administradores = new List<clases.Administrador>();
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
                 string endpoint = "http://localhost:5000/v1/perfilAdministradores";
+
                 try
                 {
                     HttpResponseMessage respuesta = await cliente.GetAsync(endpoint);
                     string body = await respuesta.Content.ReadAsStringAsync();
+                    RespuestasAPI respuestaAPI = new RespuestasAPI();
 
-                    switch (respuesta.StatusCode)
+                    if (respuesta.StatusCode == HttpStatusCode.OK)
                     {
-                        case HttpStatusCode.OK:
-                            JArray arrayAdministradores = JArray.Parse(body);
+                        JArray arrayAdministradores = JArray.Parse(body);
+                        foreach (var item in arrayAdministradores)
+                        {
+                            clases.Administrador administrador = new clases.Administrador();
+                            administrador.IdPerfilAdministrador = (int)item["idPerfilAdministrador"];
+                            administrador.IdPerfilusuario = (int)item["idPerfilUsuarioAdmin"];
+                            administrador.Nombre = (string)item["nombre"];
+                            administrador.Telefono = (string)item["telefono"];
+                            administradores.Add(administrador);
+                        }
 
-                            foreach (var item in arrayAdministradores)
-                            {
-                                clases.Administrador administrador = new clases.Administrador();
-                                administrador.IdPerfilAdministrador = (int)item["idPerfilUsuarioAdmin"];
-                                administrador.IdPerfilusuario = (int)item["idPerfilUsuarioAdmin"];
-                                administrador.Nombre = (string)item["nombre"];
-                                administrador.Telefono = (string)item["telefono"];
-                                administradores.Add(administrador);
-                            }
-                            break;
                     }
+                    else
+                    {
+                        respuestaAPI.gestionRespuestasApi("Get Administradores", respuesta);
+                    }
+
                 }
                 catch (HttpRequestException)
                 {
-                    MessageBox.Show("verificar servidor");
+                    MessageBox.Show("Conexion en este momento no disponible", "¡Operacion!");
                 }
             }
 

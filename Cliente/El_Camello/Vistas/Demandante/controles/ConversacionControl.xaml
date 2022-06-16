@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="El_Camello.Vistas.Demandante.controles.ConversacionControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:El_Camello.Vistas.Demandante.controles"
+             mc:Ignorable="d" 
+             Background="White">
+    <StackPanel>
+        <Border BorderBrush="#FF0089D2" BorderThickness="1">
+            <StackPanel>
+                <Label x:Name="lblNombre" FontSize="15" FontWeight="Bold" Margin="10,10,10,0" VerticalAlignment="Top" HorizontalContentAlignment="Left"/>
+                <Label x:Name="lblAspirante" FontSize="15" Margin="10,0,10,10" VerticalAlignment="Top" HorizontalContentAlignment="Left"/>
+                <Label x:Name="lblFechaContratacion" FontSize="15" Margin="10,0,10,10" VerticalAlignment="Top" HorizontalContentAlignment="Left"/>
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</UserControl>

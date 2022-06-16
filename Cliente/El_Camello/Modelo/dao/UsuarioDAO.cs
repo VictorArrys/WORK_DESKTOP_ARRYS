@@ -17,7 +17,7 @@ namespace El_Camello.Modelo.dao
 {
     internal class UsuarioDAO
     {
-        public static async Task<Usuario> iniciarSesion(string nombreUsuario, string clave)
+        public static async Task<Usuario> iniciarSesion(string nombreUsuario, string clave)  // listo en cliente
         {
             Usuario usuario = new Usuario();
             using (var cliente = new HttpClient())
@@ -26,7 +26,6 @@ namespace El_Camello.Modelo.dao
                 try
                 {
                     HttpResponseMessage respuesta = await cliente.GetAsync(endpoint);
-
                     RespuestasAPI respuestaAPI = new RespuestasAPI();
                     
 
@@ -68,56 +67,10 @@ namespace El_Camello.Modelo.dao
                         respuestaAPI.gestionRespuestasApi("Iniciar sesion", respuesta);
                     }
 
-                    /*
-                    string body = await respuesta.Content.ReadAsStringAsync();
-
-
-                    switch (respuesta.StatusCode)
-                    {
-                        case HttpStatusCode.OK:
-                            JObject user = JsonConvert.DeserializeObject<JObject>(body);
-
-                            try
-                            {
-                                JObject arrayFoto = (JObject)user["fotografia"];
-                                byte[] segmentosFoto = new byte[arrayFoto.Count];
-
-                                for (int i = 0; i < arrayFoto.Count; i++)
-                                {
-                                    segmentosFoto[i] = (byte)arrayFoto[i.ToString()];
-                                }
-
-                                usuario.Fotografia = segmentosFoto;
-                            }
-                            catch (InvalidCastException)
-                            {
-                                usuario.Fotografia = null;
-                            }
-                            
-
-                            usuario.Clave = (string)user["clave"];
-                            usuario.Tipo = (string)user["tipoUsuario"];
-                            usuario.Estatus = (int)user["estatus"];
-                            usuario.IdPerfilusuario = (int)user["idPerfilusuario"];
-                            usuario.CorreoElectronico = (string)user["correoElectronico"];
-                            usuario.NombreUsuario = (string)user["nombre"];
-                            usuario.Token = respuesta.Headers.GetValues("x-access-token").First();
-                            //usuario.Token = (string)user["token"];
-                            break;
-                        case HttpStatusCode.Unauthorized:
-                        case HttpStatusCode.InternalServerError:
-                        case HttpStatusCode.NotFound:
-                            JObject codigo = JObject.Parse(body);
-                            string mensaje = (string)codigo["type error"]["message"];
-                            MessageBox.Show(mensaje);
-                            usuario = null;
-                            break;
-                    }
-                    */
                 }
                 catch (HttpRequestException ex)
                 {
-                    MessageBox.Show("servidor desconectado, no se puede establecer conexion");
+                    MessageBox.Show("La conexión no se puede establecer en este momento, intente mas tarde", "Inciciar Sesión.");
                 }
 
             }
@@ -186,7 +139,7 @@ namespace El_Camello.Modelo.dao
                 return usuario;
         }
 
-        public static async Task<List<clases.Usuario>> getUsuarios(string token)
+        public static async Task<List<clases.Usuario>> getUsuarios(string token) // listo en api
         {
             List<clases.Usuario> usuarios = new List<clases.Usuario>();
             using (var cliente = new HttpClient())
