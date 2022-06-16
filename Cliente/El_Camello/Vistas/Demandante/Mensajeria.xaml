@@ -25,7 +25,7 @@
                     <StackPanel Background="#F5F5F5" x:Name="pnl_Chat"/>
                 </ScrollViewer>
             </Border>
-            <TextBox x:Name="txtMensaje" IsEnabled="false" FontSize="16" MaxLength="65000" Height="50" TextWrapping="Wrap" Margin="40,0,40,70" VerticalAlignment="Bottom"/>
+            <TextBox x:Name="txtMensaje" IsEnabled="false" FontSize="16" MaxLength="254" Height="50" TextWrapping="Wrap" Margin="40,0,40,70" VerticalAlignment="Bottom"/>
             <Button x:Name="btnEnviarMensaje" Content="Enviar" IsEnabled="False" HorizontalAlignment="Right"  VerticalAlignment="Bottom" Width="75" Margin="0,0,40,40" Click="btnEnviarMensaje_Click" />
         </Grid>
     </DockPanel>
