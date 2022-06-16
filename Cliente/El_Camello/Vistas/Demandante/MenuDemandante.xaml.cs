@@ -123,7 +123,8 @@ namespace El_Camello.Vistas.Demandante
 
         private void btnMensajeria_Click(object sender, RoutedEventArgs e)
         {
-            //eduardo
+            Mensajeria ventanaMensajeria = new Mensajeria(demandante);
+            ventanaMensajeria.ShowDialog();
         }
 
         private void cambioCategoria(object sender, SelectionChangedEventArgs e)
