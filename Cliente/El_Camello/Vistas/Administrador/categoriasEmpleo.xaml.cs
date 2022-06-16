@@ -21,77 +21,136 @@ namespace El_Camello.Vistas.Administrador
     /// </summary>
     public partial class categoriasEmpleo : Page
     {
-        //List<Categoria> categoriasTabla = null;
-        Categoria categoriaSeleccionada = null; 
+        List<Categoria> categoriasTabla = null;
+        Categoria categoriaSeleccionada = null;
+        string token;
 
 
-        public categoriasEmpleo()
+        public categoriasEmpleo(string token)
         {
             InitializeComponent();
-            CargarCategoriasTabla();
+            categoriasTabla = new List<Categoria>();
+            categoriaSeleccionada = new Categoria();
+            this.token = token;
+            CargarCategorias(token);
+
         }
 
-        private async void CargarCategoriasTabla()
+        private async void CargarCategorias(string token)
         {
-            List<Categoria> categoriasTabla = new List<Categoria>();
-            //aqui pasar el token que viene desde el inicio de seción
-            //categoriasTabla = await CategoriaDAO.GetCategorias();
-
-            //gCategorias.ItemsSource = categoriasTabla;
+            categoriasTabla = await CategoriaDAO.GetCategorias(token);
+            dgCategorias.ItemsSource = categoriasTabla;
+            btnModificarCategoria.IsEnabled = false;
+            btnEliminarCategoria.IsEnabled = false;
+            btnDeshacer.IsEnabled = false;
+        }
+        
+        private void CargarCategoriasLocal()  // por validar si se queda o no
+        {
+            dgCategorias.ItemsSource = categoriasTabla;
+            btnModificarCategoria.IsEnabled = false;
+            btnEliminarCategoria.IsEnabled = false;
+            btnDeshacer.IsEnabled = false;
         }
 
         private async void btnRegistrarCategoria_Click(object sender, RoutedEventArgs e)
         {
-            string token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFVzdWFyaW8iOjEsImNsYXZlIjoiMTExMDk4IiwidGlwbyI6IkFkbWluaXN0cmFkb3IiLCJpYXQiOjE2NTQzNTQ3NDAsImV4cCI6MTY1NDQ0MTE0MH0.1Nm4C3vVs-jH3_zpcYBmJTqH9DQA_LH6b3VPRJSucaw";
 
-            string nombre = tbNombreCategoria.Text;
-            if (nombre.Length > 0)
+            if (tbNombreCategoria.Text == "")
             {
-                int idCategoria = await CategoriaDAO.PostCategoria(nombre, token);
-                if (idCategoria > 0)
+                MessageBox.Show("Favor de llenar el campo requerido", "Campo Vacio");
+            }
+            else
+            {
+                string nombre = tbNombreCategoria.Text;
+                string token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFVzdWFyaW8iOjE3MiwiY2xhdmUiOiIxMjM0NTYiLCJ0aXBvIjoiQWRtaW5pc3RyYWRvciIsImlhdCI6MTY1NTM0NDIzNCwiZXhwIjoxNjU1NDMwNjM0fQ.iqE7FYK_8KVJqFFFtQUxwCpQIzek6gSNB6srxtCtlMU";
+                int resultado = await CategoriaDAO.PostCategoria(nombre, token);
+                if (resultado == 1)
                 {
-                    MessageBox.Show("registro de categoria exitoso");
-                    CargarCategoriasTabla();
-                    tbNombreCategoria.Text = "";
+                    MessageBox.Show("Categoria registrada con éxito", "¡Operación!");
+                    limpiarCampos();
+                    CargarCategorias(token);
+                }
+                else
+                {
+                    MessageBox.Show("Ocurrio un error al registrar una nueva categoría", "¡Operación!");
                 }
             }
         }
 
 
 
-        private async void btnEliminarCategoria_Click(object sender, RoutedEventArgs e)
+        private async void btnEliminarCategoria_Click(object sender, RoutedEventArgs e)// probar de nuevo
         {
-            bool resultadoEliminar;
-            string token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFVzdWFyaW8iOjEsImNsYXZlIjoiMTExMDk4IiwidGlwbyI6IkFkbWluaXN0cmFkb3IiLCJpYXQiOjE2NTQzNTQ3NDAsImV4cCI6MTY1NDQ0MTE0MH0.1Nm4C3vVs-jH3_zpcYBmJTqH9DQA_LH6b3VPRJSucaw";
-            if (dgCategorias.SelectedIndex > -1)
+
+            int id = categoriaSeleccionada.IdCategoria;
+
+            string token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFVzdWFyaW8iOjE3MiwiY2xhdmUiOiIxMjM0NTYiLCJ0aXBvIjoiQWRtaW5pc3RyYWRvciIsImlhdCI6MTY1NTM0NDIzNCwiZXhwIjoxNjU1NDMwNjM0fQ.iqE7FYK_8KVJqFFFtQUxwCpQIzek6gSNB6srxtCtlMU";
+            int resultado = await CategoriaDAO.DeleteCategoria(id, token);
+            if (resultado == 1)
             {
-                categoriaSeleccionada = (Categoria)dgCategorias.SelectedItem;
-                resultadoEliminar =  await CategoriaDAO.DeleteCategoria(categoriaSeleccionada.IdCategoria, token);
-
-                if (resultadoEliminar)
-                {
-                    MessageBox.Show("Categoria eliminada con éxito...", "OPERACIÓN!");
-                    CargarCategoriasTabla();
-                }
-
+                MessageBox.Show("Categoria eliminada con éxito", "¡Operación!");
+                limpiarCampos();
+                CargarCategorias(token);
             }
+            else
+            {
+                MessageBox.Show("Ocurrio un error al eliminar la categoría seleccionada, verificar si la categoria esta en uso por otro usuario", "¡Operación!");
+            }
+            
         }
 
         private async void btnModificarCategoria_Click(object sender, RoutedEventArgs e)
         {
-            bool resultadoActualización; 
-            string token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFVzdWFyaW8iOjEsImNsYXZlIjoiMTExMDk4IiwidGlwbyI6IkFkbWluaXN0cmFkb3IiLCJpYXQiOjE2NTQzNTQ3NDAsImV4cCI6MTY1NDQ0MTE0MH0.1Nm4C3vVs-jH3_zpcYBmJTqH9DQA_LH6b3VPRJSucaw";
-            if (dgCategorias.SelectedIndex > -1)
-            {
-                categoriaSeleccionada = (Categoria)dgCategorias.SelectedItem;
-                categoriaSeleccionada.NombreCategoria = tbNombreCategoria.Text;
-                resultadoActualización = await CategoriaDAO.PatchCategoria(categoriaSeleccionada, token);
 
-                if (resultadoActualización)
+            if (categoriaSeleccionada != null)
+            {
+                categoriaSeleccionada.NombreCategoria = tbNombreCategoria.Text;
+                string token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFVzdWFyaW8iOjE3MiwiY2xhdmUiOiIxMjM0NTYiLCJ0aXBvIjoiQWRtaW5pc3RyYWRvciIsImlhdCI6MTY1NTM4NzQyOCwiZXhwIjoxNjU1NDczODI4fQ.lBtLMa3IokAij2uqqvQ-3OUJA3COXbkGtAYLSIVGdbc";
+                int resultado = await CategoriaDAO.PatchCategoria(categoriaSeleccionada, token);
+                if (resultado == 1)
                 {
-                    MessageBox.Show("Categoria actualizada exitosamente...", "OPERACIÓN!");
-                    CargarCategoriasTabla();
+                    MessageBox.Show("Categoria actualizada con éxito", "¡Operación!");
+                    limpiarCampos();
+                    CargarCategorias(token);
                 }
+                else
+                {
+                    MessageBox.Show("Ocurrio un error al modificar la categoría seleccionada. verificar si no se modifico el nombre", "¡Operación!");
+                }
+            }
+            
+        }
+
+
+        private void btnDeshacer_Click(object sender, RoutedEventArgs e)
+        {
+            limpiarCampos();
+        }
+
+        private void limpiarCampos()
+        {
+            dgCategorias.SelectedItem = null;
+            btnDeshacer.IsEnabled = false;
+            btnEliminarCategoria.IsEnabled = false;
+            btnModificarCategoria.IsEnabled = false;
+            btnRegistrarCategoria.IsEnabled = true;
+            tbNombreCategoria.Text = "";
+            categoriaSeleccionada = null;
+            CargarCategoriasLocal();
+        }
+
+        private void dgSeleccionCategoria(object sender, SelectionChangedEventArgs e)
+        {
+            btnRegistrarCategoria.IsEnabled = false;
+            btnModificarCategoria.IsEnabled = true;
+            btnEliminarCategoria.IsEnabled = true;
+            btnDeshacer.IsEnabled = true;
+            categoriaSeleccionada = (Categoria)dgCategorias.SelectedItem;
+
+            if (categoriaSeleccionada != null)
+            {
+                tbNombreCategoria.Text = categoriaSeleccionada.NombreCategoria;
             }
         }
     }

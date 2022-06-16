@@ -37,6 +37,7 @@ namespace El_Camello.Vistas.Administrador
             dgUsuarios.AutoGenerateColumns = false;
         }
 
+
         private async void cargarUsuarios(string token)
         {
             usuarios = await UsuarioDAO.getUsuarios(token);

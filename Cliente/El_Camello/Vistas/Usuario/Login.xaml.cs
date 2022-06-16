@@ -33,37 +33,47 @@ namespace El_Camello.Vistas.Usuario
             InitializeComponent();
         }
 
-        private async void btnIniciarSesion_Click(object sender, RoutedEventArgs e)
+        private async void btnIniciarSesion_Click(object sender, RoutedEventArgs e)  // listo en cliente
         {
-            string nombreUsuario = txtNombreUsuario.Text;
-            string clave = pwdClave.Password;
-            Modelo.clases.Usuario usuario = await UsuarioDAO.iniciarSesion(nombreUsuario, clave); 
-            if (usuario != null)
+            
+            
+            string nombreUsuario = tbNombreUsuario.Text;
+            string clave = pbClave.Password;
+            if (tbNombreUsuario.Text == "" || pbClave.Password == "")
             {
-                switch (usuario.Tipo)
+                MessageBox.Show("Por favor, llenar los campos mostrados", "¡Operacion!");
+            }
+            else
+            {
+                Modelo.clases.Usuario usuario = await UsuarioDAO.iniciarSesion(nombreUsuario, clave);
+                if (usuario != null)
                 {
-                    case "Administrador":
-                        MenuAdministrador menuAdministrador = new MenuAdministrador(usuario);
-                        menuAdministrador.Show();
-                        this.Close();
-                        break;
-                    case "Aspirante":
-                        MenuAspirante menuAspirante = new MenuAspirante(usuario);
-                        menuAspirante.Show();
-                        this.Close();
-                        break;
-                    case "Demandante":
-                        MenuDemandante menuDemandante = new MenuDemandante(usuario);
-                        menuDemandante.Show();
-                        this.Close();
-                        break;
-                    case "Empleador":
-                        int idPerfilEmpleador = 2;
-                        OfertasEmpleo menuEmpleador = new OfertasEmpleo(usuario, idPerfilEmpleador);
-                        menuEmpleador.Show();
-                        this.Close();
-                        break;
+                    switch (usuario.Tipo)
+                    {
+                        case "Administrador":
+                            MenuAdministrador menuAdministrador = new MenuAdministrador(usuario);
+                            menuAdministrador.Show();
+                            this.Close();
+                            break;
+                        case "Aspirante":
+                            MenuAspirante menuAspirante = new MenuAspirante(usuario);
+                            menuAspirante.Show();
+                            this.Close();
+                            break;
+                        case "Demandante":
+                            MenuDemandante menuDemandante = new MenuDemandante(usuario);
+                            menuDemandante.Show();
+                            this.Close();
+                            break;
+                        case "Empleador":
+                            int idPerfilEmpleador = 2;
+                            OfertasEmpleo menuEmpleador = new OfertasEmpleo(usuario, idPerfilEmpleador);
+                            menuEmpleador.Show();
+                            this.Close();
+                            break;
+                    }
                 }
+
             }
         }
 

@@ -13,10 +13,10 @@
         <Grid DockPanel.Dock="Bottom" Background="#FF062758" Opacity="0.85" VerticalAlignment="Bottom" Height="50" Margin="0,0,0,20"></Grid>
         <Grid>
             <Label Content="Usuario" FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="51,116,0,0"/>
-            <TextBox x:Name="txtNombreUsuario" FontSize="16" Width="200" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,121,69,0"/>
+            <TextBox x:Name="tbNombreUsuario" FontSize="16" Width="200" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,121,69,0"/>
 
             <Label Content="Contraseña" FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="51,166,0,0"/>
-            <PasswordBox x:Name="pwdClave" FontSize="16" Width="200"  VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,171,69,0" />
+            <PasswordBox x:Name="pbClave" FontSize="16" Width="200"  VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,171,69,0" />
             <Button x:Name="btnIniciarSesion" FontSize="16" Content="Iniciar Sesión" HorizontalAlignment="Left" Margin="193,236,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.801,0.694" Foreground="White" Click="btnIniciarSesion_Click">
                 <Button.Background>
                     <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>

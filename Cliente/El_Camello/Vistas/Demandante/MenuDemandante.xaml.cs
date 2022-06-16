@@ -66,7 +66,7 @@ namespace El_Camello.Vistas.Demandante
             
             demandante = await DemandanteDAO.getDemandante(usuarioConectado.IdPerfilusuario, usuarioConectado.Token);
             
-            categorias = await CategoriaDAO.GetCategorias();
+            //categorias = await CategoriaDAO.GetCategorias();
             cbCategorias.ItemsSource = categorias;
             CargarImagen(usuarioConectado);
             demandante.Clave = usuarioConectado.Clave;
