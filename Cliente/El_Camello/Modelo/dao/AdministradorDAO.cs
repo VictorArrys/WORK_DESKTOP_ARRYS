@@ -93,7 +93,7 @@ namespace El_Camello.Modelo.dao
             return administradores;
         }
 
-        public static async Task<int> putAdministrador(clases.Administrador administrador) // probar
+        public static async Task<int> putAdministrador(clases.Administrador administrador) // listo cliente
         {
             int resultado = -1;
             int idUsuario = -1;
@@ -103,6 +103,7 @@ namespace El_Camello.Modelo.dao
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", administrador.Token);
                 string endpoint = string.Format("http://localhost:5000/v1/perfilAdministradores/{0}", administrador.IdPerfilAdministrador);
+
                 try
                 {
                     HttpRequestMessage cuerpoMensaje = new HttpRequestMessage();
@@ -112,22 +113,23 @@ namespace El_Camello.Modelo.dao
                     objeto.Add("nombreUsuario", administrador.NombreUsuario);
                     objeto.Add("clave", administrador.Clave);
                     objeto.Add("correoElectronico", administrador.CorreoElectronico);
+                    objeto.Add("idPerfilUsuario", administrador.IdPerfilusuario);
 
                     string cuerpoJson = JsonConvert.SerializeObject(objeto);
                     var data = new StringContent(cuerpoJson, Encoding.UTF8, "application/json");
 
                     HttpResponseMessage respuesta = await cliente.PutAsync(endpoint, data);
                     string body = await respuesta.Content.ReadAsStringAsync();
+                    RespuestasAPI respuestaAPI = new RespuestasAPI();
 
-                    switch (respuesta.StatusCode)
+                    if (respuesta.StatusCode == HttpStatusCode.OK)
                     {
-                        case HttpStatusCode.OK:
-                            JObject modificarAdministrador = JObject.Parse(body);
-                            idUsuario = (int)modificarAdministrador["idPerfilUsuarioAdmin"];
-                            idPerfilAdministrador = (int)modificarAdministrador["idPerfilUsuarioAdmin"];
-                            resultado = 1;
-                            break;
+                        JObject modificarAdministrador = JObject.Parse(body);
+                        idUsuario = (int)modificarAdministrador["idPerfilUsuario"];
+                        idPerfilAdministrador = (int)modificarAdministrador["idPerfilAdministrador"];
+                        resultado = 1;
                     }
+
                 }
                 catch (HttpRequestException)
                 {
