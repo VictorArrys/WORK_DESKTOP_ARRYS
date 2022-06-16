@@ -121,16 +121,7 @@ namespace El_Camello.Modelo.dao
                 try
                 {
                     HttpResponseMessage respuesta = await cliente.GetAsync(endpoint);
-                    var MS = new MemoryStream();
-                    respuesta.Content.CopyToAsync(MS).Wait();
-                    MS.Seek(0, SeekOrigin.Begin);
-                    StreamReader reader = new StreamReader(MS);
-                    string body = reader.ReadToEnd();
-
-                    MessageBox.Show("body antes");
-                    /*Stream bodyStream = respuesta.Content.ReadAsStream();
-                    //StreamReader reader = new StreamReader(bodyStream);
-                    string body = reader.ReadToEnd();*/
+                    string body = await respuesta.Content.ReadAsStringAsync();//Falla con respuestas largas
                     switch (respuesta.StatusCode)
                     {
                         case HttpStatusCode.OK:
@@ -144,6 +135,8 @@ namespace El_Camello.Modelo.dao
                             aspirante.IdPerfilusuario = (int)perfilAspirante["idPerfilUsuario"];
                             //aspirante.Oficios = perfilAspirante["oficios"];
                             aspirante.Telefono = (string)perfilAspirante["telefono"];
+                            
+                            //Convertir array a byte array
                             //aspirante.Video = (byte[])perfilAspirante["video"];
 
 

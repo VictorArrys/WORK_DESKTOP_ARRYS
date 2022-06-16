@@ -45,7 +45,7 @@ namespace El_Camello.Vistas.Usuario
 
         private async void CargarVentana()
         {
-            //cbCategorias.ItemsSource =  await CategoriaDAO.GetCategorias();
+            cbCategorias.ItemsSource =  await CategoriaDAO.GetCategorias();
             cbExperienciaLaboral.Items.Clear();
             cbExperienciaLaboral.Items.Add("1 a 4 meses");
             cbExperienciaLaboral.Items.Add("4 a 6 meses");

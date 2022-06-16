@@ -160,7 +160,7 @@ namespace El_Camello.Vistas.Empleador
         {
             try
             {
-                categorias = await CategoriaDAO.GetCategorias(token);
+                categorias = await CategoriaDAO.GetCategorias();
                 cbCategorias.ItemsSource = categorias;
             }
             catch(Exception exception) {

@@ -48,7 +48,7 @@ namespace El_Camello.Vistas.Aspirante
 
             
             byte[] fotoPerfil = perfilAspirante.Fotografia;
-            if (fotoPerfil.Length > 0)
+            if (fotoPerfil != null)
             {
                 using (var memoryStream = new System.IO.MemoryStream(fotoPerfil))
                 {
