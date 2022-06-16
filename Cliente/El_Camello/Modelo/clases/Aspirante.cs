@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace El_Camello.Modelo.clases
 {
-    internal class Aspirante :Usuario  
+    public class Aspirante : Usuario  
     {
         private int idAspirante;
         private int idUsuario;

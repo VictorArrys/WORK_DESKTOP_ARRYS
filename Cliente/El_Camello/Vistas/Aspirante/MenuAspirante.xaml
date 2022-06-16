@@ -41,7 +41,7 @@
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.Background>
         </Button>
-        <Button Content="Mensajeria" HorizontalAlignment="Left" Margin="157,322,0,0" VerticalAlignment="Top" Width="113" Height="41" FontSize="14" FontWeight="Bold" Foreground="White">
+        <Button x:Name="btnMensajeria" Content="Mensajeria" HorizontalAlignment="Left" Margin="157,322,0,0" VerticalAlignment="Top" Width="113" Height="41" FontSize="14" FontWeight="Bold" Foreground="White" Click="btnMensajeria_Click">
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>
