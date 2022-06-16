@@ -93,7 +93,10 @@ namespace El_Camello.Vistas.Aspirante
                     contenidoMensaje, 
                     perfilAspirante.Token);
                 txtMensaje.Text = "";
-                MostrarMensaje(mensaje);
+                if (mensaje.IdMensaje > 0)
+                {
+                    MostrarMensaje(mensaje);
+                }
             }
         }
     }

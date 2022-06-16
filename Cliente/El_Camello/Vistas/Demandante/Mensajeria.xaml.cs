@@ -91,7 +91,10 @@ namespace El_Camello.Vistas.Demandante
                     contenidoMensaje,
                     perfilDemandante.Token);
                 txtMensaje.Text = "";
-                MostrarMensaje(mensaje);
+                if(mensaje.IdMensaje > 0)
+                {
+                    MostrarMensaje(mensaje);
+                }
             }
         }
     }
