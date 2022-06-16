@@ -35,13 +35,13 @@ namespace El_Camello.Vistas.Aspirante
             string token = usuarioConectado.Token;
             perfilAspirante = await AspiranteDAO.GetAspirante(idPerfil, token);
             //perfilAspirante = await AspiranteDAO.GetAspirante(usuarioConectado.IdPerfilusuario, usuarioConectado.Token);
-            /*perfilAspirante.Clave = usuarioConectado.Clave;
+            perfilAspirante.Clave = usuarioConectado.Clave;
             perfilAspirante.Estatus = usuarioConectado.Estatus;
             perfilAspirante.IdPerfilusuario = usuarioConectado.IdPerfilusuario;
             perfilAspirante.CorreoElectronico = usuarioConectado.CorreoElectronico;
             perfilAspirante.Fotografia = usuarioConectado.Fotografia;
             perfilAspirante.Tipo = usuarioConectado.Tipo;
-            perfilAspirante.Token = usuarioConectado.Token;*/
+            perfilAspirante.Token = usuarioConectado.Token;
 
             MessageBox.Show(perfilAspirante.Token);
             
@@ -64,6 +64,10 @@ namespace El_Camello.Vistas.Aspirante
             //pendiente si esta deshabilidtado o no
         }
 
-        
+        private void btnMensajeria_Click(object sender, RoutedEventArgs e)
+        {
+            Mensajeria ventanaMensajeria = new Mensajeria(perfilAspirante);
+            ventanaMensajeria.ShowDialog();
+        }
     }
 }
