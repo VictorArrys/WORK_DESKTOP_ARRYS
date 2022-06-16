@@ -34,9 +34,10 @@ namespace El_Camello.Vistas.Empleador
         {
             this.idPerfilEmpleador = idPerfilEmpleador;
             this.token = usuarioConectado.Token;
+
             InitializeComponent();
-            CargarEmpleador(usuarioConectado);
-            //CargarOfertasTabla();
+            cargarIinformacionUsuario(usuarioConectado);
+            CargarOfertasTabla();
             
         }
 
@@ -54,6 +55,11 @@ namespace El_Camello.Vistas.Empleador
                 error = new MensajesSistema("Error", "Hubo un error al intentar cargar las ofertas de empleo, favor de intentar más tarde", exceptionGetList.StackTrace, exceptionGetList.Message);
                 error.ShowDialog();
             }
+        }
+
+        private void cargarIinformacionUsuario(Modelo.clases.Usuario usuarioConectado)
+        {
+            CargarEmpleador(usuarioConectado);
         }
 
 

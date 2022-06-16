@@ -159,7 +159,7 @@ namespace El_Camello.Modelo.dao
             JObject ofertaEmpleoConsultada = new JObject();
 
             using (var cliente = new HttpClient())
-            {
+            { 
 
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
 
@@ -176,13 +176,22 @@ namespace El_Camello.Modelo.dao
                     if (respuesta.StatusCode == HttpStatusCode.OK)
                     {
                         //MessageBox.Show("Respuesta: " + respuesta.Content);
-                        String body = await respuesta.Content.ReadAsStringAsync();
+
+                        //string body = await respuesta.Content.ReadAsStringAsync();
+
+
+                        //Prueba
+
+                        JObject prueba = JsonConvert.DeserializeObject<JObject>(respuesta.Content);
+
+
+                        //Fin de prueba                     
+
 
                         //Console.WriteLine(body);
-                        MessageBox.Show(body);
+                        //MessageBox.Show(body);
 
-                        ofertaEmpleoConsultada = JsonConvert.DeserializeObject<JObject>(body);
-                        MessageBox.Show("Prueba" + ofertaEmpleoConsultada);
+                        //ofertaEmpleoConsultada = JsonConvert.DeserializeObject<JObject>(body);
 
                     }
                     else

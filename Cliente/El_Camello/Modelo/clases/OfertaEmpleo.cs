@@ -34,6 +34,8 @@ namespace El_Camello.Modelo.clases
             this.ContratacionEmpleoOferta = new ContratacionEmpleo();
         }
 
+
+
         public int CantidadPago { get => cantidadPago; set => cantidadPago = value; }
         public string Descripcion { get => descripcion; set => descripcion = value; }
         public string DiasLaborales { get => diasLaborales; set => diasLaborales = value; }
