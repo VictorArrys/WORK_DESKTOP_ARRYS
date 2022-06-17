@@ -182,7 +182,7 @@ namespace El_Camello.Modelo.dao
 
                         //Prueba
 
-                        JObject prueba = JsonConvert.DeserializeObject<JObject>(respuesta.Content);
+                        //JObject prueba = JsonConvert.DeserializeObject<JObject>(respuesta.Content);
 
 
                         //Fin de prueba                     
