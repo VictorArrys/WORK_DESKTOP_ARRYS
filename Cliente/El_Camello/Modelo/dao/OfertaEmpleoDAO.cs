@@ -390,15 +390,13 @@ namespace El_Camello.Modelo.dao
         public static async Task<List<FotografiaOferta>> GetFotografiasOfertaEmpleo(int idOfertaEmpleo)
         {
             MensajesSistema errorMessage;
-            JArray fotografias = new JArray();
             List<FotografiaOferta> listaFotografias = new List<FotografiaOferta>();
             using (var cliente = new HttpClient())
             {
+                string endpointfoto = string.Format("http://localhost:5000/v1/ofertasEmpleo-E/" + idOfertaEmpleo + "/fotografia");
+
                 try
-                {
-
-                    string endpointfoto = String.Format("http://localhost:5000/v1/ofertasEmpleo-E/" + idOfertaEmpleo + "/fotografia");
-
+                {                    
                     HttpResponseMessage respuestaFoto = await cliente.GetAsync(endpointfoto);
                     RespuestasAPI respuestaAPI = new RespuestasAPI();
 
@@ -408,10 +406,9 @@ namespace El_Camello.Modelo.dao
                         {
                             string body = await respuestaFoto.Content.ReadAsStringAsync();
 
-                            fotografias = JsonConvert.DeserializeObject<JArray>(body);                                            
-
+                            JArray fotografias = JsonConvert.DeserializeObject<JArray>(body);
                             //Obtener fotos
-                            foreach (JObject foto in fotografias)
+                            foreach (var foto in fotografias)
                             {
 
                                 FotografiaOferta fotoGet = new FotografiaOferta();
@@ -435,8 +432,7 @@ namespace El_Camello.Modelo.dao
                         catch (InvalidCastException e)
                         {
                             MessageBox.Show(e.Message);
-                        }
-                        
+                        }                        
 
                     }
                     else

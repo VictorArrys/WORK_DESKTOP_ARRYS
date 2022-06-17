@@ -133,5 +133,10 @@ namespace El_Camello.Vistas.Demandante
             MessageBox.Show(categorias[seleccion].ToString());
            
         }
+
+        public void actualizarCambios(string operacion)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

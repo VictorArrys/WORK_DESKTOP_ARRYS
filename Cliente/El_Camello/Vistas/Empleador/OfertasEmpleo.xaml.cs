@@ -109,6 +109,7 @@ namespace El_Camello.Vistas.Empleador
         private void btnEditarPerfil_Click(object sender, RoutedEventArgs e)
         {
             RegistrarEmpleador registrarEmpleador = new RegistrarEmpleador(empleador, this);
+
             registrarEmpleador.ShowDialog();
         }
 
@@ -204,10 +205,19 @@ namespace El_Camello.Vistas.Empleador
 
         }
 
-        public void actualizarInformacion(string operacion)
+        public void actualizarCambios(string operacion)
         {
-            ofertasTabla.Clear();
-            CargarOfertasTabla();
+            switch (operacion)
+            {
+                case "Registrar oferta empleo":
+                    ofertasTabla.Clear();
+                    CargarOfertasTabla();
+                    break;
+                case "Actualizar oferta empleo":
+                    ofertasTabla.Clear();
+                    CargarOfertasTabla();
+                    break;
+            };
         }
     }
 }

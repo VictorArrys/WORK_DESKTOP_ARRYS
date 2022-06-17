@@ -18,7 +18,7 @@
                 <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
             </Grid.Background>
         </Grid>
-        <Label Content="Registro de oferta de empleo" HorizontalAlignment="Center" Margin="0,-2,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="26"/>
+        <Label x:Name="lbAccion" Content="Registro de oferta de empleo" HorizontalAlignment="Center" Margin="0,-2,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="26"/>
         <Button Content="Cancelar" HorizontalAlignment="Left" Margin="686,478,0,0" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Click="cancelarRegistro" Height="30">
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>

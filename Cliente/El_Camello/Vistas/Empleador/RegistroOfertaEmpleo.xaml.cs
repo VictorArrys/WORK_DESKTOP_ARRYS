@@ -70,6 +70,8 @@ namespace El_Camello.Vistas.Empleador
 
         private async void cargarOfertaEmpleo()
         {
+
+            lbAccion.Content = "Modificación de oferta de empleo";
             try
             {
                 string tokenString = "" + token;
@@ -113,7 +115,8 @@ namespace El_Camello.Vistas.Empleador
                 mensajes = new MensajesSistema("Error", "Hubo un error al cargar la oferta de empleo, favor de intentar más tarde", exception.StackTrace, exception.Message);
                 mensajes.ShowDialog();
             }
-            /*
+            
+            //xdddd
             try
             {
                 List<FotografiaOferta> fotografiasEdicion = await OfertaEmpleoDAO.GetFotografiasOfertaEmpleo(idOfertaEmpleo);
@@ -121,7 +124,7 @@ namespace El_Camello.Vistas.Empleador
             }catch(Exception e)
             {
                 MessageBox.Show(e.Message);
-            }*/
+            }
 
         }
 
@@ -243,6 +246,7 @@ namespace El_Camello.Vistas.Empleador
                 {
                     mensajes = new MensajesSistema("AccionExitosa", "Se ha registrado correctamente la oferta de empleo: " + ofertaEmpleoNueva.Nombre, "Registrar oferta de empleo", "Oferta de empleo registrada");
                     mensajes.ShowDialog();
+                    notificacion.actualizarCambios("Registrar oferta empleo");
                 }
 
             }catch(Exception exception)
@@ -295,6 +299,8 @@ namespace El_Camello.Vistas.Empleador
                 {
                     mensajes = new MensajesSistema("AccionExitosa", "Se ha actualizado correctamente la oferta de empleo: " + ofertaEmpleoNueva.Nombre, "Registrar oferta de empleo", "Oferta de empleo registrada");
                     mensajes.ShowDialog();
+
+                    notificacion.actualizarCambios("Actualizar oferta empleo");
                 }
 
             }
