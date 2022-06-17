@@ -32,26 +32,19 @@ namespace El_Camello.Vistas.Administrador
             categoriasTabla = new List<Categoria>();
             categoriaSeleccionada = new Categoria();
             this.token = token;
-            CargarCategorias(token);
+            CargarCategorias();
 
         }
 
-        private async void CargarCategorias(string token)
+        private async void CargarCategorias()
         {
-            categoriasTabla = await CategoriaDAO.GetCategorias(token);
+            categoriasTabla = await CategoriaDAO.GetCategorias();
             dgCategorias.ItemsSource = categoriasTabla;
             btnModificarCategoria.IsEnabled = false;
             btnEliminarCategoria.IsEnabled = false;
             btnDeshacer.IsEnabled = false;
         }
         
-        private void CargarCategoriasLocal()  // por validar si se queda o no
-        {
-            dgCategorias.ItemsSource = categoriasTabla;
-            btnModificarCategoria.IsEnabled = false;
-            btnEliminarCategoria.IsEnabled = false;
-            btnDeshacer.IsEnabled = false;
-        }
 
         private async void btnRegistrarCategoria_Click(object sender, RoutedEventArgs e)
         {
@@ -63,13 +56,12 @@ namespace El_Camello.Vistas.Administrador
             else
             {
                 string nombre = tbNombreCategoria.Text;
-                string token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFVzdWFyaW8iOjE3MiwiY2xhdmUiOiIxMjM0NTYiLCJ0aXBvIjoiQWRtaW5pc3RyYWRvciIsImlhdCI6MTY1NTM0NDIzNCwiZXhwIjoxNjU1NDMwNjM0fQ.iqE7FYK_8KVJqFFFtQUxwCpQIzek6gSNB6srxtCtlMU";
                 int resultado = await CategoriaDAO.PostCategoria(nombre, token);
                 if (resultado == 1)
                 {
                     MessageBox.Show("Categoria registrada con éxito", "¡Operación!");
                     limpiarCampos();
-                    CargarCategorias(token);
+                    CargarCategorias();
                 }
                 else
                 {
@@ -80,18 +72,16 @@ namespace El_Camello.Vistas.Administrador
 
 
 
-        private async void btnEliminarCategoria_Click(object sender, RoutedEventArgs e)// probar de nuevo
+        private async void btnEliminarCategoria_Click(object sender, RoutedEventArgs e)
         {
 
             int id = categoriaSeleccionada.IdCategoria;
-
-            string token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFVzdWFyaW8iOjE3MiwiY2xhdmUiOiIxMjM0NTYiLCJ0aXBvIjoiQWRtaW5pc3RyYWRvciIsImlhdCI6MTY1NTM0NDIzNCwiZXhwIjoxNjU1NDMwNjM0fQ.iqE7FYK_8KVJqFFFtQUxwCpQIzek6gSNB6srxtCtlMU";
             int resultado = await CategoriaDAO.DeleteCategoria(id, token);
             if (resultado == 1)
             {
                 MessageBox.Show("Categoria eliminada con éxito", "¡Operación!");
                 limpiarCampos();
-                CargarCategorias(token);
+                CargarCategorias();
             }
             else
             {
@@ -106,13 +96,12 @@ namespace El_Camello.Vistas.Administrador
             if (categoriaSeleccionada != null)
             {
                 categoriaSeleccionada.NombreCategoria = tbNombreCategoria.Text;
-                string token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFVzdWFyaW8iOjE3MiwiY2xhdmUiOiIxMjM0NTYiLCJ0aXBvIjoiQWRtaW5pc3RyYWRvciIsImlhdCI6MTY1NTM4NzQyOCwiZXhwIjoxNjU1NDczODI4fQ.lBtLMa3IokAij2uqqvQ-3OUJA3COXbkGtAYLSIVGdbc";
                 int resultado = await CategoriaDAO.PatchCategoria(categoriaSeleccionada, token);
                 if (resultado == 1)
                 {
                     MessageBox.Show("Categoria actualizada con éxito", "¡Operación!");
                     limpiarCampos();
-                    CargarCategorias(token);
+                    CargarCategorias();
                 }
                 else
                 {
@@ -137,7 +126,7 @@ namespace El_Camello.Vistas.Administrador
             btnRegistrarCategoria.IsEnabled = true;
             tbNombreCategoria.Text = "";
             categoriaSeleccionada = null;
-            CargarCategoriasLocal();
+            CargarCategorias();
         }
 
         private void dgSeleccionCategoria(object sender, SelectionChangedEventArgs e)

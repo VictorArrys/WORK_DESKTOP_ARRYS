@@ -45,7 +45,7 @@ namespace El_Camello.Vistas.Usuario
 
         private async void CargarVentana()
         {
-            //cbCategorias.ItemsSource =  await CategoriaDAO.GetCategorias();
+            cbCategorias.ItemsSource =  await CategoriaDAO.GetCategorias();
             cbExperienciaLaboral.Items.Clear();
             cbExperienciaLaboral.Items.Add("1 a 4 meses");
             cbExperienciaLaboral.Items.Add("4 a 6 meses");
@@ -112,13 +112,11 @@ namespace El_Camello.Vistas.Usuario
             {
                 Categoria categoria = (Categoria)cbCategorias.SelectedItem;
                 int estaLista = oficios.ToList().FindIndex(x => x.IdCategoria == categoria.IdCategoria);
-                MessageBox.Show(categoria.IdCategoria.ToString());
                 if(estaLista == -1){
                     Oficio oficio = new Oficio();
                     oficio.IdCategoria = categoria.IdCategoria;
                     oficio.NombreCategoria = categoria.NombreCategoria;
                     oficio.Experiencia = cbExperienciaLaboral.SelectedValue.ToString();
-                    MessageBox.Show(oficio.IdCategoria.ToString());
                     oficios.Add(oficio);
                     dgExperienciaCategoria.ItemsSource = oficios;
                 }
@@ -133,7 +131,6 @@ namespace El_Camello.Vistas.Usuario
                 MessageBox.Show("algun combo box exta vacio, verificar");
             }
             dgExperienciaCategoria.ItemsSource = oficios;
-            MessageBox.Show(oficios.Count().ToString());
         }
 
         private void btnQuitarCategoria_Click(object sender, RoutedEventArgs e)
