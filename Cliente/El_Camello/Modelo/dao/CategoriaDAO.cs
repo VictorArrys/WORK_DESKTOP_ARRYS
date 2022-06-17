@@ -15,12 +15,11 @@ namespace El_Camello.Modelo.dao
 {
     internal class CategoriaDAO
     {
-        public static async Task<List<Categoria>> GetCategorias(string token) // listo en cliente
+        public static async Task<List<Categoria>> GetCategorias() // listo en cliente
         {
             List<Categoria> categorias = new List<Categoria>();
             using (var cliente = new HttpClient())
             {
-                cliente.DefaultRequestHeaders.Add("x-access-token", token);
                 string endpoint = "http://localhost:5000/v1/categoriasEmpleo";
 
                 try

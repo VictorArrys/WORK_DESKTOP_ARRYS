@@ -24,7 +24,7 @@ namespace El_Camello.Vistas.Administrador
         List<Modelo.clases.Usuario> usuariosEmpleadores = null;
         List<Modelo.clases.Usuario> usuariosDemandantes = null;
         List<Modelo.clases.Usuario> usuariosAspirantes = null;
-        public consultarPerfiles(Modelo.clases.Administrador administrador)
+        public consultarPerfiles(Modelo.clases.Administrador administrador) // verificar que pase el token y crear pantallas para cada usuario
         {
             InitializeComponent();
             administradorPerfiles = new Modelo.clases.Administrador();

@@ -43,7 +43,6 @@ namespace El_Camello.Vistas.Aspirante
             perfilAspirante.Tipo = usuarioConectado.Tipo;
             perfilAspirante.Token = usuarioConectado.Token;
 
-            MessageBox.Show(perfilAspirante.Token);
             
 
             

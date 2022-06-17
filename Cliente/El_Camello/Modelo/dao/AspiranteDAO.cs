@@ -125,9 +125,7 @@ namespace El_Camello.Modelo.dao
                     switch (respuesta.StatusCode)
                     {
                         case HttpStatusCode.OK:
-                            MessageBox.Show(body);
                             JObject perfilAspirante = JObject.Parse(body);
-                            //JArray segemntoVideo = (JArray)perfilAspirante["video"];
                             aspirante.Direccion = (string)perfilAspirante["direccion"];
                             aspirante.FechaNacimiento = (DateTime)perfilAspirante["fechaNacimiento"];
                             aspirante.IdAspirante = (int)perfilAspirante["idPerfilAspirante"];
@@ -135,9 +133,6 @@ namespace El_Camello.Modelo.dao
                             aspirante.IdPerfilusuario = (int)perfilAspirante["idPerfilUsuario"];
                             //aspirante.Oficios = perfilAspirante["oficios"];
                             aspirante.Telefono = (string)perfilAspirante["telefono"];
-                            
-                            //Convertir array a byte array
-                            //aspirante.Video = (byte[])perfilAspirante["video"];
 
 
 
