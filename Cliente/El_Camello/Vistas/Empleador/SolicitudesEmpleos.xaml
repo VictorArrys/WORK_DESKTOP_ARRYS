@@ -37,7 +37,7 @@
                 <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
             </Button.BorderBrush>
         </Button>
-        <Button Content="Aprobar" HorizontalAlignment="Left" Margin="639,460,0,0" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116">
+        <Button Content="Aprobar" HorizontalAlignment="Left" Margin="639,460,0,0" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Click="aceptarSolicitud">
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
             </Button.Background>
@@ -45,7 +45,7 @@
                 <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
             </Button.BorderBrush>
         </Button>
-        <Button Content="Rechazar" HorizontalAlignment="Left" Margin="747,460,0,0" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116">
+        <Button Content="Rechazar" HorizontalAlignment="Left" Margin="747,460,0,0" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Click="rechazarEmpleado">
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
             </Button.Background>
@@ -69,7 +69,7 @@
         </DataGrid>
         <Label Content="Solicitudes" HorizontalAlignment="Left" Margin="133,63,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26"/>
         <Label Content="Vacantes ocupadas" HorizontalAlignment="Left" Margin="130,288,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26"/>
-        <Label Content="Ocupadas : ?" HorizontalAlignment="Left" Margin="383,302,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="12"/>
+        <Label Name="lbVacantesUso" Content="Ocupadas : ?" HorizontalAlignment="Left" Margin="383,302,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="12"/>
         <Button Content="Ver más" HorizontalAlignment="Left" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Margin="742,81,0,0">
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
@@ -89,6 +89,7 @@
         <Label Content="[Experiencia]" HorizontalAlignment="Left" Margin="568,315,0,0" VerticalAlignment="Top" Width="143"/>
         <Label Content="Días habiles: " HorizontalAlignment="Left" Margin="570,341,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lbDiasExperiencia" Content="[Días habiles]" HorizontalAlignment="Left" Margin="573,367,0,0" VerticalAlignment="Top" Width="143"/>
+        <Label x:Name="lbVacantesLibres" Content="Vacantes: ?" HorizontalAlignment="Left" Margin="383,72,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="12"/>
 
 
     </Grid>

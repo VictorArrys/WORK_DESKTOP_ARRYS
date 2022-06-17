@@ -62,7 +62,6 @@ namespace El_Camello.Vistas.Empleador
             CargarEmpleador(usuarioConectado);
         }
 
-
         private void CargarImagen(Modelo.clases.Usuario usuarioConectado)
         {
 
@@ -189,7 +188,7 @@ namespace El_Camello.Vistas.Empleador
             {
                 OfertaEmpleo ofertaEmpleoEditar = ofertasTabla[indiceSeleccion];
 
-                SolcitudesEmpleos ventanaSolicitudes = new SolcitudesEmpleos(token, ofertaEmpleoEditar.IdOfertaEmpleo);
+                SolcitudesEmpleos ventanaSolicitudes = new SolcitudesEmpleos(token, ofertaEmpleoEditar.IdOfertaEmpleo, ofertaEmpleoEditar.Vacantes);
                 ventanaSolicitudes.ShowDialog();
             }
             else

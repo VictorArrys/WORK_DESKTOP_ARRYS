@@ -23,7 +23,7 @@ namespace El_Camello.Assets.utilerias
         private string mensaje;
         private int confirmacionAccion = 0;
         private string ubicacion;
-        private string excepcionCapturada;
+        private string detalles;
 
         public MensajesSistema(string tipoError, string mensaje)
         {
@@ -50,7 +50,7 @@ namespace El_Camello.Assets.utilerias
             this.tipoError = tipoError;
             this.mensaje = mensaje;
             this.ubicacion = ubicacion;
-            this.excepcionCapturada = excepcionCapturada;
+            this.detalles = excepcionCapturada;
             iniciarComponentes();
 
 
@@ -78,6 +78,12 @@ namespace El_Camello.Assets.utilerias
 
 
                     break;
+                case "AccionExitosa":
+
+                    mensajeExito();
+
+
+                    break;
                 default:
 
                     break;
@@ -97,7 +103,7 @@ namespace El_Camello.Assets.utilerias
 
             tbMensaje.Text = "Mensaje: " + mensaje;
             tbUbicacion.Text = "Ubicación: " + ubicacion;
-            tbDetalles.Text = "Detalles: " + excepcionCapturada;
+            tbDetalles.Text = "Detalles: " + detalles;
         }
 
         public void mensajeError()
@@ -110,7 +116,25 @@ namespace El_Camello.Assets.utilerias
 
             tbMensaje.Text = "Mensaje: " + mensaje;
             tbUbicacion.Text = "Ubicación: " + ubicacion;
-            tbDetalles.Text = "Detalles: " + excepcionCapturada;
+            tbDetalles.Text = "Detalles: " + detalles;
+
+        }
+
+        public void mensajeExito()
+        {
+            lbTipoMensaje.ContentStringFormat = "Acción exitosa";
+            winMensaje.Title = "Acción completada";
+            btnOk.IsEnabled = true;
+            tbUbicacion.IsEnabled = false;
+
+            lbTipoMensaje.Content = "Se ha completado la acción";
+            btnOk.IsEnabled = true;
+            tbDetalles.IsEnabled = true;
+            tbUbicacion.IsEnabled = true;
+
+            tbMensaje.Text = "Mensaje: " + mensaje;
+            tbUbicacion.Text = "Acción: " + ubicacion;
+            tbDetalles.Text = "Resultado: " + detalles;
 
         }
 

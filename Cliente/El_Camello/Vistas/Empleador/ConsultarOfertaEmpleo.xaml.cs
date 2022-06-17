@@ -1,4 +1,5 @@
 ﻿using El_Camello.Assets.utilerias;
+using El_Camello.Empleador;
 using El_Camello.Modelo.clases;
 using El_Camello.Modelo.dao;
 using System;
@@ -23,7 +24,8 @@ namespace El_Camello.Vistas.Empleador
     public partial class ConsultarOfertaEmpleo : Window
     {
         int idOfertaEmpleo;
-        string token;
+        private string token = "";
+        List<Modelo.clases.Aspirante> empleados;
 
         MensajesSistema error;
 
@@ -48,6 +50,11 @@ namespace El_Camello.Vistas.Empleador
                 lbTipoPago.Text = ofertaEmpleoConsulta.TipoPago;
                 lbCategoria.Text = ofertaEmpleoConsulta.CategoriaEmpleo;
                 lbPago.Text = "$" + ofertaEmpleoConsulta.CantidadPago;
+
+                if(ofertaEmpleoConsulta.FechaFinalizacion > DateTime.Now)
+                {
+                    btnEvaluar.IsEnabled = false;
+                }
 
                 string fechaContratacion = string.Format("{0:yyyy-MM-dd}", ofertaEmpleoConsulta.ContratacionEmpleo.FechaContratacion);
 
@@ -75,16 +82,60 @@ namespace El_Camello.Vistas.Empleador
 
         }
 
-        private void cargarEmpleados(List<ContratacionEmpleoAspirante> listaEmpleados)
+        private async void cargarEmpleados(List<ContratacionEmpleoAspirante> listaEmpleados)
         {
+            empleados = new List<Modelo.clases.Aspirante>();
+            foreach (var contratado in listaEmpleados)
+            {
+                Modelo.clases.Aspirante empleado = await AspiranteDAO.GetAspirante(contratado.IdAspirante, token);
+                empleados.Add(empleado);
 
-            if (listaEmpleados.Count == 0)
+            }
+
+
+            if (listaEmpleados.Count > 0)
             {
 
+                dgEmpleados.ItemsSource = empleados;
+            }
+
+        }
+
+        private void evaluarAspirante()
+        {
+            int indiceSeleccion = dgEmpleados.SelectedIndex;
+
+            if (indiceSeleccion >= 0)
+            {
+                Modelo.clases.Aspirante aspiranteEvaluar = empleados[indiceSeleccion];
+
+                EvaluarApirante ventanaEvaluar = new EvaluarApirante(aspiranteEvaluar, token);
+                ventanaEvaluar.ShowDialog();
             }
             else
             {
-                dgEmpleados.ItemsSource = listaEmpleados;
+                error = new MensajesSistema("AccionInvalida", "La acción que ha realizado es invalida", "Intento de evaluar un empleado", "Selecciona un empleado para evaluarlo posteriormente");
+                error.ShowDialog();
+            }
+
+        }
+
+
+        private void consultarAspirante()
+        {
+            int indiceSeleccion = dgEmpleados.SelectedIndex;
+
+            if (indiceSeleccion >= 0)
+            {
+                Modelo.clases.Aspirante aspiranteEvaluar = empleados[indiceSeleccion];
+
+                /*EvaluarApirante ventanaEvaluar = new EvaluarApirante(aspiranteEvaluar, token);
+                ventanaEvaluar.ShowDialog();*/
+            }
+            else
+            {
+                error = new MensajesSistema("AccionInvalida", "La acción que ha realizado es invalida", "Intento de consultar oferta de empleo", "Selecciona una oferta de empleo para poder consultarla posteriormente");
+                error.ShowDialog();
             }
 
         }

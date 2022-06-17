@@ -23,25 +23,6 @@ namespace El_Camello.Modelo.dao
             OfertaEmpleo ofertaEmpleoGet = new OfertaEmpleo();
 
             JObject ofertaEmpleoConsultada = await GetOfertaEmpleoCompuesta(idOfertaEmpleo, token);
-
-            Console.WriteLine(ofertaEmpleoConsultada);
-            MessageBox.Show("Consulta: " + ofertaEmpleoConsultada);
-
-
-            //Obtener fotos
-            JArray fotografias = (JArray)ofertaEmpleoConsultada["fotografia"];
-           
-            foreach (JObject foto in fotografias)
-            {
-                FotografiaOferta fotografiaGet = new FotografiaOferta();
-                
-                fotografiaGet.IdFotografia = (int)foto["idFoto"];
-                byte[] segmentosFoto = (byte[])foto["imagen"];
-                fotografiaGet.Imagen = segmentosFoto;
-                MessageBox.Show("");
-
-                ofertaEmpleoGet.FotografiasEdicion.Add(fotografiaGet);
-            }                       
             
 
             ofertaEmpleoGet.CantidadPago = (int)ofertaEmpleoConsultada["cantidadPago"];
@@ -66,7 +47,7 @@ namespace El_Camello.Modelo.dao
             ofertaEmpleoGet.TipoPago = (string)ofertaEmpleoConsultada["tipoPago"];
             ofertaEmpleoGet.Vacantes = (int)ofertaEmpleoConsultada["vacantes"];
             ofertaEmpleoGet.IdOfertaEmpleo = (int)ofertaEmpleoConsultada["idOfertaEmpleo"];
-            ofertaEmpleoGet.IdPerfilEmpleador = (int)ofertaEmpleoConsultada["idPerfilEmpleador"];
+            ofertaEmpleoGet.IdPerfilEmpleador = (int)ofertaEmpleoConsultada["idPerfilEmpleador"];         
 
 
             return ofertaEmpleoGet;
@@ -78,16 +59,6 @@ namespace El_Camello.Modelo.dao
             OfertaEmpleo ofertaEmpleoGet = new OfertaEmpleo();
 
             JObject ofertaEmpleoConsultada = await GetOfertaEmpleoCompuesta(idOfertaEmpleo, token);
-
-            //Obtener fotos
-            /*
-            JArray arrayFotos = JArray.Parse(body);
-            foreach (var foto in arrayFotos)
-            { 
-
-            }
-            */
-            MessageBox.Show("Consulta: " + ofertaEmpleoConsultada);
 
             ofertaEmpleoGet.CantidadPago = (int)ofertaEmpleoConsultada["cantidadPago"];
             ofertaEmpleoGet.Descripcion = (string)ofertaEmpleoConsultada["descripcion"];
@@ -113,38 +84,44 @@ namespace El_Camello.Modelo.dao
             ofertaEmpleoGet.IdOfertaEmpleo = (int)ofertaEmpleoConsultada["idOfertaEmpleo"];
             ofertaEmpleoGet.IdPerfilEmpleador = (int)ofertaEmpleoConsultada["idPerfilEmpleador"];
 
-
-            ContratacionEmpleo contratacionVacia = new ContratacionEmpleo();
-            ofertaEmpleoGet.ContratacionEmpleo = contratacionVacia;
-
-            //Obtenemos la contratacion de la oferta de empleo
-            ofertaEmpleoGet.ContratacionEmpleo.Estatus =(int)ofertaEmpleoConsultada["contratacion"]["estatus"];
-            ofertaEmpleoGet.ContratacionEmpleo.FechaContratacion = (DateTime)ofertaEmpleoConsultada["contratacion"]["fechaContratacion"];
-            ofertaEmpleoGet.ContratacionEmpleo.IdContratacion = (int)ofertaEmpleoConsultada["contratacion"]["idContratacionEmpleo"];
-            ofertaEmpleoGet.ContratacionEmpleo.IdOfertaEmpleo = (int)ofertaEmpleoConsultada["contratacion"]["idOfertaEmpleo"];                ofertaEmpleoGet.ContratacionEmpleo.FechaFinalizacionContratacion = (DateTime)ofertaEmpleoConsultada["contratacion"]["fechaFinalizacion"];
-
-
-            //Obtenemos los contratados de la contratacion
-
-            JArray arrayContratados = (JArray)ofertaEmpleoConsultada["contratacion"]["contratados"];
-            foreach (var contratado in arrayContratados)
+            JObject? contratacionConsultada = (JObject)ofertaEmpleoConsultada["contratacion"];
+            if (contratacionConsultada == null)
             {
-                ContratacionEmpleoAspirante contratacionEmpleado = new ContratacionEmpleoAspirante();
-                contratacionEmpleado.IdAspirante = (int)contratado["id_perfil_aspirante_cea"];
-                contratacionEmpleado.NombreAspiranteContratado = (string)contratado["nombre_aspirante"];
+                ContratacionEmpleo contratacionVacia = new ContratacionEmpleo();
+                ofertaEmpleoGet.ContratacionEmpleo = contratacionVacia;
+            }
+            else { 
+                //Obtenemos la contratacion de la oferta de empleo
+                ofertaEmpleoGet.ContratacionEmpleo.Estatus = (int)ofertaEmpleoConsultada["contratacion"]["estatus"];
+                ofertaEmpleoGet.ContratacionEmpleo.FechaContratacion = (DateTime)ofertaEmpleoConsultada["contratacion"]["fechaContratacion"];
+                ofertaEmpleoGet.ContratacionEmpleo.IdContratacion = (int)ofertaEmpleoConsultada["contratacion"]["idContratacionEmpleo"];
+                ofertaEmpleoGet.ContratacionEmpleo.IdOfertaEmpleo = (int)ofertaEmpleoConsultada["contratacion"]["idOfertaEmpleo"]; ofertaEmpleoGet.ContratacionEmpleo.FechaFinalizacionContratacion = (DateTime)ofertaEmpleoConsultada["contratacion"]["fechaFinalizacion"];
 
-                if (contratado["valoracion_aspirante"] == null)
+
+                //Obtenemos los contratados de la contratacion
+
+                JArray arrayContratados = (JArray)ofertaEmpleoConsultada["contratacion"]["contratados"];
+                foreach (var contratado in arrayContratados)
                 {
-                    contratacionEmpleado.ValoracionAspirante = 0;
+                    ContratacionEmpleoAspirante contratacionEmpleado = new ContratacionEmpleoAspirante();
+                    contratacionEmpleado.IdAspirante = (int)contratado["id_perfil_aspirante_cea"];
+                    contratacionEmpleado.NombreAspiranteContratado = (string)contratado["nombre_aspirante"];
 
-                }
-                else { 
-                    contratacionEmpleado.ValoracionAspirante = (int)contratado["valoracion_aspirante"];
+                    int? valoracionAspirante = (int)contratado["valoracion_aspirante"];
+                    if (valoracionAspirante == null)
+                    {
+                        contratacionEmpleado.ValoracionAspirante = 0;
 
-                }
+                    }
+                    else
+                    {
+                        contratacionEmpleado.ValoracionAspirante = (int)contratado["valoracion_aspirante"];
+
+                    }
                     //Agregamos la contratacion a la lista de contrataciones
                     ofertaEmpleoGet.ContratacionEmpleo.ContratacionesAspirantes.Add(contratacionEmpleado);
-                } 
+                }
+            }
 
 
             return ofertaEmpleoGet;
@@ -175,23 +152,10 @@ namespace El_Camello.Modelo.dao
 
                     if (respuesta.StatusCode == HttpStatusCode.OK)
                     {
-                        //MessageBox.Show("Respuesta: " + respuesta.Content);
 
-                        //string body = await respuesta.Content.ReadAsStringAsync();
+                        string body = await respuesta.Content.ReadAsStringAsync();            
 
-
-                        //Prueba
-
-                        JObject prueba = JsonConvert.DeserializeObject<JObject>(respuesta.Content);
-
-
-                        //Fin de prueba                     
-
-
-                        //Console.WriteLine(body);
-                        //MessageBox.Show(body);
-
-                        //ofertaEmpleoConsultada = JsonConvert.DeserializeObject<JObject>(body);
+                        ofertaEmpleoConsultada = JsonConvert.DeserializeObject<JObject>(body);
 
                     }
                     else
@@ -340,16 +304,13 @@ namespace El_Camello.Modelo.dao
 
                         JObject objetoCreado = JsonConvert.DeserializeObject<JObject>(body);
                         int idCreado = (int)objetoCreado["idOfertaEmpleo"];
-
-                        ofertaEmpleoCreada.IdOfertaEmpleo = idCreado;
-                        MessageBox.Show("resultado ->" + objetoCreado + " | -> " + idCreado );
                         res = ofertaEmpleoCreada.IdOfertaEmpleo;
 
 
                         int resultadoCrearFotos = await PostFotografiasOfertaEmpleo(idCreado, ofertaEmpleoNueva.Fotografias);
                         if(resultadoCrearFotos == 1)
                         {
-                            MessageBox.Show("Se han creado correctamente las fotos");
+                            //MessageBox.Show("Se han creado correctamente las fotos");
 
                         }else if (resultadoCrearFotos == 0)
                         {
@@ -396,8 +357,6 @@ namespace El_Camello.Modelo.dao
                         var contenidoImagen = new ByteArrayContent(foto);
                         contenidoImagen.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
                         fotoOfertaEmpleo.Add(contenidoImagen, "fotografia", "fotografiaOferta.jpg");
-
-                        MessageBox.Show("Id de registro:" + idOfertaEmpleo);
                         string endpointfoto = String.Format("http://localhost:5000/v1/ofertasEmpleo-E/" + idOfertaEmpleo + "/fotografia");
 
                         HttpResponseMessage respuestaFoto = await cliente.PostAsync(endpointfoto, fotoOfertaEmpleo);
@@ -426,6 +385,77 @@ namespace El_Camello.Modelo.dao
 
 
             return resultado;
+        }
+
+        public static async Task<List<FotografiaOferta>> GetFotografiasOfertaEmpleo(int idOfertaEmpleo)
+        {
+            MensajesSistema errorMessage;
+            JArray fotografias = new JArray();
+            List<FotografiaOferta> listaFotografias = new List<FotografiaOferta>();
+            using (var cliente = new HttpClient())
+            {
+                try
+                {
+
+                    string endpointfoto = String.Format("http://localhost:5000/v1/ofertasEmpleo-E/" + idOfertaEmpleo + "/fotografia");
+
+                    HttpResponseMessage respuestaFoto = await cliente.GetAsync(endpointfoto);
+                    RespuestasAPI respuestaAPI = new RespuestasAPI();
+
+                    if (respuestaFoto.StatusCode == HttpStatusCode.OK)
+                    {
+                        try
+                        {
+                            string body = await respuestaFoto.Content.ReadAsStringAsync();
+
+                            fotografias = JsonConvert.DeserializeObject<JArray>(body);                                            
+
+                            //Obtener fotos
+                            foreach (JObject foto in fotografias)
+                            {
+
+                                FotografiaOferta fotoGet = new FotografiaOferta();
+                                fotoGet.IdFotografia = (int)foto["idFoto"];
+
+                                JObject arrayFoto = (JObject)foto["imagen"];
+                                byte[] segmentosFoto = new byte[arrayFoto.Count];
+
+                                for (int i = 0; i < arrayFoto.Count; i++)
+                                {
+                                    segmentosFoto[i] = (byte)arrayFoto[i.ToString()];
+                                }
+                                
+                                fotoGet.Imagen = segmentosFoto;
+
+                                listaFotografias.Add(fotoGet);
+                            }
+
+
+                        }
+                        catch (InvalidCastException e)
+                        {
+                            MessageBox.Show(e.Message);
+                        }
+                        
+
+                    }
+                    else
+                    { 
+                        respuestaAPI.gestionRespuestasApi("Consultar imagenes de oferta de empleo", respuestaFoto);
+
+                    }
+
+
+                }
+                catch (Exception exception)
+                {
+                    errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Consultar imagenes de oferta de empleo", exception.Message);
+                    errorMessage.ShowDialog();
+                }
+            }
+
+
+            return listaFotografias;
         }
 
         public static async Task<int> PutOfertaEmpleo(OfertaEmpleo ofertaEmpleoEdicion, string token)
@@ -486,8 +516,6 @@ namespace El_Camello.Modelo.dao
 
                         JObject objetoCreado = JsonConvert.DeserializeObject<JObject>(body);
                         int modificado = (int)objetoCreado["cambios"];
-
-                        MessageBox.Show("resultado ->" + objetoCreado + " | -> " + modificado);
                         res = modificado;
 
 
@@ -526,11 +554,6 @@ namespace El_Camello.Modelo.dao
             return res;
 
         }
-
-
-
-
-
 
     }
 }

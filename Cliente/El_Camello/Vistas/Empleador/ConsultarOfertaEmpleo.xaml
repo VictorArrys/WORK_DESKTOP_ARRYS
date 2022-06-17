@@ -45,12 +45,13 @@
         <Rectangle HorizontalAlignment="Left" Height="287" Margin="385,58,0,0" Stroke="Black" VerticalAlignment="Top" Width="495" Grid.RowSpan="2"/>
         <DataGrid x:Name="dgEmpleados" d:ItemsSource="{Binding}" Margin="406,116,32,163" Grid.RowSpan="2" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Aspirante" Binding= "{Binding NombreAspirante}" Width="250"/>
-                <DataGridTextColumn Header="Direccion" Binding= "{Binding Direccion}" Width="200"/>
+                <DataGridTextColumn Header="Aspirante" Binding= "{Binding NombreAspirante}" Width="200"/>
+                <DataGridTextColumn Header="Direccion" Binding= "{Binding Telefono}" Width="100"/>
+                <DataGridTextColumn Header="Direccion" Binding= "{Binding Direccion}" Width="150"/>
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Empleados" HorizontalAlignment="Left" Margin="493,55,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26"/>
-        <Button Content="Evaluar aspirante" HorizontalAlignment="Left" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Margin="661,69,0,0">
+        <Button x:Name="btnEvaluar" Content="Evaluar aspirante" HorizontalAlignment="Left" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Margin="661,69,0,0" Click="evaluarAspirante">
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
             </Button.Background>
