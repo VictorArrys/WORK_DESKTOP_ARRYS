@@ -1,0 +1,69 @@
+﻿<Window x:Class="El_Camello.Vistas.Administrador.ConsultarPerfilEmpleador"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:El_Camello.Vistas.Administrador"
+        mc:Ignorable="d"
+        Title="ConsultarPerfilEmpleador" Height="544" Width="941">
+    <Grid Background="#FFDFDFDF">
+        <Rectangle HorizontalAlignment="Center" Height="41" VerticalAlignment="Top" Width="942">
+            <Rectangle.Stroke>
+                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
+            </Rectangle.Stroke>
+            <Rectangle.Fill>
+                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Rectangle HorizontalAlignment="Center" Height="15" VerticalAlignment="Top" Width="942" Margin="0,493,0,0">
+            <Rectangle.Fill>
+                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
+            </Rectangle.Fill>
+            <Rectangle.Stroke>
+                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
+            </Rectangle.Stroke>
+        </Rectangle>
+        <Label Content="Empleador:" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="White"/>
+        <Label x:Name="lbNombreEmpleador" Content="Nombre Empleador" HorizontalAlignment="Left" Margin="120,5,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontStyle="Italic" Foreground="White" Width="821"/>
+        <StackPanel Margin="28,64,623,227" Background="White">
+            <Image x:Name="imgFoto" Height="237" Width="290"/>
+        </StackPanel>
+        <Label Content="Nombre Empresa:" HorizontalAlignment="Left" Margin="340,64,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label Content="Dirección:" HorizontalAlignment="Left" Margin="340,123,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label Content="Fecha Nacimiento:" HorizontalAlignment="Left" Margin="340,183,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label Content="Correo Electrónico:" HorizontalAlignment="Left" Margin="28,423,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label Content="Telefono:" HorizontalAlignment="Left" Margin="340,244,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label Content="Nombre Usuario:" HorizontalAlignment="Left" Margin="28,316,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label Content="Contraseña:" HorizontalAlignment="Left" Margin="28,370,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label Content="Estatus:" HorizontalAlignment="Left" Margin="516,321,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <TextBox x:Name="tbNombreEmpresa" HorizontalAlignment="Left" Margin="480,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="321" Height="24" IsEnabled="False" BorderBrush="Black" FontWeight="Bold"/>
+        <TextBox x:Name="tbDireccion" HorizontalAlignment="Left" Margin="480,128,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="321" Height="24" Foreground="Black" IsEnabled="False" BorderBrush="Black" FontWeight="Bold"/>
+        <TextBox x:Name="tbTelefono" HorizontalAlignment="Left" Margin="480,246,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="321" Height="24" BorderBrush="Black" IsEnabled="False" />
+        <DatePicker x:Name="dpFechaNacimiento" HorizontalAlignment="Left" Margin="480,188,0,0" VerticalAlignment="Top" Width="321" IsEnabled="False" FontWeight="Bold">
+            <DatePicker.BorderBrush>
+                <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
+                    <GradientStop Color="#FFA3AEB9"/>
+                    <GradientStop Color="#FF8399A9" Offset="0.375"/>
+                    <GradientStop Color="#FF718597" Offset="0.375"/>
+                    <GradientStop Color="Black" Offset="1"/>
+                </LinearGradientBrush>
+            </DatePicker.BorderBrush>
+        </DatePicker>
+        <TextBox x:Name="tbClave" HorizontalAlignment="Left" Margin="168,376,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="321" Height="24" BorderBrush="Black" IsEnabled="False" FontWeight="Bold" />
+        <TextBox x:Name="tbCorreoElectronico" HorizontalAlignment="Left" Margin="168,428,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="321" Height="24" Foreground="Black" BorderBrush="Black" IsEnabled="False" FontWeight="Bold" />
+        <TextBox x:Name="tbNombreUsuario" HorizontalAlignment="Left" Margin="168,321,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="321" Height="24" IsEnabled="False" BorderBrush="Black" FontWeight="Bold" />
+        <TextBox x:Name="tbEstatus" HorizontalAlignment="Left" Margin="640,326,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="228" Height="24" IsEnabled="False" BorderBrush="Black" FontWeight="Bold" />
+        <Button x:Name="btnSalir" Content="Salir" HorizontalAlignment="Left" Margin="760,454,0,0" VerticalAlignment="Top" Foreground="White" Width="77" Height="23" FontWeight="Bold" Click="btnSalir_Click">
+            <Button.BorderBrush>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+            </Button.BorderBrush>
+            <Button.Background>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+            </Button.Background>
+        </Button>
+        <Label Content="Amonestaciones:" HorizontalAlignment="Left" Margin="510,371,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <TextBox x:Name="tbAmonestaciones" HorizontalAlignment="Left" Margin="640,376,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="228" Height="25" IsEnabled="False" BorderBrush="Black" FontWeight="Bold"/>
+
+
+    </Grid>
+</Window>

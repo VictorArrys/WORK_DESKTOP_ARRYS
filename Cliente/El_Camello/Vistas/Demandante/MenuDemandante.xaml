@@ -57,7 +57,7 @@
             </Rectangle.Fill>
         </Rectangle>
         <Label Content="Nombre Demandante" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="White" FontStyle="Italic"/>
-        <Button Content="Cerrar Sesión" HorizontalAlignment="Left" Margin="893,4,0,0" VerticalAlignment="Top" Width="104" Height="33" FontSize="14" FontWeight="Bold" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
+        <Button x:Name="btnCerrarSesion" Content="Cerrar Sesión" HorizontalAlignment="Left" Margin="893,4,0,0" VerticalAlignment="Top" Width="104" Height="33" FontSize="14" FontWeight="Bold" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="btnCerrarSesion_Click"/>
 
     </Grid>
 </Window>

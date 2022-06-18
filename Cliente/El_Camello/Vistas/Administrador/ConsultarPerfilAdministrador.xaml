@@ -1,0 +1,47 @@
+﻿<Window x:Class="El_Camello.Vistas.Administrador.ConsultarPerfilAdministrador"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:El_Camello.Vistas.Administrador"
+        mc:Ignorable="d"
+        Title="ConsultarPerfilAdministrador" Height="482" Width="544">
+    <Grid Background="#FFDFDFDF">
+        <Rectangle HorizontalAlignment="Center" Height="41" VerticalAlignment="Top" Width="544">
+            <Rectangle.Stroke>
+                <SolidColorBrush Color="#FF062758" Opacity="0.58"/>
+            </Rectangle.Stroke>
+            <Rectangle.Fill>
+                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Rectangle HorizontalAlignment="Center" Height="15" VerticalAlignment="Bottom" Width="544" Margin="0,431,0,0">
+            <Rectangle.Stroke>
+                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
+            </Rectangle.Stroke>
+            <Rectangle.Fill>
+                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Label Content="Administrador:" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" Foreground="White"/>
+        <Label x:Name="lbNombreAdministrador" Content="Nombre Administrador" HorizontalAlignment="Left" Margin="133,5,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontStyle="Italic" Foreground="White" Width="401"/>
+        <Label Content="Telefono:" HorizontalAlignment="Left" Margin="33,291,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label Content="Nombre Usuario:" HorizontalAlignment="Left" Margin="33,70,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label Content="Constraseña:" HorizontalAlignment="Left" Margin="33,142,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label Content="Correo Electronico:" HorizontalAlignment="Left" Margin="33,213,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <TextBox x:Name="tbNombreUsuario" HorizontalAlignment="Left" Margin="180,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="298" Height="23" IsEnabled="False" FontWeight="Bold" BorderBrush="Black"/>
+        <TextBox x:Name="tbClave" HorizontalAlignment="Left" Margin="180,149,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="298" Height="22" IsEnabled="False" FontWeight="Bold" BorderBrush="Black"/>
+        <TextBox x:Name="tbCorreoElectronico" HorizontalAlignment="Left" Margin="180,219,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="298" Height="23" IsEnabled="False" FontWeight="Bold" BorderBrush="Black"/>
+        <TextBox x:Name="tbTelefono" HorizontalAlignment="Left" Margin="180,297,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="298" Height="23" IsEnabled="False" FontWeight="Bold" BorderBrush="Black"/>
+        <Button x:Name="btnSalir" Content="Salir" HorizontalAlignment="Center" Margin="0,416,0,0" VerticalAlignment="Top" Height="23" Width="72" Foreground="White" FontWeight="Bold" Click="btnSalir_Click">
+            <Button.Background>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+            </Button.Background>
+            <Button.BorderBrush>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+            </Button.BorderBrush>
+        </Button>
+        <Label Content="Estatus:" HorizontalAlignment="Left" Margin="33,360,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <TextBox x:Name="tbEstatus" HorizontalAlignment="Left" Margin="180,365,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="298" Height="24" IsEnabled="False" FontWeight="Bold" BorderBrush="Black"/>
+    </Grid>
+</Window>

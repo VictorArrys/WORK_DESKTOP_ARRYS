@@ -28,6 +28,7 @@ namespace El_Camello.Vistas.Empleador
         private string token;
         List<OfertaEmpleo> ofertasTabla = new List<OfertaEmpleo>();
         Modelo.clases.Empleador empleador = null;
+        Modelo.clases.Usuario usuario = null;
         MensajesSistema error;
 
         public OfertasEmpleo(Modelo.clases.Usuario usuarioConectado, int idPerfilEmpleador)
@@ -36,8 +37,29 @@ namespace El_Camello.Vistas.Empleador
             this.token = usuarioConectado.Token;
 
             InitializeComponent();
-            cargarIinformacionUsuario(usuarioConectado);
-            CargarOfertasTabla();
+            if (usuarioConectado.Estatus == 1)
+            {
+                cargarInformacionUsuario(usuarioConectado);
+                CargarOfertasTabla();
+                btnActivarPerfil.IsEnabled = false;
+            }
+            else
+            {
+                btnEditarPerfil.IsEnabled = false;
+                btnDesactivarPerfil.IsEnabled = false;
+                btnMensajeria.IsEnabled = false;
+                btnRegistrarOferta.IsEnabled = false;
+                btnConsultarEmpleo.IsEnabled = false;
+                btnConsultarEmpleo.IsEnabled = false;
+                btnConsultarSolicitudes.IsEnabled = false;
+                btnRegistrarOferta.IsEnabled = false;
+                btnModificarOferta.IsEnabled = false;
+
+                MessageBox.Show("En este momento esta desactivado tu perfil, para volver acivarlo presiona 'Activar perfil.'", "¡Advetencia!");
+                usuario = usuarioConectado;
+
+            }
+            
             
         }
 
@@ -57,7 +79,7 @@ namespace El_Camello.Vistas.Empleador
             }
         }
 
-        private void cargarIinformacionUsuario(Modelo.clases.Usuario usuarioConectado)
+        private void cargarInformacionUsuario(Modelo.clases.Usuario usuarioConectado)
         {
             CargarEmpleador(usuarioConectado);
         }
@@ -118,14 +140,45 @@ namespace El_Camello.Vistas.Empleador
             CargarEmpleador(usuarioContectado);
         }
 
-        private void btnDesactivarPerfil_Click(object sender, RoutedEventArgs e)
+        private async void btnDesactivarPerfil_Click(object sender, RoutedEventArgs e)
         {
-
+            MessageBoxResult opcionSeleccionada = MessageBox.Show("¿Estas seguro de desactivar tu perfil?", "Confirmacion", MessageBoxButton.OKCancel);
+            if (opcionSeleccionada == MessageBoxResult.OK)
+            {
+                MessageBox.Show("Tu perfil se desactivará y no se podra mostrar tus peticiones de servicio, podrás volver actiuvar tu perfil activando el boton 'Activar perfil'", "Advertencia!");
+                int resultado = await UsuarioDAO.patchDeshabilitar(empleador.IdPerfilusuario, empleador.Token);
+                if (resultado == 1)
+                {
+                    Login login = new Login();
+                    login.Show();
+                    this.Close();
+                }
+            }
         }
 
-        private void btnActivarPerfil_Click(object sender, RoutedEventArgs e)
+        private async void btnActivarPerfil_Click(object sender, RoutedEventArgs e)
         {
+            MessageBoxResult opcionSeleccionada = MessageBox.Show("¿Deseas activar tu perfil?", "Confirmacion", MessageBoxButton.OKCancel);
+            if (opcionSeleccionada == MessageBoxResult.OK)
+            {
+                MessageBox.Show("Tu perfil esta por activarse. Por favor espera un momento'", "Advertencia!");
+                int resultado = await UsuarioDAO.patchHabilitar(usuario.IdPerfilusuario, token);
+                if (resultado == 1)
+                {
+                    cargarInformacionUsuario(usuario);
+                    CargarOfertasTabla();
 
+                    btnEditarPerfil.IsEnabled = true;
+                    btnDesactivarPerfil.IsEnabled = true;
+                    btnMensajeria.IsEnabled = true;
+                    btnRegistrarOferta.IsEnabled = true;
+                    btnConsultarEmpleo.IsEnabled = true;
+                    btnConsultarEmpleo.IsEnabled = true;
+                    btnConsultarSolicitudes.IsEnabled = true;
+                    btnRegistrarOferta.IsEnabled = true;
+                    btnModificarOferta.IsEnabled = true;
+                }
+            }
         }
 
         private void btnMensajeria_Click(object sender, RoutedEventArgs e)
@@ -202,7 +255,7 @@ namespace El_Camello.Vistas.Empleador
 
         private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Close();
         }
 
         public void actualizarInformacion(string operacion)

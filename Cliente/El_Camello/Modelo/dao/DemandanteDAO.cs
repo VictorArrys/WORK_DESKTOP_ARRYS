@@ -1,4 +1,5 @@
-﻿using El_Camello.Modelo.clases;
+﻿using El_Camello.Assets.utilerias;
+using El_Camello.Modelo.clases;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -15,10 +16,11 @@ namespace El_Camello.Modelo.dao
 {
     internal class DemandanteDAO
     {
-        public static async Task<int> PostDemandante(Usuario usuario, Demandante demandante)
+        public static async Task<int> PostDemandante(Usuario usuario, Demandante demandante) // listo cliente
         {
-            int res = -1;
-            Modelo.clases.Demandante registroDemandante = new Demandante();
+            int resultado = -1;
+            int idUsuario = -1;
+            int idDemandante = -1;
             using (var cliente = new HttpClient())
             {
                 string endpoint = "http://localhost:5000/v1/perfilDemandantes";
@@ -40,53 +42,39 @@ namespace El_Camello.Modelo.dao
 
                 HttpResponseMessage respuesta = await cliente.PostAsync(endpoint, data);
                 string body = await respuesta.Content.ReadAsStringAsync();
+                RespuestasAPI respuestaAPI = new RespuestasAPI();
 
-                switch (respuesta.StatusCode)
+                if (respuesta.StatusCode == HttpStatusCode.Created)
                 {
-                    case HttpStatusCode.Created:
-                        registroDemandante = new Demandante();
-                        JObject perfilDemandante = JObject.Parse(body);
+                    JObject registroDemandante = JObject.Parse(body);
 
-                        registroDemandante.Clave = (string)perfilDemandante["clave"];
-                        registroDemandante.CorreoElectronico = (string)perfilDemandante["correoElectronico"];
-                        registroDemandante.Direccion = (string)perfilDemandante["direccion"];
-                        registroDemandante.Estatus = (int)perfilDemandante["estatus"];
-                        registroDemandante.FechaNacimiento = (DateTime)perfilDemandante["fechaNacimiento"];
-                        registroDemandante.IdPerfilusuario = (int)perfilDemandante["idPerfilUsuario"];
-                        registroDemandante.NombreDemandante = (string)perfilDemandante["nombre"];
-                        registroDemandante.NombreUsuario = (string)perfilDemandante["nombreUsuario"];
-                        registroDemandante.Telefono = (string)perfilDemandante["telefono"];
-                        registroDemandante.IdPerfilusuario = (int)perfilDemandante["idPerfilAspirante"];
+                    idUsuario = (int)registroDemandante["idPerfilUsuario"];
+                    idDemandante = (int)registroDemandante["idPerfilDemandante"];
 
-                        MultipartFormDataContent foto = new MultipartFormDataContent();
-                        var contenidoImagen = new ByteArrayContent(usuario.Fotografia);
-                        contenidoImagen.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
-                        foto.Add(contenidoImagen, "fotografia", "fotografiaPerfilDemandante.jpg");
-                        string endpointfoto = String.Format("http://localhost:5000/v1/PerfilUsuarios/{0}/fotografia", registroDemandante.IdPerfilusuario);
-                        respuesta = await cliente.PatchAsync(endpointfoto, foto);
-                        switch (respuesta.StatusCode)
-                        {
-                            case HttpStatusCode.OK:
-                                res = 1;
-                                break;
-                            case HttpStatusCode.NotFound:
-                                break;
-                            case HttpStatusCode.InternalServerError:
-                                break;
-                        }
+                    MultipartFormDataContent foto = new MultipartFormDataContent();
+                    var contenidoImagen = new ByteArrayContent(usuario.Fotografia);
+                    contenidoImagen.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
+                    foto.Add(contenidoImagen, "fotografia", "fotografiaPerfilDemandante.jpg");
 
-                        break;
-                    case HttpStatusCode.NotFound:
-                        break;
-                    case HttpStatusCode.InternalServerError:
-                        break;
-                    case HttpStatusCode.UnprocessableEntity:
-                        break;
+                    string endpointfoto = String.Format("http://localhost:5000/v1/PerfilUsuarios/{0}/fotografia", idUsuario);
+                    respuesta = await cliente.PatchAsync(endpointfoto, foto);
 
+                    if (respuesta.StatusCode == HttpStatusCode.OK)
+                    {
+                        resultado = 1;
+                    }
+                    else
+                    {
+                        respuestaAPI.gestionRespuestasApi("Post Demandante", respuesta);
+                    }
+                }
+                else
+                {
+                    respuestaAPI.gestionRespuestasApi("Post Demandante", respuesta);
                 }
 
             }
-                return res;
+                return resultado;
         }
 
 

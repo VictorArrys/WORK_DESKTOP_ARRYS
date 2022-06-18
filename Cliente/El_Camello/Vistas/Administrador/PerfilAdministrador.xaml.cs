@@ -65,6 +65,7 @@ namespace El_Camello.Vistas.Administrador
                 if (resultado == 1)
                 {
                     MessageBox.Show("Actualización de tus datos realizados con éxito", "¡Operación!");
+                    this.Close();
                     //cargarAdministradorActualizado(modificarAdministrador.IdPerfilusuario,token);
 
                 }

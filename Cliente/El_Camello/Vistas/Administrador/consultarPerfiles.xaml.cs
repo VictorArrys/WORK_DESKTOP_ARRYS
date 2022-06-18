@@ -18,22 +18,24 @@ namespace El_Camello.Vistas.Administrador
     
     public partial class consultarPerfiles : Page
     {
-        Modelo.clases.Administrador administradorPerfiles = null;
         List<Modelo.clases.Usuario> usuarios = null;
         List<Modelo.clases.Usuario> usuariosAdministradores = null;
         List<Modelo.clases.Usuario> usuariosEmpleadores = null;
         List<Modelo.clases.Usuario> usuariosDemandantes = null;
         List<Modelo.clases.Usuario> usuariosAspirantes = null;
+        Modelo.clases.Usuario usuarioSeleccionado = null;
+        String token = null;
         public consultarPerfiles(Modelo.clases.Administrador administrador) // verificar que pase el token y crear pantallas para cada usuario
         {
             InitializeComponent();
-            administradorPerfiles = new Modelo.clases.Administrador();
             usuariosAdministradores = new List<Modelo.clases.Usuario>();
             usuariosEmpleadores = new List<Modelo.clases.Usuario>();
             usuariosDemandantes = new List<Modelo.clases.Usuario>();
             usuariosAspirantes = new List<Modelo.clases.Usuario>();
+            usuarioSeleccionado = new Modelo.clases.Usuario();
             usuarios = new List<Modelo.clases.Usuario>();
-            cargarUsuarios(administrador.Token);
+            this.token = administrador.Token;
+            cargarUsuarios(token);
             dgUsuarios.AutoGenerateColumns = false;
         }
 
@@ -41,7 +43,6 @@ namespace El_Camello.Vistas.Administrador
         private async void cargarUsuarios(string token)
         {
             usuarios = await UsuarioDAO.getUsuarios(token);
-            MessageBox.Show(usuariosAdministradores.Count.ToString());
             cargarListasUsuarios(usuarios);
         }
 
@@ -77,28 +78,25 @@ namespace El_Camello.Vistas.Administrador
 
         private void btnAdministradores_Click(object sender, RoutedEventArgs e)
         {
-            //dgUsuarios.SelectedItem = null;
             dgUsuarios.ItemsSource = null;
             dgUsuarios.ItemsSource = usuariosAdministradores;
         }
 
         private void btnAspirantes_Click(object sender, RoutedEventArgs e)
         {
-            //dgUsuarios.SelectedItem = null;
             dgUsuarios.ItemsSource = null;
             dgUsuarios.ItemsSource = usuariosAspirantes;
         }
 
         private void btnDemandantes_Click(object sender, RoutedEventArgs e)
         {
-            //dgUsuarios.SelectedItem = null;
+
             dgUsuarios.ItemsSource = null;
             dgUsuarios.ItemsSource = usuariosDemandantes;
         }
 
         private void btnEmpleadores_Click(object sender, RoutedEventArgs e)
         {
-            //dgUsuarios.SelectedItem = null;
             dgUsuarios.ItemsSource = null;
             dgUsuarios.ItemsSource = usuariosEmpleadores;
         }
@@ -108,8 +106,28 @@ namespace El_Camello.Vistas.Administrador
 
             if (dgUsuarios.SelectedIndex > -1)
             {
-                MessageBox.Show(dgUsuarios.SelectedItem.ToString());
+                usuarioSeleccionado = (Modelo.clases.Usuario)dgUsuarios.SelectedItem;
+                string tipo = usuarioSeleccionado.Tipo;
+                usuarioSeleccionado.Token = token;
 
+                switch (tipo)
+                {
+                    
+                    case "Administrador":
+                        ConsultarPerfilAdministrador consultarPerfilAdministrador = new ConsultarPerfilAdministrador(usuarioSeleccionado);
+                        consultarPerfilAdministrador.ShowDialog();
+                        break;
+                    case "Empleador":
+                        ConsultarPerfilEmpleador consultarPerfilEmpleador = new ConsultarPerfilEmpleador(usuarioSeleccionado);
+                        consultarPerfilEmpleador.ShowDialog();
+                        break;
+                    case "Demandante":
+                        ConsultarPerfilDemandante consultarPerfilDemandante = new ConsultarPerfilDemandante();
+                        consultarPerfilDemandante.ShowDialog();
+                        break;
+                    case "Aspirante":
+                        break;
+                }
             }
            
 

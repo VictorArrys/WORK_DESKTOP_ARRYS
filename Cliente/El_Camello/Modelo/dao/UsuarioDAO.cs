@@ -78,7 +78,7 @@ namespace El_Camello.Modelo.dao
             return usuario;
         }
         
-        public static async Task<Usuario> getUsuario(int idUsuario, string token)
+        public static async Task<Usuario> getUsuario(int idUsuario, string token)// listo cliente
         {
             Usuario usuario = new Usuario();
             using (var cliente = new HttpClient())
@@ -90,56 +90,51 @@ namespace El_Camello.Modelo.dao
                 {
                     HttpResponseMessage respuesta = await cliente.GetAsync(endpoint);
                     string body = await respuesta.Content.ReadAsStringAsync();
-                    switch (respuesta.StatusCode)
+                    RespuestasAPI respuestaAPI = new RespuestasAPI();
+
+                    if (respuesta.StatusCode == HttpStatusCode.OK)
                     {
-                        case HttpStatusCode.OK:
-                            JObject user = JsonConvert.DeserializeObject<JObject>(body);
+                        JObject user = JsonConvert.DeserializeObject<JObject>(body);
 
-                            try
+                        try
+                        {
+                            JObject arrayFoto = (JObject)user["fotografia"];
+                            byte[] segmentosFoto = new byte[arrayFoto.Count];
+
+                            for (int i = 0; i < arrayFoto.Count; i++)
                             {
-                                JObject arrayFoto = (JObject)user["fotografia"];
-                                byte[] segmentosFoto = new byte[arrayFoto.Count];
-
-                                for (int i = 0; i < arrayFoto.Count; i++)
-                                {
-                                    segmentosFoto[i] = (byte)arrayFoto[i.ToString()];
-                                }
-
-                                usuario.Fotografia = segmentosFoto;
-                            }
-                            catch (InvalidCastException)
-                            {
-                                usuario.Fotografia = null;
+                                segmentosFoto[i] = (byte)arrayFoto[i.ToString()];
                             }
 
+                            usuario.Fotografia = segmentosFoto;
+                        }
+                        catch (InvalidCastException)
+                        {
+                            usuario.Fotografia = null;
+                        }
 
-                            usuario.Clave = (string)user["clave"];
-                            usuario.Tipo = (string)user["tipoUsuario"];
-                            usuario.Estatus = (int)user["estatus"];
-                            usuario.IdPerfilusuario = (int)user["idPerfilusuario"];
-                            usuario.CorreoElectronico = (string)user["correoElectronico"];
-                            usuario.NombreUsuario = (string)user["nombre"];
-                            break;
-                        case HttpStatusCode.Unauthorized:
-                        case HttpStatusCode.InternalServerError:
-                        case HttpStatusCode.NotFound:
-                            JObject codigo = JObject.Parse(body);
-                            string mensaje = (string)codigo["type error"]["message"];
-                            MessageBox.Show(mensaje);
-                            usuario = null;
-                            break;
+                        usuario.Clave = (string)user["clave"];
+                        usuario.Tipo = (string)user["tipoUsuario"];
+                        usuario.Estatus = (int)user["estatus"];
+                        usuario.IdPerfilusuario = (int)user["idPerfilusuario"];
+                        usuario.CorreoElectronico = (string)user["correoElectronico"];
+                        usuario.NombreUsuario = (string)user["nombre"];
+                    }
+                    else
+                    {
+                        respuestaAPI.gestionRespuestasApi("get usuario", respuesta);
                     }
                 }
                 catch (HttpRequestException)
                 {
-                    MessageBox.Show("servidor desconectado, no se puede establecer conexion");
+                    MessageBox.Show("Conexion en este momento no disponible", "¡Operacion!");
                 }
             }
 
                 return usuario;
         }
 
-        public static async Task<List<clases.Usuario>> getUsuarios(string token) // listo en api
+        public static async Task<List<clases.Usuario>> getUsuarios(string token) // listo cliente
         {
             List<clases.Usuario> usuarios = new List<clases.Usuario>();
             using (var cliente = new HttpClient())
@@ -150,32 +145,98 @@ namespace El_Camello.Modelo.dao
                 {
                     HttpResponseMessage respuesta = await cliente.GetAsync(endpoint);
                     string body = await respuesta.Content.ReadAsStringAsync();
+                    RespuestasAPI respuestaAPI = new RespuestasAPI();
 
-                    switch (respuesta.StatusCode)
-                    {
-                        case HttpStatusCode.OK:
-                            JArray arrayUsuarios = JArray.Parse(body);
-                            foreach (var item in arrayUsuarios)
-                            {
-                                clases.Usuario usuario = new clases.Usuario();
-                                usuario.IdPerfilusuario = (int)item["idPerfilUsuario"];
-                                usuario.NombreUsuario = (string)item["nombreUsuario"];
-                                usuario.Estatus = (int)item["estatus"];
-                                usuario.Clave = (string)item["clave"];
-                                usuario.CorreoElectronico = (string)item["correoElectronico"];
-                                usuario.Tipo = (string)item["tipoUsuario"];
-                                usuarios.Add(usuario);
-                            }
-                            break;
+                    if(respuesta.StatusCode == HttpStatusCode.OK){
+                        JArray arrayUsuarios = JArray.Parse(body);
+                        foreach (var item in arrayUsuarios)
+                        {
+                            clases.Usuario usuario = new clases.Usuario();
+                            usuario.IdPerfilusuario = (int)item["idPerfilUsuario"];
+                            usuario.NombreUsuario = (string)item["nombreUsuario"];
+                            usuario.Estatus = (int)item["estatus"];
+                            usuario.Clave = (string)item["clave"];
+                            usuario.CorreoElectronico = (string)item["correoElectronico"];
+                            usuario.Tipo = (string)item["tipoUsuario"];
+                            usuarios.Add(usuario);
+                        }
                     }
+                    else
+                    {
+                        respuestaAPI.gestionRespuestasApi("get usuarios", respuesta);
+                    }
+
                 }
                 catch (HttpRequestException)
                 {
-                    MessageBox.Show("verificar servidor");
+                    MessageBox.Show("Conexion en este momento no disponible", "¡Operacion!");
                 }
             }
 
             return usuarios;
+        }
+
+        public static async Task<int> patchDeshabilitar(int idUsuario,string token) // Listo cliente
+        {
+            int resultado = -1;
+            using (var cliente = new HttpClient())
+            {
+                cliente.DefaultRequestHeaders.Add("x-access-token", token);
+                string endpoint = String.Format("http://localhost:5000/v1/perfilUsuarios/{0}/deshabilitar", idUsuario);
+
+                try
+                {
+                    HttpResponseMessage respuesta = await cliente.PatchAsync(endpoint, null);
+                    string body = await respuesta.Content.ReadAsStringAsync();
+                    RespuestasAPI respuestaAPI = new RespuestasAPI();
+
+                    if (respuesta.StatusCode == HttpStatusCode.OK)
+                    {
+                        resultado = 1;
+                    }
+                    else
+                    {
+                        respuestaAPI.gestionRespuestasApi("patch deshabilitar", respuesta);
+                    }
+
+                }
+                catch (HttpRequestException)
+                {
+                    MessageBox.Show("Conexion en este momento no disponible", "¡Operacion!");
+                }
+            }
+            return resultado;
+        }
+
+        public static async Task<int> patchHabilitar(int idUsuario,string token)// listo cliente
+        {
+            int resultado = -1;
+            using (var cliente = new HttpClient())
+            {
+                cliente.DefaultRequestHeaders.Add("x-access-token", token);
+                string endpoint = String.Format("http://localhost:5000/v1/perfilUsuarios/{0}/habilitar", idUsuario);
+
+                try
+                {
+                    HttpResponseMessage respuesta = await cliente.PatchAsync(endpoint, null);
+                    string body = await respuesta.Content.ReadAsStringAsync();
+                    RespuestasAPI respuestaAPI = new RespuestasAPI();
+
+                    if (respuesta.StatusCode == HttpStatusCode.OK)
+                    {
+                        resultado = 1;
+                    }
+                    else
+                    {
+                        respuestaAPI.gestionRespuestasApi("patch habilitar", respuesta);
+                    }
+                }
+                catch (HttpRequestException)
+                {
+                    MessageBox.Show("Conexion en este momento no disponible", "¡Operacion!");
+                }
+            }
+            return resultado;
         }
     }
 }

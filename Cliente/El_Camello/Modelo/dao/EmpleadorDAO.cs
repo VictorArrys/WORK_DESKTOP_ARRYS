@@ -1,4 +1,5 @@
-﻿using El_Camello.Modelo.clases;
+﻿using El_Camello.Assets.utilerias;
+using El_Camello.Modelo.clases;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -15,40 +16,41 @@ namespace El_Camello.Modelo.dao
 {
     internal class EmpleadorDAO
     {
-        public static async Task<int> PostEmpleador(Usuario usuario, clases.Empleador empleador)//listo
+        public static async Task<int> PostEmpleador(Usuario usuario, clases.Empleador empleador)//listo en api
         {
             int resultado = -1;
             int idUsuario = -1;
             int idEmpleador = -1;
             using (var cliente = new HttpClient())
             {
-                string endpoint = "http://localhost:5000/v1/perfilEmpleadores";
-                HttpRequestMessage cuerpoMensaje = new HttpRequestMessage();
-                JObject objeto = new JObject();
-                objeto.Add("clave", usuario.Clave);
-                objeto.Add("correoElectronico", usuario.CorreoElectronico);
-                objeto.Add("direccion", empleador.Direccion);
-                objeto.Add("estatus", usuario.Estatus);
-                string fecha = string.Format("{0:yyyy-MM-dd}", empleador.FechaNacimiento);
-                objeto.Add("fechaNacimiento", fecha);
-                objeto.Add("nombre", empleador.NombreEmpleador);
-                objeto.Add("nombreOrganizacion", empleador.NombreOrganizacion);
-                objeto.Add("telefono", empleador.Telefono);
-                objeto.Add("nombreusuario", usuario.NombreUsuario);
-
-                string cuerpoJson = JsonConvert.SerializeObject(objeto);
-                var data = new StringContent(cuerpoJson, Encoding.UTF8, "application/json");
-
-                HttpResponseMessage respuesta = await cliente.PostAsync(endpoint, data);
-                string body = await respuesta.Content.ReadAsStringAsync();
-
-                switch (respuesta.StatusCode)
+                try
                 {
-                    case HttpStatusCode.Created:
+                    string endpoint = "http://localhost:5000/v1/perfilEmpleadores";
+                    HttpRequestMessage cuerpoMensaje = new HttpRequestMessage();
+                    JObject objeto = new JObject();
+                    objeto.Add("clave", usuario.Clave);
+                    objeto.Add("correoElectronico", usuario.CorreoElectronico);
+                    objeto.Add("direccion", empleador.Direccion);
+                    objeto.Add("estatus", usuario.Estatus);
+                    string fecha = string.Format("{0:yyyy-MM-dd}", empleador.FechaNacimiento);
+                    objeto.Add("fechaNacimiento", fecha);
+                    objeto.Add("nombre", empleador.NombreEmpleador);
+                    objeto.Add("nombreOrganizacion", empleador.NombreOrganizacion);
+                    objeto.Add("telefono", empleador.Telefono);
+                    objeto.Add("nombreusuario", usuario.NombreUsuario);
+
+                    string cuerpoJson = JsonConvert.SerializeObject(objeto);
+                    var data = new StringContent(cuerpoJson, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage respuesta = await cliente.PostAsync(endpoint, data);
+                    string body = await respuesta.Content.ReadAsStringAsync();
+                    RespuestasAPI respuestaAPI = new RespuestasAPI();
+
+                    if (respuesta.StatusCode == HttpStatusCode.Created)
+                    {
                         JObject registroExitoso = JObject.Parse(body);
                         idUsuario = (int)registroExitoso["idPerfilUsuario"];
                         idEmpleador = (int)registroExitoso["idPerfilAspirante"];
-                        
 
                         MultipartFormDataContent foto = new MultipartFormDataContent();
                         var contenidoImagen = new ByteArrayContent(usuario.Fotografia);
@@ -57,20 +59,31 @@ namespace El_Camello.Modelo.dao
 
                         string endpointFoto = string.Format("http://localhost:5000/v1/PerfilUsuarios/{0}/fotografia", idUsuario);
                         respuesta = await cliente.PatchAsync(endpointFoto, foto);
-                        switch (respuesta.StatusCode)
+
+                        if (respuesta.StatusCode == HttpStatusCode.OK)
                         {
-                            case HttpStatusCode.OK:
-                                resultado = idUsuario;
-                                break;
+                            resultado = 1;
                         }
-                        break;
+                        else
+                        {
+                            respuestaAPI.gestionRespuestasApi("Post Empleador", respuesta);
+                        }
+                    }
+                    else
+                    {
+                        respuestaAPI.gestionRespuestasApi("Post Empleador", respuesta);
+                    }
                 }
+                catch (HttpRequestException)
+                {
+                    MessageBox.Show("Conexion en este momento no disponible", "¡Operacion!");
+                }  
             }
             
             return resultado;
         }
 
-        public static async Task<clases.Empleador> getEmpleador(int idUsuarioEmpleador, string token)//listo
+        public static async Task<clases.Empleador> getEmpleador(int idUsuarioEmpleador, string token) // listo cliente
         {
             clases.Empleador empleador = new clases.Empleador();
             using (var cliente = new HttpClient())
@@ -82,26 +95,28 @@ namespace El_Camello.Modelo.dao
                 {
                     HttpResponseMessage respuesta = await cliente.GetAsync(endpoint);
                     string body = await respuesta.Content.ReadAsStringAsync();
-                    switch (respuesta.StatusCode)
+                    RespuestasAPI respuestaAPI = new RespuestasAPI();
+
+                    if (respuesta.StatusCode == HttpStatusCode.OK)
                     {
-                        case HttpStatusCode.OK:
-
-                            JObject perfilEmpleador = JObject.Parse(body);
-                            empleador.IdPerfilusuario = (int)perfilEmpleador["idPerfilUsuarioEmpleador"];
-                            empleador.IdPerfilEmpleador = (int)perfilEmpleador["idPerfilEmpleador"];
-                            empleador.NombreOrganizacion = (string)perfilEmpleador["nombreOrganizacion"];
-                            empleador.NombreEmpleador = (string?)perfilEmpleador["nombre"];
-                            empleador.Direccion = (string)perfilEmpleador["direccion"];
-                            empleador.FechaNacimiento = (DateTime)perfilEmpleador["fechaNacimiento"];
-                            empleador.Telefono = (string)perfilEmpleador["telefono"];
-                            empleador.Amonestaciones = (int)perfilEmpleador["amonestaciones"];
-                            break;
-
+                        JObject perfilEmpleador = JObject.Parse(body);
+                        empleador.IdPerfilusuario = (int)perfilEmpleador["idPerfilUsuarioEmpleador"];
+                        empleador.IdPerfilEmpleador = (int)perfilEmpleador["idPerfilEmpleador"];
+                        empleador.NombreOrganizacion = (string)perfilEmpleador["nombreOrganizacion"];
+                        empleador.NombreEmpleador = (string?)perfilEmpleador["nombre"];
+                        empleador.Direccion = (string)perfilEmpleador["direccion"];
+                        empleador.FechaNacimiento = (DateTime)perfilEmpleador["fechaNacimiento"];
+                        empleador.Telefono = (string)perfilEmpleador["telefono"];
+                        empleador.Amonestaciones = (int)perfilEmpleador["amonestaciones"];
+                    }
+                    else
+                    {
+                        respuestaAPI.gestionRespuestasApi("Get Empleador", respuesta);
                     }
                 }
                 catch (HttpRequestException)
                 {
-                    MessageBox.Show("verificar servidor");
+                    MessageBox.Show("Conexion en este momento no disponible", "¡Operacion!");
                 }
             }
 
@@ -120,43 +135,46 @@ namespace El_Camello.Modelo.dao
                 {
                     HttpResponseMessage respuesta = await cliente.GetAsync(endpoint);
                     string body = await respuesta.Content.ReadAsStringAsync();
+                    RespuestasAPI respuestaAPI = new RespuestasAPI();
 
-                    switch (respuesta.StatusCode)
+                    if (respuesta.StatusCode == HttpStatusCode.OK)
                     {
-                        case HttpStatusCode.OK:
-                            JArray arrayEmpleadores = JArray.Parse(body);
-                            MessageBox.Show(arrayEmpleadores.ToString());
+                        JArray arrayEmpleadores = JArray.Parse(body);
+                        MessageBox.Show(arrayEmpleadores.ToString());
 
 
-                            foreach (var item in arrayEmpleadores)
-                            {
-                                clases.Empleador empleador = new clases.Empleador();
-                                empleador.IdPerfilEmpleador = (int)item["idPerfilEmpleador"];
-                                empleador.IdPerfilEmpleador = (int)item["idPerfilUsuarioEmpleador"];
-                                empleador.NombreEmpleador = (string)item["nombreOrganizacion"];
-                                empleador.NombreEmpleador = (string?)item["nombre"];
-                                empleador.Direccion = (string)item["direccion"];
-                                empleador.FechaNacimiento = (DateTime)item["fechaNacimiento"];
-                                empleador.Telefono = (string)item["telefono"];
-                                empleador.Amonestaciones = (int)item["amonestaciones"];
-                            }
-                            break;
+                        foreach (var item in arrayEmpleadores)
+                        {
+                            clases.Empleador empleador = new clases.Empleador();
+                            empleador.IdPerfilEmpleador = (int)item["idPerfilEmpleador"];
+                            empleador.IdPerfilEmpleador = (int)item["idPerfilUsuarioEmpleador"];
+                            empleador.NombreEmpleador = (string)item["nombreOrganizacion"];
+                            empleador.NombreEmpleador = (string?)item["nombre"];
+                            empleador.Direccion = (string)item["direccion"];
+                            empleador.FechaNacimiento = (DateTime)item["fechaNacimiento"];
+                            empleador.Telefono = (string)item["telefono"];
+                            empleador.Amonestaciones = (int)item["amonestaciones"];
+                        }
+                    }
+                    else
+                    {
+                        respuestaAPI.gestionRespuestasApi("Get Empleadores", respuesta);
                     }
                 }
                 catch (HttpRequestException)
                 {
-                    MessageBox.Show("servidor desconectado, no se puede establecer conexion");
+                    MessageBox.Show("Conexion en este momento no disponible", "¡Operacion!");
                 }
             }
 
             return empleadores;
         }
 
-        public static async Task<int> putEmpleador(clases.Empleador empleador) //listo
+        public static async Task<int> putEmpleador(clases.Empleador empleador)  // listo cliente 
         {
             int resultado = -1;
-            int idUsuario = 0;
-            int idPerfilEmpleador;
+            int idUsuario = -1;
+            int idPerfilEmpleador = -1;
             using (var cliente = new HttpClient())
             {
                 try
@@ -183,41 +201,44 @@ namespace El_Camello.Modelo.dao
 
                     HttpResponseMessage respuesta = await cliente.PutAsync(endpoint, data);
                     string body = await respuesta.Content.ReadAsStringAsync();
+                    RespuestasAPI respuestaAPI = new RespuestasAPI();
 
-                    switch (respuesta.StatusCode)
+
+                    if (respuesta.StatusCode == HttpStatusCode.OK)
                     {
-                        case HttpStatusCode.OK:
-                            clases.Empleador modificarEmpleador = new clases.Empleador();
-                            JObject perfilEmpleador = JObject.Parse(body);
-                            MessageBox.Show(body.ToString());
-                            idUsuario = (int)perfilEmpleador["idPerfilUsuario"];
-                            idPerfilEmpleador = (int)perfilEmpleador["idPerfilEmpleador"];
+                        clases.Empleador modificarEmpleador = new clases.Empleador();
+                        JObject perfilEmpleador = JObject.Parse(body);
+                        MessageBox.Show(body.ToString());
+                        idUsuario = (int)perfilEmpleador["idPerfilUsuario"];
+                        idPerfilEmpleador = (int)perfilEmpleador["idPerfilEmpleador"];
 
-                            MultipartFormDataContent foto = new MultipartFormDataContent();
-                            var contenidoImagen = new ByteArrayContent(empleador.Fotografia);
-                            contenidoImagen.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
-                            foto.Add(contenidoImagen, "fotografia", "fotografiaPerfilEmpleador.jpg");
-                            string endpointfoto = String.Format("http://localhost:5000/v1/PerfilUsuarios/{0}/fotografia", empleador.IdPerfilusuario);
-                            respuesta = await cliente.PatchAsync(endpointfoto, foto);
+                        MultipartFormDataContent foto = new MultipartFormDataContent();
+                        var contenidoImagen = new ByteArrayContent(empleador.Fotografia);
+                        contenidoImagen.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
+                        foto.Add(contenidoImagen, "fotografia", "fotografiaPerfilEmpleador.jpg");
 
-                            switch (respuesta.StatusCode)
-                            {
-                                case HttpStatusCode.OK:
-                                    resultado = 1;
-                                    break;
-                                case HttpStatusCode.NotFound:
-                                    break;
-                                case HttpStatusCode.InternalServerError:
-                                    break;
-                            }
-                            break;
+                        string endpointfoto = String.Format("http://localhost:5000/v1/PerfilUsuarios/{0}/fotografia", empleador.IdPerfilusuario);
+                        respuesta = await cliente.PatchAsync(endpointfoto, foto);
+
+                        if (respuesta.StatusCode == HttpStatusCode.OK)
+                        {
+                            resultado = 1;
+                        }
+                        else
+                        {
+                            respuestaAPI.gestionRespuestasApi("put Empleador", respuesta);
+                        }
+                    }
+                    else
+                    {
+                        respuestaAPI.gestionRespuestasApi("Put Empleador", respuesta);
                     }
 
 
                 }
                 catch (Exception)
                 {
-
+                    MessageBox.Show("Conexion en este momento no disponible", "¡Operacion!");
                 }
             }
 

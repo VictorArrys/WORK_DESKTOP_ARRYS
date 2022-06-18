@@ -103,85 +103,197 @@ namespace El_Camello.Vistas.Usuario
         {
             if (isNuevo)
             {
-                Uri uriImagen;
-                Modelo.clases.Usuario user = new Modelo.clases.Usuario();
-                Modelo.clases.Demandante demandante = new Modelo.clases.Demandante();
-
-                user.RutaFotografia = rutaImagen;
-                uriImagen = new Uri(user.RutaFotografia);
-                user.Fotografia = System.IO.File.ReadAllBytes(uriImagen.LocalPath);
-
-                demandante.NombreDemandante = tbNombreDemandante.Text;
-                demandante.Direccion = tbDireccion.Text;
-                demandante.FechaNacimiento = (DateTime)dpFechaNacimiento.SelectedDate;
-                user.CorreoElectronico = tbCorreoElectronico.Text;
-                user.Estatus = 1;
-                demandante.Telefono = tbTelefono.Text;
-                user.NombreUsuario = tbNombreUsuario.Text;
-                user.Clave = pbContraseña.Password;
-                int registro = await DemandanteDAO.PostDemandante(user, demandante);
-                if (registro == 1)
+                if (validarCampos(isNuevo))
                 {
-                    MessageBox.Show("Registro en el sistema exitoso, favor de inciar con las credenciales registradas", "Operación exitosa");
-                    MessageBox.Show("Nombre Usuario: " + user.NombreUsuario + "\n" + "Constraseña" + user.Clave, "Credenciales");
-                    Login login = new Login();
-                    login.Show();
-                    this.Close();
+                    Uri uriImagen;
+                    Modelo.clases.Usuario user = new Modelo.clases.Usuario();
+                    Modelo.clases.Demandante demandante = new Modelo.clases.Demandante();
 
+                    user.RutaFotografia = rutaImagen;
+                    uriImagen = new Uri(user.RutaFotografia);
+                    user.Fotografia = System.IO.File.ReadAllBytes(uriImagen.LocalPath);
+
+                    demandante.NombreDemandante = tbNombreDemandante.Text;
+                    demandante.Direccion = tbDireccion.Text;
+                    demandante.FechaNacimiento = (DateTime)dpFechaNacimiento.SelectedDate;
+                    user.CorreoElectronico = tbCorreoElectronico.Text;
+                    user.Estatus = 1;
+                    demandante.Telefono = tbTelefono.Text;
+                    user.NombreUsuario = tbNombreUsuario.Text;
+                    user.Clave = pbContraseña.Password;
+                    int registro = await DemandanteDAO.PostDemandante(user, demandante);
+
+                    if (registro == 1)
+                    {
+                        MessageBox.Show("Registro en el sistema exitoso, favor de inciar con las credenciales registradas", "Operación exitosa");
+                        MessageBox.Show("Nombre Usuario: " + user.NombreUsuario + "\n" + "Constraseña" + user.Clave, "Credenciales");
+                        Login login = new Login();
+                        login.Show();
+                        this.Close();
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ocurrio un error al registrar tu perfil demanndante","¡Operación!");
+                    }
                 }
                 else
                 {
-                    //aqui poner si no se registrar
+                    MessageBox.Show("Al registrar tu perfil verifica que los campos no esten vacios. ", "¡Operación!");
                 }
 
             }
             else
             {
-                Modelo.clases.Usuario modificarUsuario = new Modelo.clases.Usuario();
-                Modelo.clases.Demandante modificarDemandante = new Modelo.clases.Demandante();
-                if (nuevaFotografia)
+                if (validarCampos(isNuevo))
                 {
-                    Uri uriImagen;
-                    modificarUsuario.RutaFotografia = rutaImagen;
-                    uriImagen = new Uri(modificarUsuario.RutaFotografia);
-                    modificarUsuario.Fotografia = System.IO.File.ReadAllBytes(uriImagen.LocalPath);
-                    MessageBox.Show(modificarUsuario.Fotografia.ToString());
-                }
-                else
-                {
-                    byte[] fotografia;
-                    fotografia = demandante.Fotografia;
-                    modificarUsuario.Fotografia = fotografia;
-                }
+                    Modelo.clases.Usuario modificarUsuario = new Modelo.clases.Usuario();
+                    Modelo.clases.Demandante modificarDemandante = new Modelo.clases.Demandante();
 
-                modificarDemandante.NombreDemandante = tbNombreDemandante.Text;
-                modificarDemandante.Direccion = tbDireccion.Text;
-                modificarDemandante.FechaNacimiento = (DateTime)dpFechaNacimiento.SelectedDate;
-                modificarUsuario.CorreoElectronico = tbCorreoElectronico.Text;
-                modificarUsuario.Estatus = 1;
-                modificarDemandante.Telefono = tbTelefono.Text;
-                modificarUsuario.NombreUsuario = tbNombreUsuario.Text;
-                modificarUsuario.Clave = pbContraseña.Password;
-                modificarUsuario.Token = demandante.Token;
-                modificarUsuario.IdPerfilusuario = demandante.IdPerfilusuario;
-                modificarDemandante.IdDemandante = demandante.IdDemandante;
-                int resultado = await DemandanteDAO.putDemandante(modificarUsuario, modificarDemandante);
-                if (resultado == 1)
-                {
-                    Modelo.clases.Usuario usuario = null;
-                    usuario = await UsuarioDAO.getUsuario(modificarUsuario.IdPerfilusuario, modificarUsuario.Token);
-                    usuario.Token = demandante.Token;
-                    notificacion.actualizarInformacion(usuario);
-                    MessageBox.Show("Actualización de tu perfil exitosa", "Operacion");
-                    this.Close();
+                    if (tbNombreUsuario.Text == modificarDemandante.NombreDemandante && tbDireccion.Text == modificarDemandante.Direccion && dpFechaNacimiento.SelectedDate == modificarDemandante.FechaNacimiento
+                        && tbCorreoElectronico.Text == modificarDemandante.CorreoElectronico && tbTelefono.Text == modificarDemandante.Telefono && tbNombreUsuario.Text == modificarDemandante.NombreUsuario 
+                        && pbContraseña.Password == modificarDemandante.Clave)
+                    {
+                        MessageBox.Show("jala");
+                    }
+                    
+                    if (nuevaFotografia)
+                    {
+                        Uri uriImagen;
+                        modificarUsuario.RutaFotografia = rutaImagen;
+                        uriImagen = new Uri(modificarUsuario.RutaFotografia);
+                        modificarUsuario.Fotografia = System.IO.File.ReadAllBytes(uriImagen.LocalPath);
+                        MessageBox.Show(modificarUsuario.Fotografia.ToString());
+                    }
+                    else
+                    {
+                        byte[] fotografia;
+                        fotografia = demandante.Fotografia;
+                        modificarUsuario.Fotografia = fotografia;
+                    }
+
+                    modificarDemandante.NombreDemandante = tbNombreDemandante.Text;
+                    modificarDemandante.Direccion = tbDireccion.Text;
+                    modificarDemandante.FechaNacimiento = (DateTime)dpFechaNacimiento.SelectedDate;
+                    modificarUsuario.CorreoElectronico = tbCorreoElectronico.Text;
+                    modificarUsuario.Estatus = 1;
+                    modificarDemandante.Telefono = tbTelefono.Text;
+                    modificarUsuario.NombreUsuario = tbNombreUsuario.Text;
+                    modificarUsuario.Clave = pbContraseña.Password;
+                    modificarUsuario.Token = demandante.Token;
+                    modificarUsuario.IdPerfilusuario = demandante.IdPerfilusuario;
+                    modificarDemandante.IdDemandante = demandante.IdDemandante;
+                    int resultado = await DemandanteDAO.putDemandante(modificarUsuario, modificarDemandante);
+                    if (resultado == 1)
+                    {
+                        Modelo.clases.Usuario usuario = null;
+                        usuario = await UsuarioDAO.getUsuario(modificarUsuario.IdPerfilusuario, modificarUsuario.Token);
+                        usuario.Token = demandante.Token;
+                        notificacion.actualizarInformacion(usuario);
+                        MessageBox.Show("Actualización de tu perfil exitosa", "Operacion");
+                        this.Close();
+                    }
+                    else
+                    {
+                        //poner aqui cuando no entra
+                    }
                 }
-                else
-                {
-                    //poner aqui cuando no entra
-                }
+                
             }
             
 
+        }
+
+        private bool validarCampos(bool isNuevo)
+        {
+            bool validar = false;
+
+            if (isNuevo)
+            {
+                if (tbNombreDemandante.Text == "")
+                {
+                    validar = false;
+                }
+                else if (tbDireccion.Text == "")
+                {
+                    validar = false;
+                }
+                else if (dpFechaNacimiento.SelectedDate == null)
+                {
+                    validar = false;
+                }
+                else if (tbCorreoElectronico.Text == "")
+                {
+                    validar = false;
+                }
+                else if (tbTelefono.Text == "")
+                {
+                    validar = false;
+                }
+                else if (tbNombreUsuario.Text == "")
+                {
+                    validar = false;
+                }
+                else if (pbContraseña.Password != "" || pbConfirmarConstraseña.Password != "")
+                {
+                    if (pbContraseña.Password != pbConfirmarConstraseña.Password)
+                    {
+                        MessageBox.Show("Por favor introducir la misma contraseña en ambos campos para confirmar", "¡Operacion!");
+                        validar = false;
+                    }
+                    else if (imgFotografiaDemandante.Source == null)
+                    {
+                        MessageBox.Show("Por favor seleccionar una foto de perfil para tu cuenta, preferentemente una fotografia personal", "¡Operación!");
+                        validar = false;
+                    }
+                    else
+                    {
+                        validar = true;
+                    }
+                }
+            }
+            else
+            {
+                if (tbNombreDemandante.Text == "")
+                {
+                    validar = false;
+                }
+                else if (tbDireccion.Text == "")
+                {
+                    validar = false;
+                }
+                else if (dpFechaNacimiento.SelectedDate == null)
+                {
+                    validar = false;
+                }
+                else if (tbCorreoElectronico.Text == "")
+                {
+                    validar = false;
+                }
+                else if (tbTelefono.Text == "")
+                {
+                    validar = false;
+                }
+                else if (pbContraseña.Password != "" || pbConfirmarConstraseña.Password != "")
+                {
+                    if (pbContraseña.Password != pbConfirmarConstraseña.Password)
+                    {
+                        MessageBox.Show("Por favor introducir la misma contraseña en ambos campos para confirmar", "¡Operacion!");
+                        validar = false;
+                    }
+                    else if (imgFotografiaDemandante.Source == null)
+                    {
+                        MessageBox.Show("Por favor seleccionar una foto de perfil para tu cuenta, preferentemente una fotografia personal", "¡Operación!");
+                        validar = false;
+                    }
+                    else
+                    {
+                        validar = true;
+                    }
+                }
+            }
+            
+            return validar;
         }
 
         private void btnSeleccionarImagen_Click(object sender, RoutedEventArgs e)

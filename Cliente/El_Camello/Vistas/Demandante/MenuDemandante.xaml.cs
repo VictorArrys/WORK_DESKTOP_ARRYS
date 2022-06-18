@@ -17,9 +17,7 @@ using System.Windows.Shapes;
 
 namespace El_Camello.Vistas.Demandante
 {
-    /// <summary>
-    /// Lógica de interacción para MenuDemandante.xaml
-    /// </summary>
+    
     public partial class MenuDemandante : Window, observadorRespuesta
     {
         Modelo.clases.Demandante demandante = null;
@@ -132,6 +130,11 @@ namespace El_Camello.Vistas.Demandante
             int seleccion = cbCategorias.SelectedIndex;
             MessageBox.Show(categorias[seleccion].ToString());
            
+        }
+
+        private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }
