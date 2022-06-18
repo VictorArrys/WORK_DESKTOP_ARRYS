@@ -42,7 +42,7 @@
         <TextBox x:Name="tbClave" HorizontalAlignment="Left" Margin="166,405,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="256" Height="24"/>
         <TextBox x:Name="tbNombreUsuario" HorizontalAlignment="Left" Margin="166,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="256" Height="24"/>
         <TextBox x:Name="tbEstatus" HorizontalAlignment="Left" Margin="445,326,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="256" Height="24"/>
-        <Button x:Name="btnSalir" Content="Salir" HorizontalAlignment="Left" Margin="624,406,0,0" VerticalAlignment="Top" Width="77" Height="23" FontWeight="Bold" Foreground="White">
+        <Button x:Name="btnSalir" Content="Salir" HorizontalAlignment="Left" Margin="624,406,0,0" VerticalAlignment="Top" Width="77" Height="23" FontWeight="Bold" Foreground="White" Click="btnSalir_Click">
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>

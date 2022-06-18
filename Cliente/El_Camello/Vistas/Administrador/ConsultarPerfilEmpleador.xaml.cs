@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace El_Camello.Vistas.Administrador
 {
-    /// <summary>
-    /// Lógica de interacción para ConsultarPerfilEmpleador.xaml
-    /// </summary>
     public partial class ConsultarPerfilEmpleador : Window
     {
         Modelo.clases.Empleador empleador = null;
@@ -47,6 +44,9 @@ namespace El_Camello.Vistas.Administrador
             tbCorreoElectronico.Text = usuario.CorreoElectronico;
             tbEstatus.Text = usuario.EstatusUsuario;
             tbAmonestaciones.Text = empleador.Amonestaciones.ToString();
+            tbCorreoElectronico.Text = usuario.CorreoElectronico;
+            tbClave.Text = usuario.Clave;
+            tbEstatus.Text = usuario.EstatusUsuario;
         }
 
         private void cargarImagen(Modelo.clases.Usuario usuario)
