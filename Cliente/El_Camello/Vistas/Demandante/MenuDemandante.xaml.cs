@@ -23,11 +23,30 @@ namespace El_Camello.Vistas.Demandante
         Modelo.clases.Demandante demandante = null;
         List<Modelo.clases.Aspirante> aspirantes = new List<Modelo.clases.Aspirante>();
         List<Modelo.clases.Categoria> categorias = new List<Modelo.clases.Categoria>();
+        Modelo.clases.Usuario usuario = null;
+        string token = null;
         public MenuDemandante(Modelo.clases.Usuario usuarioConectado)
         {
             InitializeComponent();
-            demandante = new Modelo.clases.Demandante();
-            cargarDemandante(usuarioConectado);
+            if (usuarioConectado.Estatus == 1)
+            {
+                demandante = new Modelo.clases.Demandante();
+                cargarDemandante(usuarioConectado);
+                btnActivarPerfil.IsEnabled = false;
+            }
+            else
+            {
+                MessageBox.Show("En este momento esta desactivado tu perfil, para volver acivarlo presiona 'Activar perfil.'", "¡Advetencia!");
+                usuario = usuarioConectado;
+                token = usuarioConectado.Token;
+                btnDesactivar.IsEnabled = false;
+                btnEditarPerfil.IsEnabled = false;
+                btnConsultarSolicitudes.IsEnabled = false;
+                btnConsultarValoraciones.IsEnabled = false;
+                btnMensajeria.IsEnabled = false;
+
+            }
+
         }
 
         private void CargarImagen(Modelo.clases.Usuario usuarioConectado)
@@ -63,7 +82,6 @@ namespace El_Camello.Vistas.Demandante
         {
             
             demandante = await DemandanteDAO.getDemandante(usuarioConectado.IdPerfilusuario, usuarioConectado.Token);
-            
             categorias = await CategoriaDAO.GetCategorias();
             cbCategorias.ItemsSource = categorias;
             CargarImagen(usuarioConectado);
@@ -76,7 +94,7 @@ namespace El_Camello.Vistas.Demandante
             demandante.Token = usuarioConectado.Token;
             demandante.IdPerfilusuario = usuarioConectado.IdPerfilusuario;
             aspirantes = await AspiranteDAO.GetAspirantes(demandante.Token);
-
+            lbNombreDemandante.Content = demandante.NombreDemandante;
             dgAspirantes.ItemsSource = aspirantes;
 
         }
@@ -92,13 +110,19 @@ namespace El_Camello.Vistas.Demandante
             cargarDemandante(usuarioContectado);
         }
 
-        private void btnDesactivar_Click(object sender, RoutedEventArgs e)
+        private async void btnDesactivar_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult opcionSeleccionada = MessageBox.Show("¿Estas seguro de desactivar tu perfil?", "Confirmacion", MessageBoxButton.OKCancel);
             if (opcionSeleccionada == MessageBoxResult.OK)
             {
                 MessageBox.Show("Tu perfil se desactivará y no se podra mostrar tus peticiones de servicio, podrás volver actiuvar tu perfil activando el boton 'Activar perfil'", "Advertencia!");
-
+                int resultado = await UsuarioDAO.patchDeshabilitar(demandante.IdPerfilusuario, demandante.Token);
+                if (resultado == 1)
+                {
+                    Login login = new Login();
+                    login.Show();
+                    this.Close();
+                }
             }
             else
             {
@@ -108,8 +132,7 @@ namespace El_Camello.Vistas.Demandante
 
         private void btnConsultarSolicitudes_Click(object sender, RoutedEventArgs e)
         {
-            //pasar usuario
-            ConsultarSolicitudServicio consultarSolicitudServicio = new ConsultarSolicitudServicio();
+            ConsultarSolicitudServicio consultarSolicitudServicio = new ConsultarSolicitudServicio(demandante);
             consultarSolicitudServicio.Show();
             this.Close();
         }
@@ -140,6 +163,21 @@ namespace El_Camello.Vistas.Demandante
         public void actualizarCambios(string operacion)
         {
             throw new NotImplementedException();
+        }
+
+        private async void btnActivarPerfil_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult opcionSeleccionada = MessageBox.Show("¿Deseas activar tu perfil?", "Confirmacion", MessageBoxButton.OKCancel);
+            if (opcionSeleccionada == MessageBoxResult.OK)
+            {
+                MessageBox.Show("Tu perfil esta por activarse. Por favor espera un momento'", "Advertencia!");
+                int resultado = await UsuarioDAO.patchHabilitar(usuario.IdPerfilusuario, token);
+                if (resultado == 1)
+                {
+                    cargarDemandante(usuario);
+                    btnActivarPerfil.IsEnabled = false;
+                }
+            }
         }
     }
 }

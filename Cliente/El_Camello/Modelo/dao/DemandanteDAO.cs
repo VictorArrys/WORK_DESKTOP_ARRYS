@@ -118,9 +118,11 @@ namespace El_Camello.Modelo.dao
             return demandante;
         }
 
-        public static async Task<int> putDemandante(Usuario usuario, Demandante demandante)
+        public static async Task<int> putDemandante(Usuario usuario, Demandante demandante) // listo cliente
         {
-            int res = -1;
+            int resultado = -1;
+            int idUsuario = -1;
+            int idDemandante = -1;
             using (var cliente = new HttpClient())
             {
                 try
@@ -146,41 +148,27 @@ namespace El_Camello.Modelo.dao
 
                     HttpResponseMessage respuesta = await cliente.PutAsync(endpoint, data);
                     string body = await respuesta.Content.ReadAsStringAsync();
+                    RespuestasAPI respuestaAPI = new RespuestasAPI();
 
-                    switch (respuesta.StatusCode)
+
+                    if (respuesta.StatusCode == HttpStatusCode.OK)
                     {
-                        case HttpStatusCode.OK:
-                            Demandante modificarDemandante = new Demandante();
-                            JObject perfilDemandante = JObject.Parse(body);
-                            modificarDemandante.Clave = (string)perfilDemandante["clave"];
-                            modificarDemandante.CorreoElectronico = (string)perfilDemandante["correoElectronico"];
-                            modificarDemandante.Direccion = (string)perfilDemandante["direccion"];
-                            modificarDemandante.Estatus = 1;
-                            modificarDemandante.FechaNacimiento = (DateTime)perfilDemandante["fechaNacimiento"];
-                            modificarDemandante.IdPerfilusuario = (int)perfilDemandante["idPerfilUsuario"];
-                            modificarDemandante.NombreDemandante = (string)perfilDemandante["nombre"];
-                            modificarDemandante.NombreUsuario = (string)perfilDemandante["nombreUsuario"];
-                            modificarDemandante.Telefono = (string)perfilDemandante["telefono"];
-                            modificarDemandante.IdPerfilusuario = (int)perfilDemandante["idPerfilAspirante"];
+                        JObject perfilDemandante = JObject.Parse(body);
+                        idUsuario = (int)perfilDemandante["idPerfilUsuario"];
+                        idDemandante = (int)perfilDemandante["idPerfilAspirante"];
 
-                            MultipartFormDataContent foto = new MultipartFormDataContent();
-                            var contenidoImagen = new ByteArrayContent(usuario.Fotografia);
-                            contenidoImagen.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
-                            foto.Add(contenidoImagen, "fotografia", "fotografiaPerfilDemandante.jpg");
-                            string endpointfoto = String.Format("http://localhost:5000/v1/PerfilUsuarios/{0}/fotografia", usuario.IdPerfilusuario);
-                            respuesta = await cliente.PatchAsync(endpointfoto, foto);
-                            switch (respuesta.StatusCode)
-                            {
-                                case HttpStatusCode.OK:
-                                    res = 1;
-                                    break;
-                                case HttpStatusCode.NotFound:
-                                    break;
-                                case HttpStatusCode.InternalServerError:
-                                    break;
-                            }
+                        MultipartFormDataContent foto = new MultipartFormDataContent();
+                        var contenidoImagen = new ByteArrayContent(usuario.Fotografia);
+                        contenidoImagen.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
+                        foto.Add(contenidoImagen, "fotografia", "fotografiaPerfilDemandante.jpg");
 
-                            break;
+                        string endpointfoto = String.Format("http://localhost:5000/v1/PerfilUsuarios/{0}/fotografia", idUsuario);
+                        respuesta = await cliente.PatchAsync(endpointfoto, foto);
+
+                        if (respuesta.StatusCode == HttpStatusCode.OK)
+                        {
+                            resultado = 1;
+                        }
                     }
 
                 }
@@ -190,7 +178,7 @@ namespace El_Camello.Modelo.dao
                 }
             }
 
-             return res;
+             return resultado;
         }
        
     }

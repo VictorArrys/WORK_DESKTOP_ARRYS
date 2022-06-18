@@ -12,7 +12,7 @@
         </StackPanel>
         <Button x:Name="btnEditarPerfil" Content="Editar Perfil" HorizontalAlignment="Left" Margin="183,59,0,0" VerticalAlignment="Top" FontStyle="Italic" BorderBrush="#FFDFDFDF" Background="#FFDFDFDF" FontWeight="Normal" Click="btnEditarPerfil_Click"/>
         <Button x:Name="btnDesactivar" Content="Desactivar Perfil" HorizontalAlignment="Left" Margin="183,90,0,0" VerticalAlignment="Top" FontStyle="Italic" BorderBrush="#FFDFDFDF" Background="#FFDFDFDF" FontWeight="Normal" Click="btnDesactivar_Click"/>
-        <Button x:Name="btnActivarPerfil" Content="Activar Perfil" HorizontalAlignment="Left" Margin="184,119,0,0" VerticalAlignment="Top" FontStyle="Italic" BorderBrush="#FFDFDFDF" Background="#FFDFDFDF" FontWeight="Normal"/>
+        <Button x:Name="btnActivarPerfil" Content="Activar Perfil" HorizontalAlignment="Left" Margin="184,119,0,0" VerticalAlignment="Top" FontStyle="Italic" BorderBrush="#FFDFDFDF" Background="#FFDFDFDF" FontWeight="Normal" Click="btnActivarPerfil_Click"/>
         <Button x:Name="btnConsultarSolicitudes" Content=" Consultar &#xA;Solicitudes" HorizontalAlignment="Left" Margin="513,90,0,0" VerticalAlignment="Top" Width="87" Height="41" FontSize="14" FontWeight="Bold" Foreground="White" Click="btnConsultarSolicitudes_Click">
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
@@ -56,7 +56,7 @@
                 <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
             </Rectangle.Fill>
         </Rectangle>
-        <Label Content="Nombre Demandante" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="White" FontStyle="Italic"/>
+        <Label x:Name="lbNombreDemandante" Content="Nombre Demandante" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="White" FontStyle="Italic" Width="867"/>
         <Button x:Name="btnCerrarSesion" Content="Cerrar Sesión" HorizontalAlignment="Left" Margin="893,4,0,0" VerticalAlignment="Top" Width="104" Height="33" FontSize="14" FontWeight="Bold" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="btnCerrarSesion_Click"/>
 
     </Grid>

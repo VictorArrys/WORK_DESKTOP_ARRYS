@@ -19,9 +19,17 @@ namespace El_Camello.Vistas.Demandante
     /// </summary>
     public partial class ConsultarSolicitudServicio : Window
     {
-        public ConsultarSolicitudServicio()
+        
+        Modelo.clases.Demandante demandante = null;
+        public ConsultarSolicitudServicio(Modelo.clases.Demandante demandante)
         {
             InitializeComponent();
+            cargarTablaServicios(demandante.IdPerfilusuario);
+        }
+
+        private async void cargarTablaServicios(int idUsuario)
+        {
+
         }
     }
 }

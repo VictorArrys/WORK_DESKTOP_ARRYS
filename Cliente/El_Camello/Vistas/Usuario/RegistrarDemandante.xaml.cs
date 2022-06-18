@@ -150,57 +150,60 @@ namespace El_Camello.Vistas.Usuario
                     Modelo.clases.Usuario modificarUsuario = new Modelo.clases.Usuario();
                     Modelo.clases.Demandante modificarDemandante = new Modelo.clases.Demandante();
 
-                    if (tbNombreUsuario.Text == modificarDemandante.NombreDemandante && tbDireccion.Text == modificarDemandante.Direccion && dpFechaNacimiento.SelectedDate == modificarDemandante.FechaNacimiento
-                        && tbCorreoElectronico.Text == modificarDemandante.CorreoElectronico && tbTelefono.Text == modificarDemandante.Telefono && tbNombreUsuario.Text == modificarDemandante.NombreUsuario 
-                        && pbContraseña.Password == modificarDemandante.Clave)
+                    if (tbNombreUsuario.Text == demandante.NombreUsuario && tbDireccion.Text == demandante.Direccion && 
+                        tbCorreoElectronico.Text == demandante.CorreoElectronico && tbTelefono.Text == demandante.Telefono && tbNombreDemandante.Text == demandante.NombreDemandante 
+                        && pbContraseña.Password == demandante.Clave)
                     {
-                        MessageBox.Show("jala");
-                    }
-                    
-                    if (nuevaFotografia)
-                    {
-                        Uri uriImagen;
-                        modificarUsuario.RutaFotografia = rutaImagen;
-                        uriImagen = new Uri(modificarUsuario.RutaFotografia);
-                        modificarUsuario.Fotografia = System.IO.File.ReadAllBytes(uriImagen.LocalPath);
-                        MessageBox.Show(modificarUsuario.Fotografia.ToString());
+                        MessageBox.Show("Para poder modificar tu registro es necesario almenos modificar un campo.", "¡Operacion!");
                     }
                     else
                     {
-                        byte[] fotografia;
-                        fotografia = demandante.Fotografia;
-                        modificarUsuario.Fotografia = fotografia;
+                        if (nuevaFotografia)
+                        {
+                            Uri uriImagen;
+                            modificarUsuario.RutaFotografia = rutaImagen;
+                            uriImagen = new Uri(modificarUsuario.RutaFotografia);
+                            modificarUsuario.Fotografia = System.IO.File.ReadAllBytes(uriImagen.LocalPath);
+                            MessageBox.Show(modificarUsuario.Fotografia.ToString());
+                        }
+                        else
+                        {
+                            byte[] fotografia;
+                            fotografia = demandante.Fotografia;
+                            modificarUsuario.Fotografia = fotografia;
+                        }
+
+                        modificarDemandante.NombreDemandante = tbNombreDemandante.Text;
+                        modificarDemandante.Direccion = tbDireccion.Text;
+                        modificarDemandante.FechaNacimiento = (DateTime)dpFechaNacimiento.SelectedDate;
+                        modificarUsuario.CorreoElectronico = tbCorreoElectronico.Text;
+                        modificarUsuario.Estatus = 1;
+                        modificarDemandante.Telefono = tbTelefono.Text;
+                        modificarUsuario.NombreUsuario = tbNombreUsuario.Text;
+                        modificarUsuario.Clave = pbContraseña.Password;
+                        modificarUsuario.Token = demandante.Token;
+                        modificarUsuario.IdPerfilusuario = demandante.IdPerfilusuario;
+                        modificarDemandante.IdDemandante = demandante.IdDemandante;
+
+                        int resultado = await DemandanteDAO.putDemandante(modificarUsuario, modificarDemandante);
+                        if (resultado == 1)
+                        {
+                            Modelo.clases.Usuario usuario = null;
+                            usuario = await UsuarioDAO.getUsuario(modificarUsuario.IdPerfilusuario, modificarUsuario.Token);
+                            usuario.Token = demandante.Token;
+                            notificacion.actualizarInformacion(usuario);
+                            MessageBox.Show("Actualización de tu perfil exitosa", "Operacion");
+                            this.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Ocurrio un error al actualizar tu perfil","¡Operación!");
+                        }
                     }
 
-                    modificarDemandante.NombreDemandante = tbNombreDemandante.Text;
-                    modificarDemandante.Direccion = tbDireccion.Text;
-                    modificarDemandante.FechaNacimiento = (DateTime)dpFechaNacimiento.SelectedDate;
-                    modificarUsuario.CorreoElectronico = tbCorreoElectronico.Text;
-                    modificarUsuario.Estatus = 1;
-                    modificarDemandante.Telefono = tbTelefono.Text;
-                    modificarUsuario.NombreUsuario = tbNombreUsuario.Text;
-                    modificarUsuario.Clave = pbContraseña.Password;
-                    modificarUsuario.Token = demandante.Token;
-                    modificarUsuario.IdPerfilusuario = demandante.IdPerfilusuario;
-                    modificarDemandante.IdDemandante = demandante.IdDemandante;
-                    int resultado = await DemandanteDAO.putDemandante(modificarUsuario, modificarDemandante);
-                    if (resultado == 1)
-                    {
-                        Modelo.clases.Usuario usuario = null;
-                        usuario = await UsuarioDAO.getUsuario(modificarUsuario.IdPerfilusuario, modificarUsuario.Token);
-                        usuario.Token = demandante.Token;
-                        notificacion.actualizarInformacion(usuario);
-                        MessageBox.Show("Actualización de tu perfil exitosa", "Operacion");
-                        this.Close();
-                    }
-                    else
-                    {
-                        //poner aqui cuando no entra
-                    }
                 }
                 
             }
-            
 
         }
 
