@@ -42,7 +42,7 @@ namespace El_Camello.Vistas.Empleador
         Uri fileUri2;
         Uri fileUri3;
 
-        MensajesSistema error;
+        MensajesSistema mensajes;
 
         public RegistroOfertaEmpleo(observadorRespuesta notificacion,int idPerfilEmpleador, string token)
         {
@@ -66,15 +66,17 @@ namespace El_Camello.Vistas.Empleador
 
             cargarOfertaEmpleo();
 
-        }            
+        }
 
         private async void cargarOfertaEmpleo()
         {
+
+            lbAccion.Content = "Modificación de oferta de empleo";
             try
             {
                 string tokenString = "" + token;
 
-                OfertaEmpleo ofertaEmpleoEdicion = await OfertaEmpleoDAO.GetOfertaEmpleo(idOfertaEmpleo, tokenString);
+                OfertaEmpleo ofertaEmpleoEdicion = await OfertaEmpleoDAO.GetOfertaEmpleo(idOfertaEmpleo, token);
 
                 tbNombreEmpleo.Text = ofertaEmpleoEdicion.Nombre;
 
@@ -103,24 +105,31 @@ namespace El_Camello.Vistas.Empleador
                 tbDireccion.Text = ofertaEmpleoEdicion.Direccion;
                 tbDescripcion.Text = ofertaEmpleoEdicion.Descripcion;
 
-
-                CargarImagenes(ofertaEmpleoEdicion.FotografiasEdicion);
                 marcarChecksDias(ofertaEmpleoEdicion.DiasLaborales);
+
+
 
             }
             catch (Exception exception)
             {
-                error = new MensajesSistema("Error", "Hubo un error al cargar la oferta de empleo, favor de intentar más tarde", exception.StackTrace, exception.Message);
-                error.ShowDialog();
+                mensajes = new MensajesSistema("Error", "Hubo un error al cargar la oferta de empleo, favor de intentar más tarde", exception.StackTrace, exception.Message);
+                mensajes.ShowDialog();
+            }
+            
+            //xdddd
+            try
+            {
+                List<FotografiaOferta> fotografiasEdicion = await OfertaEmpleoDAO.GetFotografiasOfertaEmpleo(idOfertaEmpleo);
+                CargarImagenes(fotografiasEdicion);
+            }catch(Exception e)
+            {
+                MessageBox.Show(e.Message);
             }
 
         }
 
         private void CargarImagenes(List<FotografiaOferta> fotografias)
         {
-            // byte[] imagen1 = reporteDetallado.Evidencia[0];
-
-           
             foreach (FotografiaOferta imagenAux in fotografias)
             {
                 using (var ms1 = new System.IO.MemoryStream(imagenAux.Imagen))
@@ -160,12 +169,12 @@ namespace El_Camello.Vistas.Empleador
         {
             try
             {
-                //categorias = await CategoriaDAO.GetCategorias();
+                categorias = await CategoriaDAO.GetCategorias();
                 cbCategorias.ItemsSource = categorias;
             }
             catch(Exception exception) {
-                error = new MensajesSistema("Error", "Hubo un error al cargar las categorias de empleo, favor de intentar más tarde", exception.StackTrace, exception.Message);
-                error.ShowDialog();
+                mensajes = new MensajesSistema("Error", "Hubo un error al cargar las categorias de empleo, favor de intentar más tarde", exception.StackTrace, exception.Message);
+                mensajes.ShowDialog();
             }
         }
 
@@ -233,11 +242,17 @@ namespace El_Camello.Vistas.Empleador
 
             
             int idOfertaEmpleo = await OfertaEmpleoDAO.PostOfertaEmpleo(ofertaEmpleoNueva, token);
-            
+            if (idOfertaEmpleo > 0)
+                {
+                    mensajes = new MensajesSistema("AccionExitosa", "Se ha registrado correctamente la oferta de empleo: " + ofertaEmpleoNueva.Nombre, "Registrar oferta de empleo", "Oferta de empleo registrada");
+                    mensajes.ShowDialog();
+                    notificacion.actualizarCambios("Registrar oferta empleo");
+                }
+
             }catch(Exception exception)
             {
-                error = new MensajesSistema("Error", "Hubo un error al intentar registrar, favor de intentar más tarde", exception.StackTrace, exception.Message);
-                error.ShowDialog();
+                mensajes = new MensajesSistema("Error", "Hubo un error al intentar registrar, favor de intentar más tarde", exception.StackTrace, exception.Message);
+                mensajes.ShowDialog();
             }
 
         }
@@ -248,8 +263,6 @@ namespace El_Camello.Vistas.Empleador
 
             try
             {
-
-
                 ofertaEmpleoNueva.IdOfertaEmpleo = idOfertaEmpleo;
                 ofertaEmpleoNueva.IdPerfilEmpleador = idPerfilEmpleador;
                 Categoria categoria = (Categoria)cbCategorias.SelectedItem;
@@ -281,13 +294,20 @@ namespace El_Camello.Vistas.Empleador
                 ofertaEmpleoNueva.Fotografias = imagenes;
 
 
-                await OfertaEmpleoDAO.PutOfertaEmpleo(ofertaEmpleoNueva, token);
+                int actualizado = await OfertaEmpleoDAO.PutOfertaEmpleo(ofertaEmpleoNueva, token);
+                if (actualizado > 0)
+                {
+                    mensajes = new MensajesSistema("AccionExitosa", "Se ha actualizado correctamente la oferta de empleo: " + ofertaEmpleoNueva.Nombre, "Registrar oferta de empleo", "Oferta de empleo registrada");
+                    mensajes.ShowDialog();
+
+                    notificacion.actualizarCambios("Actualizar oferta empleo");
+                }
 
             }
             catch (Exception exception)
             {
-                error = new MensajesSistema("Error", "Hubo un error al intentar registrar, favor de intentar más tarde", exception.StackTrace, exception.Message);
-                error.ShowDialog();
+                mensajes = new MensajesSistema("Error", "Hubo un error al intentar actualizar, favor de intentar más tarde", exception.StackTrace, exception.Message);
+                mensajes.ShowDialog();
             }
 
         }

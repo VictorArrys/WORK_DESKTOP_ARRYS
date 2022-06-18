@@ -135,6 +135,11 @@ namespace El_Camello.Vistas.Demandante
         private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+
+        }    
+        public void actualizarCambios(string operacion)
+        {
+            throw new NotImplementedException();
         }
     }
 }

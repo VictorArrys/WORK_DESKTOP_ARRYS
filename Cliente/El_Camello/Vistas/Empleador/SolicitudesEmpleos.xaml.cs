@@ -25,15 +25,19 @@ namespace El_Camello.Vistas.Empleador
         private List<SolicitudEmpleo> solicitudes = new List<SolicitudEmpleo>();
         private List<SolicitudEmpleo> solicitudesAceptadas = new List<SolicitudEmpleo>();
 
+        private List<SolicitudEmpleo> solicitudesPendientes = new List<SolicitudEmpleo>();
+
         private string token;
         private int idOfertaEmpleo;
+        private int vacantes;
 
-        MensajesSistema error;        
+        MensajesSistema mensajes;        
 
-        public SolcitudesEmpleos(string token, int idOfertaEmpleo)
+        public SolcitudesEmpleos(string token, int idOfertaEmpleo, int vacantes)
         {
             this.token = token;
             this.idOfertaEmpleo = idOfertaEmpleo;
+            this.vacantes = vacantes;
             InitializeComponent();
             cargarSolicitudes();
 
@@ -42,9 +46,10 @@ namespace El_Camello.Vistas.Empleador
         private void cargarSolicitudes()
         {
             recuperarSolicitudes();
+            lbVacantesUso.Content = "Ocupadas: " + solicitudesAceptadas.Count;
 
+            lbVacantesUso.Content = "Vacantes: " + vacantes;
 
-            
         }
 
         private async void recuperarSolicitudes()
@@ -57,24 +62,25 @@ namespace El_Camello.Vistas.Empleador
             }
             catch (Exception exceptionGetList)
             {
-                error = new MensajesSistema("Error", "Hubo un error al intentar cargar las solicitudes de empleo, favor de intentar más tarde", exceptionGetList.StackTrace, exceptionGetList.Message);
-                error.ShowDialog();
+                mensajes = new MensajesSistema("Error", "Hubo un error al intentar cargar las solicitudes de empleo, favor de intentar más tarde", exceptionGetList.StackTrace, exceptionGetList.Message);
+                mensajes.ShowDialog();
             }
-
-            dgVacantesEnUso.ItemsSource = solicitudes.FindAll(
+            solicitudesAceptadas = solicitudes.FindAll(
 
             delegate (SolicitudEmpleo solicitudAceptada)
             {
                 return solicitudAceptada.Estatus == "Aprobada";
-            }
-            );
+            });
 
-            dgSolicitudes.ItemsSource = solicitudes.FindAll(
+            dgVacantesEnUso.ItemsSource = solicitudesAceptadas;
+            
+            solicitudesPendientes = solicitudes.FindAll(
             delegate (SolicitudEmpleo solicitudAceptada)
             {
                 return solicitudAceptada.Estatus == "Pendiente";
             }
             );
+            dgSolicitudes.ItemsSource = solicitudesPendientes;
 
         }
 
@@ -96,5 +102,68 @@ namespace El_Camello.Vistas.Empleador
             }
 
         }
+
+        private async void aceptarEmpleado(object sender, RoutedEventArgs e)
+        {
+            int indiceSeleccion = dgSolicitudes.SelectedIndex;
+
+            if (indiceSeleccion >= 0)
+            {
+                SolicitudEmpleo solicitudSeleccionada = solicitudes[indiceSeleccion];
+                int solicitudAceptada = await SolicitudEmpleoDAO.PatchAceptarSolicitud(token, solicitudSeleccionada.IdSolicitud);
+               
+                if(solicitudAceptada == 1)
+                {
+                    mensajes = new MensajesSistema("AccionExitosa", "La acción que ha realizado se completo correctamente", "Aceptar solcitud", "Se ha aceptado la solicitud de empleo");
+                    mensajes.ShowDialog();
+                    vacantes --;
+                    cargarSolicitudes();
+                }
+                else
+                {
+                    mensajes = new MensajesSistema("Error", "La acción que ha realizado ha fallado", "Intento aceptar una solicitud", "No se ha podido aceptar la solicitud de empleo");
+                    mensajes.ShowDialog();
+                }
+
+            }
+            else
+            {
+                mensajes = new MensajesSistema("AccionInvalida", "La acción que ha realizado es invalida", "Intento aceptar una solcitud", "Selecciona una solicitud para aceptarla posteriormente");
+                mensajes.ShowDialog();
+            }
+
+        }
+
+        private async void rechazarEmpleado(object sender, RoutedEventArgs e)
+        {
+            int indiceSeleccion = dgSolicitudes.SelectedIndex;
+
+            if (indiceSeleccion >= 0)
+            {
+                SolicitudEmpleo solicitudSeleccionada = solicitudes[indiceSeleccion];
+                int solicitudRechazada = await SolicitudEmpleoDAO.PatchRechazarSolicitud(token, solicitudSeleccionada.IdSolicitud);
+
+                if (solicitudRechazada == 1)
+                {
+                    mensajes = new MensajesSistema("AccionExitosa", "La acción que ha realizado se completo correctamente", "Rechazar solcitud", "Se ha rechazado la solicitud de empleo");
+                    mensajes.ShowDialog();
+                    cargarSolicitudes();
+                }
+                else
+                {
+                    mensajes = new MensajesSistema("Error", "La acción que ha realizado ha fallado", "Intento rechazar una solicitud", "No se ha podido rechazar la solicitud de empleo");
+                    mensajes.ShowDialog();
+                }
+
+            }
+            else
+            {
+                mensajes = new MensajesSistema("AccionInvalida", "La acción que ha realizado es invalida", "Intento rechazar una solcitud", "Selecciona una solicitud para aceptarla posteriormente");
+                mensajes.ShowDialog();
+            }
+
+        }
+
+
     }
 }

@@ -84,7 +84,6 @@ namespace El_Camello.Vistas.Empleador
             CargarEmpleador(usuarioConectado);
         }
 
-
         private void CargarImagen(Modelo.clases.Usuario usuarioConectado)
         {
 
@@ -132,6 +131,7 @@ namespace El_Camello.Vistas.Empleador
         private void btnEditarPerfil_Click(object sender, RoutedEventArgs e)
         {
             RegistrarEmpleador registrarEmpleador = new RegistrarEmpleador(empleador, this);
+
             registrarEmpleador.ShowDialog();
         }
 
@@ -242,7 +242,7 @@ namespace El_Camello.Vistas.Empleador
             {
                 OfertaEmpleo ofertaEmpleoEditar = ofertasTabla[indiceSeleccion];
 
-                SolcitudesEmpleos ventanaSolicitudes = new SolcitudesEmpleos(token, ofertaEmpleoEditar.IdOfertaEmpleo);
+                SolcitudesEmpleos ventanaSolicitudes = new SolcitudesEmpleos(token, ofertaEmpleoEditar.IdOfertaEmpleo, ofertaEmpleoEditar.Vacantes);
                 ventanaSolicitudes.ShowDialog();
             }
             else
@@ -258,10 +258,19 @@ namespace El_Camello.Vistas.Empleador
             this.Close();
         }
 
-        public void actualizarInformacion(string operacion)
+        public void actualizarCambios(string operacion)
         {
-            ofertasTabla.Clear();
-            CargarOfertasTabla();
+            switch (operacion)
+            {
+                case "Registrar oferta empleo":
+                    ofertasTabla.Clear();
+                    CargarOfertasTabla();
+                    break;
+                case "Actualizar oferta empleo":
+                    ofertasTabla.Clear();
+                    CargarOfertasTabla();
+                    break;
+            };
         }
     }
 }

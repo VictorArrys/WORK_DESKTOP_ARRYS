@@ -18,7 +18,7 @@
             </Grid.Background>
         </Grid>
         <Label Content="Evaluación aspirante" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="26"/>
-        <Button Content="Evaluar" HorizontalAlignment="Center" VerticalAlignment="Top" Width="130" Foreground="White" RenderTransformOrigin="-1.106,7.116" Margin="0,351,0,0" Height="34">
+        <Button Content="Evaluar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130" Foreground="White" RenderTransformOrigin="-1.106,7.116" Margin="135,352,0,0" Height="34">
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
             </Button.Background>
@@ -27,11 +27,6 @@
             </Button.BorderBrush>
         </Button>
         <Label Content="Nombre del empleado: " HorizontalAlignment="Left" Margin="15,62,0,0" VerticalAlignment="Top"/>
-        <RadioButton Content="1" HorizontalAlignment="Left" Margin="63,288,0,0" VerticalAlignment="Top"/>
-        <RadioButton Content="2" HorizontalAlignment="Left" Margin="125,288,0,0" VerticalAlignment="Top"/>
-        <RadioButton Content="3" HorizontalAlignment="Left" Margin="184,288,0,0" VerticalAlignment="Top"/>
-        <RadioButton Content="4" HorizontalAlignment="Left" Margin="244,288,0,0" VerticalAlignment="Top"/>
-        <RadioButton Content="5" HorizontalAlignment="Left" Margin="318,288,0,0" VerticalAlignment="Top"/>
         <Grid RenderTransformOrigin="0.496,0.438" Margin="125,122,154,191">
             <Grid.Background>
                 <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
@@ -45,8 +40,10 @@
                 </Button.BorderBrush>
             </Button>
         </Grid>
-        <Image HorizontalAlignment="Left" Height="110" Margin="138,132,0,0" VerticalAlignment="Top" Width="122"/>
-        <Label Content="[Nombre del empleado]" HorizontalAlignment="Left" Margin="156,62,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.079,-0.114" Width="264"/>
+        <Image x:Name="imgAspirante" HorizontalAlignment="Left" Height="110" Margin="138,132,0,0" VerticalAlignment="Top" Width="122"/>
+        <Label x:Name="lbNombre" Content="[Nombre del empleado]" HorizontalAlignment="Left" Margin="156,62,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.079,-0.114" Width="264"/>
+        <ComboBox x:Name="cbValoraciones" HorizontalAlignment="Left" Margin="140,288,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Asigna la valoración: " HorizontalAlignment="Left" Margin="132,250,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

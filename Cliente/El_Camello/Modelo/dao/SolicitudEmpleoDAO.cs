@@ -91,6 +91,86 @@ namespace El_Camello.Modelo.dao
             return solicitudesEmpleo;
         }
 
+        public static async Task<int> PatchAceptarSolicitud(string token, int idSolicitudEmpleo)
+        {
+
+            MensajesSistema errorMessage;
+            int aceptada = 0;
+            using (var cliente = new HttpClient())
+            {
+                cliente.DefaultRequestHeaders.Add("x-access-token", token);
+                string endpoint = "http://localhost:5000/v1/solicitudesEmpleo/" + idSolicitudEmpleo + "/aceptada";
+
+                try
+                {
+                    HttpResponseMessage respuesta = await cliente.PatchAsync(endpoint, null);
+
+                    RespuestasAPI respuestaAPI = new RespuestasAPI();
+
+
+                    if (respuesta.StatusCode == HttpStatusCode.NoContent)
+                    {
+                        aceptada = 1;
+
+                    }
+                    else
+                    {
+                        respuestaAPI.gestionRespuestasApi("PatchAceptarSolicitud", respuesta);
+                    }
+
+                }
+                catch (HttpRequestException exception)
+                {
+                    errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Aceptar solicitud de empleo", exception.Message);
+                    errorMessage.ShowDialog();
+                }
+
+
+            }
+
+            return aceptada;
+        }
+
+        public static async Task<int> PatchRechazarSolicitud(string token, int idSolicitudEmpleo)
+        {
+
+            MensajesSistema errorMessage;
+            int aceptada = 0;
+            using (var cliente = new HttpClient())
+            {
+                cliente.DefaultRequestHeaders.Add("x-access-token", token);
+                string endpoint = "http://localhost:5000/v1/solicitudesEmpleo/" + idSolicitudEmpleo + "/rechazada";
+
+                try
+                {
+                    HttpResponseMessage respuesta = await cliente.PatchAsync(endpoint, null);
+
+                    RespuestasAPI respuestaAPI = new RespuestasAPI();
+
+
+                    if (respuesta.StatusCode == HttpStatusCode.NoContent)
+                    {
+                        aceptada = 1;
+
+                    }
+                    else
+                    {
+                        respuestaAPI.gestionRespuestasApi("PatchRechazarSolicitud", respuesta);
+                    }
+
+                }
+                catch (HttpRequestException exception)
+                {
+                    errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Rechazar solicitud de empleo", exception.Message);
+                    errorMessage.ShowDialog();
+                }
+
+
+            }
+
+            return aceptada;
+        }
+
 
     }
 }
