@@ -45,8 +45,7 @@ namespace El_Camello.Assets.utilerias
                     string noEncontrado = (string)respuestaObjectBody["type error"]["message"];
                     //Invocar clase para mensajes
                     errorMessage = new MensajesSistema("Error", "No se pudo encontrar el recurso", ubicacion, noEncontrado);
-                    errorMessage.ShowDialog();
-                    
+                    errorMessage.ShowDialog();                   
 
                     break;
 

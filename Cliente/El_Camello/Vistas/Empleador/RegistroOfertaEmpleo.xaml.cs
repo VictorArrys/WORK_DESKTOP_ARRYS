@@ -28,6 +28,7 @@ namespace El_Camello.Vistas.Empleador
         private int idPerfilEmpleador = 0;
         private List<Categoria> categorias;
         private List<string> tiposDePago;
+        OfertaEmpleo ofertaEmpleoEdicion = new OfertaEmpleo();
 
         private string token ="";
         private int idOfertaEmpleo = 0;
@@ -35,7 +36,7 @@ namespace El_Camello.Vistas.Empleador
         observadorRespuesta notificacion; ///
         Boolean isNuevo = true; ///
 
-
+        List<FotografiaOferta> imagenesEdicion = new List<FotografiaOferta>();
         List<byte[]> imagenes = new List<byte[]>();
 
         Uri fileUri1;
@@ -76,7 +77,7 @@ namespace El_Camello.Vistas.Empleador
             {
                 string tokenString = "" + token;
 
-                OfertaEmpleo ofertaEmpleoEdicion = await OfertaEmpleoDAO.GetOfertaEmpleo(idOfertaEmpleo, token);
+                ofertaEmpleoEdicion = await OfertaEmpleoDAO.GetOfertaEmpleo(idOfertaEmpleo, token);
 
                 tbNombreEmpleo.Text = ofertaEmpleoEdicion.Nombre;
 
@@ -107,7 +108,10 @@ namespace El_Camello.Vistas.Empleador
 
                 marcarChecksDias(ofertaEmpleoEdicion.DiasLaborales);
 
-
+                ofertaEmpleoEdicion.FotografiasEdicion = await OfertaEmpleoDAO.GetFotografiasOfertaEmpleo(idOfertaEmpleo);
+                //Guardamos las imagenes con id
+                imagenesEdicion = ofertaEmpleoEdicion.FotografiasEdicion;
+                CargarImagenesEdicion(ofertaEmpleoEdicion.FotografiasEdicion);
 
             }
             catch (Exception exception)
@@ -116,11 +120,9 @@ namespace El_Camello.Vistas.Empleador
                 mensajes.ShowDialog();
             }
             
-            //xdddd
             try
             {
-                List<FotografiaOferta> fotografiasEdicion = await OfertaEmpleoDAO.GetFotografiasOfertaEmpleo(idOfertaEmpleo);
-                CargarImagenes(fotografiasEdicion);
+                
             }catch(Exception e)
             {
                 MessageBox.Show(e.Message);
@@ -128,7 +130,7 @@ namespace El_Camello.Vistas.Empleador
 
         }
 
-        private void CargarImagenes(List<FotografiaOferta> fotografias)
+        private void CargarImagenesEdicion(List<FotografiaOferta> fotografias)
         {
             foreach (FotografiaOferta imagenAux in fotografias)
             {
@@ -278,7 +280,6 @@ namespace El_Camello.Vistas.Empleador
                 string tipoPago = (string)cbTipoPago.SelectedItem;
                 ofertaEmpleoNueva.TipoPago = tipoPago;
 
-
                 ofertaEmpleoNueva.CantidadPago = int.Parse(tbPago.Text);
                 ofertaEmpleoNueva.Direccion = tbDireccion.Text;
                 string horaInicio = tbHoraInicio.Text;
@@ -290,17 +291,23 @@ namespace El_Camello.Vistas.Empleador
 
                 ofertaEmpleoNueva.FechaInicio = dpFechaInicio.SelectedDate.Value;
                 ofertaEmpleoNueva.FechaFinalizacion = dpFechaFinalizacion.SelectedDate.Value;
-
+                ofertaEmpleoNueva.FotografiasEdicion = imagenesEdicion;
                 ofertaEmpleoNueva.Fotografias = imagenes;
 
-
-                int actualizado = await OfertaEmpleoDAO.PutOfertaEmpleo(ofertaEmpleoNueva, token);
-                if (actualizado > 0)
+                if (validarOfertaEmpleo(ofertaEmpleoNueva))
                 {
-                    mensajes = new MensajesSistema("AccionExitosa", "Se ha actualizado correctamente la oferta de empleo: " + ofertaEmpleoNueva.Nombre, "Registrar oferta de empleo", "Oferta de empleo registrada");
-                    mensajes.ShowDialog();
+                    int actualizado = await OfertaEmpleoDAO.PutOfertaEmpleo(ofertaEmpleoNueva, token);
+                    if (actualizado > 0)
+                    {
+                        mensajes = new MensajesSistema("AccionExitosa", "Se ha actualizado correctamente la oferta de empleo: " + ofertaEmpleoNueva.Nombre, "Registrar oferta de empleo", "Oferta de empleo registrada");
+                        mensajes.ShowDialog();
 
-                    notificacion.actualizarCambios("Actualizar oferta empleo");
+                        notificacion.actualizarCambios("Actualizar oferta empleo");
+                    }
+                }
+                else{
+                    mensajes = new MensajesSistema("AccionInvalida", "La acción que ha realizado es invalida", "Intento de actualizar oferta de empleo", "Para actualizar haga algún cambio");
+                    mensajes.ShowDialog();
                 }
 
             }
@@ -310,6 +317,17 @@ namespace El_Camello.Vistas.Empleador
                 mensajes.ShowDialog();
             }
 
+        }
+
+        private bool validarOfertaEmpleo(OfertaEmpleo ofertaEmpleoNueva)
+        {
+            bool valido = true;
+            ValidacionActualizar validar = new ValidacionActualizar();
+            valido = validar.esDiferente(ofertaEmpleoNueva, ofertaEmpleoEdicion);
+
+
+
+            return valido;
         }
 
         private void marcarChecksDias(string diasLaborales)
@@ -398,8 +416,6 @@ namespace El_Camello.Vistas.Empleador
 
         private void agregarFoto(object sender, RoutedEventArgs e)
         {
-            
-
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Image files (*.jpg) | *.jpg;";
 

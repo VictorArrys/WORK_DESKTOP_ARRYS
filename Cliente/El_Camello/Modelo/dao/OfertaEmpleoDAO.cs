@@ -357,7 +357,7 @@ namespace El_Camello.Modelo.dao
                         var contenidoImagen = new ByteArrayContent(foto);
                         contenidoImagen.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
                         fotoOfertaEmpleo.Add(contenidoImagen, "fotografia", "fotografiaOferta.jpg");
-                        string endpointfoto = String.Format("http://localhost:5000/v1/ofertasEmpleo-E/" + idOfertaEmpleo + "/fotografia");
+                        string endpointfoto = string.Format("http://localhost:5000/v1/ofertasEmpleo-E/" + idOfertaEmpleo + "/fotografia");
 
                         HttpResponseMessage respuestaFoto = await cliente.PostAsync(endpointfoto, fotoOfertaEmpleo);
                         RespuestasAPI respuestaAPI = new RespuestasAPI();
@@ -454,6 +454,55 @@ namespace El_Camello.Modelo.dao
             return listaFotografias;
         }
 
+        public static async Task<int> PutFotografiasOfertaEmpleo(int idOfertaEmpleo, List<FotografiaOferta> fotografias, List<byte[]> fotosEditadas)
+        {
+            MensajesSistema errorMessage;
+            int resultado = -1;
+
+            using (var cliente = new HttpClient())
+            {
+                try
+                {
+                    int contador = 0;
+                    foreach (var foto in fotosEditadas)
+                    {
+                        
+                        MultipartFormDataContent fotoOfertaEmpleo = new MultipartFormDataContent();
+
+                        var contenidoImagen = new ByteArrayContent(foto);
+                        contenidoImagen.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
+                        fotoOfertaEmpleo.Add(contenidoImagen, "fotografia", "fotografiaOferta.jpg");
+                        string endpointfoto = "http://localhost:5000/v1/ofertasEmpleo-E/" + idOfertaEmpleo + "/" + fotografias[contador].IdFotografia + "/fotografia";
+
+                        HttpResponseMessage respuestaFoto = await cliente.PutAsync(endpointfoto, fotoOfertaEmpleo);
+                        RespuestasAPI respuestaAPI = new RespuestasAPI();
+
+
+                        if (respuestaFoto.StatusCode == HttpStatusCode.OK)
+                        {
+                            resultado = 1;
+                            contador++;
+                        }
+                        else
+                        {
+                            respuestaAPI.gestionRespuestasApi("Actualizar imagenes de oferta de empleo", respuestaFoto);
+                            resultado = 0;
+                        }
+
+                    }
+
+                }
+                catch (Exception exception)
+                {
+                    errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Actualizar imagenes de oferta de empleo", exception.Message);
+                    errorMessage.ShowDialog();
+                }
+            }
+
+
+            return resultado;
+        }
+
         public static async Task<int> PutOfertaEmpleo(OfertaEmpleo ofertaEmpleoEdicion, string token)
         {
 
@@ -513,24 +562,22 @@ namespace El_Camello.Modelo.dao
                         JObject objetoCreado = JsonConvert.DeserializeObject<JObject>(body);
                         int modificado = (int)objetoCreado["cambios"];
                         res = modificado;
-
-
-                        /*
-                        int resultadoCrearFotos = await PostFotografiasOfertaEmpleo(idCreado, ofertaEmpleoEdicion.Fotografias);
-                        if (resultadoCrearFotos == 1)
+                        
+                        int resultadoModificarFotos = await PutFotografiasOfertaEmpleo(ofertaEmpleoEdicion.IdOfertaEmpleo, ofertaEmpleoEdicion.FotografiasEdicion, ofertaEmpleoEdicion.Fotografias);
+                        if (resultadoModificarFotos == 1)
                         {
-                            MessageBox.Show("Se han creado correctamente las fotos");
+                            MessageBox.Show("Se han actualizado correctamente las fotos");
 
                         }
-                        else if (resultadoCrearFotos == 0)
+                        else if (resultadoModificarFotos == 0)
                         {
-                            MessageBox.Show("Ocurrio un error al guardar alguna imagen");
+                            MessageBox.Show("Ocurrio un error al actualizar alguna imagen");
                         }
                         else
                         {
                             MessageBox.Show("No se creo ninguna imagen");
                         }
-                        */
+                        
                     }
                     else
                     {
