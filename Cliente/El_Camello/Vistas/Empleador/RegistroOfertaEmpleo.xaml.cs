@@ -134,6 +134,7 @@ namespace El_Camello.Vistas.Empleador
         {
             foreach (FotografiaOferta imagenAux in fotografias)
             {
+                ofertaEmpleoEdicion.Fotografias.Add(imagenAux.Imagen);
                 using (var ms1 = new System.IO.MemoryStream(imagenAux.Imagen))
                 {
                     var imagen = new BitmapImage();
@@ -209,123 +210,222 @@ namespace El_Camello.Vistas.Empleador
         private async void registrarOfertaEmpleo()
         {
             OfertaEmpleo ofertaEmpleoNueva = new OfertaEmpleo();
-
-            try
+            if (validarOfertaEmpleo(ofertaEmpleoNueva))
             {
-
-            ofertaEmpleoNueva.IdPerfilEmpleador = idPerfilEmpleador;
-            Categoria categoria = (Categoria)cbCategorias.SelectedItem;
-            int idCategoria = categoria.IdCategoria;
-
-
-            ofertaEmpleoNueva.IdCategoriaEmpleo = idCategoria;
-            ofertaEmpleoNueva.Nombre = tbNombreEmpleo.Text;
-            ofertaEmpleoNueva.Descripcion = tbDescripcion.Text;
-            ofertaEmpleoNueva.Vacantes = int.Parse(tbVacantes.Text);
-            ofertaEmpleoNueva.DiasLaborales = diasLaborales();
-
-            string tipoPago = (string)cbTipoPago.SelectedItem;
-            ofertaEmpleoNueva.TipoPago = tipoPago;
-
-
-            ofertaEmpleoNueva.CantidadPago = int.Parse(tbPago.Text);
-            ofertaEmpleoNueva.Direccion = tbDireccion.Text;
-            string horaInicio = tbHoraInicio.Text;
-            string horaFin = tbHoraFin.Text;
-
-            ofertaEmpleoNueva.HoraInicio = TimeOnly.Parse(horaInicio);
-            ofertaEmpleoNueva.HoraFin = TimeOnly.Parse(horaFin);
-
-
-            ofertaEmpleoNueva.FechaInicio = dpFechaInicio.SelectedDate.Value;
-            ofertaEmpleoNueva.FechaFinalizacion = dpFechaFinalizacion.SelectedDate.Value;
-
-            ofertaEmpleoNueva.Fotografias = imagenes;
-
-            
-            int idOfertaEmpleo = await OfertaEmpleoDAO.PostOfertaEmpleo(ofertaEmpleoNueva, token);
-            if (idOfertaEmpleo > 0)
+                try
                 {
-                    mensajes = new MensajesSistema("AccionExitosa", "Se ha registrado correctamente la oferta de empleo: " + ofertaEmpleoNueva.Nombre, "Registrar oferta de empleo", "Oferta de empleo registrada");
-                    mensajes.ShowDialog();
-                    notificacion.actualizarCambios("Registrar oferta empleo");
-                }
+                    ofertaEmpleoNueva.IdPerfilEmpleador = idPerfilEmpleador;
+                    Categoria categoria = (Categoria)cbCategorias.SelectedItem;
+                    int idCategoria = categoria.IdCategoria;
 
-            }catch(Exception exception)
-            {
-                mensajes = new MensajesSistema("Error", "Hubo un error al intentar registrar, favor de intentar más tarde", exception.StackTrace, exception.Message);
-                mensajes.ShowDialog();
+                    ofertaEmpleoNueva.IdCategoriaEmpleo = idCategoria;
+                    ofertaEmpleoNueva.Nombre = tbNombreEmpleo.Text;
+                    ofertaEmpleoNueva.Descripcion = tbDescripcion.Text;
+                    ofertaEmpleoNueva.Vacantes = int.Parse(tbVacantes.Text);
+                    ofertaEmpleoNueva.DiasLaborales = diasLaborales();
+
+                    string tipoPago = (string)cbTipoPago.SelectedItem;
+                    ofertaEmpleoNueva.TipoPago = tipoPago;
+
+
+                    ofertaEmpleoNueva.CantidadPago = int.Parse(tbPago.Text);
+                    ofertaEmpleoNueva.Direccion = tbDireccion.Text;
+                    string horaInicio = tbHoraInicio.Text;
+                    string horaFin = tbHoraFin.Text;
+
+                    ofertaEmpleoNueva.HoraInicio = TimeOnly.Parse(horaInicio);
+                    ofertaEmpleoNueva.HoraFin = TimeOnly.Parse(horaFin);
+
+
+                    ofertaEmpleoNueva.FechaInicio = dpFechaInicio.SelectedDate.Value;
+                    ofertaEmpleoNueva.FechaFinalizacion = dpFechaFinalizacion.SelectedDate.Value;
+
+                    ofertaEmpleoNueva.Fotografias = imagenes;
+
+
+                    int idOfertaEmpleo = await OfertaEmpleoDAO.PostOfertaEmpleo(ofertaEmpleoNueva, token);
+                    if (idOfertaEmpleo > 0)
+                    {
+                        mensajes = new MensajesSistema("AccionExitosa", "Se ha registrado correctamente la oferta de empleo: " + ofertaEmpleoNueva.Nombre, "Registrar oferta de empleo", "Oferta de empleo registrada");
+                        mensajes.ShowDialog();
+                        notificacion.actualizarCambios("Registrar oferta empleo");
+                        this.Close();
+                    }
+
+
+                }
+                catch (Exception exception)
+                {
+                    mensajes = new MensajesSistema("Error", "Hubo un error al intentar registrar, favor de intentar más tarde", exception.StackTrace, exception.Message);
+                    mensajes.ShowDialog();
+                }
             }
+
 
         }
 
         private async void actualizarOfertaEmpleo()
         {
-            OfertaEmpleo ofertaEmpleoNueva = new OfertaEmpleo();
-
-            try
+            OfertaEmpleo ofertaEmpleoModificada = new OfertaEmpleo();
+            if (validarOfertaEmpleo(ofertaEmpleoModificada))
             {
-                ofertaEmpleoNueva.IdOfertaEmpleo = idOfertaEmpleo;
-                ofertaEmpleoNueva.IdPerfilEmpleador = idPerfilEmpleador;
-                Categoria categoria = (Categoria)cbCategorias.SelectedItem;
-                int idCategoria = categoria.IdCategoria;
-
-
-                ofertaEmpleoNueva.IdCategoriaEmpleo = idCategoria;
-                ofertaEmpleoNueva.Nombre = tbNombreEmpleo.Text;
-                ofertaEmpleoNueva.Descripcion = tbDescripcion.Text;
-                ofertaEmpleoNueva.Vacantes = int.Parse(tbVacantes.Text);
-                ofertaEmpleoNueva.DiasLaborales = diasLaborales();
-
-                string tipoPago = (string)cbTipoPago.SelectedItem;
-                ofertaEmpleoNueva.TipoPago = tipoPago;
-
-                ofertaEmpleoNueva.CantidadPago = int.Parse(tbPago.Text);
-                ofertaEmpleoNueva.Direccion = tbDireccion.Text;
-                string horaInicio = tbHoraInicio.Text;
-                string horaFin = tbHoraFin.Text;
-
-                ofertaEmpleoNueva.HoraInicio = TimeOnly.Parse(horaInicio);
-                ofertaEmpleoNueva.HoraFin = TimeOnly.Parse(horaFin);
-
-
-                ofertaEmpleoNueva.FechaInicio = dpFechaInicio.SelectedDate.Value;
-                ofertaEmpleoNueva.FechaFinalizacion = dpFechaFinalizacion.SelectedDate.Value;
-                ofertaEmpleoNueva.FotografiasEdicion = imagenesEdicion;
-                ofertaEmpleoNueva.Fotografias = imagenes;
-
-                if (validarOfertaEmpleo(ofertaEmpleoNueva))
+                try
                 {
-                    int actualizado = await OfertaEmpleoDAO.PutOfertaEmpleo(ofertaEmpleoNueva, token);
-                    if (actualizado > 0)
+                    ofertaEmpleoModificada.IdOfertaEmpleo = idOfertaEmpleo;
+                    ofertaEmpleoModificada.IdPerfilEmpleador = idPerfilEmpleador;
+                    Categoria categoria = (Categoria)cbCategorias.SelectedItem;
+                    int idCategoria = categoria.IdCategoria;
+
+
+                    ofertaEmpleoModificada.IdCategoriaEmpleo = idCategoria;
+                    ofertaEmpleoModificada.Nombre = tbNombreEmpleo.Text;
+                    ofertaEmpleoModificada.Descripcion = tbDescripcion.Text;
+                    ofertaEmpleoModificada.Vacantes = int.Parse(tbVacantes.Text);
+                    ofertaEmpleoModificada.DiasLaborales = diasLaborales();
+
+                    string tipoPago = (string)cbTipoPago.SelectedItem;
+                    ofertaEmpleoModificada.TipoPago = tipoPago;
+
+                    ofertaEmpleoModificada.CantidadPago = int.Parse(tbPago.Text);
+                    ofertaEmpleoModificada.Direccion = tbDireccion.Text;
+                    string horaInicio = tbHoraInicio.Text;
+                    string horaFin = tbHoraFin.Text;
+
+                    ofertaEmpleoModificada.HoraInicio = TimeOnly.Parse(horaInicio);
+                    ofertaEmpleoModificada.HoraFin = TimeOnly.Parse(horaFin);
+
+
+                    ofertaEmpleoModificada.FechaInicio = dpFechaInicio.SelectedDate.Value;
+                    ofertaEmpleoModificada.FechaFinalizacion = dpFechaFinalizacion.SelectedDate.Value;
+                    ofertaEmpleoModificada.FotografiasEdicion = imagenesEdicion;
+                    ofertaEmpleoModificada.Fotografias = imagenes;
+
+                
+                    int actualizado = await OfertaEmpleoDAO.PutOfertaEmpleo(ofertaEmpleoModificada, token);
+                    if (actualizado >= 1)
                     {
-                        mensajes = new MensajesSistema("AccionExitosa", "Se ha actualizado correctamente la oferta de empleo: " + ofertaEmpleoNueva.Nombre, "Registrar oferta de empleo", "Oferta de empleo registrada");
+                        mensajes = new MensajesSistema("AccionExitosa", "Se ha actualizado correctamente la oferta de empleo: " + ofertaEmpleoModificada.Nombre, "Actualizar oferta de empleo", "Oferta de empleo registrada");
                         mensajes.ShowDialog();
 
                         notificacion.actualizarCambios("Actualizar oferta empleo");
+                        this.Close();
+                    } else if (actualizado == 0)
+                    {
+                        mensajes = new MensajesSistema("AccionExitosa", "No se ha actualizado correctamente la oferta de empleo: " + ofertaEmpleoModificada.Nombre, "Actualizar oferta de empleo", "La oferta de empleo no tuvo cambios debido a que no ingreso ninguno");
+                        mensajes.ShowDialog();
                     }
+
+
+
+
                 }
-                else{
-                    mensajes = new MensajesSistema("AccionInvalida", "La acción que ha realizado es invalida", "Intento de actualizar oferta de empleo", "Para actualizar haga algún cambio");
+                catch (Exception exception)
+                {
+                    mensajes = new MensajesSistema("Error", "Hubo un error al intentar actualizar, favor de intentar más tarde", exception.StackTrace, exception.Message);
                     mensajes.ShowDialog();
                 }
-
-            }
-            catch (Exception exception)
-            {
-                mensajes = new MensajesSistema("Error", "Hubo un error al intentar actualizar, favor de intentar más tarde", exception.StackTrace, exception.Message);
-                mensajes.ShowDialog();
             }
 
         }
-
         private bool validarOfertaEmpleo(OfertaEmpleo ofertaEmpleoNueva)
         {
             bool valido = true;
-            ValidacionActualizar validar = new ValidacionActualizar();
-            valido = validar.esDiferente(ofertaEmpleoNueva, ofertaEmpleoEdicion);
+            ValidacionFormulario validarFormulario = new ValidacionFormulario();
+
+            List<ComboBox> combobox = new List<ComboBox>();
+            List<TextBox> textBox = new List<TextBox>();
+            List<DatePicker> datePicker = new List<DatePicker>();
+            List<CheckBox> checkBoxes = new List<CheckBox>();
+            checkBoxes.Add(chkLunes);
+            checkBoxes.Add(chkMartes);
+            checkBoxes.Add(chkMiercoles);
+            checkBoxes.Add(chkJueves);
+            checkBoxes.Add(chkViernes);
+            checkBoxes.Add(chkSabado);
+            checkBoxes.Add(chkDomingo);
+
+            combobox.Add(cbCategorias);
+            combobox.Add(cbTipoPago);
+
+            textBox.Add(tbNombreEmpleo);
+            textBox.Add(tbDescripcion);
+            textBox.Add(tbVacantes);
+            textBox.Add(tbPago);
+            textBox.Add(tbDireccion);
+            textBox.Add(tbDescripcion);
+            textBox.Add(tbHoraInicio);
+            textBox.Add(tbHoraFin);
+
+            datePicker.Add(dpFechaInicio);
+            datePicker.Add(dpFechaFinalizacion);
 
 
+
+            bool vacio = validarFormulario.comboboxVacios(combobox) && validarFormulario.textFieldsVacios(textBox) && validarFormulario.dataPickersVacios(datePicker) && validarFormulario.checkBoxsVacios(checkBoxes);
+            
+            if (vacio && imagenes.Count < 3)
+            {
+                valido = false;
+                mensajes = new MensajesSistema("AccionInvalida", "No se puede registrar con campos vacios", "Guardar oferta de empleo", "Para guardar una oferta de empleo debe ingresar toda la información requerida");
+                mensajes.ShowDialog();
+            }            
+            else
+            {
+                int comparacionFechas = validarFormulario.compararFecha(dpFechaInicio, dpFechaFinalizacion);
+                if (comparacionFechas == 1)
+                {
+                    bool horasValidas = true;
+                    horasValidas = validarFormulario.validarHora(tbHoraInicio);
+                    if (horasValidas)
+                    {
+                        horasValidas = validarFormulario.validarHora(tbHoraFin);
+                        if (horasValidas)
+                        {
+                            if (validarFormulario.textFieldEntero(tbVacantes) && validarFormulario.textFieldEntero(tbPago))
+                            {
+                                textBox.Remove(tbPago);
+                                textBox.Remove(tbVacantes);
+                                if (!validarFormulario.validarCampoMinimoCaracteres(textBox))
+                                {
+                                    if (imagenes.Count == 3)
+                                    {
+                                        valido = true;
+                                    }
+                                    else
+                                    {
+                                        valido = false;
+                                    }
+                                }
+                                else
+                                {
+                                    valido = false;
+                                }
+
+                            }
+                            else
+                            {
+                                valido = false;
+                            }
+
+                        }
+                        else
+                        {
+                            valido = false;
+                        }
+                    }
+                    else
+                    {
+                        valido = false;
+                    }
+
+                }
+                else
+                {
+                    valido = false;
+                }
+
+
+            }                      
 
             return valido;
         }
@@ -403,8 +503,6 @@ namespace El_Camello.Vistas.Empleador
                 diasLaborales += "7";
             }
 
-
-            MessageBox.Show("Días seleccionados: " + diasLaborales);
             return diasLaborales;
         }
 

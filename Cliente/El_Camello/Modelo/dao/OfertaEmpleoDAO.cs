@@ -562,20 +562,26 @@ namespace El_Camello.Modelo.dao
                         JObject objetoCreado = JsonConvert.DeserializeObject<JObject>(body);
                         int modificado = (int)objetoCreado["cambios"];
                         res = modificado;
-                        
-                        int resultadoModificarFotos = await PutFotografiasOfertaEmpleo(ofertaEmpleoEdicion.IdOfertaEmpleo, ofertaEmpleoEdicion.FotografiasEdicion, ofertaEmpleoEdicion.Fotografias);
-                        if (resultadoModificarFotos == 1)
-                        {
-                            MessageBox.Show("Se han actualizado correctamente las fotos");
 
-                        }
-                        else if (resultadoModificarFotos == 0)
+                        int cantidadFotos = ofertaEmpleoEdicion.Fotografias.Count;
+
+                        if (cantidadFotos > 0)
                         {
-                            MessageBox.Show("Ocurrio un error al actualizar alguna imagen");
-                        }
-                        else
-                        {
-                            MessageBox.Show("No se creo ninguna imagen");
+                            //Solo actualiza si hay cambios de fotos
+                            int resultadoModificarFotos = await PutFotografiasOfertaEmpleo(ofertaEmpleoEdicion.IdOfertaEmpleo, ofertaEmpleoEdicion.FotografiasEdicion, ofertaEmpleoEdicion.Fotografias);
+                            if (resultadoModificarFotos == 1)
+                            {
+                                MessageBox.Show("Se han actualizado correctamente las fotos");
+
+                            }
+                            else if (resultadoModificarFotos == 0)
+                            {
+                                MessageBox.Show("Ocurrio un error al actualizar alguna imagen");
+                            }
+                            else
+                            {
+                                MessageBox.Show("No se creo ninguna imagen");
+                            }
                         }
                         
                     }
