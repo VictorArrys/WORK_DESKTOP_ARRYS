@@ -187,10 +187,12 @@ namespace El_Camello.Modelo.dao
                             aspirante.NombreAspirante = (string)item["nombre"];
                             aspirante.Telefono = (string)item["telefono"];
                             aspirantes.Add(aspirante);
-                        }else
-                        {
-                            respuestaAPI.gestionRespuestasApi("Get Aspirantes", respuesta);
                         }
+                     
+                    }
+                    else
+                    {
+                        respuestaAPI.gestionRespuestasApi("Get Aspirantes", respuesta);
                     }
                 }
                 catch (HttpRequestException)
