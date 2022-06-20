@@ -102,7 +102,7 @@ namespace El_Camello.Vistas.Usuario
         {
             if (isNuevo)
             {
-                if (validarCampos())
+                if (validarCampos(isNuevo))
                 {
                     Uri uriImagen;
                     Modelo.clases.Usuario usuario = new Modelo.clases.Usuario();
@@ -150,87 +150,157 @@ namespace El_Camello.Vistas.Usuario
             {
                 Modelo.clases.Empleador modificarEmpleador = new Modelo.clases.Empleador();
 
-                if (nuevaFotografia)
+                if (validarCampos(isNuevo))
                 {
-                    Uri uriImagen;
-                    modificarEmpleador.RutaFotografia = rutaImagen;
-                    uriImagen = new Uri(modificarEmpleador.RutaFotografia);
-                    modificarEmpleador.Fotografia = System.IO.File.ReadAllBytes(uriImagen.LocalPath);
-                }
-                else
-                {
-                    byte[] fotografia;
-                    fotografia = empleador.Fotografia;
-                    modificarEmpleador.Fotografia = fotografia;
-                }
+                    if (nuevaFotografia)
+                    {
+                        Uri uriImagen;
+                        modificarEmpleador.RutaFotografia = rutaImagen;
+                        uriImagen = new Uri(modificarEmpleador.RutaFotografia);
+                        modificarEmpleador.Fotografia = System.IO.File.ReadAllBytes(uriImagen.LocalPath);
+                    }
+                    else
+                    {
+                        byte[] fotografia;
+                        fotografia = empleador.Fotografia;
+                        modificarEmpleador.Fotografia = fotografia;
+                    }
 
-                modificarEmpleador.NombreOrganizacion = tbNombreOrganizacion.Text;
-                modificarEmpleador.NombreEmpleador = tbNombre.Text;
-                modificarEmpleador.Direccion = tbDireccion.Text;
-                modificarEmpleador.FechaNacimiento = (DateTime)dpFechaNacimiento.SelectedDate;
-                modificarEmpleador.CorreoElectronico = tbCorreoElectronico.Text;
-                modificarEmpleador.Telefono = tbTelefono.Text;
-                modificarEmpleador.NombreUsuario = tbNombreUsuario.Text;
-                modificarEmpleador.Clave = pbConstraseña.Password;
-                modificarEmpleador.Estatus = empleador.Estatus;
-                modificarEmpleador.IdPerfilusuario = empleador.IdPerfilusuario;
-                modificarEmpleador.IdPerfilEmpleador = empleador.IdPerfilEmpleador;
-                modificarEmpleador.Token = empleador.Token;
-                int resultado = await EmpleadorDAO.putEmpleador(modificarEmpleador);
-                if (resultado == 1)
-                {
-                    Modelo.clases.Usuario usuario = null;
-                    usuario = await UsuarioDAO.getUsuario(modificarEmpleador.IdPerfilusuario, modificarEmpleador.Token);
-                    usuario.Token = modificarEmpleador.Token;
-                    notificacion.actualizarInformacion(usuario);
-                    MessageBox.Show("Actualización de tu perfil exitosa", "Operacion");
-                    this.Close();
+                    modificarEmpleador.NombreOrganizacion = tbNombreOrganizacion.Text;
+                    modificarEmpleador.NombreEmpleador = tbNombre.Text;
+                    modificarEmpleador.Direccion = tbDireccion.Text;
+                    modificarEmpleador.FechaNacimiento = (DateTime)dpFechaNacimiento.SelectedDate;
+                    modificarEmpleador.CorreoElectronico = tbCorreoElectronico.Text;
+                    modificarEmpleador.Telefono = tbTelefono.Text;
+                    modificarEmpleador.NombreUsuario = tbNombreUsuario.Text;
+                    modificarEmpleador.Clave = pbConstraseña.Password;
+                    modificarEmpleador.Estatus = empleador.Estatus;
+                    modificarEmpleador.IdPerfilusuario = empleador.IdPerfilusuario;
+                    modificarEmpleador.IdPerfilEmpleador = empleador.IdPerfilEmpleador;
+                    modificarEmpleador.Token = empleador.Token;
+
+                    int resultado = await EmpleadorDAO.putEmpleador(modificarEmpleador);
+                    if (resultado == 1)
+                    {
+                        Modelo.clases.Usuario usuario = null;
+                        usuario = await UsuarioDAO.getUsuario(modificarEmpleador.IdPerfilusuario, modificarEmpleador.Token);
+                        usuario.Token = modificarEmpleador.Token;
+                        notificacion.actualizarInformacion(usuario);
+                        MessageBox.Show("Actualización de tu perfil exitosa", "Operacion");
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ocurrio un error al modificar tu perfil", "¡Operación!");
+                        this.Close();
+                    }
                 }
-                else
-                {
-                    ///
-                }
+                
             }
         }
 
-        private bool validarCampos()
+        private bool validarCampos(bool isNuevo)
         {
             bool validar = false;
-            if (tbNombreOrganizacion.Text == "")
+            if (isNuevo)
             {
-                validar = false;
-            }else if (tbNombre.Text == "")
-            {
-                validar = false;
-            }else if (tbDireccion.Text == "")
-            {
-                validar = false;
-            }else if (dpFechaNacimiento.SelectedDate == null)
-            {
-                validar = false;
-            }else if (tbCorreoElectronico.Text == "")
-            {
-                validar = false;
-            }else if (tbTelefono.Text == "")
-            {
-                validar = false;
-            }else if (tbNombreUsuario.Text == "")
-            {
-                validar = false;
-            }else if (pbConstraseña.Password != "" || pbConfirmarContraseña.Password != "")
-            {
-                if (pbConstraseña.Password != pbConfirmarContraseña.Password)
+                if (tbNombreOrganizacion.Text == "")
                 {
-                    MessageBox.Show("Por favor introducir la misma contraseña en ambos campos para confirmar", "¡Operacion!");
-                    validar = false;
-                }else if (imgFotografiaEmpleador.Source == null)
-                {
-                    MessageBox.Show("Por favor seleccionar una foto de perfil para tu cuenta, preferentemente una fotografia personal","¡Operación!");
                     validar = false;
                 }
-                else
+                else if (tbNombre.Text == "")
                 {
-                    validar = true;
+                    validar = false;
+                }
+                else if (tbDireccion.Text == "")
+                {
+                    validar = false;
+                }
+                else if (dpFechaNacimiento.SelectedDate == null)
+                {
+                    validar = false;
+                }
+                else if (tbCorreoElectronico.Text == "")
+                {
+                    validar = false;
+                }
+                else if (tbTelefono.Text == "")
+                {
+                    validar = false;
+                }
+                else if (tbNombreUsuario.Text == "")
+                {
+                    validar = false;
+                }
+                else if (pbConstraseña.Password != "" || pbConfirmarContraseña.Password != "")
+                {
+                    if (pbConstraseña.Password != pbConfirmarContraseña.Password)
+                    {
+                        if (pbConstraseña.Password != pbConfirmarContraseña.Password)
+                        {
+                            MessageBox.Show("Por favor introducir la misma contraseña en ambos campos para confirmar", "¡Operacion!");
+                            validar = false;
+                        }
+                        else if (imgFotografiaEmpleador.Source == null)
+                        {
+                            MessageBox.Show("Por favor seleccionar una foto de perfil para tu cuenta, preferentemente una fotografia personal", "¡Operación!");
+                            validar = false;
+                        }
+                        else
+                        {
+                            validar = true;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (tbNombreOrganizacion.Text == "")
+                {
+                    validar = false;
+                }
+                else if (tbNombre.Text == "")
+                {
+                    validar = false;
+                }
+                else if (tbDireccion.Text == "")
+                {
+                    validar = false;
+                }
+                else if (dpFechaNacimiento.SelectedDate == null)
+                {
+                    validar = false;
+                }
+                else if (tbCorreoElectronico.Text == "")
+                {
+                    validar = false;
+                }
+                else if (tbTelefono.Text == "")
+                {
+                    validar = false;
+                }
+                else if (tbNombreUsuario.Text == "")
+                {
+                    validar = false;
+                }else if (pbConstraseña.Password != "" || pbConfirmarContraseña.Password != "")
+                {
+                    if (pbConstraseña.Password != pbConfirmarContraseña.Password)
+                    {
+                        if (pbConstraseña.Password != pbConfirmarContraseña.Password)
+                        {
+                            MessageBox.Show("Por favor introducir la misma contraseña en ambos campos para confirmar", "¡Operacion!");
+                            validar = false;
+                        }
+                        else if (imgFotografiaEmpleador.Source == null)
+                        {
+                            MessageBox.Show("Por favor seleccionar una foto de perfil para tu cuenta, preferentemente una fotografia personal", "¡Operación!");
+                            validar = false;
+                        }
+                        else
+                        {
+                            validar = true;
+                        }
+                    }
                 }
             }
             return validar;

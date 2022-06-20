@@ -35,13 +35,22 @@
         <Label Content="Nombre usuario:" HorizontalAlignment="Left" Margin="26,295,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Label Content="Contraseña:" HorizontalAlignment="Left" Margin="26,400,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Label Content="Estatus:" HorizontalAlignment="Left" Margin="445,292,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-        <DatePicker x:Name="dpFechaNacimiento" HorizontalAlignment="Left" Margin="409,145,0,0" VerticalAlignment="Top" Width="256"/>
-        <TextBox x:Name="tbTelefono" HorizontalAlignment="Left" Margin="409,210,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="256" Height="24"/>
-        <TextBox x:Name="tbDireccion" HorizontalAlignment="Left" Margin="406,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="256" Height="24"/>
-        <TextBox x:Name="tbCorreoElectronico" HorizontalAlignment="Left" Margin="166,350,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="256" Height="24"/>
-        <TextBox x:Name="tbClave" HorizontalAlignment="Left" Margin="166,405,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="256" Height="24"/>
-        <TextBox x:Name="tbNombreUsuario" HorizontalAlignment="Left" Margin="166,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="256" Height="24"/>
-        <TextBox x:Name="tbEstatus" HorizontalAlignment="Left" Margin="445,326,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="256" Height="24"/>
+        <DatePicker x:Name="dpFechaNacimiento" HorizontalAlignment="Left" Margin="409,145,0,0" VerticalAlignment="Top" Width="256" IsEnabled="False" FontWeight="Bold">
+            <DatePicker.BorderBrush>
+                <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
+                    <GradientStop Color="#FFA3AEB9"/>
+                    <GradientStop Color="#FF8399A9" Offset="0.375"/>
+                    <GradientStop Color="#FF718597" Offset="0.375"/>
+                    <GradientStop Color="Black" Offset="1"/>
+                </LinearGradientBrush>
+            </DatePicker.BorderBrush>
+        </DatePicker>
+        <TextBox x:Name="tbTelefono" HorizontalAlignment="Left" Margin="409,210,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="256" Height="24" IsEnabled="False" SelectionOpacity="1" BorderBrush="Black" FontWeight="Bold"/>
+        <TextBox x:Name="tbDireccion" HorizontalAlignment="Left" Margin="406,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="256" Height="24" IsEnabled="False" SelectionOpacity="1" BorderBrush="Black" FontWeight="Bold"/>
+        <TextBox x:Name="tbCorreoElectronico" HorizontalAlignment="Left" Margin="166,350,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="256" Height="24" IsEnabled="False" SelectionOpacity="1" BorderBrush="Black" FontWeight="Bold"/>
+        <TextBox x:Name="tbClave" HorizontalAlignment="Left" Margin="166,405,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="256" Height="24" IsEnabled="False" BorderBrush="Black" FontWeight="Bold"/>
+        <TextBox x:Name="tbNombreUsuario" HorizontalAlignment="Left" Margin="166,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="256" Height="24" IsEnabled="False" SelectionOpacity="1" Foreground="Black" BorderBrush="Black" FontWeight="Bold"/>
+        <TextBox x:Name="tbEstatus" HorizontalAlignment="Left" Margin="445,326,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="256" Height="24" IsEnabled="False" SelectionOpacity="1" BorderBrush="Black" FontWeight="Bold"/>
         <Button x:Name="btnSalir" Content="Salir" HorizontalAlignment="Left" Margin="624,406,0,0" VerticalAlignment="Top" Width="77" Height="23" FontWeight="Bold" Foreground="White" Click="btnSalir_Click">
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>

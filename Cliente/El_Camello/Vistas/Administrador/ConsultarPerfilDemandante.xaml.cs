@@ -22,6 +22,7 @@ namespace El_Camello.Vistas.Administrador
     {
         Modelo.clases.Usuario usuario = null;
         Modelo.clases.Demandante demandante = null;
+        string token = null;
         
         public ConsultarPerfilDemandante(Modelo.clases.Usuario usuarioSolicitado)
         {
@@ -30,19 +31,22 @@ namespace El_Camello.Vistas.Administrador
             usuario = new Modelo.clases.Usuario();
             demandante = new Modelo.clases.Demandante();
             cargarInformacionDemandante(usuarioSolicitado);
+            this.token = usuarioSolicitado.Token;
         }
 
         private async void cargarInformacionDemandante(Modelo.clases.Usuario usuario)
         {
             usuario = await UsuarioDAO.getUsuario(usuario.IdPerfilusuario, usuario.Token);
-            demandante = await DemandanteDAO.getDemandante(usuario.IdPerfilusuario, usuario.Token);
+            demandante = await DemandanteDAO.getDemandante(usuario.IdPerfilusuario, token);
             cargarImagen(usuario.Fotografia);
             lbNombreDemandante.Content = demandante.NombreDemandante;
             tbDireccion.Text = demandante.Direccion;
             dpFechaNacimiento.SelectedDate = demandante.FechaNacimiento;
             tbTelefono.Text = demandante.Telefono;
             tbNombreUsuario.Text = usuario.NombreUsuario;
-
+            tbCorreoElectronico.Text = usuario.CorreoElectronico;
+            tbClave.Text = usuario.Clave;
+            tbEstatus.Text = usuario.EstatusUsuario;
         }
 
         private void cargarImagen(byte[] fotografia)

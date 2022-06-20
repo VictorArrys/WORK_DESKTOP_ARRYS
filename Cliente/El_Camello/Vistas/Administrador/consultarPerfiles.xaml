@@ -20,7 +20,7 @@
                 <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
             </Rectangle.Fill>
         </Rectangle>
-        <DataGrid x:Name="dgUsuarios" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="180,62,19,39" SelectionChanged="dgSeleccionUsuario">
+        <DataGrid x:Name="dgUsuarios" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="180,62,19,39" SelectionChanged="dgSeleccionUsuario" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nombre Usuario" Binding= "{Binding NombreUsuario}" Width="155"/>
                 <DataGridTextColumn Header="Correo Electronico" Binding= "{Binding CorreoElectronico}" Width="200"/>

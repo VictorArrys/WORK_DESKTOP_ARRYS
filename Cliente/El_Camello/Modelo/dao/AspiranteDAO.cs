@@ -11,13 +11,14 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
+using El_Camello.Assets.utilerias;
 
 namespace El_Camello.Modelo.dao
 {
     internal class AspiranteDAO
     {
 
-        public static async Task<int> PostAspirante(Usuario usuario, clases.Aspirante aspirante)
+        public static async Task<int> PostAspirante(Usuario usuario, clases.Aspirante aspirante) //intermedio
         {
 
             int res = -1;
@@ -158,7 +159,7 @@ namespace El_Camello.Modelo.dao
             return aspirante;
         }
 
-        public static async Task<List<clases.Aspirante>> GetAspirantes(string token)
+        public static async Task<List<clases.Aspirante>> GetAspirantes(string token) // listo api
         {
             List<clases.Aspirante> aspirantes = new List<clases.Aspirante>();
             using (var cliente = new HttpClient())
@@ -170,24 +171,28 @@ namespace El_Camello.Modelo.dao
                 {
                     HttpResponseMessage respuesta = await cliente.GetAsync(endpoint);
                     string body = await respuesta.Content.ReadAsStringAsync();
+                    RespuestasAPI respuestaAPI = new RespuestasAPI();
 
-                    switch (respuesta.StatusCode)
+                    if (respuesta.StatusCode == HttpStatusCode.OK)
                     {
-                        case HttpStatusCode.OK:
-                            JArray arrayAspirantes = JArray.Parse(body);
+                        JArray arrayAspirantes = JArray.Parse(body);
 
 
-                            foreach (var item in arrayAspirantes)
-                            {
-                                clases.Aspirante aspirante = new clases.Aspirante();
-                                aspirante.Direccion = (string)item["direccion"];
-                                aspirante.FechaNacimiento = (DateTime)item["fechaNacimiento"];
-                                aspirante.IdAspirante = (int)item["idPerfilAspirante"];
-                                aspirante.NombreAspirante = (string)item["nombre"];
-                                aspirante.Telefono = (string)item["telefono"];
-                                aspirantes.Add(aspirante);
-                            }
-                            break;
+                        foreach (var item in arrayAspirantes)
+                        {
+                            clases.Aspirante aspirante = new clases.Aspirante();
+                            aspirante.Direccion = (string)item["direccion"];
+                            aspirante.FechaNacimiento = (DateTime)item["fechaNacimiento"];
+                            aspirante.IdAspirante = (int)item["idPerfilAspirante"];
+                            aspirante.NombreAspirante = (string)item["nombre"];
+                            aspirante.Telefono = (string)item["telefono"];
+                            aspirantes.Add(aspirante);
+                        }
+                     
+                    }
+                    else
+                    {
+                        respuestaAPI.gestionRespuestasApi("Get Aspirantes", respuesta);
                     }
                 }
                 catch (HttpRequestException)
@@ -203,64 +208,4 @@ namespace El_Camello.Modelo.dao
 
 }
 
-/*Dictionary<string, string> parametros = new Dictionary<string, string>();
 
-                    //terminar diccionario
-                    parametros.Add("clave", usuario.Clave);
-                    parametros.Add("correoElectronico", usuario.CorreoElectronico);
-                    parametros.Add("direccion", aspirante.Direccion);
-                    parametros.Add("estatus", usuario.Estatus);
-                    //parametros.Add("fechaNacimiento", (string) aspirante.FechaNacimiento);
-                    parametros.Add("nombre", aspirante.NombreAspirante);
-                    parametros.Add("nombreUsuario", usuario.NombreUsuario);
-                    //parametros.Add("oficios", aspirante.Oficios);
-                    parametros.Add("telefono", aspirante.Telefono);
-
-                    //parametros
-
-                    var nombreFotografia = Path.GetFileName(usuario.RutaFotografia);
-                    var nombreCurriculum = Path.GetFileName(aspirante.RutaCurriculum);
-                    var nombreVideo = Path.GetFileName(aspirante.RutaVideo);
-
-                    var fotografiaStream = File.OpenRead(usuario.RutaFotografia);
-                    var curriculumStream = File.OpenRead(aspirante.RutaCurriculum);
-                    var videoStream = File.OpenRead(aspirante.RutaVideo);
-
-                    var respuestaContenido = new MultipartFormDataContent();
-
-                    var contenidoFoto = new StreamContent(fotografiaStream);
-                    var contenidoVideo = new StreamContent(curriculumStream);
-                    var contenidoDocumento = new StreamContent(videoStream);
-
-                    contenidoFoto.Headers.ContentType = new MediaTypeHeaderValue("image/jpg");
-                    contenidoDocumento.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
-                    contenidoDocumento.Headers.ContentType = new MediaTypeHeaderValue("video/mp4");
-
-
-
-
-                    respuestaContenido.Add(contenidoFoto, "fotografia", nombreFotografia);
-                    respuestaContenido.Add(contenidoDocumento, "curriculum", nombreCurriculum);
-                    respuestaContenido.Add(contenidoVideo, "video", nombreVideo);
-
-                    HttpContent DictionaryItems = new FormUrlEncodedContent(parametros);
-                    respuestaContenido.Add(DictionaryItems, "aspirante");
-
-                    //var data = new StringContent((string)DictionaryItems, Encoding.UTF8, "application/json");
-
-
-                    HttpResponseMessage respuesta = await cliente.PostAsync(endpoint, respuestaContenido);
-                    string body = await respuesta.Content.ReadAsStringAsync();
-                    switch (respuesta.StatusCode)
-                    {
-                        case HttpStatusCode.Created:
-                            MessageBox.Show(body);
-                            break;
-                        case HttpStatusCode.Unauthorized:
-                        case HttpStatusCode.InternalServerError:
-                        case HttpStatusCode.NotFound:
-                            JObject codigo = JObject.Parse(body);
-                            string mensaje = (string)codigo["resBody"]["menssage"];
-                            MessageBox.Show(mensaje);
-                            break;
-                    }*/

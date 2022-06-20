@@ -198,6 +198,7 @@ namespace El_Camello.Vistas.Usuario
                         else
                         {
                             MessageBox.Show("Ocurrio un error al actualizar tu perfil","¡Operación!");
+                            this.Close();
                         }
                     }
 

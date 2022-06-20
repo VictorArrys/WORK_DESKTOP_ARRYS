@@ -78,7 +78,7 @@ namespace El_Camello.Modelo.dao
         }
 
 
-        public static async Task<Demandante> getDemandante(int idUsuarioDemandante, string token)
+        public static async Task<Demandante> getDemandante(int idUsuarioDemandante, string token) // listo api
         {
             Modelo.clases.Demandante demandante = new Modelo.clases.Demandante();
             using (var cliente = new HttpClient())
@@ -90,23 +90,20 @@ namespace El_Camello.Modelo.dao
                 {
                     HttpResponseMessage respuesta = await cliente.GetAsync(endpoint);
                     string body = await respuesta.Content.ReadAsStringAsync();
-                    switch (respuesta.StatusCode)
-                    {
-                        case HttpStatusCode.OK:
-                            JObject perfilDemandante = JObject.Parse(body);
-                            demandante.Direccion = (string)perfilDemandante["direccion"];
-                            demandante.FechaNacimiento = (DateTime)perfilDemandante["fechaNacimiento"];
-                            demandante.NombreDemandante = (string)perfilDemandante["nombre"];
-                            demandante.Telefono = (string)perfilDemandante["telefono"];
-                            demandante.IdDemandante = (int)perfilDemandante["idperfilDemandante"];
+                    RespuestasAPI respuestaAPI = new RespuestasAPI();
 
-                            break;
-                        case HttpStatusCode.NotFound:
-                            break;
-                        case HttpStatusCode.Unauthorized:
-                            break;
-                        case HttpStatusCode.InternalServerError:
-                            break;
+                    if (respuesta.StatusCode == HttpStatusCode.OK)
+                    {
+                        JObject perfilDemandante = JObject.Parse(body);
+                        demandante.Direccion = (string)perfilDemandante["direccion"];
+                        demandante.FechaNacimiento = (DateTime)perfilDemandante["fechaNacimiento"];
+                        demandante.NombreDemandante = (string)perfilDemandante["nombre"];
+                        demandante.Telefono = (string)perfilDemandante["telefono"];
+                        demandante.IdDemandante = (int)perfilDemandante["idperfilDemandante"];
+                    }
+                    else
+                    {
+                        respuestaAPI.gestionRespuestasApi("Get Demandante", respuesta);
                     }
                 }
                 catch (HttpRequestException)
