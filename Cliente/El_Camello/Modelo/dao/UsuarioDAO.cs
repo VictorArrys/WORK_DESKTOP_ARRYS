@@ -56,7 +56,7 @@ namespace El_Camello.Modelo.dao
                         usuario.Clave = (string)user["clave"];
                         usuario.Tipo = (string)user["tipoUsuario"];
                         usuario.Estatus = (int)user["estatus"];
-                        usuario.IdPerfilusuario = (int)user["idPerfilusuario"];
+                        usuario.IdPerfilusuario = (int)user["idPerfilUsuario"];
                         usuario.CorreoElectronico = (string)user["correoElectronico"];
                         usuario.NombreUsuario = (string)user["nombre"];
                         usuario.Token = respuesta.Headers.GetValues("x-access-token").First();
@@ -71,6 +71,11 @@ namespace El_Camello.Modelo.dao
                 catch (HttpRequestException ex)
                 {
                     MessageBox.Show("La conexión no se puede establecer en este momento, intente mas tarde", "Inciciar Sesión.");
+                }
+                finally
+                {
+                    cliente.CancelPendingRequests();
+                    cliente.Dispose();
                 }
 
             }

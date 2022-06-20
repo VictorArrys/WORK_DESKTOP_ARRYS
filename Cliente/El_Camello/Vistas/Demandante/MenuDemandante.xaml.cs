@@ -20,47 +20,26 @@ namespace El_Camello.Vistas.Demandante
     
     public partial class MenuDemandante : Window, observadorRespuesta
     {
-        Modelo.clases.Demandante demandante = null;
-        List<Modelo.clases.Aspirante> aspirantes = new List<Modelo.clases.Aspirante>();
-        List<Modelo.clases.Categoria> categorias = new List<Modelo.clases.Categoria>();
-        Modelo.clases.Usuario usuario = null;
-        string token = null;
+        private Modelo.clases.Demandante demandante = null;
+        private List<Modelo.clases.Aspirante> aspirantes = new List<Modelo.clases.Aspirante>();
+        private List<Modelo.clases.Categoria> categorias = new List<Modelo.clases.Categoria>();
+        
+
+
         public MenuDemandante(Modelo.clases.Usuario usuarioConectado)
         {
             InitializeComponent();
-            if (usuarioConectado.Estatus == 1)
-            {
-                demandante = new Modelo.clases.Demandante();
-                cargarDemandante(usuarioConectado);
-                btnActivarPerfil.IsEnabled = false;
-            }
-            else
-            {
-                MessageBox.Show("En este momento esta desactivado tu perfil, para volver acivarlo presiona 'Activar perfil.'", "¡Advetencia!");
-                usuario = usuarioConectado;
-                token = usuarioConectado.Token;
-                btnDesactivar.IsEnabled = false;
-                btnEditarPerfil.IsEnabled = false;
-                btnConsultarSolicitudes.IsEnabled = false;
-                btnConsultarValoraciones.IsEnabled = false;
-                btnMensajeria.IsEnabled = false;
-
-            }
-
+            demandante = new Modelo.clases.Demandante();
+            CargarPerfilDemandante(usuarioConectado);
         }
 
-        private void CargarImagen(Modelo.clases.Usuario usuarioConectado)
+        private void CargarImagen(byte[] bytesFotografia)
         {
             try
             {
-                byte[] fotoPerfil = usuarioConectado.Fotografia;
-                if (fotoPerfil == null)
+                if (bytesFotografia != null)
                 {
-                    fotoPerfil = null;
-                }
-                else if (fotoPerfil.Length > 0)
-                {
-                    using (var memoryStream = new System.IO.MemoryStream(fotoPerfil))
+                    using (var memoryStream = new System.IO.MemoryStream(bytesFotografia))
                     {
                         var imagen = new BitmapImage();
                         imagen.BeginInit();
@@ -74,17 +53,17 @@ namespace El_Camello.Vistas.Demandante
             }
             catch (Exception)
             {
-                imgFoto.Source = null;
+                //imgFoto.Source = null; //No se debe asignar null a Source
             }
         }
 
-        private async void cargarDemandante(Modelo.clases.Usuario usuarioConectado)
+        /// <summary>
+        /// Al iniciar sesión se consultan los datos faltantes de demandante.
+        /// </summary>
+        /// <param name="usuarioConectado"></param>
+        private async void CargarPerfilDemandante(Modelo.clases.Usuario usuarioConectado)
         {
-            
             demandante = await DemandanteDAO.getDemandante(usuarioConectado.IdPerfilusuario, usuarioConectado.Token);
-            categorias = await CategoriaDAO.GetCategorias();
-            cbCategorias.ItemsSource = categorias;
-            CargarImagen(usuarioConectado);
             demandante.Clave = usuarioConectado.Clave;
             demandante.CorreoElectronico = usuarioConectado.CorreoElectronico;
             demandante.Estatus = usuarioConectado.Estatus;
@@ -93,10 +72,43 @@ namespace El_Camello.Vistas.Demandante
             demandante.Tipo = usuarioConectado.Tipo;
             demandante.Token = usuarioConectado.Token;
             demandante.IdPerfilusuario = usuarioConectado.IdPerfilusuario;
+            CargarImagen(demandante.Fotografia);
+            CargarPantanllaMenu();
+
+        }
+
+        /// <summary>
+        /// Se consultan la lista de categorias de empleo
+        /// </summary>
+        private async void CargarPantanllaMenu()
+        {
+            if (demandante.Estatus == 1)
+            {
+                btnActivarPerfil.IsEnabled = false;
+                btnDesactivar.IsEnabled = true;
+                btnEditarPerfil.IsEnabled = true;
+                btnConsultarSolicitudes.IsEnabled = true;
+                btnConsultarValoraciones.IsEnabled = true;
+                btnMensajeria.IsEnabled = true;
+            }
+            else
+            {
+                MessageBox.Show("En este momento esta desactivado tu perfil, para volver acivarlo presiona 'Activar perfil.'", "¡Advetencia!");
+                btnActivarPerfil.IsEnabled = true;
+                btnDesactivar.IsEnabled = false;
+                btnEditarPerfil.IsEnabled = false;
+                btnConsultarSolicitudes.IsEnabled = false;
+                btnConsultarValoraciones.IsEnabled = false;
+                btnMensajeria.IsEnabled = false;
+
+            }
+            
+
+            categorias = await CategoriaDAO.GetCategorias();
+            cbCategorias.ItemsSource = categorias;
             aspirantes = await AspiranteDAO.GetAspirantes(demandante.Token);
             lbNombreDemandante.Content = demandante.NombreDemandante;
             dgAspirantes.ItemsSource = aspirantes;
-
         }
 
         private void btnEditarPerfil_Click(object sender, RoutedEventArgs e)
@@ -107,7 +119,7 @@ namespace El_Camello.Vistas.Demandante
 
         public void actualizarInformacion(Modelo.clases.Usuario usuarioContectado)
         {
-            cargarDemandante(usuarioContectado);
+            CargarPerfilDemandante(usuarioContectado);
         }
 
         private async void btnDesactivar_Click(object sender, RoutedEventArgs e)
@@ -171,11 +183,11 @@ namespace El_Camello.Vistas.Demandante
             if (opcionSeleccionada == MessageBoxResult.OK)
             {
                 MessageBox.Show("Tu perfil esta por activarse. Por favor espera un momento'", "Advertencia!");
-                int resultado = await UsuarioDAO.patchHabilitar(usuario.IdPerfilusuario, token);
+                int resultado = await UsuarioDAO.patchHabilitar(demandante.IdPerfilusuario, demandante.Token);
                 if (resultado == 1)
                 {
-                    cargarDemandante(usuario);
-                    btnActivarPerfil.IsEnabled = false;
+                    demandante.Estatus = 1;
+                    CargarPantanllaMenu();
                 }
             }
         }
