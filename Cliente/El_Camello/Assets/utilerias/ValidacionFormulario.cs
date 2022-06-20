@@ -60,7 +60,7 @@ namespace El_Camello.Assets.utilerias
         {
             limpiarTextField(tbValidar);
             int entero;
-            bool esEntero = Int32.TryParse(tbValidar.Text, out entero);
+            bool esEntero = validarTieneLetras(tbValidar.Text);
             if (!esEntero)
             {
                 tbValidar.BorderBrush = Brushes.Red;
@@ -69,27 +69,86 @@ namespace El_Camello.Assets.utilerias
             return esEntero;
         }
 
-        public bool validarCampoMinimoCaracteres(List<TextBox> tbValidar)
+        //Solo para validar email
+        public static bool IsValidEmail(string email)
         {
-            bool validar = true;
+            return Regex.IsMatch(email, @"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$");
+        }
 
-            foreach (TextBox tbIndividual in tbValidar)
+
+        //Usar solo en campos con puras letras, si tiene regresa false, si no regresa true
+        public static bool validarTieneNumeros(string palabra)
+        {
+            return Regex.IsMatch(palabra, "[^0 - 9] *");
+        }
+
+        //Usar solo en campos con puro numero, si tiene letra regresa false, si no tiene regresa true
+        public static bool validarTieneLetras(string numero)
+        {
+            return Regex.IsMatch(numero, "[^A-Za-z]*");
+        }
+
+        public static bool validarEsNumero(TextBox textBox)
+        {
+            bool valido;
+            textBox.BorderBrush = Brushes.LightBlue;
+            string numero = textBox.Text;
+
+            valido= Regex.IsMatch(numero, @"^[0-9]+$");
+            if (valido)
             {
-                limpiarTextField(tbIndividual);
+                textBox.BorderBrush = Brushes.Red;
+            }
 
-                if (tbIndividual.Text.Length > 6)
-                {
-                    validar = false;
-                    tbIndividual.BorderBrush = Brushes.Red;
-                }
+            return valido;
+        }
+
+        public static bool validarLongitud8(string numero, int longitud)
+        {
+            if (numero.Length.Equals(longitud))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static bool validarTelefono(string numero)
+        {
+            if (numero.Length.Equals(10))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        public static bool validarLongitudTelefono(string numero)
+        {
+            return Regex.IsMatch(numero, "[0-9]{10}");
+        }
+
+        //Usar en campos que tengan letras y numeros (Incluye espacios)
+        public bool validarMixto(TextBox textBox)
+        {
+            limpiarTextField(textBox);
+            bool valido;
+            string dato = textBox.Text;
+
+            valido = Regex.IsMatch(dato, "^[A - Za - z a - ñ 1 - 9] * $");
+            if (!valido)
+            {
+                textBox.BorderBrush = Brushes.Red;
 
             }
 
-
-            return validar;
-        }
-
-        
+            return valido;
+        }           
 
         public bool validarHora(TextBox tbValidar)
         {
@@ -135,9 +194,10 @@ namespace El_Camello.Assets.utilerias
                     estaVacio = true;
                     chkIndividual.BorderBrush = Brushes.Red;
                 }
-                else
+                else if(chkIndividual.IsChecked == true)
                 {
-                    return true;
+                    estaVacio = false;
+                    return estaVacio;
                 }
 
             }

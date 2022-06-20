@@ -101,7 +101,9 @@ namespace El_Camello.Vistas.Empleador
                 tbHoraFin.Text = "" + ofertaEmpleoEdicion.HoraFin;
                 tbVacantes.Text = "" + ofertaEmpleoEdicion.Vacantes;
                 dpFechaInicio.SelectedDate = ofertaEmpleoEdicion.FechaInicio;
+                dpFechaInicio.IsEnabled = false;
                 dpFechaFinalizacion.SelectedDate = ofertaEmpleoEdicion.FechaFinalizacion;
+                dpFechaFinalizacion.IsEnabled = false;
                 tbPago.Text = "" + ofertaEmpleoEdicion.CantidadPago;
                 tbDireccion.Text = ofertaEmpleoEdicion.Direccion;
                 tbDescripcion.Text = ofertaEmpleoEdicion.Descripcion;
@@ -371,10 +373,20 @@ namespace El_Camello.Vistas.Empleador
             }            
             else
             {
-                int comparacionFechas = validarFormulario.compararFecha(dpFechaInicio, dpFechaFinalizacion);
+                int comparacionFechas = 0;
+                //Solo se compara la fecha si es registro nuevo
+                if (isNuevo)
+                {
+                    comparacionFechas = validarFormulario.compararFecha(dpFechaInicio, dpFechaFinalizacion);
+                }
+                else
+                {
+                    comparacionFechas = 1;
+                }
+                
                 if (comparacionFechas == 1)
                 {
-                    bool horasValidas = true;
+                    bool horasValidas;
                     horasValidas = validarFormulario.validarHora(tbHoraInicio);
                     if (horasValidas)
                     {
@@ -383,22 +395,25 @@ namespace El_Camello.Vistas.Empleador
                         {
                             if (validarFormulario.textFieldEntero(tbVacantes) && validarFormulario.textFieldEntero(tbPago))
                             {
-                                textBox.Remove(tbPago);
-                                textBox.Remove(tbVacantes);
-                                if (!validarFormulario.validarCampoMinimoCaracteres(textBox))
+
+                                if (!ValidacionFormulario.validarEsNumero(tbDireccion) && !ValidacionFormulario.validarEsNumero(tbDescripcion) && !ValidacionFormulario.validarEsNumero(tbNombreEmpleo))
                                 {
-                                    if (imagenes.Count == 3)
+                                    if (imgFoto.Source != null && imgFoto2.Source != null && imgFoto3.Source != null)
                                     {
                                         valido = true;
                                     }
                                     else
                                     {
                                         valido = false;
+                                        mensajes = new MensajesSistema("AccionInvalida", "No se puede agregar una oferta de empleo sin fotografias", "Guardar oferta de empleo", "Para guardar una oferta de empleo debe ingresar 3 fotografías obligatoriamente");
+                                        mensajes.ShowDialog();
                                     }
                                 }
                                 else
                                 {
                                     valido = false;
+                                    mensajes = new MensajesSistema("AccionInvalida", "No se puede registrar puros numeros en estos campos", "Guardar oferta de empleo", "Para guardar una oferta de empleo debe ingresar toda la información correspondiente al campo");
+                                    mensajes.ShowDialog();
                                 }
 
                             }
@@ -419,9 +434,23 @@ namespace El_Camello.Vistas.Empleador
                     }
 
                 }
-                else
+                else if (comparacionFechas == -1)
                 {
                     valido = false;
+                    mensajes = new MensajesSistema("AccionInvalida", "No se puede seleccionar que la fecha de inicio sea mayor que la de finalización", "Guardar oferta de empleo", "La fecha de inicio debe ser inferior a la de finalización");
+                    mensajes.ShowDialog();
+                }
+                else if (comparacionFechas == -2)
+                {
+                    valido = false;
+                    mensajes = new MensajesSistema("AccionInvalida", "No se puede seleccionar que la fecha de inicio sea menor a la fecha actual", "Guardar oferta de empleo", "La fecha de inicio debe ser superior a la fecha actual");
+                    mensajes.ShowDialog();
+                }
+                else if (comparacionFechas == 0)
+                {
+                    valido = false;
+                    mensajes = new MensajesSistema("AccionInvalida", "No se puede seleccionar que las fechas sean iguales", "Guardar oferta de empleo", "La fecha de inicio debe ser inferior y la fecha de finalización debe ser mayor a la de inicio");
+                    mensajes.ShowDialog();
                 }
 
 
@@ -441,30 +470,51 @@ namespace El_Camello.Vistas.Empleador
                 {
                     chkLunes.IsChecked = true;
                 }
+
+                chkLunes.IsEnabled = false;
+
                 if (diasLaborales[i].Equals('2'))
                 {
-                    chkMartes.IsChecked = true;
+                    chkMartes.IsChecked = true;                    
                 }
+
+                chkMartes.IsEnabled = false;
+
                 if (diasLaborales[i].Equals('3'))
                 {
-                    chkMartes.IsChecked = true;
+                    chkMiercoles.IsChecked = true;                    
                 }
+
+                chkMiercoles.IsEnabled = false;
+
                 if (diasLaborales[i].Equals('4'))
                 {
-                    chkJueves.IsChecked = true;
+                    chkJueves.IsChecked = true;                    
                 }
+
+                chkJueves.IsEnabled = false;
+
                 if (diasLaborales[i].Equals('5'))
                 {
-                    chkViernes.IsChecked = true;
+                    chkViernes.IsChecked = true;                   
                 }
+
+                chkViernes.IsEnabled = false;
+
                 if (diasLaborales[i].Equals('6'))
                 {
-                    chkSabado.IsChecked = true;
+                    chkSabado.IsChecked = true;                    
                 }
+
+                chkSabado.IsEnabled = false;
+
                 if (diasLaborales[i].Equals('7'))
                 {
-                    chkDomingo.IsChecked = true;
+                    chkDomingo.IsChecked = true;                    
                 }
+
+                chkDomingo.IsEnabled = false;
+
             }
 
 

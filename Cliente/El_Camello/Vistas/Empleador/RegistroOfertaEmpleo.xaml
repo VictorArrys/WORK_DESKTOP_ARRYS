@@ -9,6 +9,7 @@
 
     <Grid Margin="0,0,0,7">
         <Grid DockPanel.Dock="Top" RenderTransformOrigin="0.496,0.438" Margin="0,0,0,484">
+            <Label x:Name="lbAccion" Content="Registro de oferta de empleo" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="26" Height="44"/>
             <Grid.Background>
                 <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
             </Grid.Background>
@@ -18,8 +19,7 @@
                 <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
             </Grid.Background>
         </Grid>
-        <Label x:Name="lbAccion" Content="Registro de oferta de empleo" HorizontalAlignment="Center" Margin="0,-2,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="26"/>
-        <Button Content="Cancelar" HorizontalAlignment="Left" Margin="686,478,0,0" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Click="cancelarRegistro" Height="30">
+        <Button Content="Cancelar" HorizontalAlignment="Left" Margin="686,427,0,0" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Click="cancelarRegistro" Height="30">
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
             </Button.Background>
@@ -55,7 +55,7 @@
         <Label Content="Dirección: " HorizontalAlignment="Left" Margin="422,143,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="tbDireccion" HorizontalAlignment="Left" Margin="549,147,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="235"/>
         <Label Content="Descripción: " HorizontalAlignment="Left" Margin="425,175,0,0" VerticalAlignment="Top"/>
-        <Button Content="Guardar" HorizontalAlignment="Left" Margin="574,478,0,0" VerticalAlignment="Top" Width="94" Foreground="White" Click="guardarOfertaEmpleo" Height="30">
+        <Button Content="Guardar" HorizontalAlignment="Left" Margin="574,427,0,0" VerticalAlignment="Top" Width="94" Foreground="White" Click="guardarOfertaEmpleo" Height="30">
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
             </Button.Background>

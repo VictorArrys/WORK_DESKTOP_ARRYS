@@ -84,19 +84,18 @@ namespace El_Camello.Modelo.dao
             ofertaEmpleoGet.IdOfertaEmpleo = (int)ofertaEmpleoConsultada["idOfertaEmpleo"];
             ofertaEmpleoGet.IdPerfilEmpleador = (int)ofertaEmpleoConsultada["idPerfilEmpleador"];
 
-            JObject? contratacionConsultada = (JObject)ofertaEmpleoConsultada["contratacion"];
-            if (contratacionConsultada == null)
+            if ((string)ofertaEmpleoConsultada["contratacion"] == "empty")
             {
                 ContratacionEmpleo contratacionVacia = new ContratacionEmpleo();
                 ofertaEmpleoGet.ContratacionEmpleo = contratacionVacia;
             }
-            else { 
+            else
+            {
                 //Obtenemos la contratacion de la oferta de empleo
                 ofertaEmpleoGet.ContratacionEmpleo.Estatus = (int)ofertaEmpleoConsultada["contratacion"]["estatus"];
                 ofertaEmpleoGet.ContratacionEmpleo.FechaContratacion = (DateTime)ofertaEmpleoConsultada["contratacion"]["fechaContratacion"];
                 ofertaEmpleoGet.ContratacionEmpleo.IdContratacion = (int)ofertaEmpleoConsultada["contratacion"]["idContratacionEmpleo"];
                 ofertaEmpleoGet.ContratacionEmpleo.IdOfertaEmpleo = (int)ofertaEmpleoConsultada["contratacion"]["idOfertaEmpleo"]; ofertaEmpleoGet.ContratacionEmpleo.FechaFinalizacionContratacion = (DateTime)ofertaEmpleoConsultada["contratacion"]["fechaFinalizacion"];
-
 
                 //Obtenemos los contratados de la contratacion
 
@@ -106,23 +105,15 @@ namespace El_Camello.Modelo.dao
                     ContratacionEmpleoAspirante contratacionEmpleado = new ContratacionEmpleoAspirante();
                     contratacionEmpleado.IdAspirante = (int)contratado["id_perfil_aspirante_cea"];
                     contratacionEmpleado.NombreAspiranteContratado = (string)contratado["nombre_aspirante"];
+                    contratacionEmpleado.Telefono = (string)contratado["telefono"];
+                    contratacionEmpleado.Direccion = (string)contratado["direccion"];
+                    contratacionEmpleado.IdAspirante = (int)contratado["idUser"];
+                    contratacionEmpleado.ValoracionAspirante = (int)contratado["valoracion_aspirante"];
 
-                    int? valoracionAspirante = (int)contratado["valoracion_aspirante"];
-                    if (valoracionAspirante == null)
-                    {
-                        contratacionEmpleado.ValoracionAspirante = 0;
-
-                    }
-                    else
-                    {
-                        contratacionEmpleado.ValoracionAspirante = (int)contratado["valoracion_aspirante"];
-
-                    }
                     //Agregamos la contratacion a la lista de contrataciones
                     ofertaEmpleoGet.ContratacionEmpleo.ContratacionesAspirantes.Add(contratacionEmpleado);
                 }
             }
-
 
             return ofertaEmpleoGet;
         }

@@ -12,17 +12,18 @@ using System.Windows;
 
 namespace El_Camello.Modelo.dao
 {
-    internal class SolicitudEmpleoDAO
+    internal class ReporteEmpleoDAO
     {
-        public static async Task<List<SolicitudEmpleo>> GetSolicitudesEmpleo(string token, int idOfertaEmpleo)
+
+        public static async Task<List<ReporteEmpleo>> GetReportesEmpleo(string token)
         {
 
             MensajesSistema errorMessage;
-            List<SolicitudEmpleo> solicitudesEmpleo = new List<SolicitudEmpleo>();
+            List<ReporteEmpleo> reportesEmpleo = new List<ReporteEmpleo>();
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = "http://localhost:5000/v1/solicitudesEmpleo?idOfertaEmpleo=" + idOfertaEmpleo;
+                string endpoint = "http://localhost:5000/v1/reportesEmpleo";
 
                 try
                 {
@@ -36,58 +37,42 @@ namespace El_Camello.Modelo.dao
                         string body = await respuesta.Content.ReadAsStringAsync();
 
 
-                        JArray arraySolicitudes = JArray.Parse(body);
-                        foreach (var solicitudes in arraySolicitudes)
+                        JArray arrayReportes = JArray.Parse(body);
+                        foreach (var reporte in arrayReportes)
                         {
 
-                            SolicitudEmpleo solicitudGet = new SolicitudEmpleo();
-                            solicitudGet.IdSolicitud = (int)solicitudes["id_solicitud_aspirante"];
-                            solicitudGet.IdAspirante = (int)solicitudes["id_perfil_aspirante_sa"];
-                            solicitudGet.IdOfertaEmpleo = (int)solicitudes["id_oferta_empleo_sa"];
-                            solicitudGet.EstatusInt = (int)solicitudes["estatus"];
+                            ReporteEmpleo reporteGet = new ReporteEmpleo();
+                            reporteGet.IdReporte = (int)reporte["id_reporte_empleo"];
+                            reporteGet.IdAspiranteReporte = (int)reporte["id_perfil_aspirante_re"];
+                            reporteGet.IdOfertaReportada = (int)reporte["id_oferta_empleo_re"];
+                            reporteGet.Motivo = (string)reporte["motivo"];
+                            reporteGet.Estatus = (int)reporte["estatus"];
+                            reporteGet.FechaRegistro = (DateTime)reporte["fecha_registro"];
+                            reporteGet.NombreAspirante = (string)reporte["aspirante"];
+                            reporteGet.NombreOfertaReportada = (string)reporte["nombre"];
+                            reporteGet.DescripcionOfertaReportada = (string)reporte["descripcion"];
+                            reporteGet.NombreEmpleador = (string)reporte["empleador"];
 
-                            if(solicitudGet.EstatusInt == 1)
-                            {
-                                solicitudGet.Estatus = "Pendiente";
-                            }
-                            if (solicitudGet.EstatusInt == -1)
-                            {
-                                solicitudGet.Estatus = "Rechazada";
-                            }
-                            if (solicitudGet.EstatusInt == 0)
-                            {
-                                solicitudGet.Estatus = "Aprobada";
-                            }
-
-
-                            solicitudGet.FechaRegistro = (DateTime)solicitudes["fecha_registro"];
-                            solicitudGet.Nombre = (string)solicitudes["nombre"];
-                            solicitudGet.IdUsuarioAspirante = (int)solicitudes["id_perfil_usuario_aspirante"];
-                            int idUsuarioAspirante = (int)solicitudes["id_perfil_usuario_aspirante"];
-
-                            //solicitudGet.AspiranteSolicitante = await AspiranteDAO.GetAspirante(idUsuarioAspirante, token);
-
-
-                            solicitudesEmpleo.Add(solicitudGet);
+                            reportesEmpleo.Add(reporteGet);
                         }
 
                     }
                     else
                     {
-                        respuestaAPI.gestionRespuestasApi("GetSolicitudesEmpleo", respuesta);
+                        respuestaAPI.gestionRespuestasApi("Get reportes empleos", respuesta);
                     }
 
                 }
                 catch (HttpRequestException exception)
                 {
-                    errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Obtener solicitudes de empleo", exception.Message);
+                    errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Obtener reportes de empleo", exception.Message);
                     errorMessage.ShowDialog();
                 }
 
 
             }
 
-            return solicitudesEmpleo;
+            return reportesEmpleo;
         }
 
         public static async Task<int> PatchAceptarSolicitud(string token, int idSolicitudEmpleo)
@@ -169,7 +154,6 @@ namespace El_Camello.Modelo.dao
 
             return aceptada;
         }
-
 
     }
 }

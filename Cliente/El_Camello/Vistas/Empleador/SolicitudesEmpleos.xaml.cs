@@ -90,14 +90,19 @@ namespace El_Camello.Vistas.Empleador
 
             if (indiceSeleccion >= 0)
             {
-                SolicitudEmpleo solicitudSeleccionada = solicitudes[indiceSeleccion];
+                SolicitudEmpleo solicitudSeleccionada = solicitudesPendientes[indiceSeleccion];
 
 
                 Modelo.clases.Aspirante informacionAspirante = await AspiranteDAO.GetAspirante(solicitudSeleccionada.IdUsuarioAspirante, token);
                 lbNombreAspirante.Content = informacionAspirante.NombreAspirante;
                 lbDireccion.Content = informacionAspirante.Direccion;
                 lbTelefono.Content = informacionAspirante.Telefono;
+                tbOficios.Text = "Función en desarrollo";
+                /*foreach (var oficio in informacionAspirante.Oficios)
+                {
+                    tbOficios.Text += oficio.NombreCategoria + " Experiencia: " + oficio.Experiencia + "\n"; 
 
+                }*/
 
             }
 
@@ -109,7 +114,7 @@ namespace El_Camello.Vistas.Empleador
 
             if (indiceSeleccion >= 0)
             {
-                SolicitudEmpleo solicitudSeleccionada = solicitudes[indiceSeleccion];
+                SolicitudEmpleo solicitudSeleccionada = solicitudesPendientes[indiceSeleccion];
                 int solicitudAceptada = await SolicitudEmpleoDAO.PatchAceptarSolicitud(token, solicitudSeleccionada.IdSolicitud);
                
                 if(solicitudAceptada == 1)
@@ -140,7 +145,7 @@ namespace El_Camello.Vistas.Empleador
 
             if (indiceSeleccion >= 0)
             {
-                SolicitudEmpleo solicitudSeleccionada = solicitudes[indiceSeleccion];
+                SolicitudEmpleo solicitudSeleccionada = solicitudesPendientes[indiceSeleccion];
                 int solicitudRechazada = await SolicitudEmpleoDAO.PatchRechazarSolicitud(token, solicitudSeleccionada.IdSolicitud);
 
                 if (solicitudRechazada == 1)
@@ -164,6 +169,60 @@ namespace El_Camello.Vistas.Empleador
 
         }
 
+        private void consultarAspirante(object sender, RoutedEventArgs e)
+        {
+            int indiceSeleccion = dgSolicitudes.SelectedIndex;
 
+            if (indiceSeleccion >= 0)
+            {
+                SolicitudEmpleo aspiranteConsultar = solicitudes[indiceSeleccion];
+
+                /*EvaluarApirante ventanaEvaluar = new EvaluarApirante(aspiranteEvaluar, token);
+                ventanaEvaluar.ShowDialog();*/
+            }
+            else
+            {
+                int indiceSeleccionVacantesUso = dgVacantesEnUso.SelectedIndex;
+                if (indiceSeleccionVacantesUso >= 0)
+                {
+                    SolicitudEmpleo aspiranteConsultar = solicitudes[indiceSeleccion];
+
+                    /*EvaluarApirante ventanaEvaluar = new EvaluarApirante(aspiranteEvaluar, token);
+                    ventanaEvaluar.ShowDialog();*/
+                }
+                else
+                {
+                    mensajes = new MensajesSistema("AccionInvalida", "La acción que ha realizado es invalida", "Intento de consultar oferta de empleo", "Selecciona una oferta de empleo para poder consultarla posteriormente");
+                    mensajes.ShowDialog();
+                }
+
+            }
+           
+
+        }
+
+        private async void dgVacantesEnUso_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int indiceSeleccion = dgVacantesEnUso.SelectedIndex;
+
+            if (indiceSeleccion >= 0)
+            {
+                SolicitudEmpleo solicitudSeleccionada = solicitudesAceptadas[indiceSeleccion];
+
+
+                Modelo.clases.Aspirante informacionAspirante = await AspiranteDAO.GetAspirante(solicitudSeleccionada.IdUsuarioAspirante, token);
+                lbNombreAspirante.Content = informacionAspirante.NombreAspirante;
+                lbDireccion.Content = informacionAspirante.Direccion;
+                lbTelefono.Content = informacionAspirante.Telefono;
+                tbOficios.Text = "Función en desarrollo";
+                /*foreach (var oficio in informacionAspirante.Oficios)
+                {
+                    tbOficios.Text += oficio.NombreCategoria + " Experiencia: " + oficio.Experiencia + "\n"; 
+
+                }*/
+
+            }
+
+        }
     }
 }

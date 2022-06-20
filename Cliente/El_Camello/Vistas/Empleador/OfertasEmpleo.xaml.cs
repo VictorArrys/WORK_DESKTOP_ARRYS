@@ -81,6 +81,7 @@ namespace El_Camello.Vistas.Empleador
 
         private void cargarInformacionUsuario(Modelo.clases.Usuario usuarioConectado)
         {
+            lbUsuario.Content = "Usuario: " + usuarioConectado.NombreUsuario;
             CargarEmpleador(usuarioConectado);
         }
 
