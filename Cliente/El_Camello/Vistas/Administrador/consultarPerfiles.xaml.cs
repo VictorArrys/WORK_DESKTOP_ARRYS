@@ -122,7 +122,7 @@ namespace El_Camello.Vistas.Administrador
                         consultarPerfilEmpleador.ShowDialog();
                         break;
                     case "Demandante":
-                        ConsultarPerfilDemandante consultarPerfilDemandante = new ConsultarPerfilDemandante();
+                        ConsultarPerfilDemandante consultarPerfilDemandante = new ConsultarPerfilDemandante(usuarioSeleccionado);
                         consultarPerfilDemandante.ShowDialog();
                         break;
                     case "Aspirante":
