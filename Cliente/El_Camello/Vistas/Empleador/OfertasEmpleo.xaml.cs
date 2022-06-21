@@ -31,9 +31,8 @@ namespace El_Camello.Vistas.Empleador
         Modelo.clases.Usuario usuario = null;
         MensajesSistema error;
 
-        public OfertasEmpleo(Modelo.clases.Usuario usuarioConectado, int idPerfilEmpleador)
+        public OfertasEmpleo(Modelo.clases.Usuario usuarioConectado)
         {
-            this.idPerfilEmpleador = idPerfilEmpleador;
             this.token = usuarioConectado.Token;
 
             InitializeComponent();
@@ -119,6 +118,9 @@ namespace El_Camello.Vistas.Empleador
         {
             empleador = await EmpleadorDAO.getEmpleador(usuarioConectado.IdPerfilusuario, usuarioConectado.Token);
             CargarImagen(usuarioConectado);
+
+            this.idPerfilEmpleador = empleador.IdPerfilEmpleador;
+
             empleador.Clave = usuarioConectado.Clave;
             empleador.CorreoElectronico = usuarioConectado.CorreoElectronico;
             empleador.Estatus = usuarioConectado.Estatus;
