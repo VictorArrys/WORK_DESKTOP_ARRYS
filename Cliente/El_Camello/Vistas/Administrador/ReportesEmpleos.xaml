@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="ReportesEmpleos" Height="562" Width="870">
     <Grid Background="White">
-        <Grid RenderTransformOrigin="0.496,0.438" Margin="0,0,0,503">
+        <Grid RenderTransformOrigin="0.496,0.438" Margin="0,0,0,519">
             <Grid.Background>
                 <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
             </Grid.Background>
@@ -28,7 +28,7 @@
         <Label Content="Empleos reportados" HorizontalAlignment="Left" Margin="291,-2,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="26"/>
         <Rectangle HorizontalAlignment="Left" Height="442" Margin="10,66,0,0" Stroke="Black" VerticalAlignment="Top" Width="578"/>
         <Rectangle HorizontalAlignment="Left" Height="442" Margin="593,66,0,0" Stroke="Black" VerticalAlignment="Top" Width="267"/>
-        <Button Content="Aprobar" HorizontalAlignment="Left" Margin="620,480,0,0" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Click="aceptarEmpleado">
+        <Button x:Name="btnAprobar" Content="Aprobar" HorizontalAlignment="Left" Margin="620,480,0,0" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Click="aceptarReporte">
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
             </Button.Background>
@@ -36,7 +36,7 @@
                 <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
             </Button.BorderBrush>
         </Button>
-        <Button Content="Rechazar" HorizontalAlignment="Left" Margin="747,480,0,0" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Click="rechazarEmpleado">
+        <Button x:Name="btnRechazar" Content="Rechazar" HorizontalAlignment="Left" Margin="747,480,0,0" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Click="rechazarReporte">
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
             </Button.Background>
@@ -46,10 +46,10 @@
         </Button>
         <DataGrid x:Name="dgReportes" d:ItemsSource="{Binding}" Margin="26,108,292,72" AutoGenerateColumns="False" IsReadOnly="true" SelectionChanged="dgReportes_SelectionChanged">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Fecha" Binding= "{Binding Nombre}" Width="80"/>
-                <DataGridTextColumn Header="Empleador" Binding= "{Binding FechaRegistro}" Width="160"/>
-                <DataGridTextColumn Header="Nombre oferta" Binding= "{Binding Estatus}" Width="150"/>
-                <DataGridTextColumn Header="Aspirante" Binding= "{Binding Estatus}" Width="200"/>
+                <DataGridTextColumn Header="Fecha" Binding= "{Binding FechaRegistro}" Width="80"/>
+                <DataGridTextColumn Header="Empleador" Binding= "{Binding NombreEmpleador}" Width="160"/>
+                <DataGridTextColumn Header="Nombre oferta" Binding= "{Binding NombreOfertaReportada}" Width="150"/>
+                <DataGridTextColumn Header="Aspirante" Binding= "{Binding NombreAspirante}" Width="200"/>
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Empleos reportados" HorizontalAlignment="Left" Margin="133,63,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26"/>

@@ -5,9 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:El_Camello.Aspirante"
         mc:Ignorable="d"
-        Title="PerfilAspirante" Height="484" Width="824">
+        Title="PerfilAspirante" Height="484" Width="702">
     <Grid Margin="0,0,0,-6">
-        <Rectangle HorizontalAlignment="Left" Height="117" Margin="543,318,0,0" Stroke="Black" VerticalAlignment="Top" Width="117"/>
 
         <Grid RenderTransformOrigin="0.496,0.438" Margin="0,0,0,431">
             <Grid.Background>
@@ -19,34 +18,23 @@
                 <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
             </Grid.Background>
         </Grid>
-        <Label Content="Consultar perfil aspirante" HorizontalAlignment="Center" Margin="0,-2,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="26"/>
+        <Label Content="Consultar perfil aspirante" HorizontalAlignment="Left" Margin="174,-2,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="26"/>
         <Label Content="Nombre: " HorizontalAlignment="Left" Margin="27,73,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Margin="27,99,0,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Width="263"/>
+        <TextBox x:Name="tbAspirante" HorizontalAlignment="Left" Margin="27,99,0,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Width="293"/>
         <Label Content="Dirección: " HorizontalAlignment="Left" Margin="27,118,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Margin="27,144,0,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Width="263"/>
+        <TextBox x:Name="tbDireccion" HorizontalAlignment="Left" Margin="27,144,0,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Width="293"/>
         <Label Content="Correo electronico: " HorizontalAlignment="Left" Margin="27,170,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Margin="27,196,0,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Width="263"/>
+        <TextBox x:Name="tbCorreo" HorizontalAlignment="Left" Margin="27,196,0,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Width="293"/>
         <Label Content="Telefono: " HorizontalAlignment="Left" Margin="27,222,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Margin="27,248,0,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Width="263"/>
-        <MediaElement HorizontalAlignment="Left" Height="157" Margin="27,287,0,0" VerticalAlignment="Top" Width="228"/>
-        <Label Content="Video: " HorizontalAlignment="Left" Margin="26,266,0,0" VerticalAlignment="Top"/>
-        <Image HorizontalAlignment="Left" Height="98" Margin="402,73,0,0" VerticalAlignment="Top" Width="114" RenderTransformOrigin="0.509,0.225"/>
-        <DataGrid d:ItemsSource="{Binding}" Margin="402,178,32,226">
+        <TextBox x:Name="tbTelefono" HorizontalAlignment="Left" Margin="27,248,0,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Width="293"/>
+        <Label Content="Video: " HorizontalAlignment="Left" Margin="399,0,0,0" VerticalAlignment="Center" RenderTransformOrigin="-0.729,-1.693" Width="257" Background="Black" Foreground="White"/>
+        <DataGrid x:Name="dgOficios" d:ItemsSource="{Binding}" Margin="27,281,382,33">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Oficio" Binding= "{Binding categoria}" Width="250"/>
+                <DataGridTextColumn Header="Oficio" Binding= "{Binding categoria}" Width="150"/>
                 <DataGridTextColumn Header="Experiencia" Binding= "{Binding experiencia}" Width="140"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Label Content="Días habiles: " HorizontalAlignment="Left" Margin="399,243,0,0" VerticalAlignment="Top"/>
-        <Label Content="[Días habiles]" HorizontalAlignment="Left" Margin="402,269,0,0" VerticalAlignment="Top" Width="390" Height="25"/>
-        <Rectangle HorizontalAlignment="Left" Height="117" Margin="402,318,0,0" Stroke="Black" VerticalAlignment="Top" Width="121"/>
-        <Rectangle HorizontalAlignment="Left" Height="117" Margin="679,318,0,0" Stroke="Black" VerticalAlignment="Top" Width="113"/>
-        <Image HorizontalAlignment="Left" Height="100" Margin="414,330,0,0" VerticalAlignment="Top" Width="100"/>
-        <Image HorizontalAlignment="Left" Height="100" Margin="552,330,0,0" VerticalAlignment="Top" Width="100"/>
-        <Image HorizontalAlignment="Left" Height="100" Margin="688,330,0,0" VerticalAlignment="Top" Width="100"/>
-        <Label Content="Fotografías: " HorizontalAlignment="Left" Margin="402,292,0,0" VerticalAlignment="Top"/>
-        <Label Content="Valoración: " HorizontalAlignment="Left" Margin="523,113,0,0" VerticalAlignment="Top"/>
-        <Button Content="Volver" HorizontalAlignment="Left" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Margin="720,12,0,0">
+        <Button Content="Volver" HorizontalAlignment="Left" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Margin="604,12,0,0" Click="cerrarVentana_Click">
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
             </Button.Background>
@@ -54,6 +42,23 @@
                 <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
             </Button.BorderBrush>
         </Button>
+        <Label Content="Perfil: " HorizontalAlignment="Left" Margin="399,60,0,0" VerticalAlignment="Top" Width="252" Background="Black" Foreground="White"/>
+        <Grid RenderTransformOrigin="0.496,0.438" Margin="399,86,51,263">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="15*"/>
+                <ColumnDefinition Width="13*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.Background>
+                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
+            </Grid.Background>
+        </Grid>
+        <Image x:Name="imgAspirante" HorizontalAlignment="Left" Height="117" Margin="435,86,0,0" VerticalAlignment="Top" Width="178" RenderTransformOrigin="0.509,0.225"/>
+        <Grid RenderTransformOrigin="0.496,0.438" Margin="400,250,46,33">
+            <Grid.Background>
+                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
+            </Grid.Background>
+        </Grid>
+        <MediaElement x:Name="meVideoAspirante" HorizontalAlignment="Left" Height="173" Margin="412,255,0,0" VerticalAlignment="Top" Width="229"/>
 
     </Grid>
 </Window>

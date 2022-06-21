@@ -201,7 +201,7 @@ namespace El_Camello.Vistas.Empleador
 
             if (indiceSeleccion >= 0)
             {
-                SolicitudEmpleo aspiranteConsultar = solicitudes[indiceSeleccion];
+                SolicitudEmpleo aspiranteConsultar = solicitudesPendientes[indiceSeleccion];
 
                 /*EvaluarApirante ventanaEvaluar = new EvaluarApirante(aspiranteEvaluar, token);
                 ventanaEvaluar.ShowDialog();*/
@@ -211,7 +211,7 @@ namespace El_Camello.Vistas.Empleador
                 int indiceSeleccionVacantesUso = dgVacantesEnUso.SelectedIndex;
                 if (indiceSeleccionVacantesUso >= 0)
                 {
-                    SolicitudEmpleo aspiranteConsultar = solicitudes[indiceSeleccion];
+                    SolicitudEmpleo aspiranteConsultar = solicitudesAceptadas[indiceSeleccion];
 
                     /*EvaluarApirante ventanaEvaluar = new EvaluarApirante(aspiranteEvaluar, token);
                     ventanaEvaluar.ShowDialog();*/

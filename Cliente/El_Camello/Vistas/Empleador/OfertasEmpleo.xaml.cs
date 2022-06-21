@@ -258,6 +258,8 @@ namespace El_Camello.Vistas.Empleador
         private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+            Login iniciarSesion = new Login();
+            iniciarSesion.Show();
         }
 
         public void actualizarCambios(string operacion)

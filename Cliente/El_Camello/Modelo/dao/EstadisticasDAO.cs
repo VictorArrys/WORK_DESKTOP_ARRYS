@@ -212,7 +212,10 @@ namespace El_Camello.Modelo.dao
                                 valoracionesGet.IdValoracionAspirante = (int)valoraciones["id_aspirante"];
                                 valoracionesGet.EvaluacionAspirante = (int)valoraciones["valoracion_aspirante"];
 
-                                valoracionAspirantes.Add(valoracionesGet);
+                                if (valoracionesGet.EvaluacionAspirante > 0)
+                                {
+                                    valoracionAspirantes.Add(valoracionesGet);
+                                }
                             }
 
                         }
@@ -274,7 +277,11 @@ namespace El_Camello.Modelo.dao
                                 valoracionesGet.IdValoracionEmpleador = (int)valoraciones["id_empleador"];
                                 valoracionesGet.EvaluacionEmpleador = (int)valoraciones["valoracion_empleador"];
 
-                                valoracionEmpleadores.Add(valoracionesGet);
+                                if(valoracionesGet.EvaluacionEmpleador > 0)
+                                {
+                                    valoracionEmpleadores.Add(valoracionesGet);
+                                }
+                                
                             }
                         }
 

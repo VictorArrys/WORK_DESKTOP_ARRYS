@@ -164,6 +164,14 @@ namespace El_Camello.Vistas.Empleador
 
         }
 
+        private void btnConsultar_Click(object sender, RoutedEventArgs e)
+        {
 
+        }
+
+        private void cerrarVentana_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
