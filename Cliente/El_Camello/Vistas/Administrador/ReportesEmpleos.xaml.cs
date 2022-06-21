@@ -20,7 +20,7 @@ namespace El_Camello.Vistas.Administrador
     /// <summary>
     /// Interaction logic for ReportesEmpleos.xaml
     /// </summary>
-    public partial class ReportesEmpleos : Window
+    public partial class ReportesEmpleos : Page
     {
         private string token = "";
         private List<ReporteEmpleo> reportesEmpleos = new List<ReporteEmpleo>();
@@ -68,8 +68,20 @@ namespace El_Camello.Vistas.Administrador
 
         }
 
-        private void dgSolicitudes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void dgReportes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            int indiceSeleccion = dgReportes.SelectedIndex;
+
+            if (indiceSeleccion >= 0)
+            {
+                ReporteEmpleo reporteSeleccionado = reportesEmpleos[indiceSeleccion];
+
+                lbNombreEmpleador.Content = reporteSeleccionado.NombreEmpleador;
+                tbDescripcion.Text = reporteSeleccionado.DescripcionOfertaReportada;
+                tbReporte.Text = reporteSeleccionado.Motivo;
+                lbFecha.Content = reporteSeleccionado.FechaRegistro;
+
+            }
 
         }
     }

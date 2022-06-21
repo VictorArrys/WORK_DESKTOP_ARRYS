@@ -38,6 +38,7 @@ namespace El_Camello.Vistas.Empleador
             this.token = token;
             this.idOfertaEmpleo = idOfertaEmpleo;
             this.vacantes = vacantes;
+          
             InitializeComponent();
             cargarSolicitudes();
 
@@ -45,10 +46,13 @@ namespace El_Camello.Vistas.Empleador
 
         private void cargarSolicitudes()
         {
+            btnAprobar.IsEnabled = false;
+            btnRechazar.IsEnabled = false;
+            btnVerMas.IsEnabled = false;
             recuperarSolicitudes();
             lbVacantesUso.Content = "Ocupadas: " + solicitudesAceptadas.Count;
 
-            lbVacantesUso.Content = "Vacantes: " + vacantes;
+            lbVacantesLibres.Content = "Vacantes: " + vacantes;
 
         }
 
@@ -58,7 +62,15 @@ namespace El_Camello.Vistas.Empleador
             {
 
                 solicitudes = await SolicitudEmpleoDAO.GetSolicitudesEmpleo(token, idOfertaEmpleo);
+                
                 dgSolicitudes.ItemsSource = solicitudes;
+
+                MessageBox.Show("Cantidad de solicitudes: " + solicitudes.Count);
+                if(solicitudes.Count == 0)
+                {
+                    lbMensaje.Content = "Aun no cuentas con ninguna solicitud, vuelve pronto a revisar nuevamente";
+
+                }
             }
             catch (Exception exceptionGetList)
             {
@@ -86,6 +98,10 @@ namespace El_Camello.Vistas.Empleador
 
         private async void dgSolicitudes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            btnAprobar.IsEnabled = true;
+            btnRechazar.IsEnabled = true;
+            btnVerMas.IsEnabled = true;
+
             int indiceSeleccion = dgSolicitudes.SelectedIndex;
 
             if (indiceSeleccion >= 0)
@@ -110,26 +126,36 @@ namespace El_Camello.Vistas.Empleador
 
         private async void aceptarEmpleado(object sender, RoutedEventArgs e)
         {
+
             int indiceSeleccion = dgSolicitudes.SelectedIndex;
 
             if (indiceSeleccion >= 0)
             {
-                SolicitudEmpleo solicitudSeleccionada = solicitudesPendientes[indiceSeleccion];
-                int solicitudAceptada = await SolicitudEmpleoDAO.PatchAceptarSolicitud(token, solicitudSeleccionada.IdSolicitud);
-               
-                if(solicitudAceptada == 1)
+                if (vacantes >= 1)
                 {
-                    mensajes = new MensajesSistema("AccionExitosa", "La acción que ha realizado se completo correctamente", "Aceptar solcitud", "Se ha aceptado la solicitud de empleo");
-                    mensajes.ShowDialog();
-                    vacantes --;
-                    cargarSolicitudes();
+                    SolicitudEmpleo solicitudSeleccionada = solicitudesPendientes[indiceSeleccion];
+
+                    int solicitudAceptada = await SolicitudEmpleoDAO.PatchAceptarSolicitud(token, solicitudSeleccionada.IdSolicitud);
+
+                    if (solicitudAceptada == 1)
+                    {
+                        mensajes = new MensajesSistema("AccionExitosa", "La acción que ha realizado se completo correctamente", "Aceptar solcitud", "Se ha aceptado la solicitud de empleo");
+                        mensajes.ShowDialog();
+                        vacantes--;
+                        cargarSolicitudes();
+                    }
+                    else
+                    {
+                        mensajes = new MensajesSistema("Error", "La acción que ha realizado ha fallado", "Intento aceptar una solicitud", "No se ha podido aceptar la solicitud de empleo");
+                        mensajes.ShowDialog();
+                    }
+
                 }
                 else
                 {
-                    mensajes = new MensajesSistema("Error", "La acción que ha realizado ha fallado", "Intento aceptar una solicitud", "No se ha podido aceptar la solicitud de empleo");
+                    mensajes = new MensajesSistema("AccionInvalida", "La acción que ha realizado es invalida", "Intento aceptar una solcitud", "Ya no existen más vacantes, no puedes aceptar más solicitudes");
                     mensajes.ShowDialog();
                 }
-
             }
             else
             {
@@ -203,6 +229,9 @@ namespace El_Camello.Vistas.Empleador
 
         private async void dgVacantesEnUso_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            btnAprobar.IsEnabled = true;
+            btnRechazar.IsEnabled = true;
+            btnVerMas.IsEnabled = true;
             int indiceSeleccion = dgVacantesEnUso.SelectedIndex;
 
             if (indiceSeleccion >= 0)

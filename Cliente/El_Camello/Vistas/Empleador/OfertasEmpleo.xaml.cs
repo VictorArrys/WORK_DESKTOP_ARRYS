@@ -83,6 +83,7 @@ namespace El_Camello.Vistas.Empleador
         {
             lbUsuario.Content = "Usuario: " + usuarioConectado.NombreUsuario;
             CargarEmpleador(usuarioConectado);
+            
         }
 
         private void CargarImagen(Modelo.clases.Usuario usuarioConectado)
@@ -126,7 +127,7 @@ namespace El_Camello.Vistas.Empleador
             empleador.Tipo = usuarioConectado.Tipo;
             empleador.Token = usuarioConectado.Token;
             empleador.IdPerfilusuario = usuarioConectado.IdPerfilusuario;
-           
+            lbNombre.Content = "Nombre: " + empleador.NombreEmpleador;
         }
 
         private void btnEditarPerfil_Click(object sender, RoutedEventArgs e)
