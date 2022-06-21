@@ -210,7 +210,7 @@ namespace El_Camello.Modelo.dao
                             JObject conversacionGet = JObject.Parse(cuerpoRespuesta);
 
                             conversacion.IdConversacion = (int)conversacionGet["idConversacion"];
-                            conversacion.Titulo = (string)conversacionGet["tituloEmpleo"];
+                            conversacion.Titulo = (string)conversacionGet["tituloSolicitud"];
 
                             IList<JToken> listaMensajesJson = conversacionGet["mensajes"].Children().ToList();
                             List<Mensaje> listaMensajes = new List<Mensaje>();

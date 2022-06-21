@@ -17,7 +17,7 @@
             </Button.BorderBrush>
         </Button>
         <Button Content="Activar Perfil" HorizontalAlignment="Left" Margin="178,107,0,0" VerticalAlignment="Top" FontStyle="Italic" FontWeight="Normal" Background="{x:Null}" BorderBrush="{x:Null}"/>
-        <Button Content="  Solicitudes &#xA;  de empleo" HorizontalAlignment="Left" Margin="26,243,0,0" VerticalAlignment="Top" Width="113" Height="41" FontSize="14" FontWeight="Bold" Foreground="White">
+        <Button Content="  Solicitar &#xD;&#xA;  empleo" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="26,0,0,0" VerticalAlignment="Center" Width="113" Height="41" FontSize="14" FontWeight="Bold" Foreground="White" Click="Button_Click">
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>
@@ -65,7 +65,7 @@
                 <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
             </Rectangle.Fill>
         </Rectangle>
-        <Label Content="Nombre Aspirante" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="White" FontStyle="Italic"/>
+        <Label x:Name="lblNombreAspirante" Content="Nombre Aspirante" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="White" FontStyle="Italic"/>
         <Button Content="Cerrar Sesión" HorizontalAlignment="Left" Margin="894,7,0,0" VerticalAlignment="Top" Height="30" Width="101" FontSize="14" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
         <Button Content="Solicitudes de&#xD;&#xA;     servicio" HorizontalAlignment="Left" Margin="96,392,0,0" VerticalAlignment="Top" Width="114" Height="41" FontSize="14" FontWeight="Bold" Foreground="White">
             <Button.BorderBrush>
