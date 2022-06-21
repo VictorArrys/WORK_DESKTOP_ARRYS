@@ -17,7 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace El_Camello.Vistas.Empleador
+namespace El_Camello.Vistas.Empleador 
 {
     /// <summary>
     /// Interaction logic for OfertasEmpleo.xaml
@@ -38,9 +38,8 @@ namespace El_Camello.Vistas.Empleador
             InitializeComponent();
             if (usuarioConectado.Estatus == 1)
             {
-                cargarInformacionUsuario(usuarioConectado);
-                CargarOfertasTabla();
-                btnActivarPerfil.IsEnabled = false;
+                cargarInformacionUsuario(usuarioConectado);                
+                
             }
             else
             {
@@ -81,8 +80,8 @@ namespace El_Camello.Vistas.Empleador
         private void cargarInformacionUsuario(Modelo.clases.Usuario usuarioConectado)
         {
             lbUsuario.Content = "Usuario: " + usuarioConectado.NombreUsuario;
-            CargarEmpleador(usuarioConectado);
-            
+            CargarEmpleador(usuarioConectado);            
+
         }
 
         private void CargarImagen(Modelo.clases.Usuario usuarioConectado)
@@ -119,8 +118,7 @@ namespace El_Camello.Vistas.Empleador
             empleador = await EmpleadorDAO.getEmpleador(usuarioConectado.IdPerfilusuario, usuarioConectado.Token);
             CargarImagen(usuarioConectado);
 
-            this.idPerfilEmpleador = empleador.IdPerfilEmpleador;
-
+           
             empleador.Clave = usuarioConectado.Clave;
             empleador.CorreoElectronico = usuarioConectado.CorreoElectronico;
             empleador.Estatus = usuarioConectado.Estatus;
@@ -130,6 +128,11 @@ namespace El_Camello.Vistas.Empleador
             empleador.Token = usuarioConectado.Token;
             empleador.IdPerfilusuario = usuarioConectado.IdPerfilusuario;
             lbNombre.Content = "Nombre: " + empleador.NombreEmpleador;
+            
+            idPerfilEmpleador = empleador.IdPerfilEmpleador;
+
+            CargarOfertasTabla();
+            btnActivarPerfil.IsEnabled = false;
         }
 
         private void btnEditarPerfil_Click(object sender, RoutedEventArgs e)
