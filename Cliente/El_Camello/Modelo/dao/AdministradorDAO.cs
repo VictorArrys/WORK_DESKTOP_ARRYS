@@ -31,8 +31,8 @@ namespace El_Camello.Modelo.dao
                     if (respuesta.StatusCode == HttpStatusCode.OK)
                     {
                         JObject perfilAdministrador = JObject.Parse(body);
-                        administrador.IdPerfilAdministrador = (int)perfilAdministrador["idPerfilAdministrador"];
-                        administrador.IdPerfilusuario = (int)perfilAdministrador["idPerfilUsuarioAdmin"];
+                        administrador.IdPerfilAdministrador = (int)perfilAdministrador["id_perfil_administrador"];
+                        administrador.IdPerfilusuario = (int)perfilAdministrador["id_perfil_usuario_admin"];
                         administrador.Nombre = (string)perfilAdministrador["nombre"];
                         administrador.Telefono = (string)perfilAdministrador["telefono"];
                     }
@@ -44,6 +44,10 @@ namespace El_Camello.Modelo.dao
                 catch (HttpRequestException)
                 {
                     MessageBox.Show("Conexion en este momento no disponible", "¡Operacion!");
+                }
+                finally
+                {
+                    cliente.Dispose();
                 }
             }
             
@@ -87,6 +91,10 @@ namespace El_Camello.Modelo.dao
                 catch (HttpRequestException)
                 {
                     MessageBox.Show("Conexion en este momento no disponible", "¡Operacion!");
+                }
+                finally
+                {
+                    cliente.Dispose();
                 }
             }
 
@@ -134,6 +142,10 @@ namespace El_Camello.Modelo.dao
                 catch (HttpRequestException)
                 {
 
+                }
+                finally
+                {
+                    cliente.Dispose();
                 }
             }
             return resultado;

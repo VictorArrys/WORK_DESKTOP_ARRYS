@@ -53,7 +53,7 @@
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Rectangle.Stroke>
         </Rectangle>
-        <MediaElement HorizontalAlignment="Left" Height="199" Margin="699,66,0,0" VerticalAlignment="Top" Width="223"/>
+        <MediaElement x:Name="meVideoAspirante" HorizontalAlignment="Left" Height="199" Margin="699,66,0,0" VerticalAlignment="Top" Width="223"/>
 
     </Grid>
 </Window>

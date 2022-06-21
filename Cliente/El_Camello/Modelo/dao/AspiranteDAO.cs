@@ -104,6 +104,10 @@ namespace El_Camello.Modelo.dao
                 {
                     MessageBox.Show("servidor desconectado, no se puede establecer conexion");
                 }
+                finally
+                {
+                    cliente.Dispose();
+                }
 
 
             }
@@ -122,7 +126,9 @@ namespace El_Camello.Modelo.dao
                 try
                 {
                     HttpResponseMessage respuesta = await cliente.GetAsync(endpoint);
-                    string body = await respuesta.Content.ReadAsStringAsync();//Falla con respuestas largas
+                    string body = await respuesta.Content.ReadAsStringAsync();
+                    MessageBox.Show(body);
+                    
                     switch (respuesta.StatusCode)
                     {
                         case HttpStatusCode.OK:
@@ -132,8 +138,8 @@ namespace El_Camello.Modelo.dao
                             aspirante.IdAspirante = (int)perfilAspirante["idPerfilAspirante"];
                             aspirante.NombreAspirante = (string)perfilAspirante["nombre"];
                             aspirante.IdPerfilusuario = (int)perfilAspirante["idPerfilUsuario"];
-                            //aspirante.Oficios = perfilAspirante["oficios"];
                             aspirante.Telefono = (string)perfilAspirante["telefono"];
+                            
 
 
 
@@ -151,6 +157,10 @@ namespace El_Camello.Modelo.dao
                 catch (HttpRequestException)
                 {
                     MessageBox.Show("servidor desconectado, no se puede establecer conexion");
+                }
+                finally
+                {
+                    cliente.Dispose();
                 }
 
 
@@ -199,9 +209,54 @@ namespace El_Camello.Modelo.dao
                 {
                     MessageBox.Show("servidor desconectado, no se puede establecer conexion");
                 }
+                finally
+                {
+                    cliente.Dispose();
+                }
             }
 
             return aspirantes;
+        }
+
+        public async static Task<MemoryStream> GetVideo(int idAspirante, string token)
+        {
+            MemoryStream stream = null;
+            using (var cliente = new HttpClient())
+            {
+                cliente.DefaultRequestHeaders.Add("x-access-token", token);
+                string endpoint = string.Format("http://localhost:5000/v1/perfilAspirantes/{0}/video", idAspirante);
+
+                try
+                {
+                    var respuesta = await cliente.GetAsync(endpoint);
+                    Stream streamVideo = await respuesta.Content.ReadAsStreamAsync();
+                    
+                    RespuestasAPI respuestaAPI = new RespuestasAPI();
+
+                    if(respuesta.StatusCode == HttpStatusCode.OK)
+                    {
+                        stream = new MemoryStream();
+                        streamVideo.CopyTo(stream);
+                    }
+                    else
+                    {
+                        respuestaAPI.gestionRespuestasApi("Get Video", respuesta);
+                    }
+
+
+
+                }
+                catch (HttpRequestException)
+                {
+                    MessageBox.Show("servidor desconectado, no se puede establecer conexion");
+                }
+                finally
+                {
+                    cliente.Dispose();
+                }
+            }
+
+            return stream;
         }
 
     }

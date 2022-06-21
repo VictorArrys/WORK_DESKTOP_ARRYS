@@ -26,6 +26,7 @@ namespace El_Camello.Vistas.Administrador
         private consultarPerfiles ventanaConsultarPerfiles;
         private ReportesEstadisticos ventanaRepEst;
         private GraficasEstadisticas ventanaGrfEst;
+        private ReportesEmpleos ventanaReportesEmpleo;
         Modelo.clases.Administrador administrador = null;
 
         private string token;
@@ -93,6 +94,15 @@ namespace El_Camello.Vistas.Administrador
         private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void btnReportesEmpleos(object sender, RoutedEventArgs e)
+        {
+            if (ventanaReportesEmpleo == null)
+            {
+                ventanaReportesEmpleo = new ReportesEmpleos(token);
+            }
+            panelPrincipal.Content = ventanaReportesEmpleo;
         }
     }
 }

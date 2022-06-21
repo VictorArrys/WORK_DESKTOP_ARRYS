@@ -108,24 +108,25 @@ namespace El_Camello.Vistas.Administrador
             {
                 usuarioSeleccionado = (Modelo.clases.Usuario)dgUsuarios.SelectedItem;
                 string tipo = usuarioSeleccionado.Tipo;
-                usuarioSeleccionado.Token = token;
 
                 switch (tipo)
                 {
                     
                     case "Administrador":
-                        ConsultarPerfilAdministrador consultarPerfilAdministrador = new ConsultarPerfilAdministrador(usuarioSeleccionado);
+                        ConsultarPerfilAdministrador consultarPerfilAdministrador = new ConsultarPerfilAdministrador(usuarioSeleccionado, token);
                         consultarPerfilAdministrador.ShowDialog();
                         break;
                     case "Empleador":
-                        ConsultarPerfilEmpleador consultarPerfilEmpleador = new ConsultarPerfilEmpleador(usuarioSeleccionado);
+                        ConsultarPerfilEmpleador consultarPerfilEmpleador = new ConsultarPerfilEmpleador(usuarioSeleccionado, token);
                         consultarPerfilEmpleador.ShowDialog();
                         break;
                     case "Demandante":
-                        ConsultarPerfilDemandante consultarPerfilDemandante = new ConsultarPerfilDemandante(usuarioSeleccionado);
+                        ConsultarPerfilDemandante consultarPerfilDemandante = new ConsultarPerfilDemandante(usuarioSeleccionado, token);
                         consultarPerfilDemandante.ShowDialog();
                         break;
                     case "Aspirante":
+                        ConsultarPerfilAspirante consultarPerfilAspirante = new ConsultarPerfilAspirante(usuarioSeleccionado, token);
+                        consultarPerfilAspirante.ShowDialog();
                         break;
                 }
             }

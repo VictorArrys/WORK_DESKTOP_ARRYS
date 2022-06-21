@@ -1,4 +1,6 @@
-﻿using El_Camello.Modelo.dao;
+﻿using El_Camello.Assets.utilerias;
+using El_Camello.Modelo.clases;
+using El_Camello.Modelo.dao;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,19 +22,22 @@ namespace El_Camello.Empleador
     /// </summary>
     public partial class EvaluarApirante : Window
     {
-        private Modelo.clases.Aspirante aspiranteEvaluar;
+        private ContratacionEmpleoAspirante aspiranteEvaluar;
         private string token;
+        private int idOfertaEmpleo;
         List<string> valoraciones;
+        MensajesSistema mensajes;
 
         public EvaluarApirante()
         {
             InitializeComponent();
         }
 
-        public EvaluarApirante(Modelo.clases.Aspirante aspiranteEvaluar, string token)
+        public EvaluarApirante(ContratacionEmpleoAspirante aspiranteEvaluar, int idOfertaEmpleo, string token)
         {
             this.aspiranteEvaluar = aspiranteEvaluar;
             this.token = token;
+            this.idOfertaEmpleo = idOfertaEmpleo;
 
             InitializeComponent();
             cargarValoraciones();
@@ -43,52 +48,83 @@ namespace El_Camello.Empleador
         {
             valoraciones = new List<string>();
             cbValoraciones.Items.Clear();
-            valoraciones.Add("1");
-            valoraciones.Add("2");
-            valoraciones.Add("3");
-            valoraciones.Add("4");
-            valoraciones.Add("5");
+            valoraciones.Add("1: Es incumplido e irresponsable en el laboral");
+            valoraciones.Add("2: Es incumplido pero se hace responsable");
+            valoraciones.Add("3: Cuenta con las actitudes positivas en el ambiente laboral");
+            valoraciones.Add("4: Cuenta con algunas aptitudes y las actitudes en el ambiente laboral");
+            valoraciones.Add("5: Cuenta con todas las aptitudes y actitudes en el ambiente laboral");
 
             cbValoraciones.ItemsSource = valoraciones;
 
         }
 
-        private async void cargarAspiranteEvaluar() {
+        private void cargarAspiranteEvaluar() {
 
-            lbNombre.Content = aspiranteEvaluar.NombreAspirante;
-            Modelo.clases.Usuario user = await UsuarioDAO.getUsuario(aspiranteEvaluar.IdPerfilusuario, token);
-            CargarImagen(user);
+            lbNombre.Content = aspiranteEvaluar.NombreAspiranteContratado;
         }
 
-        private void CargarImagen(Modelo.clases.Usuario usuarioConectado)
+        private int obtenerValoracion()
         {
+            int valoracion = 0;
 
-            try
+            int valoracionSeleccionada = (int)cbValoraciones.SelectedIndex;
+            switch (valoracionSeleccionada)
             {
-                byte[] fotoPerfil = usuarioConectado.Fotografia;
-                if (fotoPerfil == null)
-                {
-                    fotoPerfil = null;
-                }
-                else if (fotoPerfil.Length > 0)
-                {
-                    using (var memoryStream = new System.IO.MemoryStream(fotoPerfil))
-                    {
-                        var imagen = new BitmapImage();
-                        imagen.BeginInit();
-                        imagen.CacheOption = BitmapCacheOption.OnLoad;
-                        imagen.StreamSource = memoryStream;
-                        imagen.EndInit();
-                        this.imgAspirante.Source = imagen;
-                    }
-                }
+                case 0:
+                    valoracion = 1;
+                    break;
+                case 1:
+                    valoracion = 2;
+                    break;
+                case 2:
+                    valoracion = 3;
+                    break;
+                case 3:
+                    valoracion = 4;
+                    break;
+                case 4:
+                    valoracion = 5;
+                    break;
+                case -1:
+                    mensajes = new MensajesSistema("AccionInvalida", "Ha intentado evaluar al aspirante", "Evaluar aspirante", "Se ha intentado evaluar al aspirante sin seleccionar una valoación antes");
+                    mensajes.ShowDialog();
+                    break;
 
             }
-            catch (Exception)
-            {
-                imgAspirante.Source = null;
-            }
+
+
+            return valoracion;
         }
+
+        private void evaluar(object sender, RoutedEventArgs e)
+        {
+            int valorEvaluacion = obtenerValoracion();
+            aspiranteEvaluar.ValoracionAspirante = valorEvaluacion;
+            evaluarAspirante();
+
+        }
+
+        private async void evaluarAspirante()
+        {
+            int evaluado = 0;
+
+            evaluado = await ContratacionEmpleoAspiranteDAO.PatchEvaluarAspirante(aspiranteEvaluar, idOfertaEmpleo, token);
+
+            if(evaluado > 0)
+            {
+
+                mensajes = new MensajesSistema("AccionExistosa", "Se ha evaluado exitosamente al aspirante", "Evaluar aspirante", "Se ha asignado una valoración de: " + evaluado + " al aspirante: " + aspiranteEvaluar.NombreAspiranteContratado);
+                mensajes.ShowDialog();
+                this.Close();
+            }
+            else
+            {
+                mensajes = new MensajesSistema("Error", "No se ha evaluado al aspirante, intente más tarde", "Evaluar aspirante", "No se ha asignado una valoración al aspirante: " + aspiranteEvaluar.NombreAspiranteContratado + " debido a un error");
+                mensajes.ShowDialog();
+            }
+
+        }
+
 
     }
 }

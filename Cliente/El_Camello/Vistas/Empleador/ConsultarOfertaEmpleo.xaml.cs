@@ -25,7 +25,8 @@ namespace El_Camello.Vistas.Empleador
     {
         int idOfertaEmpleo;
         private string token = "";
-        List<Modelo.clases.Aspirante> empleados;
+        OfertaEmpleo ofertaEmpleoConsulta;
+        private List<ContratacionEmpleoAspirante> contratados;
 
         MensajesSistema error;
 
@@ -44,34 +45,48 @@ namespace El_Camello.Vistas.Empleador
             {
                 string tokenString = "" + token;
 
-                OfertaEmpleo ofertaEmpleoConsulta = await OfertaEmpleoDAO.GetOfertaEmpleoCompleta(idOfertaEmpleo, tokenString);
+                ofertaEmpleoConsulta = await OfertaEmpleoDAO.GetOfertaEmpleoCompleta(idOfertaEmpleo, tokenString);
 
                 lbNombreEmpleo.Text = ofertaEmpleoConsulta.Nombre;
                 lbTipoPago.Text = ofertaEmpleoConsulta.TipoPago;
                 lbCategoria.Text = ofertaEmpleoConsulta.CategoriaEmpleo;
                 lbPago.Text = "$" + ofertaEmpleoConsulta.CantidadPago;
-
-                if(ofertaEmpleoConsulta.FechaFinalizacion > DateTime.Now)
-                {
-                    btnEvaluar.IsEnabled = false;
-                }
-
+                string fechaFin = string.Format("{0:yyyy-MM-dd}", ofertaEmpleoConsulta.FechaFinalizacion);
+                lbFechaFinalizacion.Text = fechaFin;
                 string fechaContratacion = string.Format("{0:yyyy-MM-dd}", ofertaEmpleoConsulta.ContratacionEmpleo.FechaContratacion);
 
+
+                if (ofertaEmpleoConsulta.FechaInicio > DateTime.Now)
+                {
+                    btnEvaluar.IsEnabled = false;
+                    lbEstado.Text = "Por empezar";
+                }
+  
                 if (fechaContratacion == "0001-01-01")
                 {
                     lbFechaContratacion.Text = "Sin contratación";
+                    btnEvaluar.IsEnabled = false;
+                    lbEstado.Text = "Sin contratacion";
                 }
                 else
                 {
 
                     lbFechaContratacion.Text = fechaContratacion;
+
+                    if (ofertaEmpleoConsulta.ContratacionEmpleo.Estatus == 1)
+                    {
+                        lbEstado.Text = "En proceso";
+                        btnEvaluar.IsEnabled = false;
+                    }
+                    else
+                    {
+                        lbEstado.Text = "Terminada";
+                    }
                 }
 
-                cargarEmpleados(ofertaEmpleoConsulta.ContratacionEmpleo.ContratacionesAspirantes);
 
-                string fechaFin = string.Format("{0:yyyy-MM-dd}", ofertaEmpleoConsulta.FechaFinalizacion);
-                lbFechaFinalizacion.Text = fechaFin;
+                contratados = ofertaEmpleoConsulta.ContratacionEmpleo.ContratacionesAspirantes;
+                cargarEmpleados(ofertaEmpleoConsulta.ContratacionEmpleo.ContratacionesAspirantes);                
 
             }
             catch (Exception exception)
@@ -84,33 +99,43 @@ namespace El_Camello.Vistas.Empleador
 
         private async void cargarEmpleados(List<ContratacionEmpleoAspirante> listaEmpleados)
         {
-            empleados = new List<Modelo.clases.Aspirante>();
-            foreach (var contratado in listaEmpleados)
-            {
-                Modelo.clases.Aspirante empleado = await AspiranteDAO.GetAspirante(contratado.IdAspirante, token);
-                empleados.Add(empleado);
-
-            }
-
 
             if (listaEmpleados.Count > 0)
             {
 
-                dgEmpleados.ItemsSource = empleados;
+                dgEmpleados.ItemsSource = listaEmpleados;
             }
 
         }
 
-        private void evaluarAspirante()
+        private void evaluarAspirante(object sender, RoutedEventArgs e)
         {
             int indiceSeleccion = dgEmpleados.SelectedIndex;
 
             if (indiceSeleccion >= 0)
             {
-                Modelo.clases.Aspirante aspiranteEvaluar = empleados[indiceSeleccion];
+                int posicion = 0;
+                foreach (var contratado in ofertaEmpleoConsulta.ContratacionEmpleo.ContratacionesAspirantes)
+                {
+                    if (contratados[posicion].IdUsuario == contratado.IdUsuario)
+                    {
+                        if (contratado.ValoracionAspirante == 0)
+                        {
+                            ContratacionEmpleoAspirante aspiranteEvaluar = contratados[indiceSeleccion];
 
-                EvaluarApirante ventanaEvaluar = new EvaluarApirante(aspiranteEvaluar, token);
-                ventanaEvaluar.ShowDialog();
+                            EvaluarApirante ventanaEvaluar = new EvaluarApirante(aspiranteEvaluar, idOfertaEmpleo, token);
+                            ventanaEvaluar.ShowDialog();
+                        }
+                        else
+                        {
+                            error = new MensajesSistema("AccionInvalida", "La acción que ha realizado es invalida", "Intento de evaluar un empleado", "No puedes evaluar a un aspirante 2 veces");
+                            error.ShowDialog();
+                        }
+                    }
+
+                }
+
+                
             }
             else
             {
@@ -120,14 +145,13 @@ namespace El_Camello.Vistas.Empleador
 
         }
 
-
-        private void consultarAspirante()
+        private void consultarAspirante(object sender, RoutedEventArgs e)
         {
             int indiceSeleccion = dgEmpleados.SelectedIndex;
 
             if (indiceSeleccion >= 0)
             {
-                Modelo.clases.Aspirante aspiranteEvaluar = empleados[indiceSeleccion];
+                ContratacionEmpleoAspirante aspiranteConsultar = contratados[indiceSeleccion];
 
                 /*EvaluarApirante ventanaEvaluar = new EvaluarApirante(aspiranteEvaluar, token);
                 ventanaEvaluar.ShowDialog();*/

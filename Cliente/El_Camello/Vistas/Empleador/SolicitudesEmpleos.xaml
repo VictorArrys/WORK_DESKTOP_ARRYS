@@ -7,29 +7,22 @@
         mc:Ignorable="d"
         Title="SolcitudesEmpleos" Height="540" Width="860" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid Margin="0,0,0,-6">
-        <Grid RenderTransformOrigin="0.496,0.438" Margin="0,0,0,487">
-            <Grid.Background>
-                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
-            </Grid.Background>
-            <Button Content="Volver" HorizontalAlignment="Left" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Margin="756,13,0,0">
-                <Button.Background>
-                    <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
-                </Button.Background>
-                <Button.BorderBrush>
-                    <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
-                </Button.BorderBrush>
-            </Button>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="123"/>
+            <ColumnDefinition Width="737"/>
+        </Grid.ColumnDefinitions>
+        <Grid DockPanel.Dock="Top" Background="#FF062758" Opacity="0.85" VerticalAlignment="Top" Height="40" Grid.ColumnSpan="2">
+            <Label HorizontalContentAlignment="Center" Content="Solicitudes de empleo" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="26" Width="718" Grid.ColumnSpan="2" Height="45"/>
         </Grid>
-        <Grid RenderTransformOrigin="0.496,0.438" Margin="0,497,0,0">
+        <Grid RenderTransformOrigin="0.496,0.438" Margin="0,497,0,0" Grid.ColumnSpan="2">
             <Grid.Background>
                 <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
             </Grid.Background>
         </Grid>
-        <Label Content="Solicitudes de empleo" HorizontalAlignment="Center" Margin="0,-2,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="26"/>
-        <Rectangle HorizontalAlignment="Left" Height="199" Margin="25,66,0,0" Stroke="Black" VerticalAlignment="Top" Width="495"/>
-        <Rectangle HorizontalAlignment="Left" Height="198" Margin="25,294,0,0" Stroke="Black" VerticalAlignment="Top" Width="495"/>
-        <Rectangle HorizontalAlignment="Left" Height="426" Margin="540,66,0,0" Stroke="Black" VerticalAlignment="Top" Width="310"/>
-        <Button HorizontalAlignment="Left" Margin="756,12,0,0" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116">
+        <Rectangle HorizontalAlignment="Left" Height="199" Margin="25,66,0,0" Stroke="Black" VerticalAlignment="Top" Width="495" Grid.ColumnSpan="2"/>
+        <Rectangle HorizontalAlignment="Left" Height="198" Margin="25,294,0,0" Stroke="Black" VerticalAlignment="Top" Width="495" Grid.ColumnSpan="2"/>
+        <Rectangle HorizontalAlignment="Left" Height="426" Margin="416,66,0,0" Stroke="Black" VerticalAlignment="Top" Width="310" Grid.Column="1"/>
+        <Button x:Name="btnAprobar" Content="Aprobar" HorizontalAlignment="Left" Margin="515,460,0,0" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Click="aceptarEmpleado" Grid.Column="1" Height="20">
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
             </Button.Background>
@@ -37,7 +30,7 @@
                 <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
             </Button.BorderBrush>
         </Button>
-        <Button Content="Aprobar" HorizontalAlignment="Left" Margin="639,460,0,0" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Click="aceptarEmpleado">
+        <Button x:Name="btnRechazar" Content="Rechazar" HorizontalAlignment="Left" Margin="623,460,0,0" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Click="rechazarEmpleado" Grid.Column="1" Height="20">
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
             </Button.Background>
@@ -45,32 +38,34 @@
                 <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
             </Button.BorderBrush>
         </Button>
-        <Button Content="Rechazar" HorizontalAlignment="Left" Margin="747,460,0,0" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Click="rechazarEmpleado">
-            <Button.Background>
-                <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
-            </Button.Background>
-            <Button.BorderBrush>
-                <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
-            </Button.BorderBrush>
-        </Button>
-        <DataGrid x:Name="dgSolicitudes" d:ItemsSource="{Binding}" Margin="46,108,360,285" AutoGenerateColumns="False" IsReadOnly="true" SelectionChanged="dgSolicitudes_SelectionChanged">
+        <DataGrid x:Name="dgSolicitudes" d:ItemsSource="{Binding}" Margin="46,108,360,285" AutoGenerateColumns="False" IsReadOnly="true" SelectionChanged="dgSolicitudes_SelectionChanged" Grid.ColumnSpan="2">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Aspirante" Binding= "{Binding Nombre}" Width="250"/>
                 <DataGridTextColumn Header="Fecha registro" Binding= "{Binding FechaRegistro}" Width="100"/>
                 <DataGridTextColumn Header="Estado" Binding= "{Binding Estatus}" Width="100"/>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="dgVacantesEnUso" d:ItemsSource="{Binding}" Margin="46,333,360,60" AutoGenerateColumns="False" IsReadOnly="true">
+        <DataGrid x:Name="dgVacantesEnUso" d:ItemsSource="{Binding}" Margin="46,333,360,60" AutoGenerateColumns="False" IsReadOnly="true" SelectionChanged="dgVacantesEnUso_SelectionChanged" Grid.ColumnSpan="2">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Aspirante" Binding= "{Binding Nombre}" Width="250"/>
                 <DataGridTextColumn Header="Feche registro" Binding= "{Binding FechaRegistro}" Width="100"/>
                 <DataGridTextColumn Header="Estado" Binding= "{Binding Estatus}" Width="100"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Label Content="Solicitudes" HorizontalAlignment="Left" Margin="133,63,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26"/>
-        <Label Content="Vacantes ocupadas" HorizontalAlignment="Left" Margin="130,288,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26"/>
-        <Label Name="lbVacantesUso" Content="Ocupadas : ?" HorizontalAlignment="Left" Margin="383,302,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="12"/>
-        <Button Content="Ver más" HorizontalAlignment="Left" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Margin="742,81,0,0">
+        <Label Content="Solicitudes" HorizontalAlignment="Left" Margin="9,66,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26" Grid.Column="1" Height="42" Width="143"/>
+        <Label Content="Vacantes ocupadas" HorizontalAlignment="Left" Margin="6,288,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26" Grid.Column="1" Height="45" Width="240"/>
+        <Label Name="lbVacantesUso" Content="Ocupadas : ?" HorizontalAlignment="Left" Margin="259,302,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="12" Grid.Column="1" Height="26" Width="80"/>
+        <Label Content="Aspirante: " HorizontalAlignment="Left" Margin="416,104,0,0" VerticalAlignment="Top" Width="310" Background="Black" Foreground="White" Grid.Column="1" Height="26"/>
+        <Label x:Name="lbNombreAspirante" Content="[Nombre]" HorizontalAlignment="Left" Margin="419,135,0,0" VerticalAlignment="Top" Width="307" Grid.Column="1" Height="26"/>
+        <Label Content="Telefono: " HorizontalAlignment="Left" Margin="416,164,0,0" VerticalAlignment="Top" Width="310" Background="Black" Foreground="White" Grid.Column="1" Height="26"/>
+        <Label x:Name="lbTelefono" Content="[Telefono]" HorizontalAlignment="Left" Margin="416,195,0,0" VerticalAlignment="Top" Width="310" Grid.Column="1" Height="26"/>
+        <Label Content="Dirección: " HorizontalAlignment="Left" Margin="416,221,0,0" VerticalAlignment="Top" Width="310" Background="Black" Foreground="White" Grid.Column="1" Height="26"/>
+        <Label x:Name="lbDireccion" Content="[Dirección]" HorizontalAlignment="Left" Margin="419,249,0,0" VerticalAlignment="Top" Width="307" Height="48" Grid.Column="1"/>
+        <Label Content="Oficios: " HorizontalAlignment="Left" Margin="416,297,0,0" VerticalAlignment="Top" Width="310" Background="Black" Foreground="White" Grid.Column="1" Height="26"/>
+        <Label x:Name="lbVacantesLibres" Content="Vacantes: ?" HorizontalAlignment="Left" Margin="259,72,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="12" Grid.Column="1" Height="26" Width="71"/>
+        <TextBlock x:Name="tbOficios" HorizontalAlignment="Left" Margin="431,323,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="132" Width="281" Grid.Column="1"/>
+        <Label Content="Información detallada" HorizontalAlignment="Left" Margin="416,67,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="20" RenderTransformOrigin="0.208,0.685" Width="310" Background="#FF062758" Height="37" Grid.Column="1"/>
+        <Button x:Name="btnVerMas" Content="Ver más" HorizontalAlignment="Left" VerticalAlignment="Top" Width="71" Foreground="White" RenderTransformOrigin="-1.106,7.116" Margin="646,76,0,0" Click="consultarAspirante" Grid.Column="1" Height="20">
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
             </Button.Background>
@@ -78,18 +73,15 @@
                 <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
             </Button.BorderBrush>
         </Button>
-        <Image HorizontalAlignment="Left" Height="127" Margin="551,81,0,0" VerticalAlignment="Top" Width="135"/>
-        <Label Content="Nombre: " HorizontalAlignment="Left" Margin="695,122,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbNombreAspirante" Content="[Nombre]" HorizontalAlignment="Left" Margin="698,148,0,0" VerticalAlignment="Top" Width="143"/>
-        <Label Content="Telefono: " HorizontalAlignment="Left" Margin="695,184,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbTelefono" Content="[Telefono]" HorizontalAlignment="Left" Margin="698,210,0,0" VerticalAlignment="Top" Width="143"/>
-        <Label Content="Dirección: " HorizontalAlignment="Left" Margin="565,239,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbDireccion" Content="[Dirección]" HorizontalAlignment="Left" Margin="568,265,0,0" VerticalAlignment="Top" Width="268"/>
-        <Label Content="Experiencia: " HorizontalAlignment="Left" Margin="565,289,0,0" VerticalAlignment="Top"/>
-        <Label Content="[Experiencia]" HorizontalAlignment="Left" Margin="568,315,0,0" VerticalAlignment="Top" Width="143"/>
-        <Label Content="Días habiles: " HorizontalAlignment="Left" Margin="570,341,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbDiasExperiencia" Content="[Días habiles]" HorizontalAlignment="Left" Margin="573,367,0,0" VerticalAlignment="Top" Width="143"/>
-        <Label x:Name="lbVacantesLibres" Content="Vacantes: ?" HorizontalAlignment="Left" Margin="383,72,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="12"/>
+        <Label x:Name="lbMensaje" Content=":)" HorizontalAlignment="Left" Margin="25,43,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="12" Height="23" Grid.ColumnSpan="2" Width="495"/>
+        <Button Content="Volver" HorizontalAlignment="Left" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Margin="632,10,0,0" Grid.Column="1">
+            <Button.Background>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
+            </Button.Background>
+            <Button.BorderBrush>
+                <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
+            </Button.BorderBrush>
+        </Button>
 
 
     </Grid>

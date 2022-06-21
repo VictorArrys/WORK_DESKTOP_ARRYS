@@ -43,10 +43,10 @@
         <Label Content="Fecha de finalización: " HorizontalAlignment="Left" Margin="10,81,0,0" VerticalAlignment="Top" Grid.Row="1"/>
         <TextBox x:Name="lbFechaFinalizacion" HorizontalAlignment="Left" Margin="137,89,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Top" Width="235" Grid.Row="1" IsEnabled="False"/>
         <Rectangle HorizontalAlignment="Left" Height="287" Margin="385,58,0,0" Stroke="Black" VerticalAlignment="Top" Width="495" Grid.RowSpan="2"/>
-        <DataGrid x:Name="dgEmpleados" d:ItemsSource="{Binding}" Margin="406,116,32,163" Grid.RowSpan="2" AutoGenerateColumns="False" IsEnabled="False">
+        <DataGrid x:Name="dgEmpleados" d:ItemsSource="{Binding}" Margin="406,116,32,163" Grid.RowSpan="2" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeRows="False" IsReadOnly="True" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Aspirante" Binding= "{Binding NombreAspirante}" Width="200"/>
-                <DataGridTextColumn Header="Direccion" Binding= "{Binding Telefono}" Width="100"/>
+                <DataGridTextColumn Header="Aspirante" Binding= "{Binding NombreAspiranteContratado}" Width="200"/>
+                <DataGridTextColumn Header="Telefono" Binding= "{Binding Telefono}" Width="100"/>
                 <DataGridTextColumn Header="Direccion" Binding= "{Binding Direccion}" Width="150"/>
             </DataGrid.Columns>
         </DataGrid>
@@ -59,7 +59,7 @@
                 <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
             </Button.BorderBrush>
         </Button>
-        <Button Content="Consultar perfil" HorizontalAlignment="Left" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Margin="766,68,0,0">
+        <Button x:Name="btnConsultar" Content="Consultar perfil" HorizontalAlignment="Left" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Margin="766,68,0,0">
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
             </Button.Background>
@@ -67,6 +67,8 @@
                 <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
             </Button.BorderBrush>
         </Button>
+        <Label Content="Estado: " HorizontalAlignment="Left" Margin="10,124,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+        <TextBox x:Name="lbEstado" HorizontalAlignment="Left" Margin="137,132,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Top" Width="235" Grid.Row="1" IsEnabled="False"/>
 
     </Grid>
 </Window>

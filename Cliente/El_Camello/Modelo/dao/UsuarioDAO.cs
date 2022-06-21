@@ -134,6 +134,10 @@ namespace El_Camello.Modelo.dao
                 {
                     MessageBox.Show("Conexion en este momento no disponible", "¡Operacion!");
                 }
+                finally
+                {
+                    cliente.Dispose();
+                }
             }
 
                 return usuario;
@@ -176,6 +180,10 @@ namespace El_Camello.Modelo.dao
                 {
                     MessageBox.Show("Conexion en este momento no disponible", "¡Operacion!");
                 }
+                finally
+                {
+                    cliente.Dispose();
+                }
             }
 
             return usuarios;
@@ -209,6 +217,10 @@ namespace El_Camello.Modelo.dao
                 {
                     MessageBox.Show("Conexion en este momento no disponible", "¡Operacion!");
                 }
+                finally
+                {
+                    cliente.Dispose();
+                }
             }
             return resultado;
         }
@@ -239,6 +251,10 @@ namespace El_Camello.Modelo.dao
                 catch (HttpRequestException)
                 {
                     MessageBox.Show("Conexion en este momento no disponible", "¡Operacion!");
+                }
+                finally
+                {
+                    cliente.Dispose();
                 }
             }
             return resultado;

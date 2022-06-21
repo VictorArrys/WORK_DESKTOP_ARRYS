@@ -24,19 +24,19 @@ namespace El_Camello.Vistas.Administrador
         Modelo.clases.Demandante demandante = null;
         string token = null;
         
-        public ConsultarPerfilDemandante(Modelo.clases.Usuario usuarioSolicitado)
+        public ConsultarPerfilDemandante(Modelo.clases.Usuario usuarioSolicitado, string token)
         {
             InitializeComponent();
             
             usuario = new Modelo.clases.Usuario();
             demandante = new Modelo.clases.Demandante();
+            this.token = token;
             cargarInformacionDemandante(usuarioSolicitado);
-            this.token = usuarioSolicitado.Token;
         }
 
         private async void cargarInformacionDemandante(Modelo.clases.Usuario usuario)
         {
-            usuario = await UsuarioDAO.getUsuario(usuario.IdPerfilusuario, usuario.Token);
+            usuario = await UsuarioDAO.getUsuario(usuario.IdPerfilusuario, token);
             demandante = await DemandanteDAO.getDemandante(usuario.IdPerfilusuario, token);
             cargarImagen(usuario.Fotografia);
             lbNombreDemandante.Content = demandante.NombreDemandante;
