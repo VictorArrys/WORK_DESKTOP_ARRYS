@@ -1,5 +1,8 @@
-﻿using System;
+﻿using El_Camello.Assets.utilerias;
+using El_Camello.Modelo.dao;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +22,33 @@ namespace El_Camello.Vistas.Administrador
     /// </summary>
     public partial class ConsultarPerfilAspirante : Window
     {
-        public ConsultarPerfilAspirante()
+        Modelo.clases.Aspirante aspirante = null;
+        string token = null;
+        public ConsultarPerfilAspirante(Modelo.clases.Usuario usuarioSeleccionado, string token)
         {
             InitializeComponent();
+            aspirante = new Modelo.clases.Aspirante();
+            this.token = token;
+            cargarInformacionAspirante(usuarioSeleccionado);
+
+            
+        }
+
+        private async void cargarInformacionAspirante(Modelo.clases.Usuario usuarioSeleccionado)
+        {
+            aspirante = await AspiranteDAO.GetAspirante(usuarioSeleccionado.IdPerfilusuario, token);
+            aspirante.Video = await AspiranteDAO.GetVideo(usuarioSeleccionado.IdPerfilusuario, token);
+
+
+            aspirante.RutaVideo = "";
+
+            do
+            {
+                aspirante.RutaVideo = System.IO.Path.GetTempFileName().Replace(".tmp", ".mp4");
+            } while (System.IO.File.Exists(aspirante.RutaVideo));
+
+            MemoryStream_toFile.MemoryStreamToFile(aspirante.Video, aspirante.RutaVideo);
+            meVideoAspirante.Source = new Uri(aspirante.RutaVideo);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

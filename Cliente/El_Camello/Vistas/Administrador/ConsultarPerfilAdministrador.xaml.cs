@@ -19,16 +19,18 @@ namespace El_Camello.Vistas.Administrador
     public partial class ConsultarPerfilAdministrador : Window
     {
         Modelo.clases.Administrador administrador = null;
-        public ConsultarPerfilAdministrador(Modelo.clases.Usuario usuarioAdministrador)
+        string token = null;
+        public ConsultarPerfilAdministrador(Modelo.clases.Usuario usuarioAdministrador, string token)
         {
             InitializeComponent();
             administrador = new Modelo.clases.Administrador();
+            this.token = token;
             cargarInformacionAdministrador(usuarioAdministrador);
         }
 
         private async void cargarInformacionAdministrador(Modelo.clases.Usuario usuario)
         {
-            administrador = await AdministradorDAO.getAdministrador(usuario.IdPerfilusuario, usuario.Token);
+            administrador = await AdministradorDAO.getAdministrador(usuario.IdPerfilusuario, token);
             administrador.NombreUsuario = usuario.NombreUsuario;
             administrador.Clave = usuario.Clave;
             administrador.CorreoElectronico = usuario.CorreoElectronico;

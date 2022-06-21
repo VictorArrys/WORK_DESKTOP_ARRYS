@@ -19,20 +19,22 @@ namespace El_Camello.Vistas.Administrador
     {
         Modelo.clases.Empleador empleador = null;
         Modelo.clases.Usuario usuario = null;
-        public ConsultarPerfilEmpleador(Modelo.clases.Usuario usuarioSolicitado)
+        string token = null;
+        public ConsultarPerfilEmpleador(Modelo.clases.Usuario usuarioSolicitado, string token)
         {
             InitializeComponent();
             empleador = new Modelo.clases.Empleador();
             usuario = new Modelo.clases.Usuario();
-            cargarInformacionEmpleador(usuarioSolicitado);
+            this.token = token;
+            cargarInformacionEmpleador(usuarioSolicitado, token);
             
 
         }
 
-        public async void cargarInformacionEmpleador(Modelo.clases.Usuario usuarioSolicitado)
+        public async void cargarInformacionEmpleador(Modelo.clases.Usuario usuarioSolicitado, string token)
         {
-            empleador = await EmpleadorDAO.getEmpleador(usuarioSolicitado.IdPerfilusuario, usuarioSolicitado.Token);
-            usuario = await UsuarioDAO.getUsuario(usuarioSolicitado.IdPerfilusuario, usuarioSolicitado.Token);
+            empleador = await EmpleadorDAO.getEmpleador(usuarioSolicitado.IdPerfilusuario, token);
+            usuario = await UsuarioDAO.getUsuario(usuarioSolicitado.IdPerfilusuario, token);
             cargarImagen(usuario);
             lbNombreEmpleador.Content = empleador.NombreEmpleador;
             tbNombreEmpresa.Text = empleador.NombreOrganizacion;
