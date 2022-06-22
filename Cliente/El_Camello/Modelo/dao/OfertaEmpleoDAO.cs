@@ -633,8 +633,8 @@ namespace El_Camello.Modelo.dao
                             ofertaEmpleoGet.TipoPago = (string)ofertaEmpleoConsultada["tipoPago"];
                             ofertaEmpleoGet.CantidadPago = (int)ofertaEmpleoConsultada["cantidadPago"];
                             ofertaEmpleoGet.Direccion = (string)ofertaEmpleoConsultada["direccion"];
-                            ofertaEmpleoGet.FechaInicio = (DateTime)ofertaEmpleoConsultada["fecha_inicio"];
-                            ofertaEmpleoGet.FechaFinalizacion = (DateTime)ofertaEmpleoConsultada["fecha_finalizacion"];
+                            ofertaEmpleoGet.FechaInicio = (DateTime)ofertaEmpleoConsultada["fechaInicio"];
+                            ofertaEmpleoGet.FechaFinalizacion = (DateTime)ofertaEmpleoConsultada["fechaFinalizacion"];
                             ofertasEmpleosGet.Add(ofertaEmpleoGet);
                         }
 

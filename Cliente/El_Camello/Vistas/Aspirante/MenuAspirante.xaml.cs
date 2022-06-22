@@ -74,5 +74,12 @@ namespace El_Camello.Vistas.Aspirante
             BuscarOfertaEmpleo ventanaBuscarOfertaEmpleo = new BuscarOfertaEmpleo(perfilAspirante);
             ventanaBuscarOfertaEmpleo.ShowDialog();
         }
+
+        private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
+        {
+            Usuario.Login ventanaLogin = new Usuario.Login();
+            ventanaLogin.Show();
+            this.Close();
+        }
     }
 }

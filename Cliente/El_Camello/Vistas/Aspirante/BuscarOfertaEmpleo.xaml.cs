@@ -39,9 +39,10 @@ namespace El_Camello.Vistas.Aspirante
 
         private async void CargartblOfertas()
         {
-            List<int> listaCategorias = aspirante.Oficios.Select(oficio => oficio.IdCategoria).ToList();
-            List<OfertaEmpleo> listaOfertas = await OfertaEmpleoDAO.GetBuscarOfertasEmpleo( listaCategorias.ToArray<int>(), aspirante.Token);
-            foreach(OfertaEmpleo item in listaOfertas)
+            int[] listaCategorias = { 1};
+            //listaCategorias = aspirante.Oficios.Select(oficio => oficio.IdCategoria).ToArray<int>();
+            List<OfertaEmpleo> listaOfertas = await OfertaEmpleoDAO.GetBuscarOfertasEmpleo(listaCategorias, aspirante.Token);
+            foreach (OfertaEmpleo item in listaOfertas)
             {
                 OfertaEmpleoControl ofertaEmpleoControl = new OfertaEmpleoControl();
                 ofertaEmpleoControl.OfertaEmpleo = item;

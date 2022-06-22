@@ -33,8 +33,10 @@ namespace El_Camello.Vistas.Aspirante.controles
                 ofertaEmpleo = value;
                 this.lblCantidadPago.Content = "Cantidad Pago: " + ofertaEmpleo.CantidadPago;
                 this.lblDireccion.Content = "Dirección: " + ofertaEmpleo.Direccion;
-                this.lblFin.Content = "Fecha Fin: " + ofertaEmpleo.FechaFinalizacion;
-                this.lblInicio.Content = "Fecha inicio: " + ofertaEmpleo.FechaInicio;
+                string fechaFin = string.Format("{0:yyyy-MM-dd}", ofertaEmpleo.FechaFinalizacion);
+                this.lblFin.Content = "Fecha Fin: " + fechaFin;
+                string fechaInicio = string.Format("{0:yyyy-MM-dd}", ofertaEmpleo.FechaInicio);
+                this.lblInicio.Content = "Fecha inicio: " + fechaInicio;
                 this.lblNombre.Content = "Nombre empleo: " + ofertaEmpleo.Nombre;
                 this.lblTipoPago.Content = "Tipo pago: " + ofertaEmpleo.TipoPago;
                 this.lblVacantes.Content = "Vacantes: " + ofertaEmpleo.Vacantes;
