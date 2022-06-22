@@ -39,15 +39,9 @@ namespace El_Camello.Vistas.Aspirante
 
         private async void CargartblOfertas()
         {
-            int[] listaCategorias = { 1};
-            //listaCategorias = aspirante.Oficios.Select(oficio => oficio.IdCategoria).ToArray<int>();
+            int[] listaCategorias = aspirante.Oficios.Select(oficio => oficio.IdCategoria).ToArray<int>();
             List<OfertaEmpleo> listaOfertas = await OfertaEmpleoDAO.GetBuscarOfertasEmpleo(listaCategorias, aspirante.Token);
-            foreach (OfertaEmpleo item in listaOfertas)
-            {
-                OfertaEmpleoControl ofertaEmpleoControl = new OfertaEmpleoControl();
-                ofertaEmpleoControl.OfertaEmpleo = item;
-                pnlOfertasEmpleo.Children.Add(ofertaEmpleoControl);
-            }
+            BuscarOfertasEmpleo(listaCategorias);
         }
 
         private async void CargarCbxCategorias()
@@ -57,7 +51,24 @@ namespace El_Camello.Vistas.Aspirante
 
         private void btnBuscarOfertas_Click(object sender, RoutedEventArgs e)
         {
-
+            if (cbxCategorias.SelectedIndex > -1)
+            {
+                int[] categoriaSeleccionada = { ((Categoria)cbxCategorias.SelectedItem).IdCategoria };
+                BuscarOfertasEmpleo(categoriaSeleccionada);
+            }
         }
+
+        private async void BuscarOfertasEmpleo(int[] listaCategorias)
+        {
+            List<OfertaEmpleo> listaOfertas = await OfertaEmpleoDAO.GetBuscarOfertasEmpleo(listaCategorias, aspirante.Token);
+            foreach (OfertaEmpleo item in listaOfertas)
+            {
+                OfertaEmpleoControl ofertaEmpleoControl = new OfertaEmpleoControl();
+                ofertaEmpleoControl.OfertaEmpleo = item;
+                ofertaEmpleoControl.Token = aspirante.Token;
+                pnlOfertasEmpleo.Children.Add(ofertaEmpleoControl);
+            }
+        }
+        
     }
 }

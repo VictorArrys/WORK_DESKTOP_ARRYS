@@ -637,7 +637,8 @@ namespace El_Camello.Modelo.dao
                             ofertaEmpleoGet.FechaFinalizacion = (DateTime)ofertaEmpleoConsultada["fechaFinalizacion"];
                             ofertasEmpleosGet.Add(ofertaEmpleoGet);
                         }
-
+                        cliente.CancelPendingRequests();
+                        cliente.Dispose();
                     }
                     else
                     {
@@ -655,6 +656,62 @@ namespace El_Camello.Modelo.dao
             }
 
             return ofertasEmpleosGet;
+        }
+
+        public static async Task<OfertaEmpleo> GetConsultarOfertaEmpleoAspirante(int idOfertaEmpleo, string token)
+        {
+            OfertaEmpleo ofertaEmpleo = new OfertaEmpleo();
+            string body;
+            try
+            {
+                using (var cliente = new HttpClient())
+                {
+                    cliente.DefaultRequestHeaders.Add("x-access-token", token);
+                    string endpoint = $"http://localhost:5000/v1/ofertasEmpleo-A/{idOfertaEmpleo}";
+                    HttpResponseMessage respuesta = await cliente.GetAsync(endpoint);
+                    RespuestasAPI respuestaAPI = new RespuestasAPI();
+                    if (respuesta.StatusCode == HttpStatusCode.OK)
+                    {
+                        body = await respuesta.Content.ReadAsStringAsync();
+                        JObject ofertaEmpleoConsultada = JObject.Parse(body);
+
+                        ofertaEmpleo.IdOfertaEmpleo = (int)ofertaEmpleoConsultada["idOfertaEmpleo"];
+                        ofertaEmpleo.IdPerfilEmpleador = (int)ofertaEmpleoConsultada["idPerfilEmpleador"];
+                        ofertaEmpleo.IdCategoriaEmpleo = (int)ofertaEmpleoConsultada["idCategoriaEmpleo"];
+                        ofertaEmpleo.Nombre = (string)ofertaEmpleoConsultada["nombre"];
+                        ofertaEmpleo.Descripcion = (string)ofertaEmpleoConsultada["descripcion"];
+                        ofertaEmpleo.Vacantes = (int)ofertaEmpleoConsultada["vacantes"];
+                        ofertaEmpleo.DiasLaborales = (string)ofertaEmpleoConsultada["diasLaborales"];
+                        ofertaEmpleo.TipoPago = (string)ofertaEmpleoConsultada["tipoPago"];
+                        ofertaEmpleo.CantidadPago = (int)ofertaEmpleoConsultada["cantidadPago"];
+                        ofertaEmpleo.Direccion = (string)ofertaEmpleoConsultada["direccion"];
+                        string horaInicio = (string)ofertaEmpleoConsultada["horaInicio"];
+                        string horaFin = (string)ofertaEmpleoConsultada["horaFin"];
+
+                        ofertaEmpleo.HoraInicio = TimeOnly.Parse(horaInicio);
+                        ofertaEmpleo.HoraFin = TimeOnly.Parse(horaFin);
+
+                        ofertaEmpleo.FechaInicio = (DateTime)ofertaEmpleoConsultada["fechaDeIinicio"];
+                        ofertaEmpleo.FechaFinalizacion = (DateTime)ofertaEmpleoConsultada["fechaDeFinalizacion"];
+
+                        //ofertaEmpleo.CategoriaEmpleo = (string)ofertaEmpleoConsultada["categoria"];
+
+                    } 
+                    else
+                    {
+                        respuestaAPI.gestionRespuestasApi("Consultar oferta de empleo", respuesta);
+                    }
+                    cliente.CancelPendingRequests();
+                    cliente.Dispose();
+                }
+            }
+            catch (HttpRequestException exception)
+            {
+                MensajesSistema errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Obtener ofertas de empleo", exception.Message);
+                errorMessage.ShowDialog();
+                ofertaEmpleo = new OfertaEmpleo();
+            }
+            return ofertaEmpleo;
         }
     }
 }

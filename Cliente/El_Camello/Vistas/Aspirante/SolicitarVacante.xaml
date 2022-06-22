@@ -1,0 +1,24 @@
+﻿<Window x:Class="El_Camello.Vistas.Aspirante.SolicitarVacante"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:El_Camello.Vistas.Aspirante"
+        mc:Ignorable="d"
+        Title="Solicitar Vacante" Height="400" Width="400" ResizeMode="NoResize">
+    <DockPanel LastChildFill="True">
+        <Grid DockPanel.Dock="Top" Background="#FF062758" Opacity="0.85">
+            <Label Content="Solicitar vacante" FontSize="16" FontWeight="Bold" Foreground="White" FontStyle="Italic"/>
+        </Grid>
+        <Grid DockPanel.Dock="Bottom"  Height="15" Background="#FF062758" Opacity=".85"/>
+        <Grid>
+            <Button x:Name="btnSolicitarVacante" Content="Solcitar Vacante" HorizontalAlignment="Left" Margin="101,253,0,0" VerticalAlignment="Top" Click="btnSolicitarVacante_Click"/>
+            <Button x:Name="btnCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="262,257,0,0" VerticalAlignment="Top" Click="btnCancelar_Click"/>
+            <Grid  HorizontalAlignment="Center" Margin="10,20,10,0" VerticalAlignment="Top" >
+                <TextBlock x:Name="txtOferta" TextWrapping="WrapWithOverflow" TextAlignment="Center" FontSize="22"/>
+            </Grid>
+            <Label x:Name="lblVacantes" Content="Label" HorizontalAlignment="Center" Margin="0,150,0,0" VerticalAlignment="Top"/>
+
+        </Grid>
+    </DockPanel>
+</Window>

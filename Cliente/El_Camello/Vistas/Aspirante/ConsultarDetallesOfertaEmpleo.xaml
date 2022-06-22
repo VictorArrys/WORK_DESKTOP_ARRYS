@@ -6,7 +6,29 @@
         xmlns:local="clr-namespace:El_Camello.Vistas.Aspirante"
         mc:Ignorable="d"
         Title="ConsultarDetallesOfertaEmpleo" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+    <ScrollViewer>
+        <Grid>
+            <Button x:Name="btnSolicitarVacante" Content="Enviar Solicitud" HorizontalAlignment="Right" Margin="0,25,20,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="White" Click="btnSolicitarVacante_Click" >
+                <Button.BorderBrush>
+                    <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+                </Button.BorderBrush>
+                <Button.Background>
+                    <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+                </Button.Background>
+            </Button>
+            <Label x:Name="lblInicio" Content="Fecha inicio: " FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top" Width="220"/>
+            <Label x:Name="lblVacantes" Content="Vacantes: " FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Margin="529,67,0,0" VerticalAlignment="Top" Width="191"/>
+            <Label x:Name="lblNombre" Content="Nombre empleo: " FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,24,0,0" VerticalAlignment="Top" Width="597"/>
+            <Label x:Name="lblDireccion" Content="Dirección: " FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" Width="682"/>
+            <Label x:Name="lblCantidadPago" Content="Cantidad Pago: " FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Margin="248,139,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="lblTipoPago" Content="Tipo pago: " FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,139,0,0" VerticalAlignment="Top" Width="220"/>
+            <Label x:Name="lblDiasLaborales" Content="Dias Laborales: " FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,178,0,0" VerticalAlignment="Top" Width="505"/>
+            <Label x:Name="lblFin" Content="Fecha Fin: " FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Margin="277,67,0,0" VerticalAlignment="Top" Width="220"/>
+            <Label x:Name="lblHorario" Content="Horario: " FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Margin="520,178,0,0" VerticalAlignment="Top" Width="232"/>
+            <TextBox x:Name="txtDescripcion" IsEnabled="False" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="10,248,0,0" VerticalAlignment="Top" Width="322" Height="160"/>
+            <Label Content="Descripcion:"  FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,217,0,0" VerticalAlignment="Top"/>
+            <Label Content="Imágenes:"  FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Margin="387,217,0,0" VerticalAlignment="Top"/>
+
+        </Grid>
+    </ScrollViewer>
 </Window>
