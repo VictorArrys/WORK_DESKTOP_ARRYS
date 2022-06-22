@@ -71,6 +71,9 @@ namespace El_Camello.Modelo.dao
                             solicitudesEmpleo.Add(solicitudGet);
                         }
 
+                    }else if (respuesta.StatusCode == HttpStatusCode.NotFound)
+                    {
+                        return solicitudesEmpleo;
                     }
                     else
                     {

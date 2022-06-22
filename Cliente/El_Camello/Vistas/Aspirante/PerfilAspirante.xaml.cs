@@ -1,4 +1,6 @@
-﻿using System;
+﻿using El_Camello.Assets.utilerias;
+using El_Camello.Modelo.dao;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,57 @@ namespace El_Camello.Aspirante
     /// </summary>
     public partial class PerfilAspirante : Window
     {
-        public PerfilAspirante()
+        private int idAspirante;
+        private string token;
+        private Modelo.clases.Aspirante aspiranteConsultado;
+
+        public PerfilAspirante(int idAspirante, string token)
         {
+            this.idAspirante = idAspirante;
+            this.token = token;
+
             InitializeComponent();
+
+            cargarAspirante();
+        }
+
+        private void cargarAspirante()
+        {
+            obtenerAspirante();
+
+            tbAspirante.Text = aspiranteConsultado.NombreAspirante;
+            tbAspirante.IsEnabled = false;
+            tbCorreo.Text = aspiranteConsultado.CorreoElectronico;
+            tbCorreo.IsEnabled = false;
+            tbDireccion.Text = aspiranteConsultado.Direccion;
+            tbDireccion.IsEnabled = false;
+            tbTelefono.Text = aspiranteConsultado.Telefono;
+            tbTelefono.IsEnabled = false;
+
+
+            aspiranteConsultado.RutaVideo = "";
+            do
+            {
+                aspiranteConsultado.RutaVideo = System.IO.Path.GetTempFileName().Replace(".tmp", ".mp4");
+            } while (System.IO.File.Exists(aspiranteConsultado.RutaVideo));
+
+            MemoryStream_toFile.MemoryStreamToFile(aspiranteConsultado.Video, aspiranteConsultado.RutaVideo);
+            meVideoAspirante.Source = new Uri(aspiranteConsultado.RutaVideo);
+
+
+        }
+
+        private async void obtenerAspirante()
+        {
+            aspiranteConsultado = await AspiranteDAO.GetAspirante(idAspirante, token);
+            aspiranteConsultado.Video = await AspiranteDAO.GetVideo(aspiranteConsultado.IdPerfilusuario, token);
+
+
+        }
+
+        private void cerrarVentana_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

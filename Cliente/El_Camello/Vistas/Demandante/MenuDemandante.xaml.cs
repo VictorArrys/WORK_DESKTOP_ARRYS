@@ -163,7 +163,7 @@ namespace El_Camello.Vistas.Demandante
         private void cambioCategoria(object sender, SelectionChangedEventArgs e)
         {
             int seleccion = cbCategorias.SelectedIndex;
-            MessageBox.Show(categorias[seleccion].ToString());
+            //MessageBox.Show(categorias[seleccion].ToString());
            
         }
 

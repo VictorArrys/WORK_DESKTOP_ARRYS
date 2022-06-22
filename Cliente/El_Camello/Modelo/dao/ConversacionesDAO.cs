@@ -43,7 +43,7 @@ namespace El_Camello.Modelo.dao
                         case HttpStatusCode.InternalServerError:
                         case HttpStatusCode.NotFound:
                             JObject codigo = JObject.Parse(cuerpoRespuesta);
-                            string mensaje = (string)codigo["type error"]["menssage"];
+                            string mensaje = (string)codigo["type error"]["message"];
                             MessageBox.Show(mensaje);
                             break;
                     }
@@ -93,7 +93,7 @@ namespace El_Camello.Modelo.dao
                         case HttpStatusCode.InternalServerError:
                         case HttpStatusCode.NotFound:
                             JObject codigo = JObject.Parse(cuerpoRespuesta);
-                            string mensajeError = (string)codigo["type error"]["menssage"];
+                            string mensajeError = (string)codigo["type error"]["message"];
                             MessageBox.Show(mensajeError);
                             break;
                     }
@@ -135,7 +135,7 @@ namespace El_Camello.Modelo.dao
                         case HttpStatusCode.InternalServerError:
                         case HttpStatusCode.NotFound:
                             JObject codigo = JObject.Parse(cuerpoRespuesta);
-                            string mensajeError = (string)codigo["type error"]["menssage"];
+                            string mensajeError = (string)codigo["type error"]["message"];
                             MessageBox.Show(mensajeError);
                             break;
                     }
@@ -266,7 +266,7 @@ namespace El_Camello.Modelo.dao
                         case HttpStatusCode.InternalServerError:
                         case HttpStatusCode.NotFound:
                             JObject codigo = JObject.Parse(cuerpoRespuesta);
-                            string mensajeError = (string)codigo["type error"]["menssage"];
+                            string mensajeError = (string)codigo["type error"]["message"];
                             MessageBox.Show(mensajeError);
                             break;
                     }
@@ -395,7 +395,7 @@ namespace El_Camello.Modelo.dao
                         case HttpStatusCode.InternalServerError:
                         case HttpStatusCode.NotFound:
                             JObject codigo = JObject.Parse(cuerpoRespuesta);
-                            string mensajeError = (string)codigo["type error"]["menssage"];
+                            string mensajeError = (string)codigo["type error"]["message"];
                             MessageBox.Show(mensajeError);
                             break;
                     }

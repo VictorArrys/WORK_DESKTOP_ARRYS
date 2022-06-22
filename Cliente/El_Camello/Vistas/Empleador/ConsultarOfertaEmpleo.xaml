@@ -21,7 +21,7 @@
             <Grid.Background>
                 <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
             </Grid.Background>
-            <Button Content="Volver" HorizontalAlignment="Left" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Margin="756,13,0,0">
+            <Button Content="Volver" HorizontalAlignment="Left" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Margin="756,13,0,0" Click="cerrarVentana_Click">
                 <Button.Background>
                     <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
                 </Button.Background>
@@ -59,7 +59,7 @@
                 <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
             </Button.BorderBrush>
         </Button>
-        <Button x:Name="btnConsultar" Content="Consultar perfil" HorizontalAlignment="Left" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Margin="766,68,0,0">
+        <Button x:Name="btnConsultar" Content="Consultar perfil" HorizontalAlignment="Left" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Margin="766,68,0,0" Click="btnConsultar_Click">
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
             </Button.Background>

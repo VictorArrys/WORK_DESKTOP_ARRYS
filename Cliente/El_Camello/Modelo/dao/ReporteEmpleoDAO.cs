@@ -75,7 +75,7 @@ namespace El_Camello.Modelo.dao
             return reportesEmpleo;
         }
 
-        public static async Task<int> PatchAceptarSolicitud(string token, int idSolicitudEmpleo)
+        public static async Task<int> PatchAceptarReporte(string token, int idReporteEmpleo)
         {
 
             MensajesSistema errorMessage;
@@ -83,7 +83,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = "http://localhost:5000/v1/solicitudesEmpleo/" + idSolicitudEmpleo + "/aceptada";
+                string endpoint = "http://localhost:5000/v1/reportesEmpleo/" + idReporteEmpleo + "/aceptado";
 
                 try
                 {
@@ -92,20 +92,23 @@ namespace El_Camello.Modelo.dao
                     RespuestasAPI respuestaAPI = new RespuestasAPI();
 
 
-                    if (respuesta.StatusCode == HttpStatusCode.NoContent)
+                    if (respuesta.StatusCode == HttpStatusCode.OK)
                     {
                         aceptada = 1;
 
+                    }else if (respuesta.StatusCode == HttpStatusCode.Forbidden)
+                    {
+                        aceptada = -1;
                     }
                     else
                     {
-                        respuestaAPI.gestionRespuestasApi("PatchAceptarSolicitud", respuesta);
+                        respuestaAPI.gestionRespuestasApi("Patch aceptar reporte", respuesta);
                     }
 
                 }
                 catch (HttpRequestException exception)
                 {
-                    errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Aceptar solicitud de empleo", exception.Message);
+                    errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Aceptar reporte de empleo", exception.Message);
                     errorMessage.ShowDialog();
                 }
 
@@ -115,15 +118,15 @@ namespace El_Camello.Modelo.dao
             return aceptada;
         }
 
-        public static async Task<int> PatchRechazarSolicitud(string token, int idSolicitudEmpleo)
+        public static async Task<int> PatchRechazarReporte(string token, int idReporteEmpleo)
         {
 
             MensajesSistema errorMessage;
-            int aceptada = 0;
+            int rechazado = 0;
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = "http://localhost:5000/v1/solicitudesEmpleo/" + idSolicitudEmpleo + "/rechazada";
+                string endpoint = "http://localhost:5000/v1/reportesEmpleo/" + idReporteEmpleo + "/rechazado";
 
                 try
                 {
@@ -132,27 +135,27 @@ namespace El_Camello.Modelo.dao
                     RespuestasAPI respuestaAPI = new RespuestasAPI();
 
 
-                    if (respuesta.StatusCode == HttpStatusCode.NoContent)
+                    if (respuesta.StatusCode == HttpStatusCode.OK)
                     {
-                        aceptada = 1;
+                        rechazado = 1;
 
                     }
                     else
                     {
-                        respuestaAPI.gestionRespuestasApi("PatchRechazarSolicitud", respuesta);
+                        respuestaAPI.gestionRespuestasApi("Patch rechazar reporte", respuesta);
                     }
 
                 }
                 catch (HttpRequestException exception)
                 {
-                    errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Rechazar solicitud de empleo", exception.Message);
+                    errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Rechazar reporte de empleo", exception.Message);
                     errorMessage.ShowDialog();
                 }
 
 
             }
 
-            return aceptada;
+            return rechazado;
         }
 
     }

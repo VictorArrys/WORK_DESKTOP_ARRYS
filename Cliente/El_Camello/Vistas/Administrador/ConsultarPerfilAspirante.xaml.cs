@@ -25,6 +25,8 @@ namespace El_Camello.Vistas.Administrador
         Modelo.clases.Aspirante aspirante = null;
         Modelo.clases.Usuario usuario = null;
         string token = null;
+
+
         public ConsultarPerfilAspirante(Modelo.clases.Usuario usuarioSeleccionado, string token)
         {
             InitializeComponent();
