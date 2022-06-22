@@ -18,6 +18,7 @@ using El_Camello.Vistas.Demandante;
 using El_Camello.Vistas.Aspirante;
 using El_Camello.Empleador;
 using El_Camello.Vistas.Empleador;
+using El_Camello.Configuracion;
 
 namespace El_Camello.Vistas.Usuario
 {
@@ -31,6 +32,7 @@ namespace El_Camello.Vistas.Usuario
         {
 
             InitializeComponent();
+            Settings.CargarConfiguracion();
         }
 
         private async void btnIniciarSesion_Click(object sender, RoutedEventArgs e)  // listo en cliente
