@@ -21,12 +21,14 @@ namespace El_Camello.Modelo.dao
         public static async Task<int> PostAspirante(Usuario usuario, clases.Aspirante aspirante) //intermedio
         {
 
-            int res = -1;
-            Modelo.clases.Aspirante aspiranteRegistro = new Modelo.clases.Aspirante();
+            int resultado = -1;
+            int idUsuario = -1;
+            int idAspirante = -1;
             using (var cliente = new HttpClient())
             {
                 
                 string endpoint = "http://localhost:5000/v1/perfilAspirantes";
+                HttpRequestMessage cuerpoMensaje = new HttpRequestMessage();
 
                 try
                 {
@@ -39,7 +41,6 @@ namespace El_Camello.Modelo.dao
                         arregloOficiosJson.Add(oficioJson);
                     }
 
-                    HttpRequestMessage cuerpoMensaje = new HttpRequestMessage();
                     JObject objeto = new JObject();
                     objeto.Add("clave", usuario.Clave);
                     objeto.Add("correoElectronico", usuario.CorreoElectronico);
@@ -57,52 +58,52 @@ namespace El_Camello.Modelo.dao
 
                     HttpResponseMessage respuesta = await cliente.PostAsync(endpoint, data);
                     string body = await respuesta.Content.ReadAsStringAsync();
-                    switch (respuesta.StatusCode)
+                    RespuestasAPI respuestaAPI = new RespuestasAPI();
+
+                    if (respuesta.StatusCode == HttpStatusCode.Created)
                     {
-                        case HttpStatusCode.OK:
-                            aspiranteRegistro = new Modelo.clases.Aspirante();
-                            JObject perfilAspirante = JObject.Parse(body);
-                            MessageBox.Show(body);
-                            /*JArray oficios = new JArray();
-                            aspiranteRegistro.Clave = (string)perfilAspirante["clave"];
-                            aspiranteRegistro.CorreoElectronico = (string)perfilAspirante["correo_electronico"];
-                            aspirante.Direccion = (string)perfilAspirante["direccion"];
-                            aspiranteRegistro.Estatus = (string)perfilAspirante["estatus"];
-                            aspiranteRegistro.FechaNacimiento = (DateTime)perfilAspirante["fecha_nacimiento"];
-                            aspiranteRegistro.IdPerfilusuario = (int)perfilAspirante["id_perfil_usuario"];
-                            aspiranteRegistro.NombreAspirante = (string)perfilAspirante["nombre"];
-                            aspiranteRegistro.NombreUsuario = (string)perfilAspirante["nombre_usuario"];*/
+                        JObject registroExitoso = JObject.Parse(body);
+                        idUsuario = (int)registroExitoso["idPerfilUsuario"];
+                        idAspirante = (int)registroExitoso["idPerfilAspirante"];
 
-                            break;
-                        case HttpStatusCode.Unauthorized:
-                        case HttpStatusCode.InternalServerError:
-                        case HttpStatusCode.NotFound:
-                            JObject codigo = JObject.Parse(body);
-                            string mensaje = (string)codigo["type error"]["message"];
-                            MessageBox.Show(mensaje);
-                            break;
+                        MultipartFormDataContent foto = new MultipartFormDataContent();
+                        var contenidoImagen = new ByteArrayContent(usuario.Fotografia);
+                        contenidoImagen.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
+                        foto.Add(contenidoImagen, "fotografia", "fotografiaPerfilAspirante.jpg");
+
+                        string endpointFoto = string.Format("http://localhost:5000/v1/PerfilUsuarios/{0}/fotografia", idUsuario);
+                        respuesta = await cliente.PatchAsync(endpointFoto, foto);
+
+                        if (respuesta.StatusCode == HttpStatusCode.OK)
+                        {
+                            MultipartFormDataContent video = new MultipartFormDataContent();
+                            var contenidoVideo = new ByteArrayContent(aspirante.RegistroVideo);
+                            contenidoVideo.Headers.ContentType = MediaTypeHeaderValue.Parse("video/mp4");
+                            video.Add(contenidoVideo, "video", "videoPerfilAspirante.mp4");
+
+                            string endpointVideo = string.Format("http://localhost:5000/v1/perfilAspirantes/{0}/video", idAspirante);
+                            respuesta = await cliente.PatchAsync(endpointVideo, video);
+
+                            if (respuesta.StatusCode == HttpStatusCode.OK)
+                            {
+                                resultado = 1;
+                            }
+                            else
+                            {
+                                respuestaAPI.gestionRespuestasApi("Post Aspirante/video", respuesta);
+                            }
+                        }
+                        else
+                        {
+                            respuestaAPI.gestionRespuestasApi("Post Aspirante/Foto", respuesta);
+                        }
+
                     }
-
-                    MultipartFormDataContent foto = new MultipartFormDataContent();
-
-                    var contenidoImagen = new ByteArrayContent(usuario.Fotografia);
-                    contenidoImagen.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
-                    foto.Add(contenidoImagen, "fotografia", "fotografiaPerfil.jpg");
-
-                    //falta video
-
-                    //string endpointfoto = String.Format("http://localhost:5000/v1/perfilAspirantes/{0}/{1}",foto);
-
-                    //HttpResponseMessage respuesta = await cliente.PostAsync(endpoint, foto);
-                    //HttpContent fotoContenido = new StreamContent(File.OpenRead(usuario.RutaFotografia));
-                    //foto.Add(fotoContenido, "fotografia", "fotoPerfil.jpg");
-
-
 
                 }
                 catch (HttpRequestException ex)
                 {
-                    MessageBox.Show("servidor desconectado, no se puede establecer conexion");
+                    MessageBox.Show("Conexion en este momento no disponible", "¡Operacion!");
                 }
                 finally
                 {
@@ -112,7 +113,7 @@ namespace El_Camello.Modelo.dao
 
             }
 
-            return res;
+            return resultado;
         }
 
         public static async Task<clases.Aspirante> GetAspirante(int idUsuarioAspirante, string token)
@@ -127,32 +128,34 @@ namespace El_Camello.Modelo.dao
                 {
                     HttpResponseMessage respuesta = await cliente.GetAsync(endpoint);
                     string body = await respuesta.Content.ReadAsStringAsync();
-                    MessageBox.Show(body);
-                    
-                    switch (respuesta.StatusCode)
+                    RespuestasAPI respuestaAPI = new RespuestasAPI();
+
+                    if (respuesta.StatusCode == HttpStatusCode.OK)
                     {
-                        case HttpStatusCode.OK:
-                            JObject perfilAspirante = JObject.Parse(body);
-                            aspirante.Direccion = (string)perfilAspirante["direccion"];
-                            aspirante.FechaNacimiento = (DateTime)perfilAspirante["fechaNacimiento"];
-                            aspirante.IdAspirante = (int)perfilAspirante["idPerfilAspirante"];
-                            aspirante.NombreAspirante = (string)perfilAspirante["nombre"];
-                            aspirante.IdPerfilusuario = (int)perfilAspirante["idPerfilUsuario"];
-                            aspirante.Telefono = (string)perfilAspirante["telefono"];
-                            
-
-
-
-
-                            break;
-                        case HttpStatusCode.Unauthorized:
-                        case HttpStatusCode.InternalServerError:
-                        case HttpStatusCode.NotFound:
-                            JObject codigo = JObject.Parse(body);
-                            string mensaje = (string)codigo["type error"]["message"];
-                            MessageBox.Show(mensaje);
-                            break;
+                        List<Oficio> listaOficios = new List<Oficio>();
+                        JObject perfilAspirante = JObject.Parse(body);
+                        aspirante.Direccion = (string)perfilAspirante["direccion"];
+                        aspirante.FechaNacimiento = (DateTime)perfilAspirante["fechaNacimiento"];
+                        aspirante.IdAspirante = (int)perfilAspirante["idPerfilAspirante"];
+                        aspirante.NombreAspirante = (string)perfilAspirante["nombre"];
+                        aspirante.IdPerfilusuario = (int)perfilAspirante["idPerfilUsuario"];
+                        aspirante.Telefono = (string)perfilAspirante["telefono"];
+                        JArray oficios = (JArray)perfilAspirante["oficios"];
+                        foreach (var items in oficios)
+                        {
+                            Oficio oficio = new Oficio();
+                            oficio.IdAspirante = (int)items["idAspirante"];
+                            oficio.IdCategoria = (int)items["idCategoria"];
+                            oficio.Experiencia = (string)items["experiencia"];
+                            listaOficios.Add(oficio);
+                        }
+                        aspirante.Oficios = listaOficios;
                     }
+                    else
+                    {
+                        respuestaAPI.gestionRespuestasApi("Post Aspirante", respuesta);
+                    }
+
                 }
                 catch (HttpRequestException)
                 {

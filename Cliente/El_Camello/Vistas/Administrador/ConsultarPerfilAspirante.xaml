@@ -24,22 +24,22 @@
             </Rectangle.Stroke>
         </Rectangle>
         <Label Content="Aspirante:" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="White" FontSize="16" FontWeight="Bold" Width="102"/>
-        <Label Content="Nombre Aspirante" HorizontalAlignment="Left" Margin="103,5,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="White" Width="835"/>
+        <Label x:Name="lbNombreAspirante" Content="Nombre Aspirante" HorizontalAlignment="Left" Margin="103,5,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="White" Width="835"/>
         <StackPanel Margin="37,66,712,262" Background="#FFFDFDFD"/>
-        <Image HorizontalAlignment="Left" Height="199" Margin="32,66,0,0" VerticalAlignment="Top" Width="204"/>
+        <Image x:Name="imgFoto" HorizontalAlignment="Left" Height="199" Margin="32,66,0,0" VerticalAlignment="Top" Width="204"/>
         <Label Content="Dirección:" HorizontalAlignment="Left" Margin="252,66,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Label Content="Fecha Nacimiento:" HorizontalAlignment="Left" Margin="252,120,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Label Content="Correo Electrónico:" HorizontalAlignment="Left" Margin="252,178,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Label Content="Telefono:" HorizontalAlignment="Left" Margin="252,237,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Label Content="Nombre Usuario:" HorizontalAlignment="Left" Margin="32,305,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Label Content="Contraseña:" HorizontalAlignment="Left" Margin="37,372,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-        <TextBox HorizontalAlignment="Left" Margin="400,184,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="279" Height="23"/>
-        <TextBox HorizontalAlignment="Left" Margin="400,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="279" Height="23"/>
-        <TextBox HorizontalAlignment="Left" Margin="400,243,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="279" Height="23"/>
-        <DatePicker HorizontalAlignment="Left" Margin="400,125,0,0" VerticalAlignment="Top" Width="279"/>
-        <TextBox HorizontalAlignment="Left" Margin="167,311,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="279" Height="23"/>
-        <TextBox HorizontalAlignment="Left" Margin="167,378,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="279" Height="23" />
-        <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="474,311,24,57"/>
+        <TextBox x:Name="tbCorreoElectronico" HorizontalAlignment="Left" Margin="400,184,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="279" Height="23" IsEnabled="False"/>
+        <TextBox x:Name="tbDireccion" HorizontalAlignment="Left" Margin="400,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="279" Height="23" IsEnabled="False"/>
+        <TextBox x:Name="tbTelefono" HorizontalAlignment="Left" Margin="400,243,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="279" Height="23" IsEnabled="False"/>
+        <DatePicker x:Name="dpFechaNacimiento" HorizontalAlignment="Left" Margin="400,125,0,0" VerticalAlignment="Top" Width="279" IsEnabled="False"/>
+        <TextBox x:Name="tbNombreUsuario" HorizontalAlignment="Left" Margin="167,311,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="279" Height="23" IsEnabled="False"/>
+        <TextBox x:Name="tbConstraseña" HorizontalAlignment="Left" Margin="167,378,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="279" Height="23" IsEnabled="False" />
+        <DataGrid x:Name="dgOficios" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="474,311,24,57" IsReadOnly="True"/>
         <Button Content="Salir" HorizontalAlignment="Left" Margin="201,445,0,0" VerticalAlignment="Top" Foreground="#FFFAFAFA" FontSize="14" FontWeight="Bold" Width="77" Height="23" Click="Button_Click">
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>

@@ -123,7 +123,7 @@ namespace El_Camello.Modelo.dao
             return empleador;
         }
 
-        public static async Task<List<clases.Empleador>> getEmpleadores(string token) // probar
+        public static async Task<List<clases.Empleador>> getEmpleadores(string token) // listo Api
         {
             List<clases.Empleador> empleadores = new List<clases.Empleador>();
             using (var cliente = new HttpClient())

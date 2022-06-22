@@ -23,11 +23,13 @@ namespace El_Camello.Vistas.Administrador
     public partial class ConsultarPerfilAspirante : Window
     {
         Modelo.clases.Aspirante aspirante = null;
+        Modelo.clases.Usuario usuario = null;
         string token = null;
         public ConsultarPerfilAspirante(Modelo.clases.Usuario usuarioSeleccionado, string token)
         {
             InitializeComponent();
             aspirante = new Modelo.clases.Aspirante();
+            usuario = new Modelo.clases.Usuario();
             this.token = token;
             cargarInformacionAspirante(usuarioSeleccionado);
 
@@ -36,8 +38,19 @@ namespace El_Camello.Vistas.Administrador
 
         private async void cargarInformacionAspirante(Modelo.clases.Usuario usuarioSeleccionado)
         {
+            usuario = await UsuarioDAO.getUsuario(usuarioSeleccionado.IdPerfilusuario, token);
             aspirante = await AspiranteDAO.GetAspirante(usuarioSeleccionado.IdPerfilusuario, token);
             aspirante.Video = await AspiranteDAO.GetVideo(usuarioSeleccionado.IdPerfilusuario, token);
+            cargarImagen(usuario.Fotografia);
+            aspirante.IdPerfilusuario = usuario.IdPerfilusuario;
+            lbNombreAspirante.Content = aspirante.NombreAspirante;
+            tbDireccion.Text = aspirante.Direccion;
+            dpFechaNacimiento.SelectedDate = aspirante.FechaNacimiento;
+            tbCorreoElectronico.Text = usuario.CorreoElectronico;
+            tbTelefono.Text = aspirante.Telefono;
+            tbNombreUsuario.Text = usuario.NombreUsuario;
+            tbConstraseña.Text = usuario.Clave;
+            dgOficios.ItemsSource = aspirante.Oficios;
 
 
             aspirante.RutaVideo = "";
@@ -49,6 +62,34 @@ namespace El_Camello.Vistas.Administrador
 
             MemoryStream_toFile.MemoryStreamToFile(aspirante.Video, aspirante.RutaVideo);
             meVideoAspirante.Source = new Uri(aspirante.RutaVideo);
+        }
+
+        private void cargarImagen(byte[] fotografia)
+        {
+            try
+            {
+                byte[] fotoPerfil = fotografia;
+                if (fotoPerfil == null)
+                {
+                    fotoPerfil = null;
+                }
+                else if (fotoPerfil.Length > 0)
+                {
+                    using (var memoryStream = new System.IO.MemoryStream(fotoPerfil))
+                    {
+                        var imagen = new BitmapImage();
+                        imagen.BeginInit();
+                        imagen.CacheOption = BitmapCacheOption.OnLoad;
+                        imagen.StreamSource = memoryStream;
+                        imagen.EndInit();
+                        this.imgFoto.Source = imagen;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                imgFoto.Source = null;
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
