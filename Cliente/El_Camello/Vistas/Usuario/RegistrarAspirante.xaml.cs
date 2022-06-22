@@ -24,15 +24,16 @@ namespace El_Camello.Vistas.Usuario
     public partial class RegistrarAspirante : Window
     {
 
-        Modelo.clases.Usuario user = null;
         Modelo.clases.Aspirante aspirante = null;
         ObservableCollection<Oficio> oficios = null; 
 
         string rutaImagen = "";
+        string rutaVideo = "";
         public RegistrarAspirante()
         {
             InitializeComponent();
             oficios = new ObservableCollection<Oficio>();
+            aspirante = new Modelo.clases.Aspirante();
             CargarVentana();
         }
 
@@ -60,35 +61,54 @@ namespace El_Camello.Vistas.Usuario
             selectorVideo.Filter = "Archivo mp4|*.mp4";
             if (selectorVideo.ShowDialog() == true)
             {
+                Uri uriVideo;
                 tbRutaVideo.Text = selectorVideo.FileName;
+
+                rutaVideo = selectorVideo.FileName;
+
+                //uriVideo = new Uri(rutaVideo);
             }
             
         }
 
 
-        private void btnGuardarAspirante_Click(object sender, RoutedEventArgs e)
+        private async void btnGuardarAspirante_Click(object sender, RoutedEventArgs e)
         {
             Uri uriImagen;
+            Uri uriVideo;
+            Modelo.clases.Usuario user = new Modelo.clases.Usuario();
+            //Modelo.clases.Aspirante aspiranteRegistro = new Modelo.clases.Aspirante();
 
-
-            user = new Modelo.clases.Usuario();
-            aspirante = new Modelo.clases.Aspirante();
-
-            user.Clave = pwdClave.Password;
-            user.NombreUsuario = tbNombreUsuario.Text;
-            user.CorreoElectronico = tbCorreoElectronico.Text;
-            aspirante.Oficios = oficios.ToList();
             user.RutaFotografia = rutaImagen;
             uriImagen = new Uri(user.RutaFotografia);
             user.Fotografia = System.IO.File.ReadAllBytes(uriImagen.LocalPath);
+
+            aspirante.RutaVideo = rutaVideo;
+            uriVideo = new Uri(aspirante.RutaVideo);
+            aspirante.RegistroVideo = System.IO.File.ReadAllBytes(uriVideo.LocalPath);
+
             aspirante.NombreAspirante = tbNombreAspirante.Text;
             aspirante.Direccion = tbDireccion.Text;
             aspirante.FechaNacimiento = (DateTime)dpFechaNacimiento.SelectedDate;
-            aspirante.Telefono = tbtelefono.Text;
-            //aspirante.RutaVideo = tbRutaVideo.Text;
+            user.CorreoElectronico = tbCorreoElectronico.Text;
+            aspirante.Telefono = tbCorreoElectronico.Text;
+            user.NombreUsuario = tbNombreUsuario.Text;
+            user.Clave = pbClave.Password;
+            aspirante.Oficios = oficios.ToList();
 
-
-            AspiranteDAO.PostAspirante(user, aspirante);
+            int resultado = await AspiranteDAO.PostAspirante(user, aspirante);
+            if (resultado == 1)
+            {
+                MessageBox.Show("Registro en el sistema exitoso, favor de inciar con las credenciales registradas", "Operación exitosa");
+                MessageBox.Show("Nombre Usuario: " + user.NombreUsuario + "\n" + "Constraseña" + user.Clave, "Credenciales");
+                Login login = new Login();
+                login.Show();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Ocurrio un error al registrar tu perfil Aspirante", "¡Operación!");
+            }
         }
 
         private void btnSeleccionarImagen_Click(object sender, RoutedEventArgs e)
@@ -139,7 +159,6 @@ namespace El_Camello.Vistas.Usuario
             {
                 Oficio oficioSeleccionado = (Oficio) dgExperienciaCategoria.SelectedItem;
                 oficios.Remove(oficioSeleccionado);
-                //oficios.RemoveAt(oficioSeleccionado.IdCategoria);
                 dgExperienciaCategoria.ItemsSource = oficios;
             }
             else

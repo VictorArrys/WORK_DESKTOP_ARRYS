@@ -34,8 +34,8 @@
         <Label Content="Contraseña:" HorizontalAlignment="Left" Margin="647,127,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Label Content="Confirmar constraseña:" HorizontalAlignment="Left" Margin="648,161,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <TextBox x:Name="tbNombreUsuario" Margin="807,96,42,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" BorderBrush="Black"/>
-        <PasswordBox x:Name="pwdClave" Margin="807,134,42,0" VerticalAlignment="Top" Height="22" Background="White" BorderBrush="Black"/>
-        <PasswordBox x:Name="pwdClaveConfirmacion" HorizontalAlignment="Left" Margin="807,167,0,0" VerticalAlignment="Top" Width="169" Height="22" Background="White" BorderBrush="Black"/>
+        <PasswordBox x:Name="pbClave" Margin="807,134,42,0" VerticalAlignment="Top" Height="22" Background="White" BorderBrush="Black"/>
+        <PasswordBox x:Name="pbClaveConfirmacion" HorizontalAlignment="Left" Margin="807,167,0,0" VerticalAlignment="Top" Width="169" Height="22" Background="White" BorderBrush="Black"/>
         <Button x:Name="btnSeleccionarImagen" Content="+" HorizontalAlignment="Left" Margin="619,121,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" FontFamily="Arial Black" Foreground="White" Click="btnSeleccionarImagen_Click">
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
