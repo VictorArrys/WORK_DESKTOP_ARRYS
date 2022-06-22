@@ -91,7 +91,7 @@ namespace El_Camello.Vistas.Usuario
             aspirante.Direccion = tbDireccion.Text;
             aspirante.FechaNacimiento = (DateTime)dpFechaNacimiento.SelectedDate;
             user.CorreoElectronico = tbCorreoElectronico.Text;
-            aspirante.Telefono = tbCorreoElectronico.Text;
+            aspirante.Telefono = tbtelefono.Text;
             user.NombreUsuario = tbNombreUsuario.Text;
             user.Clave = pbClave.Password;
             aspirante.Oficios = oficios.ToList();
