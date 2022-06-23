@@ -78,13 +78,6 @@ namespace El_Camello.Vistas.Usuario
             }
         }
 
-        private void btnRestablcerClave_Click(object sender, RoutedEventArgs e)
-        {
-            RestablecerContraseña ventanaRestablecer = new RestablecerContraseña();
-            ventanaRestablecer.Show();
-            this.Close();
-        }
-
         private void btnResgistrarse_Click(object sender, RoutedEventArgs e)
         {
             RegistroPerfil menuRegistro = new RegistroPerfil();

@@ -20,7 +20,7 @@ namespace El_Camello.Vistas.Aspirante.controles
     public partial class OfertaEmpleoControl : UserControl
     {
         private Modelo.clases.OfertaEmpleo ofertaEmpleo;
-        private string token;
+        private Modelo.clases.Aspirante aspirante;
 
         public OfertaEmpleoControl()
         {
@@ -75,12 +75,12 @@ namespace El_Camello.Vistas.Aspirante.controles
             } 
         }
 
-        public string Token { get => token; set => token = value; }
+        public Modelo.clases.Aspirante Aspirante { get => aspirante; set => aspirante = value; }
 
         private void btnDetallesOferta_Click(object sender, RoutedEventArgs e)
         {
 
-            ConsultarDetallesOfertaEmpleo ventanaOfertaEmpleo = new ConsultarDetallesOfertaEmpleo(ofertaEmpleo.IdOfertaEmpleo, token);
+            ConsultarDetallesOfertaEmpleo ventanaOfertaEmpleo = new ConsultarDetallesOfertaEmpleo(ofertaEmpleo.IdOfertaEmpleo, aspirante);
             ventanaOfertaEmpleo.ShowDialog();
         }
     }

@@ -61,11 +61,12 @@ namespace El_Camello.Vistas.Aspirante
         private async void BuscarOfertasEmpleo(int[] listaCategorias)
         {
             List<OfertaEmpleo> listaOfertas = await OfertaEmpleoDAO.GetBuscarOfertasEmpleo(listaCategorias, aspirante.Token);
+            pnlOfertasEmpleo.Children.Clear();
             foreach (OfertaEmpleo item in listaOfertas)
             {
                 OfertaEmpleoControl ofertaEmpleoControl = new OfertaEmpleoControl();
                 ofertaEmpleoControl.OfertaEmpleo = item;
-                ofertaEmpleoControl.Token = aspirante.Token;
+                ofertaEmpleoControl.Aspirante = aspirante;
                 pnlOfertasEmpleo.Children.Add(ofertaEmpleoControl);
             }
         }

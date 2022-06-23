@@ -25,14 +25,6 @@
                     <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
                 </Button.BorderBrush>
             </Button>
-            <Button x:Name="btnRestablcerClave" FontSize="16" Content="Restablcer contraseña" HorizontalAlignment="Left" Margin="162,291,0,0" Foreground="White" VerticalAlignment="Top" Click="btnRestablcerClave_Click">
-                <Button.Background>
-                    <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
-                </Button.Background>
-                <Button.BorderBrush>
-                    <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
-                </Button.BorderBrush>
-            </Button>
             <Button x:Name="btnResgistrarse" FontSize="16" Content="Registrarse" HorizontalAlignment="Center" Margin="0,358,0,0" Foreground="White" VerticalAlignment="Top" Click="btnResgistrarse_Click" >
                 <Button.Background>
                     <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>

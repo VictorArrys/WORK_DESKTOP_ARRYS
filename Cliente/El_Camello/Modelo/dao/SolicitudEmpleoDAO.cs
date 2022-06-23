@@ -1,5 +1,6 @@
 ﻿using El_Camello.Assets.utilerias;
 using El_Camello.Modelo.clases;
+using El_Camello.Modelo.interfaz;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -46,7 +47,7 @@ namespace El_Camello.Modelo.dao
                             solicitudGet.IdOfertaEmpleo = (int)solicitudes["id_oferta_empleo_sa"];
                             solicitudGet.EstatusInt = (int)solicitudes["estatus"];
 
-                            if(solicitudGet.EstatusInt == 1)
+                            if (solicitudGet.EstatusInt == 1)
                             {
                                 solicitudGet.Estatus = "Pendiente";
                             }
@@ -71,7 +72,8 @@ namespace El_Camello.Modelo.dao
                             solicitudesEmpleo.Add(solicitudGet);
                         }
 
-                    }else if (respuesta.StatusCode == HttpStatusCode.NotFound)
+                    }
+                    else if (respuesta.StatusCode == HttpStatusCode.NotFound)
                     {
                         return solicitudesEmpleo;
                     }
@@ -176,6 +178,56 @@ namespace El_Camello.Modelo.dao
 
 
         //Aspirante
+        public static async Task<SolicitudEmpleo> PostSolicitarVacante(int idOfertaEmpleo, int idPerfilAspirante, string token, observadorRespuesta ventanaSolicitudvacante)
+        {
+            SolicitudEmpleo solicitudEmpleo = new SolicitudEmpleo();
+            try
+            {
+                MensajesSistema errorMessage;
+                using (var cliente = new HttpClient())
+                {
+                    JObject cuerpoSolicitud = new JObject
+                    {
+                        {"idPerfilAspirante", idPerfilAspirante }
+                    };
+                    
+                    var data = new StringContent(cuerpoSolicitud.ToString(), Encoding.UTF8, "application/json");
 
+                    cliente.DefaultRequestHeaders.Add("x-access-token", token);
+                    string endpoint = $"http://localhost:5000/v1/ofertasEmpleo-A/{idOfertaEmpleo}/solicitarVacante";
+
+
+                    HttpResponseMessage respuesta = await cliente.PostAsync(endpoint, data);
+
+                    RespuestasAPI respuestaAPI = new RespuestasAPI();
+                    string body = await respuesta.Content.ReadAsStringAsync();
+                    JObject registroSolicitudVacante = JObject.Parse(body);
+                    if (respuesta.StatusCode == HttpStatusCode.Created)
+                    {
+                        solicitudEmpleo.IdSolicitud = (int)registroSolicitudVacante["idSolicitudVacante"];
+                        solicitudEmpleo.EstatusInt = (int)registroSolicitudVacante["estatus"];
+                        solicitudEmpleo.FechaRegistro = (DateTime)registroSolicitudVacante["fechaRegistro"];
+                        solicitudEmpleo.IdOfertaEmpleo = (int)registroSolicitudVacante["idOfertaEmpleo"];
+                        solicitudEmpleo.IdAspirante = (int)registroSolicitudVacante["idPerfilAspirante"];
+                        ventanaSolicitudvacante.actualizarCambios("Solicitud registrada exitosamente");
+                    }
+                    else
+                    {
+                        solicitudEmpleo.IdSolicitud = 0;
+                        ventanaSolicitudvacante.actualizarCambios((string)registroSolicitudVacante["type error"]["message"]);
+                    }
+
+
+
+
+                }
+            }
+            catch (HttpRequestException exception)
+            {
+                MensajesSistema errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Rechazar solicitud de empleo", exception.Message);
+                errorMessage.ShowDialog();
+            }
+            return solicitudEmpleo;
+        }
     }
 }

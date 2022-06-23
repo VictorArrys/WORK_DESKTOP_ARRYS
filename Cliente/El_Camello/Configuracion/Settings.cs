@@ -11,7 +11,7 @@ namespace El_Camello.Configuracion
     {
         private static string INIPath = "./ElCamello.ini";
 
-        private static string ElCamelloURL;
+        public static string ElCamelloURL;
 
         private static INI archivoINI = new INI(INIPath);
 

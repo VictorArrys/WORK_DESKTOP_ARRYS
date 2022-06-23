@@ -22,20 +22,20 @@ namespace El_Camello.Vistas.Aspirante
     public partial class ConsultarDetallesOfertaEmpleo : Window
     {
         private int IdOfertaEmpleo;
-        private string token;
+        private Modelo.clases.Aspirante aspirante;
         private OfertaEmpleo ofertaEmpleo;
 
-        public ConsultarDetallesOfertaEmpleo(int idOfertaEmpleo, string token)
+        public ConsultarDetallesOfertaEmpleo(int idOfertaEmpleo, Modelo.clases.Aspirante aspirante)
         {
             InitializeComponent();
-            this.token = token;
+            this.aspirante = aspirante;
             this.IdOfertaEmpleo = idOfertaEmpleo;
             CargarOfertaEmpleo();
         }
 
         private void CargarOfertaEmpleo()
         {
-            if (IdOfertaEmpleo > 0 && token.Length > 0)
+            if (IdOfertaEmpleo > 0 && aspirante.Token.Length > 0)
             {
                 ConsultarOfertaEmpleo();
             }
@@ -43,7 +43,7 @@ namespace El_Camello.Vistas.Aspirante
 
         private async void ConsultarOfertaEmpleo()
         {
-            ofertaEmpleo = await OfertaEmpleoDAO.GetConsultarOfertaEmpleoAspirante(IdOfertaEmpleo, token);
+            ofertaEmpleo = await OfertaEmpleoDAO.GetConsultarOfertaEmpleoAspirante(IdOfertaEmpleo, aspirante.Token);
             this.lblCantidadPago.Content = "Cantidad Pago: " + ofertaEmpleo.CantidadPago;
             this.lblDireccion.Content = "Dirección: " + ofertaEmpleo.Direccion;
             string fechaFin = string.Format("{0:yyyy-MM-dd}", ofertaEmpleo.FechaFinalizacion);
@@ -80,7 +80,7 @@ namespace El_Camello.Vistas.Aspirante
                         diasLaborales += "Sábado ";
                         break;
                     case '7':
-                        diasLaborales += "Domingo ";
+                        diasLaborales += "Domingo";
                         break;
                 }
             }
@@ -90,7 +90,8 @@ namespace El_Camello.Vistas.Aspirante
 
         private void btnSolicitarVacante_Click(object sender, RoutedEventArgs e)
         {
-
+            SolicitarVacante ventanaSolicitarVacante = new SolicitarVacante(ofertaEmpleo.Nombre, ofertaEmpleo.IdOfertaEmpleo, ofertaEmpleo.Vacantes, aspirante.IdAspirante, aspirante.Token);
+            ventanaSolicitarVacante.ShowDialog();
         }
     }
 }
