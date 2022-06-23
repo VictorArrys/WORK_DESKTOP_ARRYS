@@ -1,4 +1,5 @@
-﻿using El_Camello.Assets.utilerias;
+﻿using El_Camello.Aspirante;
+using El_Camello.Assets.utilerias;
 using El_Camello.Empleador;
 using El_Camello.Modelo.clases;
 using El_Camello.Modelo.dao;
@@ -55,13 +56,17 @@ namespace El_Camello.Vistas.Empleador
                 lbFechaFinalizacion.Text = fechaFin;
                 string fechaContratacion = string.Format("{0:yyyy-MM-dd}", ofertaEmpleoConsulta.ContratacionEmpleo.FechaContratacion);
 
-
                 if (ofertaEmpleoConsulta.FechaInicio > DateTime.Now)
                 {
                     btnEvaluar.IsEnabled = false;
                     lbEstado.Text = "Por empezar";
                 }
-  
+                if (ofertaEmpleoConsulta.FechaFinalizacion < DateTime.Now)
+                {
+                    btnEvaluar.IsEnabled = true;
+                    lbEstado.Text = "Terminada";
+                }
+
                 if (fechaContratacion == "0001-01-01")
                 {
                     lbFechaContratacion.Text = "Sin contratación";
@@ -73,7 +78,7 @@ namespace El_Camello.Vistas.Empleador
 
                     lbFechaContratacion.Text = fechaContratacion;
 
-                    if (ofertaEmpleoConsulta.ContratacionEmpleo.Estatus == 1)
+                    /*if (ofertaEmpleoConsulta.ContratacionEmpleo.Estatus == 1)
                     {
                         lbEstado.Text = "En proceso";
                         btnEvaluar.IsEnabled = false;
@@ -81,13 +86,17 @@ namespace El_Camello.Vistas.Empleador
                     else
                     {
                         lbEstado.Text = "Terminada";
-                    }
+                    }*/
                 }
 
 
                 contratados = ofertaEmpleoConsulta.ContratacionEmpleo.ContratacionesAspirantes;
                 cargarEmpleados(ofertaEmpleoConsulta.ContratacionEmpleo.ContratacionesAspirantes);                
 
+                if(contratados.Count == 0)
+                {
+                    btnConsultar.IsEnabled = false;
+                }
             }
             catch (Exception exception)
             {
@@ -111,7 +120,8 @@ namespace El_Camello.Vistas.Empleador
         private void evaluarAspirante(object sender, RoutedEventArgs e)
         {
             int indiceSeleccion = dgEmpleados.SelectedIndex;
-
+            ContratacionEmpleoAspirante aspiranteEvaluar = new ContratacionEmpleoAspirante();
+            int valoracion = -1;
             if (indiceSeleccion >= 0)
             {
                 int posicion = 0;
@@ -119,23 +129,26 @@ namespace El_Camello.Vistas.Empleador
                 {
                     if (contratados[posicion].IdUsuario == contratado.IdUsuario)
                     {
-                        if (contratado.ValoracionAspirante == 0)
-                        {
-                            ContratacionEmpleoAspirante aspiranteEvaluar = contratados[indiceSeleccion];
-
-                            EvaluarApirante ventanaEvaluar = new EvaluarApirante(aspiranteEvaluar, idOfertaEmpleo, token);
-                            ventanaEvaluar.ShowDialog();
-                        }
-                        else
-                        {
-                            error = new MensajesSistema("AccionInvalida", "La acción que ha realizado es invalida", "Intento de evaluar un empleado", "No puedes evaluar a un aspirante 2 veces");
-                            error.ShowDialog();
-                        }
+                        valoracion = contratado.ValoracionAspirante;
+                        aspiranteEvaluar = contratados[indiceSeleccion];
+                       
                     }
 
                 }
+                if (valoracion == 0)
+                {
 
-                
+                    EvaluarApirante ventanaEvaluar = new EvaluarApirante(aspiranteEvaluar, aspiranteEvaluar.IdAspirante, idOfertaEmpleo, token);
+                    ventanaEvaluar.ShowDialog();
+                    cargarOfertaEmpleo();
+                }
+                else
+                {
+                    error = new MensajesSistema("AccionInvalida", "La acción que ha realizado es invalida", "Intento de evaluar un empleado", "No puedes evaluar a un aspirante 2 veces");
+                    error.ShowDialog();
+                }
+
+
             }
             else
             {
@@ -145,7 +158,7 @@ namespace El_Camello.Vistas.Empleador
 
         }
 
-        private void consultarAspirante(object sender, RoutedEventArgs e)
+        private void btnConsultar_Click(object sender, RoutedEventArgs e)
         {
             int indiceSeleccion = dgEmpleados.SelectedIndex;
 
@@ -153,21 +166,19 @@ namespace El_Camello.Vistas.Empleador
             {
                 ContratacionEmpleoAspirante aspiranteConsultar = contratados[indiceSeleccion];
 
+                PerfilAspirante perfilAspirante = new PerfilAspirante(aspiranteConsultar.IdUsuario, token);
+                perfilAspirante.ShowDialog();
                 /*EvaluarApirante ventanaEvaluar = new EvaluarApirante(aspiranteEvaluar, token);
                 ventanaEvaluar.ShowDialog();*/
             }
             else
             {
-                error = new MensajesSistema("AccionInvalida", "La acción que ha realizado es invalida", "Intento de consultar oferta de empleo", "Selecciona una oferta de empleo para poder consultarla posteriormente");
+                error = new MensajesSistema("AccionInvalida", "La acción que ha realizado es invalida", "Intento de consultar un aspirante", "Selecciona un aspirante para evaluarlo posteriormente");
                 error.ShowDialog();
             }
 
         }
 
-        private void btnConsultar_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void cerrarVentana_Click(object sender, RoutedEventArgs e)
         {

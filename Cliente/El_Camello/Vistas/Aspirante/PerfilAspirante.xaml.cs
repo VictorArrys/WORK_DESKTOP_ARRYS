@@ -21,13 +21,14 @@ namespace El_Camello.Aspirante
     /// </summary>
     public partial class PerfilAspirante : Window
     {
-        private int idAspirante;
+        private int idUsuarioAspirante;
         private string token;
         private Modelo.clases.Aspirante aspiranteConsultado;
+        private Modelo.clases.Usuario usuario;
 
-        public PerfilAspirante(int idAspirante, string token)
+        public PerfilAspirante(int idUsuarioAspirante, string token)
         {
-            this.idAspirante = idAspirante;
+            this.idUsuarioAspirante = idUsuarioAspirante;
             this.token = token;
 
             InitializeComponent();
@@ -39,16 +40,27 @@ namespace El_Camello.Aspirante
         {
             obtenerAspirante();
 
+
+        }
+
+        private async void obtenerAspirante()
+        {
+            usuario = await UsuarioDAO.getUsuario(idUsuarioAspirante, token);
+            aspiranteConsultado = await AspiranteDAO.GetAspirante(idUsuarioAspirante, token);
+            //aspiranteConsultado.Video = await AspiranteDAO.GetVideo(idUsuarioAspirante, token);
+
             tbAspirante.Text = aspiranteConsultado.NombreAspirante;
             tbAspirante.IsEnabled = false;
-            tbCorreo.Text = aspiranteConsultado.CorreoElectronico;
+            tbCorreo.Text = usuario.CorreoElectronico;
             tbCorreo.IsEnabled = false;
             tbDireccion.Text = aspiranteConsultado.Direccion;
             tbDireccion.IsEnabled = false;
             tbTelefono.Text = aspiranteConsultado.Telefono;
             tbTelefono.IsEnabled = false;
+            cargarImagen(usuario.Fotografia);
+            dgOficios.ItemsSource = aspiranteConsultado.Oficios;
 
-
+            /*
             aspiranteConsultado.RutaVideo = "";
             do
             {
@@ -57,16 +69,36 @@ namespace El_Camello.Aspirante
 
             MemoryStream_toFile.MemoryStreamToFile(aspiranteConsultado.Video, aspiranteConsultado.RutaVideo);
             meVideoAspirante.Source = new Uri(aspiranteConsultado.RutaVideo);
-
+            */
 
         }
 
-        private async void obtenerAspirante()
+        private void cargarImagen(byte[] fotografia)
         {
-            aspiranteConsultado = await AspiranteDAO.GetAspirante(idAspirante, token);
-            aspiranteConsultado.Video = await AspiranteDAO.GetVideo(aspiranteConsultado.IdPerfilusuario, token);
-
-
+            try
+            {
+                byte[] fotoPerfil = fotografia;
+                if (fotoPerfil == null)
+                {
+                    fotoPerfil = null;
+                }
+                else if (fotoPerfil.Length > 0)
+                {
+                    using (var memoryStream = new System.IO.MemoryStream(fotoPerfil))
+                    {
+                        var imagen = new BitmapImage();
+                        imagen.BeginInit();
+                        imagen.CacheOption = BitmapCacheOption.OnLoad;
+                        imagen.StreamSource = memoryStream;
+                        imagen.EndInit();
+                        this.imgAspirante.Source = imagen;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                imgAspirante.Source = null;
+            }
         }
 
         private void cerrarVentana_Click(object sender, RoutedEventArgs e)

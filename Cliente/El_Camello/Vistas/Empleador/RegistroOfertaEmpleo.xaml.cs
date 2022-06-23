@@ -97,8 +97,11 @@ namespace El_Camello.Vistas.Empleador
                     }
                 }
 
-                tbHoraInicio.Text = "" + ofertaEmpleoEdicion.HoraInicio;
-                tbHoraFin.Text = "" + ofertaEmpleoEdicion.HoraFin;
+                string horaInicio = string.Format("{0:HH:mm}", ofertaEmpleoEdicion.HoraInicio);
+                string horaFin = string.Format("{0:HH:mm}", ofertaEmpleoEdicion.HoraFin);
+
+                tbHoraInicio.Text = horaInicio;
+                tbHoraFin.Text = horaFin;
                 tbVacantes.Text = "" + ofertaEmpleoEdicion.Vacantes;
                 dpFechaInicio.SelectedDate = ofertaEmpleoEdicion.FechaInicio;
                 dpFechaInicio.IsEnabled = false;

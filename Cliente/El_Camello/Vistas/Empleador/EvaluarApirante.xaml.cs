@@ -25,6 +25,7 @@ namespace El_Camello.Empleador
         private ContratacionEmpleoAspirante aspiranteEvaluar;
         private string token;
         private int idOfertaEmpleo;
+        private int idAspirante;
         List<string> valoraciones;
         MensajesSistema mensajes;
 
@@ -33,8 +34,9 @@ namespace El_Camello.Empleador
             InitializeComponent();
         }
 
-        public EvaluarApirante(ContratacionEmpleoAspirante aspiranteEvaluar, int idOfertaEmpleo, string token)
+        public EvaluarApirante(ContratacionEmpleoAspirante aspiranteEvaluar,int idAspirante, int idOfertaEmpleo, string token)
         {
+            this.idAspirante = idAspirante;
             this.aspiranteEvaluar = aspiranteEvaluar;
             this.token = token;
             this.idOfertaEmpleo = idOfertaEmpleo;
@@ -108,13 +110,14 @@ namespace El_Camello.Empleador
         {
             int evaluado = 0;
 
-            evaluado = await ContratacionEmpleoAspiranteDAO.PatchEvaluarAspirante(aspiranteEvaluar, idOfertaEmpleo, token);
+            evaluado = await ContratacionEmpleoAspiranteDAO.PatchEvaluarAspirante(aspiranteEvaluar, idAspirante, idOfertaEmpleo, token);
 
             if(evaluado > 0)
             {
 
-                mensajes = new MensajesSistema("AccionExistosa", "Se ha evaluado exitosamente al aspirante", "Evaluar aspirante", "Se ha asignado una valoración de: " + evaluado + " al aspirante: " + aspiranteEvaluar.NombreAspiranteContratado);
+                mensajes = new MensajesSistema("AccionExitosa", "Se ha evaluado exitosamente al aspirante", "Evaluar aspirante", "Se ha asignado una valoración de: " + evaluado + " al aspirante: " + aspiranteEvaluar.NombreAspiranteContratado);
                 mensajes.ShowDialog();
+
                 this.Close();
             }
             else

@@ -5,19 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:El_Camello.Empleador"
         mc:Ignorable="d"
-        Title="EvaluarApirante" Height="269" Width="450">
-    <Grid Margin="0,0,0,9">
-        <Grid RenderTransformOrigin="0.496,0.438" Margin="0,0,0,192">
+        Title="EvaluarApirante" Height="269" Width="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid Margin="0,0,0,4">
+        <Grid RenderTransformOrigin="0.496,0.438" Margin="0,225,0,-9">
             <Grid.Background>
                 <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
             </Grid.Background>
         </Grid>
-        <Grid RenderTransformOrigin="0.496,0.438" Margin="0,216,0,0">
-            <Grid.Background>
-                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
-            </Grid.Background>
-        </Grid>
-        <Label Content="Evaluación aspirante" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="26"/>
         <Button Content="Evaluar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130" Foreground="White" RenderTransformOrigin="-1.106,7.116" Height="34" Margin="164,171,0,0" Click="evaluar">
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
@@ -30,6 +24,9 @@
         <Label x:Name="lbNombre" Content="[Nombre del empleado]" HorizontalAlignment="Left" Margin="156,62,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.079,-0.114" Width="264"/>
         <ComboBox x:Name="cbValoraciones" HorizontalAlignment="Center" Margin="0,144,0,0" VerticalAlignment="Top" Width="214"/>
         <Label Content="Asigna la valoración: " HorizontalAlignment="Center" Margin="0,104,0,0" VerticalAlignment="Top"/>
+        <Grid DockPanel.Dock="Top" Background="#FF062758" Opacity="0.85" VerticalAlignment="Top" Height="40" Grid.ColumnSpan="2">
+            <Label Content="Evaluacion de aspirante" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="22" Foreground="White" FontWeight="Bold" Margin="0,0,10,0"/>
+        </Grid>
 
     </Grid>
 </Window>

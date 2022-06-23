@@ -7,7 +7,7 @@
         xmlns:System="clr-namespace:System;assembly=System.Runtime" 
         x:Class="El_Camello.Vistas.Empleador.OfertasEmpleo"
         mc:Ignorable="d"
-        Title="OfertasEmpleo" Height="524" Width="945" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="OfertasEmpleo" Height="535" Width="1068" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid Margin="0,0,0,-16">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="326*"/>
@@ -22,30 +22,27 @@
         <Grid.Background>
             <SolidColorBrush Color="#FFDFDFDF" Opacity="1"/>
         </Grid.Background>
-        <Grid RenderTransformOrigin="0.496,0.438" Margin="0,0,0,57" Grid.ColumnSpan="2">
-            <Grid.Background>
-                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
-            </Grid.Background>
+        <Grid DockPanel.Dock="Top" Background="#FF062758" Opacity="0.85" VerticalAlignment="Top" Height="40" Grid.ColumnSpan="2">
+            <Label Content="Menu Empleador" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="22" Foreground="White" FontWeight="Bold" Margin="0,0,10,0"/>
         </Grid>
         <Rectangle HorizontalAlignment="Left" Height="186" Margin="10,76,0,0" Stroke="Black" VerticalAlignment="Top" Width="204" Grid.RowSpan="3">
             <Rectangle.Fill>
                 <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
             </Rectangle.Fill>
         </Rectangle>
-        <DataGrid x:Name="dgOfertasEmpleo" Margin="314,54,10,92" Grid.RowSpan="4" Grid.ColumnSpan="2" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeRows="False" IsReadOnly="True" AutoGenerateColumns="False">
+        <DataGrid x:Name="dgOfertasEmpleo" Margin="334,54,10,92" Grid.RowSpan="4" Grid.ColumnSpan="2" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeRows="False" IsReadOnly="True" AutoGenerateColumns="False">
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Nombre del empleo" Binding= "{Binding Nombre}" Width="270"/>
-                <DataGridTextColumn Header="Categoria" Binding= "{Binding CategoriaEmpleo}" Width="100"/>
-                <DataGridTextColumn Header="Vacantes" Binding= "{Binding Vacantes}" Width="100"/>
-                <DataGridTextColumn Header="Fecha de publicación" Binding= "{Binding FechaInicio}" Width="150"/>
+                <DataGridTextColumn Header="Nombre del empleo" Binding= "{Binding Nombre}" Width="320"/>
+                <DataGridTextColumn Header="Categoria" Binding= "{Binding CategoriaEmpleo}" Width="121"/>
+                <DataGridTextColumn Header="Vacantes" Binding= "{Binding Vacantes}" Width="120"/>
+                <DataGridTextColumn Header="Fecha de publicación" Binding= "{Binding FechaInicio}" Width="160"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="btnEditarPerfil"  Content="Editar perfil" HorizontalAlignment="Left" Margin="214,90,0,0" VerticalAlignment="Top" Width="91" Foreground="Black" RenderTransformOrigin="-0.191,0.453" Height="18" Click="btnEditarPerfil_Click" Background="{x:Null}" BorderBrush="{x:Null}" Grid.RowSpan="2"/>
-        <Button x:Name="btnDesactivarPerfil" Content="Desactivar perfil" HorizontalAlignment="Left" Margin="214,4,0,0" VerticalAlignment="Top" Width="91" Foreground="Black" Height="21" Click="btnDesactivarPerfil_Click" Background="{x:Null}" BorderBrush="{x:Null}" Grid.Row="2"/>
-        <Button x:Name="btnActivarPerfil" Content="Activar perfil" HorizontalAlignment="Left" Margin="214,44,0,0" VerticalAlignment="Top" Width="91" Foreground="#FF030303" Height="20" Click="btnActivarPerfil_Click" BorderBrush="{x:Null}" Background="{x:Null}" Grid.Row="2"/>
-        <Label Content="Ofertas empleo" HorizontalAlignment="Left" Margin="6,-4,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="26" Grid.Column="1"/>
-        <Button x:Name="btnCerrarSesion" Content="Cerrar Sesión" HorizontalAlignment="Left" Margin="491,11,0,0" VerticalAlignment="Top" Width="94" Foreground="White" Grid.Column="1" Click="btnCerrarSesion_Click" BorderBrush="{x:Null}" Background="{x:Null}"/>
+        <Button x:Name="btnEditarPerfil"  Content="Editar perfil" HorizontalAlignment="Left" Margin="228,90,0,0" VerticalAlignment="Top" Width="91" Foreground="Black" RenderTransformOrigin="-0.191,0.453" Height="18" Click="btnEditarPerfil_Click" Background="{x:Null}" BorderBrush="{x:Null}" Grid.RowSpan="2"/>
+        <Button x:Name="btnDesactivarPerfil" Content="Desactivar perfil" HorizontalAlignment="Left" Margin="228,10,0,0" VerticalAlignment="Top" Width="91" Foreground="Black" Height="21" Click="btnDesactivarPerfil_Click" Background="{x:Null}" BorderBrush="{x:Null}" Grid.Row="2"/>
+        <Button x:Name="btnActivarPerfil" Content="Activar perfil" HorizontalAlignment="Left" Margin="233,46,0,0" VerticalAlignment="Top" Width="91" Foreground="#FF030303" Height="20" Click="btnActivarPerfil_Click" BorderBrush="{x:Null}" Background="{x:Null}" Grid.Row="2"/>
+        <Button x:Name="btnCerrarSesion" Content="Cerrar Sesión" HorizontalAlignment="Left" Margin="586,7,0,0" VerticalAlignment="Top" Width="94" Foreground="White" Grid.Column="1" Click="btnCerrarSesion_Click" BorderBrush="{x:Null}" Background="{x:Null}"/>
         <Grid RenderTransformOrigin="0.496,0.438" Margin="0,156,0,0" Grid.Row="3" Grid.ColumnSpan="2">
             <Grid.Background>
                 <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
@@ -60,7 +57,7 @@
             </Button.Background>
         </Button>
 
-        <Image x:Name="imgFoto" Margin="18,87,128,89" Grid.RowSpan="3"/>
+        <Image x:Name="imgFoto" Margin="18,87,172,99" Grid.RowSpan="3"/>
         <Button x:Name="btnRegistrarOferta" Content="Registrar oferta" Height="36" Width="116" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="-0.838,6.334" Margin="156,171,0,0" Click="btnRegistrarOferta_Click" Grid.Row="2">
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
@@ -91,7 +88,7 @@
             </Button.Background>
         </Button>
         <Label Name="lbUsuario" Content="Usuario: " HorizontalAlignment="Left" Margin="10,53,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="14" Height="26" Width="204" Background="Black"/>
-        <Label x:Name="lbNombre" Content="Nombre: " HorizontalAlignment="Left" Margin="0,8,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="14" Height="26" Width="305" Background="{x:Null}"/>
+        <Label x:Name="lbNombre" Content="Nombre: " HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="14" Height="26" Width="305" Background="{x:Null}" Margin="10,4,0,0"/>
 
 
     </Grid>
