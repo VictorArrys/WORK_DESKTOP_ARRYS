@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:El_Camello.Vistas.Administrador"
         mc:Ignorable="d"
-        Title="categoriasEmpleo">
+        Title="Categorías de empleo">
     <Grid Background="#FFDFDFDF">
         <TextBox x:Name="tbNombreCategoria" HorizontalAlignment="Left" Margin="194,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="430" Height="22" RenderTransformOrigin="0.5,0.5">
             <TextBox.RenderTransform>

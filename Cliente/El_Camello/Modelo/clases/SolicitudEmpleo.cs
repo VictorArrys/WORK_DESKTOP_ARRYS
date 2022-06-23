@@ -21,6 +21,7 @@ namespace El_Camello.Modelo.clases
         public SolicitudEmpleo()
         {
             this.aspiranteSolicitante = new Aspirante();
+            this.idSolicitud = 0;
         }
 
         public int IdSolicitud { get => idSolicitud; set => idSolicitud = value; }

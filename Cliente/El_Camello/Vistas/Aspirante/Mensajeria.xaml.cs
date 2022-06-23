@@ -39,6 +39,7 @@ namespace El_Camello.Vistas.Aspirante
             //Cargar conversacion y habilitar botones
             int idConversacion = ((ConversacionControl)e.Source).Conversacion.IdConversacion;
             conversacionSeleccionada = await ConversacionesDAO.GetConversacionAspirante(idConversacion ,perfilAspirante.IdAspirante, perfilAspirante.Token);
+            
             CargarConversacion();
         }
 

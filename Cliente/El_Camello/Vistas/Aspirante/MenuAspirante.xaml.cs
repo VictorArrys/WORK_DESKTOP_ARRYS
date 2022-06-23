@@ -43,7 +43,7 @@ namespace El_Camello.Vistas.Aspirante
             perfilAspirante.Tipo = usuarioConectado.Tipo;
             perfilAspirante.Token = usuarioConectado.Token;
 
-            
+            this.lblNombreAspirante.Content = perfilAspirante.NombreAspirante;
 
             
             byte[] fotoPerfil = perfilAspirante.Fotografia;
@@ -67,6 +67,25 @@ namespace El_Camello.Vistas.Aspirante
         {
             Mensajeria ventanaMensajeria = new Mensajeria(perfilAspirante);
             ventanaMensajeria.ShowDialog();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            BuscarOfertaEmpleo ventanaBuscarOfertaEmpleo = new BuscarOfertaEmpleo(perfilAspirante);
+            ventanaBuscarOfertaEmpleo.ShowDialog();
+        }
+
+        private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
+        {
+            Usuario.Login ventanaLogin = new Usuario.Login();
+            ventanaLogin.Show();
+            this.Close();
+        }
+
+        private void btnSolicitudesServicio_Click(object sender, RoutedEventArgs e)
+        {
+            SolicitudesServicio ventanaSolicitudes = new SolicitudesServicio(perfilAspirante);
+            ventanaSolicitudes.ShowDialog();
         }
     }
 }
