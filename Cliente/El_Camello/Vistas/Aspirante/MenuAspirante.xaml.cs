@@ -81,5 +81,11 @@ namespace El_Camello.Vistas.Aspirante
             ventanaLogin.Show();
             this.Close();
         }
+
+        private void btnSolicitudesServicio_Click(object sender, RoutedEventArgs e)
+        {
+            SolicitudesServicio ventanaSolicitudes = new SolicitudesServicio(perfilAspirante);
+            ventanaSolicitudes.ShowDialog();
+        }
     }
 }

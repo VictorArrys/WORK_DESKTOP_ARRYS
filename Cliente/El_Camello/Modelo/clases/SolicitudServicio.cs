@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 
 namespace El_Camello.Modelo.clases
 {
-    internal class SolicitudServicio
+    public class SolicitudServicio
     {
         private int idSolicitudServicio;
         private int idPerfilAspirante;
+        private string nombreDemandante;
         private int idPerfilDemandante;
         private string titulo;
         private int estatus;
-        private string estatusSolicitud;
+        private string descripcion;
         private DateTime fechaRegistro;
 
         public int IdSolicitudServicio { get => idSolicitudServicio; set => idSolicitudServicio = value; }
@@ -42,5 +43,7 @@ namespace El_Camello.Modelo.clases
             }
         }
         public DateTime FechaRegistro { get => fechaRegistro; set => fechaRegistro = value; }
+        public string Descripcion { get => descripcion; set => descripcion = value; }
+        public string NombreDemandante { get => nombreDemandante; set => nombreDemandante = value; }
     }
 }
