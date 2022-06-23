@@ -14,7 +14,7 @@ namespace El_Camello.Modelo.dao
 {
     public class ContratacionEmpleoAspiranteDAO
     {
-        public static async Task<int> PatchEvaluarAspirante(ContratacionEmpleoAspirante evaluacionAspirante , int idOfertaEmpleo, string token)
+        public static async Task<int> PatchEvaluarAspirante(ContratacionEmpleoAspirante evaluacionAspirante, int idAspirante, int idOfertaEmpleo, string token)
         {
 
             MensajesSistema errorMessage;
@@ -23,7 +23,7 @@ namespace El_Camello.Modelo.dao
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
 
-                string endpoint = string.Format("http://localhost:5000/v1/contratacionesEmpleo/{0}?idAspirante={1}", idOfertaEmpleo,evaluacionAspirante.IdAspirante);
+                string endpoint = string.Format("http://localhost:5000/v1/contratacionesEmpleo/{0}?idAspirante={1}", idOfertaEmpleo,idAspirante);
 
                 try
                 {
@@ -31,16 +31,16 @@ namespace El_Camello.Modelo.dao
                     HttpRequestMessage cuerpoMensaje = new HttpRequestMessage();
                     JObject valoracionCuerpo = new JObject();
 
-                    valoracionCuerpo.Add("idAspirante", evaluacionAspirante.IdAspirante);
+                    valoracionCuerpo.Add("idAspirante", idAspirante);
                     valoracionCuerpo.Add("valoracionAspirante", evaluacionAspirante.ValoracionAspirante);
-                    valoracionCuerpo.Add("diasLaborales", evaluacionAspirante.NombreAspiranteContratado);
+                    valoracionCuerpo.Add("nombreAspirante", evaluacionAspirante.NombreAspiranteContratado);
 
                     string cuerpoJson = JsonConvert.SerializeObject(valoracionCuerpo);
 
 
                     var data = new StringContent(cuerpoJson, Encoding.UTF8, "application/json");
 
-                    HttpResponseMessage respuesta = await cliente.PutAsync(endpoint, data);
+                    HttpResponseMessage respuesta = await cliente.PatchAsync(endpoint, data);
 
 
                     RespuestasAPI respuestaAPI = new RespuestasAPI();
@@ -51,7 +51,11 @@ namespace El_Camello.Modelo.dao
                         string body = await respuesta.Content.ReadAsStringAsync();
 
                         JObject objetoCreado = JsonConvert.DeserializeObject<JObject>(body);
-                        int evaluado = (int)objetoCreado["valoracionAspirante"];
+                        ContratacionEmpleoAspirante evaluacion = new ContratacionEmpleoAspirante();
+                        evaluacion.IdAspirante = (int)objetoCreado["idAspirante"];
+                        evaluacion.ValoracionAspirante = (int)objetoCreado["valoracionAspirante"];
+                        evaluacion.NombreAspiranteContratado = (string)objetoCreado["nombreAspirante"];
+                        int evaluado = evaluacion.ValoracionAspirante;
                         res = evaluado;
 
                     }

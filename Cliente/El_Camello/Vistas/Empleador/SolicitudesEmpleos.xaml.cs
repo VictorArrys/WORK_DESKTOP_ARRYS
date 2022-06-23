@@ -1,6 +1,8 @@
-﻿using El_Camello.Assets.utilerias;
+﻿using El_Camello.Aspirante;
+using El_Camello.Assets.utilerias;
 using El_Camello.Modelo.clases;
 using El_Camello.Modelo.dao;
+using El_Camello.Vistas.Administrador;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,10 +64,7 @@ namespace El_Camello.Vistas.Empleador
             {
 
                 solicitudes = await SolicitudEmpleoDAO.GetSolicitudesEmpleo(token, idOfertaEmpleo);
-                
-                dgSolicitudes.ItemsSource = solicitudes;
 
-                MessageBox.Show("Cantidad de solicitudes: " + solicitudes.Count);
                 if(solicitudes.Count == 0)
                 {
                     lbMensaje.Content = "Aun no cuentas con ninguna solicitud, vuelve pronto a revisar nuevamente";
@@ -98,6 +97,7 @@ namespace El_Camello.Vistas.Empleador
 
         private async void dgSolicitudes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            List<Oficio> oficios;
             btnAprobar.IsEnabled = true;
             btnRechazar.IsEnabled = true;
             btnVerMas.IsEnabled = true;
@@ -113,13 +113,8 @@ namespace El_Camello.Vistas.Empleador
                 lbNombreAspirante.Content = informacionAspirante.NombreAspirante;
                 lbDireccion.Content = informacionAspirante.Direccion;
                 lbTelefono.Content = informacionAspirante.Telefono;
-                tbOficios.Text = "Función en desarrollo";
-                /*foreach (var oficio in informacionAspirante.Oficios)
-                {
-                    tbOficios.Text += oficio.NombreCategoria + " Experiencia: " + oficio.Experiencia + "\n"; 
-
-                }*/
-
+                oficios = informacionAspirante.Oficios;
+                dgOficios.ItemsSource = oficios;
             }
 
         }
@@ -195,26 +190,36 @@ namespace El_Camello.Vistas.Empleador
 
         }
 
-        private void consultarAspirante(object sender, RoutedEventArgs e)
+        private async void consultarAspirante(object sender, RoutedEventArgs e)
         {
             int indiceSeleccion = dgSolicitudes.SelectedIndex;
 
             if (indiceSeleccion >= 0)
             {
-                SolicitudEmpleo aspiranteConsultar = solicitudesPendientes[indiceSeleccion];
-
-                /*EvaluarApirante ventanaEvaluar = new EvaluarApirante(aspiranteEvaluar, token);
-                ventanaEvaluar.ShowDialog();*/
+                SolicitudEmpleo aspiranteConsultar = solicitudesPendientes[indiceSeleccion];               
+                
+                PerfilAspirante perfilAspirante = new PerfilAspirante(aspiranteConsultar.IdUsuarioAspirante, token);
+                perfilAspirante.ShowDialog();
+                /*
+                ConsultarPerfilAspirante consultarAspirante = new ConsultarPerfilAspirante(usuarioConsultar, token);
+                consultarAspirante.ShowDialog();*/
             }
             else
             {
                 int indiceSeleccionVacantesUso = dgVacantesEnUso.SelectedIndex;
                 if (indiceSeleccionVacantesUso >= 0)
                 {
-                    SolicitudEmpleo aspiranteConsultar = solicitudesAceptadas[indiceSeleccion];
+                    SolicitudEmpleo aspiranteConsultar = solicitudesAceptadas[indiceSeleccionVacantesUso];
 
-                    /*EvaluarApirante ventanaEvaluar = new EvaluarApirante(aspiranteEvaluar, token);
-                    ventanaEvaluar.ShowDialog();*/
+                    /*Modelo.clases.Aspirante informacionAspirante = await AspiranteDAO.GetAspirante(aspiranteConsultar.IdUsuarioAspirante, token);
+                    Modelo.clases.Usuario usuarioConsultar = new Modelo.clases.Usuario();
+                    usuarioConsultar.IdPerfilusuario = informacionAspirante.IdPerfilusuario;*/
+
+                    PerfilAspirante perfilAspirante = new PerfilAspirante(aspiranteConsultar.IdUsuarioAspirante, token);
+                    perfilAspirante.ShowDialog();
+                    /*
+                    ConsultarPerfilAspirante consultarAspirante = new ConsultarPerfilAspirante(usuarioConsultar, token);
+                    consultarAspirante.ShowDialog();*/
                 }
                 else
                 {
@@ -229,6 +234,7 @@ namespace El_Camello.Vistas.Empleador
 
         private async void dgVacantesEnUso_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            List<Oficio> oficios;
             btnAprobar.IsEnabled = true;
             btnRechazar.IsEnabled = true;
             btnVerMas.IsEnabled = true;
@@ -243,15 +249,15 @@ namespace El_Camello.Vistas.Empleador
                 lbNombreAspirante.Content = informacionAspirante.NombreAspirante;
                 lbDireccion.Content = informacionAspirante.Direccion;
                 lbTelefono.Content = informacionAspirante.Telefono;
-                tbOficios.Text = "Función en desarrollo";
-                /*foreach (var oficio in informacionAspirante.Oficios)
-                {
-                    tbOficios.Text += oficio.NombreCategoria + " Experiencia: " + oficio.Experiencia + "\n"; 
-
-                }*/
-
+                oficios = informacionAspirante.Oficios;
+                dgOficios.ItemsSource = oficios;
             }
 
+        }
+
+        private void cerrarVentana_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

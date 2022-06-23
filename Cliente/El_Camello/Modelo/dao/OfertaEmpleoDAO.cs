@@ -84,7 +84,8 @@ namespace El_Camello.Modelo.dao
             ofertaEmpleoGet.IdOfertaEmpleo = (int)ofertaEmpleoConsultada["idOfertaEmpleo"];
             ofertaEmpleoGet.IdPerfilEmpleador = (int)ofertaEmpleoConsultada["idPerfilEmpleador"];
 
-            if ((string)ofertaEmpleoConsultada["contratacion"] == "empty")
+            JToken contratacionNull = ofertaEmpleoConsultada["contratacion"];
+            if (contratacionNull.Type == JTokenType.Null)
             {
                 ContratacionEmpleo contratacionVacia = new ContratacionEmpleo();
                 ofertaEmpleoGet.ContratacionEmpleo = contratacionVacia;
@@ -107,7 +108,7 @@ namespace El_Camello.Modelo.dao
                     contratacionEmpleado.NombreAspiranteContratado = (string)contratado["nombre_aspirante"];
                     contratacionEmpleado.Telefono = (string)contratado["telefono"];
                     contratacionEmpleado.Direccion = (string)contratado["direccion"];
-                    contratacionEmpleado.IdAspirante = (int)contratado["idUser"];
+                    contratacionEmpleado.IdUsuario = (int)contratado["idUser"];
                     contratacionEmpleado.ValoracionAspirante = (int)contratado["valoracion_aspirante"];
 
                     //Agregamos la contratacion a la lista de contrataciones
@@ -211,7 +212,6 @@ namespace El_Camello.Modelo.dao
 
                             ofertaEmpleoGet.FechaInicio = (DateTime)ofertaEmpleoConsultada["fecha_inicio"];
                             ofertaEmpleoGet.FechaFinalizacion = (DateTime)ofertaEmpleoConsultada["fecha_finalizacion"];
-
                             ofertaEmpleoGet.CategoriaEmpleo = (string)ofertaEmpleoConsultada["categoria"];
                            
                             ofertasEmpleosGet.Add(ofertaEmpleoGet);
