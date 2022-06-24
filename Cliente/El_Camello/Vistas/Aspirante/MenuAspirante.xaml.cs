@@ -69,6 +69,10 @@ namespace El_Camello.Vistas.Aspirante
 
 
 
+<<<<<<< HEAD
+=======
+            this.lblNombreAspirante.Content = perfilAspirante.NombreAspirante;
+>>>>>>> 5bfd5410ba770cf11602a856ff2074d21eeed9b8
 
             byte[] fotoPerfil = perfilAspirante.Fotografia;
             if (fotoPerfil != null)
@@ -102,6 +106,7 @@ namespace El_Camello.Vistas.Aspirante
             ventanaMensajeria.ShowDialog();
         }
 
+<<<<<<< HEAD
         private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -155,6 +160,25 @@ namespace El_Camello.Vistas.Aspirante
         public void actualizarCambios(string operacion)
         {
             throw new NotImplementedException();
+=======
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            BuscarOfertaEmpleo ventanaBuscarOfertaEmpleo = new BuscarOfertaEmpleo(perfilAspirante);
+            ventanaBuscarOfertaEmpleo.ShowDialog();
+        }
+
+        private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
+        {
+            Usuario.Login ventanaLogin = new Usuario.Login();
+            ventanaLogin.Show();
+            this.Close();
+        }
+
+        private void btnSolicitudesServicio_Click(object sender, RoutedEventArgs e)
+        {
+            SolicitudesServicio ventanaSolicitudes = new SolicitudesServicio(perfilAspirante);
+            ventanaSolicitudes.ShowDialog();
+>>>>>>> 5bfd5410ba770cf11602a856ff2074d21eeed9b8
         }
     }
 }

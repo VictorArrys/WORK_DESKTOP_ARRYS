@@ -1,0 +1,39 @@
+﻿<Window x:Class="El_Camello.Vistas.Aspirante.SolicitarVacante"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:El_Camello.Vistas.Aspirante"
+        mc:Ignorable="d"
+        Title="Solicitar Vacante" Height="320" Width="400" ResizeMode="NoResize">
+    <DockPanel LastChildFill="True">
+        <Grid DockPanel.Dock="Top" Background="#FF062758" Opacity="0.85">
+            <Label Content="Solicitar vacante" FontSize="16" FontWeight="Bold" Foreground="White" FontStyle="Italic"/>
+        </Grid>
+        <Grid DockPanel.Dock="Bottom"  Height="15" Background="#FF062758" Opacity=".85"/>
+        <Grid>
+            <Button x:Name="btnSolicitarVacante" Content="Solcitar Vacante"  FontSize="14" FontWeight="Bold" Foreground="White" HorizontalAlignment="Left" Margin="78,158,0,0" VerticalAlignment="Top" Click="btnSolicitarVacante_Click">
+                <Button.BorderBrush>
+                    <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+                </Button.BorderBrush>
+                <Button.Background>
+                    <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="btnCancelar" Content="Cancelar"  FontSize="14" FontWeight="Bold" Foreground="White" HorizontalAlignment="Left" Margin="231,158,0,0" VerticalAlignment="Top" Click="btnCancelar_Click">
+                <Button.BorderBrush>
+                    <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+                </Button.BorderBrush>
+                <Button.Background>
+                    <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+                </Button.Background>
+            </Button>
+            <Grid  HorizontalAlignment="Center" Margin="10,20,10,0" VerticalAlignment="Top" >
+                <TextBlock x:Name="txtOferta" TextWrapping="WrapWithOverflow" TextAlignment="Center" FontSize="22"/>
+            </Grid>
+            <Label x:Name="lblVacantes" Content="Label" HorizontalAlignment="Center" Margin="0,103,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="lblAviso" Content=""  Margin="30,200,30,0" VerticalAlignment="Top"/>
+
+        </Grid>
+    </DockPanel>
+</Window>

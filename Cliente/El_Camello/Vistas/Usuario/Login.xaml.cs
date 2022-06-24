@@ -18,6 +18,7 @@ using El_Camello.Vistas.Demandante;
 using El_Camello.Vistas.Aspirante;
 using El_Camello.Empleador;
 using El_Camello.Vistas.Empleador;
+using El_Camello.Configuracion;
 
 namespace El_Camello.Vistas.Usuario
 {
@@ -31,6 +32,7 @@ namespace El_Camello.Vistas.Usuario
         {
 
             InitializeComponent();
+            Settings.CargarConfiguracion();
         }
 
         private async void btnIniciarSesion_Click(object sender, RoutedEventArgs e)  // listo en cliente
@@ -74,13 +76,6 @@ namespace El_Camello.Vistas.Usuario
                 }
 
             }
-        }
-
-        private void btnRestablcerClave_Click(object sender, RoutedEventArgs e)
-        {
-            RestablecerContraseña ventanaRestablecer = new RestablecerContraseña();
-            ventanaRestablecer.Show();
-            this.Close();
         }
 
         private void btnResgistrarse_Click(object sender, RoutedEventArgs e)
