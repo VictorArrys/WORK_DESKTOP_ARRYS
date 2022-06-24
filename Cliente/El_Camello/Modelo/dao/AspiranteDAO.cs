@@ -18,7 +18,7 @@ namespace El_Camello.Modelo.dao
     internal class AspiranteDAO
     {
 
-        public static async Task<int> PostAspirante(Usuario usuario, clases.Aspirante aspirante) //intermedio
+        public static async Task<int> PostAspirante(Usuario usuario, clases.Aspirante aspirante) //listo cliente
         {
 
             int resultado = -1;
@@ -113,6 +113,104 @@ namespace El_Camello.Modelo.dao
 
             }
 
+            return resultado;
+        }
+
+        public static async Task<int> putAspirante(Modelo.clases.Aspirante aspirante, bool video) // por probar
+        {
+            int resultado = -1;
+            int idUsuario = -1;
+            int idAspirante = -1;
+
+            using (var cliente = new HttpClient())
+            {
+                cliente.DefaultRequestHeaders.Add("x-access-token", aspirante.Token);
+                string endpoint = string.Format("http://localhost:5000/v1/perfilAspirantes/{0}", aspirante.IdAspirante);
+
+                try
+                {
+                    HttpRequestMessage cuerpoMensaje = new HttpRequestMessage();
+                    JArray arregloOficiosJson = new JArray();
+
+                    foreach (Oficio item in aspirante.Oficios)
+                    {
+                        JObject oficioJson = new JObject();
+                        oficioJson.Add("idCategoria", item.IdCategoria);
+                        oficioJson.Add("experiencia", item.Experiencia);
+                        arregloOficiosJson.Add(oficioJson);
+                    }
+
+                    JObject objeto = new JObject();
+                    objeto.Add("clave", aspirante.Clave);
+                    objeto.Add("correoElectronico", aspirante.CorreoElectronico);
+                    objeto.Add("direccion", aspirante.Direccion);
+                    objeto.Add("estatus", 1);
+                    string fecha = string.Format("{0:yyyy-MM-dd}", aspirante.FechaNacimiento);
+                    objeto.Add("fechaNacimiento", fecha);
+                    objeto.Add("nombre", aspirante.NombreAspirante);
+                    objeto.Add("nombreUsuario", aspirante.NombreUsuario);
+                    objeto.Add("oficios", arregloOficiosJson);
+                    objeto.Add("telefono", aspirante.Telefono);
+                    objeto.Add("idPerfilUsuario", aspirante.IdPerfilusuario);
+
+                    string cuerpoJson = JsonConvert.SerializeObject(objeto);
+                    var data = new StringContent(cuerpoJson, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage respuesta = await cliente.PutAsync(endpoint, data);
+                    string body = await respuesta.Content.ReadAsStringAsync();
+                    RespuestasAPI respuestaAPI = new RespuestasAPI();
+
+                    if (respuesta.StatusCode == HttpStatusCode.OK)
+                    {
+                        JObject actualizacionAspirante = JObject.Parse(body);
+                        idUsuario = (int)actualizacionAspirante["idPerfilUsuario"];
+                        idAspirante = (int)actualizacionAspirante["idPerfilAspirante"];
+
+                        MultipartFormDataContent foto = new MultipartFormDataContent();
+                        var contenidoImagen = new ByteArrayContent(aspirante.Fotografia);
+                        contenidoImagen.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
+                        foto.Add(contenidoImagen, "fotografia", "fotografiaPerfilAspirante.jpg");
+
+                        string endpointFoto = string.Format("http://localhost:5000/v1/PerfilUsuarios/{0}/fotografia", idUsuario);
+                        respuesta = await cliente.PatchAsync(endpointFoto, foto);
+
+                        if (respuesta.StatusCode == HttpStatusCode.OK && video)
+                        {
+                            resultado = 0;
+                            MultipartFormDataContent videoEdicion = new MultipartFormDataContent();
+                            var contenidoVideo = new ByteArrayContent(aspirante.RegistroVideo);
+                            contenidoVideo.Headers.ContentType = MediaTypeHeaderValue.Parse("video/mp4");
+                            videoEdicion.Add(contenidoVideo, "video", "videoPerfilAspirante.mp4");
+
+                            string endpointVideo = string.Format("http://localhost:5000/v1/perfilAspirantes/{0}/video", idAspirante);
+                            respuesta = await cliente.PatchAsync(endpointVideo, videoEdicion);
+
+                            if (respuesta.StatusCode == HttpStatusCode.OK)
+                            {
+                                resultado = 1;
+                            }
+                            else
+                            {
+                                respuestaAPI.gestionRespuestasApi("Post Aspirante/video", respuesta);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        respuestaAPI.gestionRespuestasApi("put Aspirante", respuesta);
+                    }
+
+                }
+                catch (HttpRequestException)
+                {
+                    MessageBox.Show("servidor desconectado, no se puede establecer conexion");
+                }
+                finally
+                {
+                    cliente.Dispose();
+                }
+            }
+            
             return resultado;
         }
 

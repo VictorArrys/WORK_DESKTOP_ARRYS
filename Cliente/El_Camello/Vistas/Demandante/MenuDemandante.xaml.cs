@@ -107,7 +107,7 @@ namespace El_Camello.Vistas.Demandante
             categorias = await CategoriaDAO.GetCategorias();
             cbCategorias.ItemsSource = categorias;
             aspirantes = await AspiranteDAO.GetAspirantes(demandante.Token);
-            lbNombreDemandante.Content = demandante.NombreDemandante;
+            lbNombreDemandante.Content = "Usuario:" + demandante.NombreDemandante;
             dgAspirantes.ItemsSource = aspirantes;
         }
 

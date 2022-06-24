@@ -38,11 +38,11 @@ namespace El_Camello.Vistas.Administrador
             
         }
 
-        private async void cargarInformacionAspirante(Modelo.clases.Usuario usuarioSeleccionado)
+        private async void cargarInformacionAspirante(Modelo.clases.Usuario usuarioSeleccionado) // cargar categorias y donde sea la categoria ponerle el nombre
         {
             usuario = await UsuarioDAO.getUsuario(usuarioSeleccionado.IdPerfilusuario, token);
             aspirante = await AspiranteDAO.GetAspirante(usuarioSeleccionado.IdPerfilusuario, token);
-            aspirante.Video = await AspiranteDAO.GetVideo(usuarioSeleccionado.IdPerfilusuario, token);
+            aspirante.Video = await AspiranteDAO.GetVideo(aspirante.IdAspirante, token);
             cargarImagen(usuario.Fotografia);
             aspirante.IdPerfilusuario = usuario.IdPerfilusuario;
             lbNombreAspirante.Content = aspirante.NombreAspirante;
@@ -64,6 +64,7 @@ namespace El_Camello.Vistas.Administrador
 
             MemoryStream_toFile.MemoryStreamToFile(aspirante.Video, aspirante.RutaVideo);
             meVideoAspirante.Source = new Uri(aspirante.RutaVideo);
+            dgOficios.ItemsSource = aspirante.Oficios;
         }
 
         private void cargarImagen(byte[] fotografia)
@@ -98,5 +99,6 @@ namespace El_Camello.Vistas.Administrador
         {
             this.Close();
         }
+
     }
 }

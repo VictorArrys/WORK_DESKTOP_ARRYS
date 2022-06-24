@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:El_Camello.Vistas.Administrador"
         mc:Ignorable="d"
         Title="ConsultarPerfilAspirante" Height="541" Width="948">
-    <Grid Background="#FFDFDFDF">
+    <Grid x:Name="btnReproducir" Background="#FFDFDFDF">
         <Rectangle HorizontalAlignment="Center" Height="41" VerticalAlignment="Top" Width="948">
             <Rectangle.Stroke>
                 <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
@@ -33,12 +33,12 @@
         <Label Content="Telefono:" HorizontalAlignment="Left" Margin="252,237,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Label Content="Nombre Usuario:" HorizontalAlignment="Left" Margin="32,305,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Label Content="Contraseña:" HorizontalAlignment="Left" Margin="37,372,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-        <TextBox x:Name="tbCorreoElectronico" HorizontalAlignment="Left" Margin="400,184,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="279" Height="23" IsEnabled="False"/>
-        <TextBox x:Name="tbDireccion" HorizontalAlignment="Left" Margin="400,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="279" Height="23" IsEnabled="False"/>
-        <TextBox x:Name="tbTelefono" HorizontalAlignment="Left" Margin="400,243,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="279" Height="23" IsEnabled="False"/>
-        <DatePicker x:Name="dpFechaNacimiento" HorizontalAlignment="Left" Margin="400,125,0,0" VerticalAlignment="Top" Width="279" IsEnabled="False"/>
-        <TextBox x:Name="tbNombreUsuario" HorizontalAlignment="Left" Margin="167,311,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="279" Height="23" IsEnabled="False"/>
-        <TextBox x:Name="tbConstraseña" HorizontalAlignment="Left" Margin="167,378,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="279" Height="23" IsEnabled="False" />
+        <TextBox x:Name="tbCorreoElectronico" HorizontalAlignment="Left" Margin="400,184,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="279" Height="23" IsEnabled="False" FontWeight="Bold"/>
+        <TextBox x:Name="tbDireccion" HorizontalAlignment="Left" Margin="400,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="279" Height="23" IsEnabled="False" FontWeight="Bold"/>
+        <TextBox x:Name="tbTelefono" HorizontalAlignment="Left" Margin="400,243,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="279" Height="23" IsEnabled="False" FontWeight="Bold"/>
+        <DatePicker x:Name="dpFechaNacimiento" HorizontalAlignment="Left" Margin="400,125,0,0" VerticalAlignment="Top" Width="279" IsEnabled="False" FontWeight="Bold"/>
+        <TextBox x:Name="tbNombreUsuario" HorizontalAlignment="Left" Margin="167,311,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="279" Height="23" IsEnabled="False" FontWeight="Bold"/>
+        <TextBox x:Name="tbConstraseña" HorizontalAlignment="Left" Margin="167,378,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="279" Height="23" IsEnabled="False" FontWeight="Bold" />
         <DataGrid x:Name="dgOficios" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="474,311,24,57" IsReadOnly="True"/>
         <Button Content="Salir" HorizontalAlignment="Left" Margin="201,445,0,0" VerticalAlignment="Top" Foreground="#FFFAFAFA" FontSize="14" FontWeight="Bold" Width="77" Height="23" Click="Button_Click">
             <Button.BorderBrush>
