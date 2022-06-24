@@ -102,7 +102,41 @@ namespace El_Camello.Vistas.Usuario
         {
             if (isNuevo)
             {
-                if (validarCampos(isNuevo))
+                Uri uriImagen;
+                Modelo.clases.Usuario usuario = new Modelo.clases.Usuario();
+                Modelo.clases.Empleador empleador = new Modelo.clases.Empleador();
+
+                usuario.RutaFotografia = rutaImagen;
+                uriImagen = new Uri(usuario.RutaFotografia);
+                usuario.Fotografia = System.IO.File.ReadAllBytes(uriImagen.LocalPath);
+
+                empleador.NombreOrganizacion = tbNombreOrganizacion.Text;
+                empleador.NombreEmpleador = tbNombre.Text;
+                empleador.Direccion = tbDireccion.Text;
+                empleador.FechaNacimiento = (DateTime)dpFechaNacimiento.SelectedDate;
+                usuario.CorreoElectronico = tbCorreoElectronico.Text;
+                empleador.Telefono = tbTelefono.Text;
+                usuario.NombreUsuario = tbNombreUsuario.Text;
+                usuario.Clave = pbConstraseña.Password;
+                usuario.Estatus = 1;
+
+                int resultado = await EmpleadorDAO.PostEmpleador(usuario, empleador);
+
+                if (resultado == 1)
+                {
+                    MessageBox.Show("Registro en el sistema exitoso, favor de inciar con las credenciales registradas", "Operación exitosa");
+                    MessageBox.Show("Nombre Usuario: " + usuario.NombreUsuario + "\n" + "Constraseña" + usuario.Clave, "Credenciales");
+                    Login login = new Login();
+                    login.Show();
+                    this.Close();
+
+                }
+                else
+                {
+                    MessageBox.Show("Ocurrio un error al registrar tu perfil empleador", "¡Operación!");
+                }
+
+                /*if (validarCampos(isNuevo))
                 {
                     Uri uriImagen;
                     Modelo.clases.Usuario usuario = new Modelo.clases.Usuario();
@@ -141,7 +175,7 @@ namespace El_Camello.Vistas.Usuario
                 else
                 {
                     MessageBox.Show("Al registrar tu perfil verifica que los campos no esten vacios. ", "¡Operación!");
-                }
+                }*/
 
 
                 
@@ -150,7 +184,50 @@ namespace El_Camello.Vistas.Usuario
             {
                 Modelo.clases.Empleador modificarEmpleador = new Modelo.clases.Empleador();
 
-                if (validarCampos(isNuevo))
+                if (nuevaFotografia)
+                {
+                    Uri uriImagen;
+                    modificarEmpleador.RutaFotografia = rutaImagen;
+                    uriImagen = new Uri(modificarEmpleador.RutaFotografia);
+                    modificarEmpleador.Fotografia = System.IO.File.ReadAllBytes(uriImagen.LocalPath);
+                }
+                else
+                {
+                    byte[] fotografia;
+                    fotografia = empleador.Fotografia;
+                    modificarEmpleador.Fotografia = fotografia;
+                }
+
+                modificarEmpleador.NombreOrganizacion = tbNombreOrganizacion.Text;
+                modificarEmpleador.NombreEmpleador = tbNombre.Text;
+                modificarEmpleador.Direccion = tbDireccion.Text;
+                modificarEmpleador.FechaNacimiento = (DateTime)dpFechaNacimiento.SelectedDate;
+                modificarEmpleador.CorreoElectronico = tbCorreoElectronico.Text;
+                modificarEmpleador.Telefono = tbTelefono.Text;
+                modificarEmpleador.NombreUsuario = tbNombreUsuario.Text;
+                modificarEmpleador.Clave = pbConstraseña.Password;
+                modificarEmpleador.Estatus = empleador.Estatus;
+                modificarEmpleador.IdPerfilusuario = empleador.IdPerfilusuario;
+                modificarEmpleador.IdPerfilEmpleador = empleador.IdPerfilEmpleador;
+                modificarEmpleador.Token = empleador.Token;
+
+                int resultado = await EmpleadorDAO.putEmpleador(modificarEmpleador);
+                if (resultado == 1)
+                {
+                    Modelo.clases.Usuario usuario = null;
+                    usuario = await UsuarioDAO.getUsuario(modificarEmpleador.IdPerfilusuario, modificarEmpleador.Token);
+                    usuario.Token = modificarEmpleador.Token;
+                    notificacion.actualizarInformacion(usuario);
+                    MessageBox.Show("Actualización de tu perfil exitosa", "Operacion");
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Ocurrio un error al modificar tu perfil", "¡Operación!");
+                    this.Close();
+                }
+
+                /*if (validarCampos(isNuevo))
                 {
                     if (nuevaFotografia)
                     {
@@ -195,6 +272,10 @@ namespace El_Camello.Vistas.Usuario
                         this.Close();
                     }
                 }
+                else
+                {
+                    MessageBox.Show("Al modificar tu perfil verifica que los campos no esten vacios. ", "¡Operación!");
+                }*/
                 
             }
         }
@@ -251,6 +332,7 @@ namespace El_Camello.Vistas.Usuario
                             validar = true;
                         }
                     }
+                    validar = true;
                 }
             }
             else

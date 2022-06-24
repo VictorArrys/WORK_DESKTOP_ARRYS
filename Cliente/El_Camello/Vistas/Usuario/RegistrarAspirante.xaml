@@ -14,7 +14,7 @@
         <Label Content="Telefono:*" HorizontalAlignment="Left" Margin="50,294,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Label Content="Usuario" HorizontalAlignment="Left" Margin="641,56,0,0" VerticalAlignment="Top" FontStyle="Italic" Opacity="0.78" FontSize="16" FontWeight="Bold" FontFamily="Centaur"/>
         <Label Content="Sube aqui un video describiendo tu experiencia laboral*" HorizontalAlignment="Left" Margin="48,336,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-        <Label Content="**Recomendación: duración no mayor a 10 Mb:*" HorizontalAlignment="Left" Margin="60,358,0,0" VerticalAlignment="Top" FontSize="10" FontWeight="Bold"/>
+        <Label Content="**Recomendación: duración no mayor a 5 Mb:*" HorizontalAlignment="Left" Margin="60,358,0,0" VerticalAlignment="Top" FontSize="10" FontWeight="Bold"/>
         <Button x:Name="btnSeleccionarVideo" Content="Añadir" HorizontalAlignment="Left" Margin="52,378,0,0" VerticalAlignment="Top" Height="23" Width="77" Foreground="White" FontSize="14" FontWeight="Bold" Click="btnSeleccionarVideo_Click">
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
@@ -120,6 +120,7 @@
             </Rectangle.Fill>
         </Rectangle>
         <Label Content="Información registro" HorizontalAlignment="Left" Margin="11,6,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontStyle="Italic" Foreground="White" Background="{x:Null}"/>
+        <Label x:Name="lbVideoEdicion" Content="" HorizontalAlignment="Left" Margin="52,416,0,0" VerticalAlignment="Top" FontSize="10" FontWeight="Bold" Width="307"/>
 
 
     </Grid>

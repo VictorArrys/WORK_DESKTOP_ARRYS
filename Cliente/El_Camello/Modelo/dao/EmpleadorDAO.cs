@@ -37,7 +37,7 @@ namespace El_Camello.Modelo.dao
                     objeto.Add("nombre", empleador.NombreEmpleador);
                     objeto.Add("nombreOrganizacion", empleador.NombreOrganizacion);
                     objeto.Add("telefono", empleador.Telefono);
-                    objeto.Add("nombreusuario", usuario.NombreUsuario);
+                    objeto.Add("nombreUsuario", usuario.NombreUsuario);
 
                     string cuerpoJson = JsonConvert.SerializeObject(objeto);
                     var data = new StringContent(cuerpoJson, Encoding.UTF8, "application/json");
@@ -50,7 +50,7 @@ namespace El_Camello.Modelo.dao
                     {
                         JObject registroExitoso = JObject.Parse(body);
                         idUsuario = (int)registroExitoso["idPerfilUsuario"];
-                        idEmpleador = (int)registroExitoso["idPerfilAspirante"];
+                        idEmpleador = (int)registroExitoso["idPerfilEmpleador"];
 
                         MultipartFormDataContent foto = new MultipartFormDataContent();
                         var contenidoImagen = new ByteArrayContent(usuario.Fotografia);
@@ -192,7 +192,7 @@ namespace El_Camello.Modelo.dao
                     objeto.Add("fechaNacimiento", fecha);
                     objeto.Add("nombreOrganizacion", empleador.NombreOrganizacion);
                     objeto.Add("telefono", empleador.Telefono);
-                    objeto.Add("nombreusuario", empleador.NombreUsuario);
+                    objeto.Add("nombreUsuario", empleador.NombreUsuario);
                     objeto.Add("nombre", empleador.NombreEmpleador);
                     objeto.Add("idPerfilUsuario", empleador.IdPerfilusuario);
 

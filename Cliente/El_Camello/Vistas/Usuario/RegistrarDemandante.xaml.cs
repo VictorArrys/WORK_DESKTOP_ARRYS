@@ -203,6 +203,10 @@ namespace El_Camello.Vistas.Usuario
                     }
 
                 }
+                else
+                {
+                    MessageBox.Show("Al registrar tu perfil verifica que los campos no esten vacios. ", "¡Operación!");
+                }
                 
             }
 

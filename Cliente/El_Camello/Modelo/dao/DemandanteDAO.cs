@@ -49,7 +49,7 @@ namespace El_Camello.Modelo.dao
                     JObject registroDemandante = JObject.Parse(body);
 
                     idUsuario = (int)registroDemandante["idPerfilUsuario"];
-                    idDemandante = (int)registroDemandante["idPerfilDemandante"];
+                    idDemandante = (int)registroDemandante["idPerfilDemandantet "];
 
                     MultipartFormDataContent foto = new MultipartFormDataContent();
                     var contenidoImagen = new ByteArrayContent(usuario.Fotografia);
@@ -151,8 +151,9 @@ namespace El_Camello.Modelo.dao
                     if (respuesta.StatusCode == HttpStatusCode.OK)
                     {
                         JObject perfilDemandante = JObject.Parse(body);
+                        MessageBox.Show(body);
                         idUsuario = (int)perfilDemandante["idPerfilUsuario"];
-                        idDemandante = (int)perfilDemandante["idPerfilAspirante"];
+                        idDemandante = (int)perfilDemandante["idPerfilDemandante"];
 
                         MultipartFormDataContent foto = new MultipartFormDataContent();
                         var contenidoImagen = new ByteArrayContent(usuario.Fotografia);
