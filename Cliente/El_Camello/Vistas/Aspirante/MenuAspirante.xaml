@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:El_Camello.Vistas.Aspirante"
         mc:Ignorable="d"
         Title="MenuAspirante" Height="545" Width="1026" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-    <Grid Height="529" VerticalAlignment="Top">
+    <Grid x:Name="___Sin_nombre_" Height="529" VerticalAlignment="Top">
         <Grid.Background>
             <SolidColorBrush Color="#FFDFDFDF" Opacity="1"/>
         </Grid.Background>
@@ -16,16 +16,8 @@
                 <SolidColorBrush Color="#FFDFDFDF" Opacity="0.1"/>
             </Button.BorderBrush>
         </Button>
-<<<<<<< HEAD
-        <Button x:Name="btnActivarPerfil" Content="Activar Perfil" HorizontalAlignment="Left" Margin="178,107,0,0" VerticalAlignment="Top" FontStyle="Italic" FontWeight="Normal" Background="{x:Null}" BorderBrush="{x:Null}" Click="btnActivarPerfil_Click"/>
-        <Button x:Name="btnSolicitudesEmpleo" Content="  Solicitudes &#xA;  de empleo" HorizontalAlignment="Left" Margin="26,243,0,0" VerticalAlignment="Top" Width="113" Height="41" FontSize="14" FontWeight="Bold" Foreground="White">
-=======
-        <Button Content="Activar Perfil" HorizontalAlignment="Left" Margin="178,107,0,0" VerticalAlignment="Top" FontStyle="Italic" FontWeight="Normal" Background="{x:Null}" BorderBrush="{x:Null}"/>
-        <Button Content="  Solicitar &#xD;&#xA;  empleo" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="26,0,0,0" VerticalAlignment="Center" Width="113" Height="41" FontSize="14" FontWeight="Bold" Foreground="White" Click="Button_Click">
-<<<<<<< HEAD
->>>>>>> 5bfd5410ba770cf11602a856ff2074d21eeed9b8
-=======
->>>>>>> 5bfd5410ba770cf11602a856ff2074d21eeed9b8
+        <Button Content="Activar Perfil" HorizontalAlignment="Left" Margin="178,107,0,0" VerticalAlignment="Top" FontStyle="Italic" FontWeight="Normal" Background="{x:Null}" BorderBrush="{x:Null}" Click="btnActivarPerfil_Click"/>
+        <Button x:Name="btnSolicitudesEmpleo" Content="  Solicitudes de empleo" HorizontalAlignment="Left" Margin="26,243,0,0" VerticalAlignment="Top" Width="113" Height="41" FontSize="14" FontWeight="Bold" Foreground="White">
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>
@@ -57,7 +49,9 @@
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.Background>
         </Button>
-        <Image x:Name="imgFoto" Margin="15,49,848,347"/>
+        <StackPanel Margin="15,49,848,347" Background="White">
+            <Image x:Name="imgFoto" Height="132" Width="162"/>
+        </StackPanel>
         <DataGrid x:Name="dgOfertasEmpleo" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="319,78,37,32"/>
         <Label Content="Ofertas de empleo recomendadas:" HorizontalAlignment="Left" Margin="319,43,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Rectangle HorizontalAlignment="Center" Height="41" VerticalAlignment="Top" Width="1026">
@@ -73,21 +67,9 @@
                 <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
             </Rectangle.Fill>
         </Rectangle>
-<<<<<<< HEAD
-<<<<<<< HEAD
-        <Label x:Name="lbNombreAspirante" Content="Nombre Aspirante" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="White" FontStyle="Italic" Width="522"/>
-        <Button x:Name="btnCerrarSesion" Content="Cerrar Sesión" HorizontalAlignment="Left" Margin="894,7,0,0" VerticalAlignment="Top" Height="30" Width="101" FontSize="14" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="btnCerrarSesion_Click"/>
-        <Button x:Name="btnSolicitudesServicio" Content="Solicitudes de&#xD;&#xA;     servicio" HorizontalAlignment="Left" Margin="96,392,0,0" VerticalAlignment="Top" Width="114" Height="41" FontSize="14" FontWeight="Bold" Foreground="White">
-=======
-        <Label x:Name="lblNombreAspirante" Content="Nombre Aspirante" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="White" FontStyle="Italic"/>
+        <Label x:Name="lbNombreAspirante" Content="Nombre Aspirante" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="White" FontStyle="Italic"/>
         <Button x:Name="btnCerrarSesion" Content="Cerrar Sesión" HorizontalAlignment="Left" Margin="894,7,0,0" VerticalAlignment="Top" Height="30" Width="101" FontSize="14" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="btnCerrarSesion_Click"/>
         <Button x:Name="btnSolicitudesServicio" Content="Solicitudes de&#xD;&#xA;     servicio" HorizontalAlignment="Left" Margin="96,392,0,0" VerticalAlignment="Top" Width="114" Height="41" FontSize="14" FontWeight="Bold" Foreground="White" Click="btnSolicitudesServicio_Click">
->>>>>>> 5bfd5410ba770cf11602a856ff2074d21eeed9b8
-=======
-        <Label x:Name="lblNombreAspirante" Content="Nombre Aspirante" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="White" FontStyle="Italic"/>
-        <Button x:Name="btnCerrarSesion" Content="Cerrar Sesión" HorizontalAlignment="Left" Margin="894,7,0,0" VerticalAlignment="Top" Height="30" Width="101" FontSize="14" FontWeight="Bold" FontStyle="Italic" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="btnCerrarSesion_Click"/>
-        <Button x:Name="btnSolicitudesServicio" Content="Solicitudes de&#xD;&#xA;     servicio" HorizontalAlignment="Left" Margin="96,392,0,0" VerticalAlignment="Top" Width="114" Height="41" FontSize="14" FontWeight="Bold" Foreground="White" Click="btnSolicitudesServicio_Click">
->>>>>>> 5bfd5410ba770cf11602a856ff2074d21eeed9b8
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>

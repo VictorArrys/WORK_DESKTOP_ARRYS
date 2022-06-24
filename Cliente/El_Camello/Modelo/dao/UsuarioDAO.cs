@@ -17,7 +17,7 @@ namespace El_Camello.Modelo.dao
 {
     internal class UsuarioDAO
     {
-        public static async Task<Usuario> iniciarSesion(string nombreUsuario, string clave)  // listo en cliente
+        public static async Task<Usuario> iniciarSesion(string nombreUsuario, string clave) 
         {
             Usuario usuario = new Usuario();
             using (var cliente = new HttpClient())
