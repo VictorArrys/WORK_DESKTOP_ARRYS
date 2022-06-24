@@ -145,8 +145,10 @@ namespace El_Camello.Vistas.Demandante
         private void btnConsultarSolicitudes_Click(object sender, RoutedEventArgs e)
         {
             ConsultarSolicitudServicio consultarSolicitudServicio = new ConsultarSolicitudServicio(demandante);
-            consultarSolicitudServicio.Show();
-            this.Close();
+            this.Hide();
+            consultarSolicitudServicio.ShowDialog();
+            this.Show();
+            
         }
 
         private void btnConsultarValoraciones_Click(object sender, RoutedEventArgs e)
@@ -157,7 +159,9 @@ namespace El_Camello.Vistas.Demandante
         private void btnMensajeria_Click(object sender, RoutedEventArgs e)
         {
             Mensajeria ventanaMensajeria = new Mensajeria(demandante);
+            Hide();
             ventanaMensajeria.ShowDialog();
+            Show();
         }
 
         private void cambioCategoria(object sender, SelectionChangedEventArgs e)

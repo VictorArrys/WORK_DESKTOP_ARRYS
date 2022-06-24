@@ -66,13 +66,17 @@ namespace El_Camello.Vistas.Aspirante
         private void btnMensajeria_Click(object sender, RoutedEventArgs e)
         {
             Mensajeria ventanaMensajeria = new Mensajeria(perfilAspirante);
+            Hide();
             ventanaMensajeria.ShowDialog();
+            Show();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             BuscarOfertaEmpleo ventanaBuscarOfertaEmpleo = new BuscarOfertaEmpleo(perfilAspirante);
+            Hide();
             ventanaBuscarOfertaEmpleo.ShowDialog();
+            Show();
         }
 
         private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
@@ -85,7 +89,17 @@ namespace El_Camello.Vistas.Aspirante
         private void btnSolicitudesServicio_Click(object sender, RoutedEventArgs e)
         {
             SolicitudesServicio ventanaSolicitudes = new SolicitudesServicio(perfilAspirante);
+            this.Hide();
             ventanaSolicitudes.ShowDialog();
+            this.Show();
+        }
+
+        private void btnContrataciones_Click(object sender, RoutedEventArgs e)
+        {
+            ConsultarContrataciones ventanaContratacion = new ConsultarContrataciones();
+            Hide();
+            ventanaContratacion.ShowDialog();
+            Show();
         }
     }
 }
