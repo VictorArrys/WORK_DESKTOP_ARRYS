@@ -608,7 +608,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = "http://localhost:5000/v1/ofertasEmpleo-A?categoriasEmpleo=" + String.Join(",", listaIdCategorias);
+                string endpoint = $"http://localhost:5000/v1/ofertasEmpleo-A?categoriasEmpleo={String.Join(',', listaIdCategorias)}";
 
                 try
                 {

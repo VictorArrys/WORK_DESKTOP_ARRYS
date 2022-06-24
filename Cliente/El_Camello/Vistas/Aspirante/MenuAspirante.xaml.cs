@@ -103,14 +103,6 @@ namespace El_Camello.Vistas.Aspirante
             Show();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            BuscarOfertaEmpleo ventanaBuscarOfertaEmpleo = new BuscarOfertaEmpleo(perfilAspirante);
-            Hide();
-            ventanaBuscarOfertaEmpleo.ShowDialog();
-            Show();
-        }
-
         private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
         {
             Usuario.Login ventanaLogin = new Usuario.Login();
@@ -168,12 +160,6 @@ namespace El_Camello.Vistas.Aspirante
             throw new NotImplementedException();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            BuscarOfertaEmpleo ventanaBuscarOfertaEmpleo = new BuscarOfertaEmpleo(perfilAspirante);
-            ventanaBuscarOfertaEmpleo.ShowDialog();
-        }
-
 
         private void btnSolicitudesServicio_Click(object sender, RoutedEventArgs e)
         {
@@ -189,6 +175,14 @@ namespace El_Camello.Vistas.Aspirante
             ConsultarContrataciones ventanaContratacion = new ConsultarContrataciones();
             Hide();
             ventanaContratacion.ShowDialog();
+            Show();
+        }
+
+        private void btnSolicitudesEmpleo_Click(object sender, RoutedEventArgs e)
+        {
+            BuscarOfertaEmpleo ventanaBuscarOfertaEmpleo = new BuscarOfertaEmpleo(perfilAspirante);
+            Hide();
+            ventanaBuscarOfertaEmpleo.ShowDialog();
             Show();
         }
     }
