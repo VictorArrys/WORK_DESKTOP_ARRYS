@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:El_Camello.Vistas.Aspirante"
         mc:Ignorable="d"
-        Title="Solicitar Vacante" Height="320" Width="400" ResizeMode="NoResize">
+        Title="Solicitar Vacante" Height="320" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <DockPanel LastChildFill="True">
         <Grid DockPanel.Dock="Top" Background="#FF062758" Opacity="0.85">
             <Label Content="Solicitar vacante" FontSize="16" FontWeight="Bold" Foreground="White" FontStyle="Italic"/>

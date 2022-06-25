@@ -65,11 +65,8 @@ namespace El_Camello.Modelo.dao
                             SolicitudServicio solicitudConsultada = new SolicitudServicio();
                             solicitudConsultada.IdSolicitudServicio = (int)solicitud["idSolicitudServicio"];
                             solicitudConsultada.Titulo = (string)solicitud["titulo"];
-                            //solicitudConsultada.Descripcion = solicitud[""];
                             solicitudConsultada.Estatus = (int)solicitud["estatus"];
                             solicitudConsultada.FechaRegistro = (DateTime)solicitud["fechaRegistro"];
-                            solicitudConsultada.IdPerfilDemandante = (int)solicitud["idPerfilDemandante"];
-                            solicitudConsultada.IdPerfilAspirante = (int)solicitud["idPerfilAspirante"];
                             listaSolicitudes.Add(solicitudConsultada);
                         }
                         
@@ -115,20 +112,16 @@ namespace El_Camello.Modelo.dao
                     {
                         string body = await respuesta.Content.ReadAsStringAsync();
 
-
                         JObject solicitud = JObject.Parse(body);
 
-                        
                         solicitudConsultada.IdSolicitudServicio = (int)solicitud["idSolicitudServicio"];
                         solicitudConsultada.Titulo = (string)solicitud["titulo"];
                         solicitudConsultada.Descripcion = (string)solicitud["descripcion"];
                         solicitudConsultada.Estatus = (int)solicitud["estatus"];
                         solicitudConsultada.FechaRegistro = (DateTime)solicitud["fechaRegistro"];
-                        solicitudConsultada.IdPerfilDemandante = (int)solicitud["idPerfilDemandante"];
-                        solicitudConsultada.IdPerfilAspirante = (int)solicitud["idPerfilAspirante"];
-                        solicitudConsultada.NombreDemandante = (string)solicitud["nombreDemandante"];
-
-
+                        solicitudConsultada.Demandante.IdDemandante = (int)solicitud["demandante"]["idPerfilDemandante"];
+                        solicitudConsultada.Demandante.NombreDemandante = (string)solicitud["demandante"]["nombre"];
+                        solicitudConsultada.Aspirante.IdAspirante = (int)solicitud["idPerfilAspirante"];
                     }
                     else if (respuesta.StatusCode == HttpStatusCode.NotFound)
                     {

@@ -173,8 +173,8 @@ namespace El_Camello.Vistas.Demandante
 
         private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
         {
+            new Login().Show();
             this.Close();
-
         }    
         public void actualizarCambios(string operacion)
         {
