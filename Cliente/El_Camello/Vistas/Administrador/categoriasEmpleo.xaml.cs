@@ -95,18 +95,27 @@ namespace El_Camello.Vistas.Administrador
 
             if (categoriaSeleccionada != null)
             {
-                categoriaSeleccionada.NombreCategoria = tbNombreCategoria.Text;
-                int resultado = await CategoriaDAO.PatchCategoria(categoriaSeleccionada, token);
-                if (resultado == 1)
+
+                if (categoriaSeleccionada.NombreCategoria == tbNombreCategoria.Text)
                 {
-                    MessageBox.Show("Categoria actualizada con éxito", "¡Operación!");
-                    limpiarCampos();
-                    CargarCategorias();
+                    MessageBox.Show("No se puede realizar un actualización ya que no has modificado la categoria", "!Operación¡");
                 }
                 else
                 {
-                    MessageBox.Show("Ocurrio un error al modificar la categoría seleccionada. verificar si no se modifico el nombre", "¡Operación!");
+                    categoriaSeleccionada.NombreCategoria = tbNombreCategoria.Text;
+                    int resultado = await CategoriaDAO.PatchCategoria(categoriaSeleccionada, token);
+                    if (resultado == 1)
+                    {
+                        MessageBox.Show("Categoria actualizada con éxito", "¡Operación!");
+                        limpiarCampos();
+                        CargarCategorias();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ocurrio un error al modificar la categoría seleccionada. verificar si no se modifico el nombre", "¡Operación!");
+                    }
                 }
+                
             }
             
         }
@@ -140,6 +149,16 @@ namespace El_Camello.Vistas.Administrador
             if (categoriaSeleccionada != null)
             {
                 tbNombreCategoria.Text = categoriaSeleccionada.NombreCategoria;
+            }
+        }
+
+        private void tbBuscarCambio(object sender, TextChangedEventArgs e)
+        {
+            if (categoriasTabla.Count > 0)
+            {
+                var categoriasFiltradas = categoriasTabla.Where(Categoria => Categoria.NombreCategoria.ToLower().Contains(tbBuscar.Text));
+                dgCategorias.AutoGenerateColumns = false;
+                dgCategorias.ItemsSource = categoriasFiltradas;
             }
         }
     }

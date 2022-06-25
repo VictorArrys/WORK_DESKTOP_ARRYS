@@ -177,7 +177,7 @@ namespace El_Camello.Vistas.Usuario
         {
             if (isNuevo)
             {
-                if (validarCampos(isNuevo))
+                if (validarCampos(isNuevo))// validaciones registrar ya esta, queda pendiente modificar
                 {
                     Uri uriImagen;
                     Uri uriVideo;
@@ -271,7 +271,7 @@ namespace El_Camello.Vistas.Usuario
                         modificarAspirante.Oficios = oficios.ToList();
 
                         int resultado = await AspiranteDAO.putAspirante(modificarAspirante, nuevoVideo);
-                        if (resultado == 1)
+                        if (resultado == 1 || resultado == 0)
                         {
                             Modelo.clases.Usuario usuario = null;
                             usuario = await UsuarioDAO.getUsuario(modificarAspirante.IdPerfilusuario, modificarAspirante.Token);
@@ -356,6 +356,7 @@ namespace El_Camello.Vistas.Usuario
             bool validar = false;
             if (isNuevo)
             {
+                DateTime fechaActual = DateTime.Now;
                 if (tbNombreAspirante.Text == "")
                 {
                     validar = false;
@@ -368,44 +369,69 @@ namespace El_Camello.Vistas.Usuario
                 {
                     validar = false;
                 }
-                else if (tbCorreoElectronico.Text == "")
+                else if (dpFechaNacimiento.SelectedDate >= fechaActual)
                 {
                     validar = false;
+                    MessageBox.Show("Tu fecha de nacimiento no puede ser mayor a la fecha actual", "¡Operación!");
                 }
-                else if (tbtelefono.Text == "")
+                else if (dpFechaNacimiento.SelectedDate < fechaActual)
                 {
-                    validar = false;
-                }
-                else if (tbNombreUsuario.Text == "")
-                {
-                    validar = false;
-                }
-                else if (pbClave.Password != "" || pbClaveConfirmacion.Password != "")
-                {
-                    if (pbClave.Password != pbClaveConfirmacion.Password)
+                    DateTime nacimiento = (DateTime)dpFechaNacimiento.SelectedDate;
+                    int edad = DateTime.Today.AddTicks(-nacimiento.Ticks).Year-1;
+                    if (edad < 18)
                     {
-                        MessageBox.Show("Por favor introducir la misma contraseña en ambos campos para confirmar", "¡Operacion!");
-                        validar = false;
-                    }
-                    else if (imgFotografiaAspirante.Source == null) 
-                    {
-                        MessageBox.Show("Por favor seleccionar una foto de perfil para tu cuenta, preferentemente una fotografia personal", "¡Operación!");
-                        validar = false;
-                    }
-                    else if (rutaVideo == null)
-                    {
-                        MessageBox.Show("Por favor seleccionar una vides de presentación para tu cuenta", "¡Operación!");
+                        MessageBox.Show("Para poder completar tu registro se debera tener con un minimo de 18 años cumplidos","¡Operación!");
                         validar = false;
                     }
                     else
                     {
-                        validar = true;
+                        if (tbCorreoElectronico.Text == "")
+                        {
+                            validar = false;
+                        }
+                        else if (tbtelefono.Text == "")
+                        {
+                            tbtelefono.MaxLength = 10;
+                            validar = false;
+                        }
+                        else if (tbNombreUsuario.Text == "")
+                        {
+                            validar = false;
+                        }else if (pbClave.Password != "" || pbClaveConfirmacion.Password != "")
+                        {
+                            if (pbClave.Password != pbClaveConfirmacion.Password)
+                            {
+                                MessageBox.Show("Por favor introducir la misma contraseña en ambos campos para confirmar", "¡Operacion!");
+                                validar = false;
+                            }
+                            else if (imgFotografiaAspirante.Source == null)
+                            {
+                                MessageBox.Show("Por favor seleccionar una foto de perfil para tu cuenta, preferentemente una fotografia personal", "¡Operación!");
+                                validar = false;
+                            }
+                            else if (rutaVideo == "")
+                            {
+                                MessageBox.Show("Por favor seleccionar una vides de presentación para tu cuenta", "¡Operación!");
+                                validar = false;
+                            }
+                            else if (oficios.Count <= 0)
+                            {
+                                MessageBox.Show("Antes de registrarte nos gutaría saber tu experiencia en almenos 1 de los oficios registrados", "¡Operación!");
+                                MessageBox.Show("Selecciona de las listas desplegables un oficio y aproximadamente una experiencia acorde al tiempo trabajado...");
+                                validar = false;
+                            }
+                            else
+                            {
+                                validar = true;
+                            }
+                        }
                     }
+                    
                 }
             }
             else
             {
-                validar = true;
+                DateTime fechaActual = DateTime.Now;
                 if (tbNombreAspirante.Text == "")
                 {
                     validar = false;
@@ -418,38 +444,64 @@ namespace El_Camello.Vistas.Usuario
                 {
                     validar = false;
                 }
-                else if (tbCorreoElectronico.Text == "")
+                else if (dpFechaNacimiento.SelectedDate >= fechaActual)
                 {
                     validar = false;
+                    MessageBox.Show("Tu fecha de nacimiento no puede ser mayor a la fecha actual", "¡Operación!");
                 }
-                else if (tbtelefono.Text == "")
+                else if (dpFechaNacimiento.SelectedDate < fechaActual)
                 {
-                    validar = false;
-                }
-                else if (tbNombreUsuario.Text == "")
-                {
-                    validar = false;
-                }
-                else if (pbClave.Password != "" || pbClaveConfirmacion.Password != "")
-                {
-                    if (pbClave.Password != pbClaveConfirmacion.Password)
+                    DateTime nacimiento = (DateTime)dpFechaNacimiento.SelectedDate;
+                    int edad = DateTime.Today.AddTicks(-nacimiento.Ticks).Year - 1;
+                    if (edad < 18)
                     {
-                        MessageBox.Show("Por favor introducir la misma contraseña en ambos campos para confirmar", "¡Operacion!");
-                        validar = false;
-                    }
-                    else if (imgFotografiaAspirante.Source == null)
-                    {
-                        MessageBox.Show("Por favor seleccionar una foto de perfil para tu cuenta, preferentemente una fotografia personal", "¡Operación!");
-                        validar = false;
-                    }
-                    else if (rutaVideo == null)
-                    {
-                        MessageBox.Show("Por favor seleccionar una vides de presentación para tu cuenta", "¡Operación!");
+                        MessageBox.Show("Para poder completar tu registro se debera tener con un minimo de 18 años cumplidos", "¡Operación!");
                         validar = false;
                     }
                     else
                     {
-                        validar = true;
+                        if (tbCorreoElectronico.Text == "")
+                        {
+                            validar = false;
+                        }
+                        else if (tbtelefono.Text == "")
+                        {
+                            tbtelefono.MaxLength = 10;
+                            validar = false;
+                        }
+                        else if (tbNombreUsuario.Text == "")
+                        {
+                            validar = false;
+                        }
+                        else if (pbClave.Password != "" || pbClaveConfirmacion.Password != "")
+                        {
+                            if (pbClave.Password != pbClaveConfirmacion.Password)
+                            {
+                                MessageBox.Show("Por favor introducir la misma contraseña en ambos campos para confirmar", "¡Operacion!");
+                                validar = false;
+                            }
+                            else if (imgFotografiaAspirante.Source == null)
+                            {
+                                MessageBox.Show("Por favor seleccionar una foto de perfil para tu cuenta, preferentemente una fotografia personal", "¡Operación!");
+                                validar = false;
+                            }
+                            else if (oficios.Count <= 0)
+                            {
+                                MessageBox.Show("Antes de registrarte nos gutaría saber tu experiencia en almenos 1 de los oficios registrados", "¡Operación!");
+                                MessageBox.Show("Selecciona de las listas desplegables un oficio y aproximadamente una experiencia acorde al tiempo trabajado...");
+                                validar = false;
+                            }
+                            else if (tbNombreAspirante.Text == aspirante.NombreAspirante && tbDireccion.Text == aspirante.Direccion && tbCorreoElectronico.Text == aspirante.CorreoElectronico &&
+                                tbtelefono.Text == aspirante.Telefono && tbNombreUsuario.Text == aspirante.NombreUsuario && pbClave.Password == aspirante.Clave && pbClaveConfirmacion.Password == aspirante.Clave)
+                            {
+                                MessageBox.Show("Antes de actualizar tu perfil es necesario modificar almenos un campo.", "¡Operación!");
+                                validar = false;
+                            }
+                            else
+                            {
+                                validar = true;
+                            }
+                        }
                     }
                 }
             }

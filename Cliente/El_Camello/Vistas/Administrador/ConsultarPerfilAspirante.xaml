@@ -39,7 +39,12 @@
         <DatePicker x:Name="dpFechaNacimiento" HorizontalAlignment="Left" Margin="400,125,0,0" VerticalAlignment="Top" Width="279" IsEnabled="False" FontWeight="Bold"/>
         <TextBox x:Name="tbNombreUsuario" HorizontalAlignment="Left" Margin="167,311,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="279" Height="23" IsEnabled="False" FontWeight="Bold"/>
         <TextBox x:Name="tbConstraseña" HorizontalAlignment="Left" Margin="167,378,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="279" Height="23" IsEnabled="False" FontWeight="Bold" />
-        <DataGrid x:Name="dgOficios" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="474,311,24,57" IsReadOnly="True"/>
+        <DataGrid x:Name="dgOficios" d:ItemsSource="{d:SampleData ItemCount=2}" Margin="474,311,24,57" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeRows="False" AutoGenerateColumns="False" FontSize="20">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="200" Header="Nombre" Binding="{Binding NombreCategoria}" FontSize="15" />
+                <DataGridTextColumn Width="240" Header="Experiencia" Binding="{Binding Experiencia}" FontSize="15" />
+            </DataGrid.Columns>
+        </DataGrid>
         <Button Content="Salir" HorizontalAlignment="Left" Margin="201,445,0,0" VerticalAlignment="Top" Foreground="#FFFAFAFA" FontSize="14" FontWeight="Bold" Width="77" Height="23" Click="Button_Click">
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>

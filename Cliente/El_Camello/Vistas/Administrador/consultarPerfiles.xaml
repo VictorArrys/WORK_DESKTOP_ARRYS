@@ -62,12 +62,6 @@
             </Button.Background>
         </Button>
         <Label Content="Usuarios" HorizontalAlignment="Left" Margin="10,3,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="White"/>
-        <Button Content="Cerrar Sesión" HorizontalAlignment="Left" Margin="833,7,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}"/>
-        <Label Content="Leyenda Estatus:" HorizontalAlignment="Left" Margin="20,83,0,0" VerticalAlignment="Top" FontWeight="Bold" FontStyle="Italic"/>
-        <Label Content="1 : Activo" HorizontalAlignment="Left" Margin="34,109,0,0" VerticalAlignment="Top" FontWeight="Normal" FontStyle="Italic"/>
-        <Label Content="2 : Desactivado" HorizontalAlignment="Left" Margin="34,140,0,0" VerticalAlignment="Top" FontWeight="Normal" FontStyle="Italic"/>
-        <Label Content="3 : Bloqueado*" HorizontalAlignment="Left" Margin="34,171,0,0" VerticalAlignment="Top" FontWeight="Normal" FontStyle="Italic"/>
-        <Label Content="*Solo Empleadores" HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" FontWeight="Normal" FontStyle="Italic" FontSize="9"/>
 
     </Grid>
 </Page>

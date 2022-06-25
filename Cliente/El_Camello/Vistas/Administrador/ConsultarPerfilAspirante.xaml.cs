@@ -1,4 +1,5 @@
 ﻿using El_Camello.Assets.utilerias;
+using El_Camello.Modelo.clases;
 using El_Camello.Modelo.dao;
 using System;
 using System.Collections.Generic;
@@ -40,6 +41,7 @@ namespace El_Camello.Vistas.Administrador
 
         private async void cargarInformacionAspirante(Modelo.clases.Usuario usuarioSeleccionado) // cargar categorias y donde sea la categoria ponerle el nombre
         {
+            List<Categoria> categorias = new List<Categoria>();
             usuario = await UsuarioDAO.getUsuario(usuarioSeleccionado.IdPerfilusuario, token);
             aspirante = await AspiranteDAO.GetAspirante(usuarioSeleccionado.IdPerfilusuario, token);
             aspirante.Video = await AspiranteDAO.GetVideo(aspirante.IdAspirante, token);
@@ -51,8 +53,22 @@ namespace El_Camello.Vistas.Administrador
             tbCorreoElectronico.Text = usuario.CorreoElectronico;
             tbTelefono.Text = aspirante.Telefono;
             tbNombreUsuario.Text = usuario.NombreUsuario;
-            tbConstraseña.Text = usuario.Clave;
+            tbConstraseña.Text = usuario.Clave;            
+            categorias = await CategoriaDAO.GetCategorias();
+            for (int x = 0; x < aspirante.Oficios.Count; x++)
+            {
+                for (int y = 0; y < categorias.Count; y++)
+                {
+                    if (categorias[y].IdCategoria == aspirante.Oficios[x].IdCategoria)
+                    {
+                        aspirante.Oficios[x].NombreCategoria = categorias[y].NombreCategoria;
+                        break;
+                    }
+                }
+            }
+
             dgOficios.ItemsSource = aspirante.Oficios;
+
 
 
             aspirante.RutaVideo = "";
@@ -64,6 +80,7 @@ namespace El_Camello.Vistas.Administrador
 
             MemoryStream_toFile.MemoryStreamToFile(aspirante.Video, aspirante.RutaVideo);
             meVideoAspirante.Source = new Uri(aspirante.RutaVideo);
+            meVideoAspirante.Volume = 0.5;
             dgOficios.ItemsSource = aspirante.Oficios;
         }
 
@@ -100,5 +117,6 @@ namespace El_Camello.Vistas.Administrador
             this.Close();
         }
 
+        
     }
 }

@@ -38,7 +38,7 @@ namespace El_Camello.Vistas.Administrador
             cargarAdministrador(usuarioConectado);
         }
 
-        private async void cargarAdministrador(Modelo.clases.Usuario usuarioConectado)
+        public async void cargarAdministrador(Modelo.clases.Usuario usuarioConectado)
         {
             administrador = await AdministradorDAO.getAdministrador(usuarioConectado.IdPerfilusuario, usuarioConectado.Token);
             administrador.NombreUsuario = usuarioConectado.NombreUsuario;
