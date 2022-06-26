@@ -165,11 +165,10 @@ namespace El_Camello.Vistas.Demandante
 
         private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
         {
-            Login login = new Login();
-            login.Show();
+            new Login().Show();
             this.Close();
-
-        }    
+        } 
+           
         public void actualizarCambios(string operacion)
         {
             throw new NotImplementedException();

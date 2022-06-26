@@ -40,8 +40,8 @@
             <Label x:Name="lblTitulo" Content="Título: " HorizontalAlignment="Left" Margin="409,80,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Width="381"/>
             <Label x:Name="lblEstatus" Content="Estatus" HorizontalAlignment="Left" Margin="409,134,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Width="164"/>
             <Label x:Name="lblFechaRegistro" Content="Fecha registro:" HorizontalAlignment="Left" Margin="592,134,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-            <Label Content="Descripción:" HorizontalAlignment="Left" Margin="409,0,0,0" VerticalAlignment="Center" FontSize="14" FontWeight="Bold"/>
-            <TextBox x:Name="lblDescripcion" Margin="409,213,40,50" TextWrapping="Wrap"  Width="367" IsEnabled="False" Height="114" FontSize="14"/>
+            <Label Content="Descripción:" HorizontalAlignment="Left" VerticalAlignment="top"  Margin="409,180,0,0"  FontSize="14" FontWeight="Bold"/>
+            <TextBox x:Name="lblDescripcion" Margin="409,213,20,50" TextWrapping="Wrap"  IsEnabled="False" FontSize="14"/>
             <Button x:Name="btnRechazar" IsEnabled="False" Content="Rechazar"  Margin="0,0,20,20" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="14" FontWeight="Bold" Foreground="White" Click="btnRechazar_Click">
                 <Button.BorderBrush>
                     <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>

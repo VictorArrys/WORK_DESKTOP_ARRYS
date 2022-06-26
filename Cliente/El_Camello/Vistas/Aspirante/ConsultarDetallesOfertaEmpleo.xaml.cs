@@ -50,7 +50,7 @@ namespace El_Camello.Vistas.Aspirante
             this.lblFin.Content = "Fecha Fin: " + fechaFin;
             string fechaInicio = string.Format("{0:yyyy-MM-dd}", ofertaEmpleo.FechaInicio);
             this.lblInicio.Content = "Fecha inicio: " + fechaInicio;
-            this.lblNombre.Content = "Nombre empleo: " + ofertaEmpleo.Nombre;
+            this.lblNombre.Content = "Empleo: " + ofertaEmpleo.Nombre;
             this.lblTipoPago.Content = "Tipo pago: " + ofertaEmpleo.TipoPago;
             this.lblVacantes.Content = "Vacantes: " + ofertaEmpleo.Vacantes;
             lblHorario.Content = $"Horario: {ofertaEmpleo.HoraInicio} - {ofertaEmpleo.HoraFin}";

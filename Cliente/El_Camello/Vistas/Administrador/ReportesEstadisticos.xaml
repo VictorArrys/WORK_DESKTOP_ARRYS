@@ -5,60 +5,72 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:El_Camello.Vistas.Administrador"
         mc:Ignorable="d"
-        Title="ReportesEstadisticos" Height="570" Width="913" Background="White">
-    <Grid Margin="0,0,0,-6">
-        <Rectangle HorizontalAlignment="Left" Height="229" Margin="12,51,0,0" Stroke="Black" VerticalAlignment="Top" Width="416"/>
-
-        <Grid DockPanel.Dock="Top" Background="#FF062758" Opacity="0.85" VerticalAlignment="Top" Height="40">
-            <Label Content="Reportes estadisticos" HorizontalAlignment="Left" Margin="298,-5,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="26" Width="356"/>
-            <Button Content="Volver" HorizontalAlignment="Left" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Margin="756,13,0,0">
-                <Button.Background>
-                    <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
-                </Button.Background>
-                <Button.BorderBrush>
-                    <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
-                </Button.BorderBrush>
-            </Button>
+        Title="ReportesEstadisticos" Background="White">
+    <DockPanel LastChildFill="True">
+        <Grid DockPanel.Dock="Top" Background="#FF062758" Opacity="0.85" VerticalAlignment="Top" >
+            <Label Content="Reportes estadisticos" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="26" />
         </Grid>
-        <Grid RenderTransformOrigin="0.496,0.438" Margin="0,536,0,0">
-            <Grid.Background>
-                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
-            </Grid.Background>
-        </Grid>
-        <DataGrid x:Name="dgPlataforma" d:ItemsSource="{Binding}" Margin="30,98,505,306" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeRows="False" IsReadOnly="True" AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Mes" Binding= "{Binding MesFecha}" Width="60"/>
-                <DataGridTextColumn Header="Año" Binding= "{Binding YearFecha}" Width="90"/>
-                <DataGridTextColumn Header="Ofertas publicadas" Binding= "{Binding OfertasPublicadas}" Width="110"/>
-                <DataGridTextColumn Header="Ofertas Categoria" Binding= "{Binding CategoriaEmpleo}" Width="115"/>
-            </DataGrid.Columns>
-        </DataGrid>
-        <Label Content="Uso de la plafaforma" HorizontalAlignment="Left" Margin="88,48,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26" Height="39"/>
-        <Rectangle HorizontalAlignment="Left" Height="229" Margin="464,51,0,0" Stroke="Black" VerticalAlignment="Top" Width="416"/>
-        <DataGrid x:Name="dgValoracionesEmpleadores" d:ItemsSource="{Binding}" Margin="488,98,49,306" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeRows="False" IsReadOnly="True" AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Empleador" Binding= "{Binding NombreEmpleador}" Width="270"/>
-                <DataGridTextColumn Header="Valoración" Binding= "{Binding EvaluacionEmpleador}" Width="103"/>
-            </DataGrid.Columns>
-        </DataGrid>
-        <Label Content="Valoraciones de empleadores" HorizontalAlignment="Left" Margin="498,54,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26" Height="39"/>
-        <Rectangle HorizontalAlignment="Left" Height="233" Margin="12,285,0,0" Stroke="Black" VerticalAlignment="Top" Width="416"/>
-        <DataGrid x:Name="dgMayoresOfertas" d:ItemsSource="{Binding}" Margin="36,324,505,71" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeRows="False" IsReadOnly="True" AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Categoria" Binding= "{Binding CategoriaEmpleo}" Width="210"/>
-                <DataGridTextColumn Header="Solicitudes" Binding= "{Binding SolicitudesEstadisticas}" Width="80"/>
-                <DataGridTextColumn Header="Año" Binding= "{Binding FechaEstadisticas}" Width="90"/>
-            </DataGrid.Columns>
-        </DataGrid>
-        <Label Content="Mayores Ofertas" HorizontalAlignment="Left" Margin="88,280,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26" Height="39"/>
-        <Rectangle HorizontalAlignment="Left" Height="233" Margin="466,285,0,0" Stroke="Black" VerticalAlignment="Top" Width="416"/>
-        <DataGrid x:Name="dgValoracionesAspirantes" d:ItemsSource="{Binding}" Margin="490,324,49,71" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeRows="False" IsReadOnly="True" AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Aspirante" Binding= "{Binding NombreAspirante}" Width="270"/>
-                <DataGridTextColumn Header="Valoración" Binding= "{Binding EvaluacionAspirante}" Width="103"/>
-            </DataGrid.Columns>
-        </DataGrid>
-        <Label Content="Valoraciones de aspirantes" HorizontalAlignment="Left" Margin="531,280,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26" Height="39"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" MinHeight="200"/>
+                <RowDefinition Height="1*" MinHeight="200"/>
+            </Grid.RowDefinitions>
 
-    </Grid>
+            <Border BorderBrush="Black" BorderThickness="1" Margin="5" Grid.Column="0" Grid.Row="0">
+                <DockPanel LastChildFill="True">
+                    <Label DockPanel.Dock="Top" Content="Uso de la plafaforma" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="5,5,5,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26"/>
+                    <DataGrid x:Name="dgPlataforma" d:ItemsSource="{Binding}" Margin="10" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeRows="False" IsReadOnly="True" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Mes" Binding= "{Binding MesFecha}" Width="60"/>
+                            <DataGridTextColumn Header="Año" Binding= "{Binding YearFecha}" Width="90"/>
+                            <DataGridTextColumn Header="Ofertas publicadas" Binding= "{Binding OfertasPublicadas}" Width="110"/>
+                            <DataGridTextColumn Header="Ofertas Categoria" Binding= "{Binding CategoriaEmpleo}" Width="115"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </Border>
+
+            <Border BorderBrush="Black" BorderThickness="1" Margin="5" Grid.Column="0" Grid.Row="1">
+                <DockPanel LastChildFill="True">
+                    <Label DockPanel.Dock="Top" Margin="5,5,5,0" Content="Valoraciones de empleadores" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26"/>
+                    <DataGrid x:Name="dgValoracionesEmpleadores" Margin="10" d:ItemsSource="{Binding}" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeRows="False" IsReadOnly="True" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Empleador" Binding= "{Binding NombreEmpleador}" Width="270"/>
+                            <DataGridTextColumn Header="Valoración" Binding= "{Binding EvaluacionEmpleador}" Width="103"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </Border>
+
+            <Border BorderBrush="Black" BorderThickness="1" Margin="5" Grid.Column="1" Grid.Row="0">
+                <DockPanel LastChildFill="True" >
+                    <Label DockPanel.Dock="Top" Content="Mayores Ofertas" Margin="5,5,5,0" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26"/>
+
+                    <DataGrid x:Name="dgMayoresOfertas" d:ItemsSource="{Binding}" Margin="10" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeRows="False" IsReadOnly="True" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Categoria" Binding= "{Binding CategoriaEmpleo}" Width="210"/>
+                            <DataGridTextColumn Header="Solicitudes" Binding= "{Binding SolicitudesEstadisticas}" Width="80"/>
+                            <DataGridTextColumn Header="Año" Binding= "{Binding FechaEstadisticas}" Width="90"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </Border>
+
+            <Border BorderBrush="Black" BorderThickness="1" Margin="5" Grid.Column="1" Grid.Row="1">
+                <DockPanel LastChildFill="True">
+                    <Label DockPanel.Dock="Top" Content="Valoraciones de aspirantes" HorizontalAlignment="Center" Margin="5,5,5,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26" />
+                    <DataGrid x:Name="dgValoracionesAspirantes" d:ItemsSource="{Binding}" Margin="10" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeRows="False" IsReadOnly="True" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Aspirante" Binding= "{Binding NombreAspirante}" Width="270"/>
+                            <DataGridTextColumn Header="Valoración" Binding= "{Binding EvaluacionAspirante}" Width="103"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </Border>
+        </Grid>
+    </DockPanel>
 </Page>

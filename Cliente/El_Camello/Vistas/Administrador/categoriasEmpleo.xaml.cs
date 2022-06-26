@@ -156,7 +156,7 @@ namespace El_Camello.Vistas.Administrador
         {
             if (categoriasTabla.Count > 0)
             {
-                var categoriasFiltradas = categoriasTabla.Where(Categoria => Categoria.NombreCategoria.ToLower().Contains(tbBuscar.Text));
+                var categoriasFiltradas = categoriasTabla.Where(Categoria => Categoria.NombreCategoria.ToLower().Contains(tbBuscar.Text.ToLower()));
                 dgCategorias.AutoGenerateColumns = false;
                 dgCategorias.ItemsSource = categoriasFiltradas;
             }
