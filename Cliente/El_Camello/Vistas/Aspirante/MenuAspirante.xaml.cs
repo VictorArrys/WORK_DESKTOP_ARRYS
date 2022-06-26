@@ -172,7 +172,7 @@ namespace El_Camello.Vistas.Aspirante
 
         private void btnContrataciones_Click(object sender, RoutedEventArgs e)
         {
-            ConsultarContrataciones ventanaContratacion = new ConsultarContrataciones();
+            ConsultarContrataciones ventanaContratacion = new ConsultarContrataciones(perfilAspirante);
             Hide();
             ventanaContratacion.ShowDialog();
             Show();

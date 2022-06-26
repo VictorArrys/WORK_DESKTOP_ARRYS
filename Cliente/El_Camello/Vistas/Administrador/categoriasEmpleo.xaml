@@ -7,81 +7,74 @@
         mc:Ignorable="d"
         Title="Categorías de empleo">
     <Grid Background="#FFDFDFDF">
-        <TextBox x:Name="tbNombreCategoria" HorizontalAlignment="Left" Margin="194,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="430" Height="22" RenderTransformOrigin="0.5,0.5">
-            <TextBox.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-0.366"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </TextBox.RenderTransform>
-        </TextBox>
-        <Label Content="NOMBRE:" HorizontalAlignment="Left" Margin="111,102,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="Black"/>
-        <TextBox x:Name="tbBuscar" HorizontalAlignment="Left" Margin="90,212,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="tbBuscarCambio"/>
-        <DataGrid x:Name="dgCategorias" FontWeight="Bold" Margin="35,237,36,31" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeRows="False" IsReadOnly="True" AutoGenerateColumns="False" FontSize="20" SelectionChanged="dgSeleccionCategoria" >
-            <DataGrid.Columns>
-                <DataGridTextColumn Width="650" Header="Nombre" Binding="{Binding NombreCategoria}" FontSize="25" />
-            </DataGrid.Columns>
-        </DataGrid>
-        <Label Content="Buscar:" HorizontalAlignment="Left" Margin="41,206,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold"/>
-        <Rectangle HorizontalAlignment="Center" Height="41" VerticalAlignment="Top" Width="800">
-            <Rectangle.Stroke>
-                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
-            </Rectangle.Stroke>
-            <Rectangle.Fill>
-                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
-            </Rectangle.Fill>
-        </Rectangle>
-        <Button x:Name="btnDeshacer" Content="Deshacer" HorizontalAlignment="Left" Margin="586,171,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Height="22" Width="71" Foreground="White" Click="btnDeshacer_Click">
-            <Button.BorderBrush>
-                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
-            </Button.BorderBrush>
-            <Button.Background>
-                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
-            </Button.Background>
-        </Button>
-        <Button x:Name="btnRegistrarCategoria" Content="Registrar" HorizontalAlignment="Left" Margin="504,201,0,0" VerticalAlignment="Top" Width="71" Height="23" FontSize="14" FontWeight="Bold" UseLayoutRounding="False" Foreground="White" Click="btnRegistrarCategoria_Click" >
-            <Button.BorderBrush>
-                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
-            </Button.BorderBrush>
-            <Button.Background>
-                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
-            </Button.Background>
-        </Button>
-        <Button x:Name="btnModificarCategoria" Content="Modificar" HorizontalAlignment="Left" Margin="587,201,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Width="71" RenderTransformOrigin="0.5,0.5" Height="23" Foreground="White" Click="btnModificarCategoria_Click">
-            <Button.BorderBrush>
-                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
-            </Button.BorderBrush>
-            <Button.Background>
-                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
-            </Button.Background>
-            <Button.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform AngleX="1.861"/>
-                    <RotateTransform/>
-                    <TranslateTransform X="-0.368"/>
-                </TransformGroup>
-            </Button.RenderTransform>
-        </Button>
-        <Button x:Name="btnEliminarCategoria" Content="Eliminar" HorizontalAlignment="Left" Margin="668,201,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Height="23" Width="72" Foreground="White" Click="btnEliminarCategoria_Click">
-            <Button.BorderBrush>
-                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
-            </Button.BorderBrush>
-            <Button.Background>
-                <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
-            </Button.Background>
-        </Button>
-        <Rectangle HorizontalAlignment="Center" Height="15" VerticalAlignment="Bottom" Width="800" Margin="0,401,0,0">
-            <Rectangle.Stroke>
-                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
-            </Rectangle.Stroke>
-            <Rectangle.Fill>
-                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
-            </Rectangle.Fill>
-        </Rectangle>
-        <Label Content="Categorías de empleo" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Background="Transparent" Foreground="White" FontSize="16" FontStyle="Italic" FontWeight="Bold"/>
+        <DockPanel LastChildFill="True">
+            <Grid DockPanel.Dock="Top" Background="#FF062758" Opacity=".85">
+                <Label Content="Categorías de empleo" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Background="Transparent" Foreground="White" FontSize="16" FontStyle="Italic" FontWeight="Bold"/>
 
+            </Grid>
+            <Grid>
+
+                <TextBox x:Name="tbNombreCategoria" HorizontalAlignment="Left" Margin="194,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="430" Height="22" RenderTransformOrigin="0.5,0.5">
+                    <TextBox.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-0.366"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </TextBox.RenderTransform>
+                </TextBox>
+                <Label Content="NOMBRE:" HorizontalAlignment="Left" Margin="111,102,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="Black"/>
+                <Button x:Name="btnDeshacer" Content="Deshacer" HorizontalAlignment="Left" Margin="586,171,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Height="22" Width="71" Foreground="White" Click="btnDeshacer_Click">
+                    <Button.BorderBrush>
+                        <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+                    </Button.BorderBrush>
+                    <Button.Background>
+                        <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="btnRegistrarCategoria" Content="Registrar" HorizontalAlignment="Left" Margin="504,201,0,0" VerticalAlignment="Top" Width="71" Height="23" FontSize="14" FontWeight="Bold" UseLayoutRounding="False" Foreground="White" Click="btnRegistrarCategoria_Click" >
+                    <Button.BorderBrush>
+                        <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+                    </Button.BorderBrush>
+                    <Button.Background>
+                        <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="btnModificarCategoria" Content="Modificar" HorizontalAlignment="Left" Margin="587,201,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Width="71" RenderTransformOrigin="0.5,0.5" Height="23" Foreground="White" Click="btnModificarCategoria_Click">
+                    <Button.BorderBrush>
+                        <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+                    </Button.BorderBrush>
+                    <Button.Background>
+                        <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+                    </Button.Background>
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform AngleX="1.861"/>
+                            <RotateTransform/>
+                            <TranslateTransform X="-0.368"/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                </Button>
+                <Button x:Name="btnEliminarCategoria" Content="Eliminar" HorizontalAlignment="Left" Margin="668,201,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Height="23" Width="72" Foreground="White" Click="btnEliminarCategoria_Click">
+                    <Button.BorderBrush>
+                        <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+                    </Button.BorderBrush>
+                    <Button.Background>
+                        <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
+                    </Button.Background>
+                </Button>
+                
+                <Label Content="Buscar:" HorizontalAlignment="Left" FontSize="16" Margin="41,206,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold"/>
+                <TextBox x:Name="tbBuscar" HorizontalAlignment="Left" Margin="120,212,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="tbBuscarCambio"/>
+
+                <DataGrid x:Name="dgCategorias" FontWeight="Bold" Margin="35,237,36,31" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeRows="False" IsReadOnly="True" AutoGenerateColumns="False" FontSize="20" SelectionChanged="dgSeleccionCategoria" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="650" Header="Nombre" Binding="{Binding NombreCategoria}" FontSize="18" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </DockPanel>
     </Grid>
 </Page>

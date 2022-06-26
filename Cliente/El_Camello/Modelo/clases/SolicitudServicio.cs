@@ -9,17 +9,26 @@ namespace El_Camello.Modelo.clases
     public class SolicitudServicio
     {
         private int idSolicitudServicio;
-        private int idPerfilAspirante;
-        private string nombreDemandante;
-        private int idPerfilDemandante;
+        private Aspirante aspirante;
+        private Demandante demandante;
+
         private string titulo;
         private int estatus;
         private string descripcion;
         private DateTime fechaRegistro;
 
+        public SolicitudServicio()
+        {
+            idSolicitudServicio = 0;
+            aspirante = new Aspirante();
+            demandante = new Demandante();
+            titulo = "";
+            estatus = -2;
+            descripcion = "";
+            fechaRegistro = DateTime.Now;
+        }
+
         public int IdSolicitudServicio { get => idSolicitudServicio; set => idSolicitudServicio = value; }
-        public int IdPerfilAspirante { get => idPerfilAspirante; set => idPerfilAspirante = value; }
-        public int IdPerfilDemandante { get => idPerfilDemandante; set => idPerfilDemandante = value; }
         public string Titulo { get => titulo; set => titulo = value; }
         public int Estatus { get => estatus; set => estatus = value; }
         public string EstatusSolicitud 
@@ -44,6 +53,7 @@ namespace El_Camello.Modelo.clases
         }
         public DateTime FechaRegistro { get => fechaRegistro; set => fechaRegistro = value; }
         public string Descripcion { get => descripcion; set => descripcion = value; }
-        public string NombreDemandante { get => nombreDemandante; set => nombreDemandante = value; }
+        public Aspirante Aspirante { get => aspirante; set => aspirante = value; }
+        public Demandante Demandante { get => demandante; set => demandante = value; }
     }
 }

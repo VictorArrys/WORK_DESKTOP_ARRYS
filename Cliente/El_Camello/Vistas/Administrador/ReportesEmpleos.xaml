@@ -5,63 +5,80 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:El_Camello.Vistas.Administrador"
         mc:Ignorable="d"
-        Title="ReportesEmpleos" Height="562" Width="870">
-    <Grid Background="White">
-        <Grid RenderTransformOrigin="0.496,0.438" Margin="0,0,0,519">
-            <Grid.Background>
-                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
-            </Grid.Background>
-            <Button Content="Volver" HorizontalAlignment="Left" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Margin="756,13,0,0">
-                <Button.Background>
-                    <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
-                </Button.Background>
-                <Button.BorderBrush>
-                    <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
-                </Button.BorderBrush>
-            </Button>
-        </Grid>
-        <Grid RenderTransformOrigin="0.496,0.438" Margin="0,513,0,0">
-            <Grid.Background>
-                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
-            </Grid.Background>
-        </Grid>
-        <Label Content="Empleos reportados" HorizontalAlignment="Left" Margin="291,-2,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="26"/>
-        <Rectangle HorizontalAlignment="Left" Height="442" Margin="10,66,0,0" Stroke="Black" VerticalAlignment="Top" Width="578"/>
-        <Rectangle HorizontalAlignment="Left" Height="442" Margin="593,66,0,0" Stroke="Black" VerticalAlignment="Top" Width="267"/>
-        <Button x:Name="btnAprobar" Content="Aprobar" HorizontalAlignment="Left" Margin="620,480,0,0" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Click="aceptarReporte">
-            <Button.Background>
-                <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
-            </Button.Background>
-            <Button.BorderBrush>
-                <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
-            </Button.BorderBrush>
-        </Button>
-        <Button x:Name="btnRechazar" Content="Rechazar" HorizontalAlignment="Left" Margin="747,480,0,0" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Click="rechazarReporte">
-            <Button.Background>
-                <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
-            </Button.Background>
-            <Button.BorderBrush>
-                <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
-            </Button.BorderBrush>
-        </Button>
-        <DataGrid x:Name="dgReportes" d:ItemsSource="{Binding}" Margin="26,108,292,72" AutoGenerateColumns="False" IsReadOnly="true" SelectionChanged="dgReportes_SelectionChanged">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Fecha" Binding= "{Binding FechaRegistro}" Width="80"/>
-                <DataGridTextColumn Header="Empleador" Binding= "{Binding NombreEmpleador}" Width="160"/>
-                <DataGridTextColumn Header="Nombre oferta" Binding= "{Binding NombreOfertaReportada}" Width="150"/>
-                <DataGridTextColumn Header="Aspirante" Binding= "{Binding NombreAspirante}" Width="200"/>
-            </DataGrid.Columns>
-        </DataGrid>
-        <Label Content="Empleos reportados" HorizontalAlignment="Left" Margin="133,63,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26"/>
-        <Label Content="Información detallada" HorizontalAlignment="Left" Margin="593,67,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="20" RenderTransformOrigin="0.208,0.685" Width="267" Background="#FF062758" Height="37"/>
-        <Label Content="Empleador:" HorizontalAlignment="Left" Margin="593,104,0,0" VerticalAlignment="Top" Width="267" Height="27" Background="Black" Foreground="White"/>
-        <Label Content="Descripción de la oferta de empleo:" HorizontalAlignment="Left" Margin="594,232,0,0" VerticalAlignment="Top" Width="266" Height="26" Background="Black" Foreground="White"/>
-        <Label Content="Razón del reporte:" HorizontalAlignment="Left" Margin="594,338,0,0" VerticalAlignment="Top" Width="266" Height="26" Background="Black" Foreground="White"/>
-        <Label x:Name="lbNombreEmpleador"  Content="Victor Manuel Arredondo Reyes" HorizontalAlignment="Left" Margin="593,131,0,0" VerticalAlignment="Top" Width="267" Background="{x:Null}" FontStyle="Normal"/>
-        <TextBlock x:Name="tbDescripcion" HorizontalAlignment="Left" Margin="604,262,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="72" Width="256" IsEnabled="False"/>
-        <TextBlock x:Name="tbReporte" HorizontalAlignment="Left" Margin="604,364,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="66" Width="256" IsEnabled="False"/>
-        <Label Content="Fecha de reporte: " HorizontalAlignment="Left" Margin="593,162,0,0" VerticalAlignment="Top" Width="266" Height="26" Background="Black" Foreground="White"/>
-        <Label x:Name="lbFecha"  Content="12-jun-2022" HorizontalAlignment="Left" Margin="594,188,0,0" VerticalAlignment="Top" Width="267" Background="{x:Null}" FontStyle="Normal"/>
+        Title="ReportesEmpleos" >
+    <DockPanel LastChildFill="true" Background="White">
+        <Grid DockPanel.Dock="Top" Background="#FF062758" Opacity="0.85">
+            <Label Content="Empleos reportados" HorizontalContentAlignment="Center" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="26"/>
 
-    </Grid>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+           
+            <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1" Margin="10" >
+                <DockPanel LastChildFill="true">
+                    <Label DockPanel.Dock="Top" Content="Empleos reportados" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26"/>
+                    <DataGrid x:Name="dgReportes" d:ItemsSource="{Binding}" Margin="20" AutoGenerateColumns="False" IsReadOnly="true" SelectionChanged="dgReportes_SelectionChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Fecha" Binding= "{Binding FechaRegistro}" Width="80"/>
+                            <DataGridTextColumn Header="Empleador" Binding= "{Binding NombreEmpleador}" Width="160"/>
+                            <DataGridTextColumn Header="Nombre oferta" Binding= "{Binding NombreOfertaReportada}" Width="150"/>
+                            <DataGridTextColumn Header="Aspirante" Binding= "{Binding NombreAspirante}" Width="200"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </Border>
+
+            <Border Grid.Column="1" Margin="10" BorderBrush="Black" BorderThickness="1">
+                <Grid>
+                    <Button x:Name="btnAprobar" Content="Aprobar" HorizontalAlignment="Left" Margin="110,480,0,0" VerticalAlignment="Top" FontSize="16" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Click="aceptarReporte">
+                        <Button.Background>
+                            <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
+                        </Button.Background>
+                        <Button.BorderBrush>
+                            <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
+                        </Button.BorderBrush>
+                    </Button>
+                    <Button x:Name="btnRechazar" Content="Rechazar" HorizontalAlignment="Left" Margin="220,480,10,0" VerticalAlignment="Top" FontSize="16" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Click="rechazarReporte">
+                        <Button.Background>
+                            <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
+                        </Button.Background>
+                        <Button.BorderBrush>
+                            <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
+                        </Button.BorderBrush>
+                    </Button>
+
+                    <Label Content="Información detallada" Margin="10,67,10,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="20" RenderTransformOrigin="0.208,0.685"  Background="#FF062758" Height="37"/>
+
+                    <Label Content="Empleador:" Margin="10,104,10,0" VerticalAlignment="Top"  Height="27" Background="Black" Foreground="White"/>
+                    <Label x:Name="lbNombreEmpleador"  Content="Victor Manuel Arredondo Reyes"  Margin="10,131,10,0" VerticalAlignment="Top"  Background="{x:Null}" FontStyle="Normal"/>
+                    
+                    <Label Content="Fecha de reporte: " Margin="10,162,10,0" VerticalAlignment="Top" Height="26" Background="Black" Foreground="White"/>
+                    <Label x:Name="lbFecha"  Content="12-jun-2022" Margin="10,188,10,0" VerticalAlignment="Top" Background="{x:Null}" FontStyle="Normal"/>
+                    
+                    <Label Content="Descripción de la oferta de empleo:" Margin="10,232,10,0" VerticalAlignment="Top" Height="26" Background="Black" Foreground="White"/>
+                    <TextBlock x:Name="tbDescripcion" Margin="10,262,10,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="72" IsEnabled="False"/>
+                    
+                    <Label Content="Razón del reporte:" Margin="10,338,10,0" VerticalAlignment="Top" Height="26" Background="Black" Foreground="White"/>
+                    <TextBlock x:Name="tbReporte" Margin="10,364,10,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="66" IsEnabled="False"/>
+                    
+                    
+                    
+
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </Grid>
+            </Border>
+        </Grid>
+        
+    </DockPanel>
 </Page>

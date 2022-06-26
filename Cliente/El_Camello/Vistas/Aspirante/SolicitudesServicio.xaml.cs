@@ -33,6 +33,7 @@ namespace El_Camello.Vistas.Aspirante
         private void btnBuscarSolicitudes_Click(object sender, RoutedEventArgs e)
         {
             BucarSolicitudes();
+            ActualizarPantalla();
         }
 
         private async void BucarSolicitudes()
@@ -56,11 +57,12 @@ namespace El_Camello.Vistas.Aspirante
         {
             int idSolicitud = ((SolicitudServicio)dgSolicitudes.SelectedItem).IdSolicitudServicio;
             solicitudSeleccionada = await SolicitudServicioDAO.GetSolicitudAspirante(aspirante.IdAspirante, idSolicitud, aspirante.Token);
-            lblDemandante.Content = "Demandante: " + solicitudSeleccionada.NombreDemandante;
+            lblDemandante.Content = "Demandante: " + solicitudSeleccionada.Demandante.NombreDemandante;
             lblDescripcion.Text = solicitudSeleccionada.Descripcion;
             lblEstatus.Content = "Estatus: " + solicitudSeleccionada.EstatusSolicitud;
             lblTitulo.Content = "Titulo: " + solicitudSeleccionada.Titulo;
             lblFechaRegistro.Content = "Fecha registro: " + string.Format("{0:yyyy-MM-dd}", solicitudSeleccionada.FechaRegistro);
+            
             if (solicitudSeleccionada.Estatus == 0)
             {
                 btnRechazar.IsEnabled = true;
@@ -115,7 +117,7 @@ namespace El_Camello.Vistas.Aspirante
             btnRechazar.IsEnabled = false;
             btnAceptar.IsEnabled = false;
             solicitudSeleccionada = null;
-            dgSolicitudes.Items.Clear();
+            dgSolicitudes.ItemsSource = null;
         }
     }
 }
