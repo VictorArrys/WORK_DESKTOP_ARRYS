@@ -205,10 +205,6 @@ namespace El_Camello.Modelo.dao
                     if (respuesta.StatusCode == HttpStatusCode.Created)
                     {
                         solicitudEmpleo.IdSolicitud = (int)registroSolicitudVacante["idSolicitudVacante"];
-                        solicitudEmpleo.EstatusInt = (int)registroSolicitudVacante["estatus"];
-                        solicitudEmpleo.FechaRegistro = (DateTime)registroSolicitudVacante["fechaRegistro"];
-                        solicitudEmpleo.IdOfertaEmpleo = (int)registroSolicitudVacante["idOfertaEmpleo"];
-                        solicitudEmpleo.IdAspirante = (int)registroSolicitudVacante["idPerfilAspirante"];
                         ventanaSolicitudvacante.actualizarCambios("Solicitud registrada exitosamente");
                     }
                     else
