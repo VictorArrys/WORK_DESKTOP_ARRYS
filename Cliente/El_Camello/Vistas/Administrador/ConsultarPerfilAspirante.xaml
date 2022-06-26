@@ -59,6 +59,7 @@
             </Rectangle.Stroke>
         </Rectangle>
         <MediaElement x:Name="meVideoAspirante" HorizontalAlignment="Left" Height="199" Margin="699,66,0,0" VerticalAlignment="Top" Width="223"/>
+        <Label Content="Estatus:" HorizontalAlignment="Left" Margin="32,416,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
 
     </Grid>
 </Window>
