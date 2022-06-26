@@ -27,8 +27,8 @@
         <Label x:Name="lbNombreAdministrador" Content="Nombre Administrador" HorizontalAlignment="Left" Margin="133,5,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontStyle="Italic" Foreground="White" Width="401"/>
         <Label Content="Telefono:" HorizontalAlignment="Left" Margin="33,291,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Label Content="Nombre Usuario:" HorizontalAlignment="Left" Margin="33,70,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-        <Label Content="Constraseña:" HorizontalAlignment="Left" Margin="33,142,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-        <Label Content="Correo Electronico:" HorizontalAlignment="Left" Margin="33,213,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label Content="Contraseña:" HorizontalAlignment="Left" Margin="33,142,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label Content="Correo Electrónico:" HorizontalAlignment="Left" Margin="33,213,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <TextBox x:Name="tbNombreUsuario" HorizontalAlignment="Left" Margin="180,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="298" Height="23" IsEnabled="False" FontWeight="Bold" BorderBrush="Black"/>
         <TextBox x:Name="tbClave" HorizontalAlignment="Left" Margin="180,149,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="298" Height="22" IsEnabled="False" FontWeight="Bold" BorderBrush="Black"/>
         <TextBox x:Name="tbCorreoElectronico" HorizontalAlignment="Left" Margin="180,219,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="298" Height="23" IsEnabled="False" FontWeight="Bold" BorderBrush="Black"/>
