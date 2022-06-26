@@ -197,7 +197,7 @@ namespace El_Camello.Vistas.Empleador
 
         }
 
-        private void guardarOfertaEmpleo(object sender, RoutedEventArgs e)
+        private void btnguardarOfertaEmpleo_Click(object sender, RoutedEventArgs e)
         {
 
             //Validar
