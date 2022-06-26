@@ -5,17 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:El_Camello.Vistas.Administrador"
         mc:Ignorable="d"
-        Title="consultarPerfiles" Height="602" Width="959">
+        Title="consultarPerfiles" >
     <Grid Background="#FFDFDFDF">
-        <Rectangle HorizontalAlignment="Center" Height="41" VerticalAlignment="Top" Width="959">
+        <Rectangle  Height="41" VerticalAlignment="Top" >
             <Rectangle.Stroke>
                 <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
             </Rectangle.Stroke>
-            <Rectangle.Fill>
-                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
-            </Rectangle.Fill>
-        </Rectangle>
-        <Rectangle HorizontalAlignment="Center" Height="15" Stroke="Black" VerticalAlignment="Top" Width="959" Margin="0,571,0,0">
             <Rectangle.Fill>
                 <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
             </Rectangle.Fill>

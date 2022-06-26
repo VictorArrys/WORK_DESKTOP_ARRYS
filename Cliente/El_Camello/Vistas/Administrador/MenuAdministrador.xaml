@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:El_Camello.Vistas.Administrador"
         mc:Ignorable="d"
-        Title="MenuAdministrador" Height="600" Width="1000" >
+        Title="MenuAdministrador" MinHeight="680" Height="680" MinWidth="1000" Width="1000">
     <DockPanel LastChildFill="True">
         <Grid DockPanel.Dock="Top" Background="#FF062758" Opacity="0.85" VerticalAlignment="Top" Height="40">
             <Label Content="Menu Admiinistrador" FontSize="18" Foreground="White" FontWeight="Bold"/>
