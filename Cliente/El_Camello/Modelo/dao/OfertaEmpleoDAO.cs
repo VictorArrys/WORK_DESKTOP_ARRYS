@@ -377,7 +377,7 @@ namespace El_Camello.Modelo.dao
             return resultado;
         }
 
-        private static async Task<List<FotografiaOferta>> GetFotografiasOfertaEmpleo(int idOfertaEmpleo)
+        public static async Task<List<FotografiaOferta>> GetFotografiasOfertaEmpleo(int idOfertaEmpleo)
         {
             MensajesSistema errorMessage;
             List<FotografiaOferta> listaFotografias = new List<FotografiaOferta>();

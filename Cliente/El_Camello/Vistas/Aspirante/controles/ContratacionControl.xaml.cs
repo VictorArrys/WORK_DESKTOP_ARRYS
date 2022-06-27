@@ -19,19 +19,25 @@ namespace El_Camello.Vistas.Aspirante.controles
     public partial class ContratacionControl : UserControl
     {
         private ContratacionServicio contratacionServicio;
-        private ContratacionEmpleoAspirante contratacionEmpleo;
+        private ContratacionEmpleo contratacionEmpleo;
 
         public ContratacionControl()
         {
             InitializeComponent();
         }
 
-        public ContratacionEmpleoAspirante ContratacionEmpleo { 
+        public ContratacionEmpleo ContratacionEmpleo { 
             get => contratacionEmpleo; 
             set
             {
-                //contratacionEmpleo = value;
-                //lblEmpledor.Content 
+                if (value.ContratacionesAspirantes.Count == 1)
+                {
+                    contratacionEmpleo = value;
+                    lblEmpledor.Content = contratacionEmpleo.NombreEmpleador;
+                    lblEmpleo.Content = contratacionEmpleo.NombteOfertaEmpleo;
+                    lblFechaContratacion.Content = contratacionEmpleo.FechaContratacion;
+                }
+                
             } 
         }
         internal ContratacionServicio ContratacionServicio { 

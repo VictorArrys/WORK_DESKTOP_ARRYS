@@ -14,7 +14,6 @@ namespace El_Camello.Modelo.clases
         private string telefono;
         private string direccion;
         private int valoracionAspirante;
-                
 
         public int IdAspirante { get => idAspirante; set => idAspirante = value; }
         public string NombreAspiranteContratado { get => nombreAspiranteContratado; set => nombreAspiranteContratado = value; }

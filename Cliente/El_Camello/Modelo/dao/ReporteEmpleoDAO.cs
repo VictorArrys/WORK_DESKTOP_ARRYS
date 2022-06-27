@@ -43,7 +43,7 @@ namespace El_Camello.Modelo.dao
 
                             ReporteEmpleo reporteGet = new ReporteEmpleo();
                             reporteGet.IdReporte = (int)reporte["id_reporte_empleo"];
-                            reporteGet.IdAspiranteReporte = (int)reporte["id_perfil_aspirante_re"];
+                            reporteGet.IdAspirante = (int)reporte["id_perfil_aspirante_re"];
                             reporteGet.IdOfertaReportada = (int)reporte["id_oferta_empleo_re"];
                             reporteGet.Motivo = (string)reporte["motivo"];
                             reporteGet.Estatus = (int)reporte["estatus"];
@@ -158,5 +158,60 @@ namespace El_Camello.Modelo.dao
             return rechazado;
         }
 
+
+        //Aspirante
+        public static async Task<ReporteEmpleo> PostReporteEmpleo(ReporteEmpleo nuevoReporte, string token)
+        {
+            ReporteEmpleo reporte = new ReporteEmpleo();
+            RespuestasAPI respuestaAPI = new RespuestasAPI();
+
+            using (var cliente = new HttpClient())
+            {
+                cliente.DefaultRequestHeaders.Add("x-access-token", token);
+                string endpoint = "http://localhost:5000/v1/reportesEmpleo";
+
+                try
+                {  
+
+                    JObject cuerpoSolicitud = new JObject
+                    {
+                        {"idPerfilAspirante", nuevoReporte.IdAspirante },
+                        {"motivo", nuevoReporte.Motivo },
+                        {"idOfertaEmpleo", nuevoReporte.IdOfertaReportada }
+                    };
+
+                    var data = new StringContent(cuerpoSolicitud.ToString(), Encoding.UTF8, "application/json");
+                    HttpResponseMessage respuesta = await cliente.PostAsync(endpoint, data);
+
+                    if (respuesta.StatusCode == HttpStatusCode.OK)
+                    {
+                        string responseBody = await respuesta.Content.ReadAsStringAsync();
+
+                        JObject jReporte = JObject.Parse(responseBody);
+                        reporte.IdReporte = (int)jReporte["idReporteEmpleo"];
+                        reporte.IdAspirante = (int)jReporte["idPerfilAspirante"];
+                        reporte.IdOfertaReportada = (int)jReporte["idOfertaEmpleo"];
+                        reporte.Motivo = (string)jReporte["motivo"];
+                        reporte.Estatus = (int)jReporte["estatus"];
+                        reporte.FechaRegistro = (DateTime)jReporte["fechaRegistro"];
+                        return reporte;
+                    }
+                    else
+                    {
+                        respuestaAPI.gestionRespuestasApi("Post registrar reporte", respuesta);
+                    }
+
+                }
+                catch (HttpRequestException exception)
+                {
+                    MensajesSistema errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Registrar reporte de empleo", exception.Message);
+                    errorMessage.ShowDialog();
+                }
+
+
+            }
+
+            return null;
+        }
     }
 }
