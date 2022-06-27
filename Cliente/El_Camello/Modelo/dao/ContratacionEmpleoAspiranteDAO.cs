@@ -78,7 +78,50 @@ namespace El_Camello.Modelo.dao
 
         }
 
-        public static async Task<ContratacionEmpleo>
+
+        //Aspirante
+        public static async Task<List<ContratacionEmpleo>> GetContraracionesEmpleoAspirante(int idAspirante, string token)
+        {
+            List<ContratacionEmpleo> listaContrataciones = new List<ContratacionEmpleo>();
+
+            using (var cliente = new HttpClient())
+            {
+                cliente.DefaultRequestHeaders.Add("x-access-token", token);
+
+                string endpoint = $"http://localhost:5000/v1/perfilAspirantes/{idAspirante}/contratacionesEmpleo";
+
+                try
+                {
+                    HttpResponseMessage respuesta = await cliente.GetAsync(endpoint);
+                    RespuestasAPI respuestaAPI = new RespuestasAPI();
+
+
+                    if (respuesta.StatusCode == HttpStatusCode.OK)
+                    {
+                        string body = await respuesta.Content.ReadAsStringAsync();
+
+                        JArray objetoCreado = JsonConvert.DeserializeObject<JArray>(body);
+                        
+                        
+
+                    }
+                    else
+                    {
+                        respuestaAPI.gestionRespuestasApi("Evaluar aspirante", respuesta);
+                    }
+
+                }
+                catch (HttpRequestException excepcionCapturada)
+                {
+                    MensajesSistema errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Evaluar aspirante", excepcionCapturada.Message);
+                    errorMessage.ShowDialog();
+                }
+
+
+            }
+
+            return listaContrataciones;
+        } 
 
 
     }
