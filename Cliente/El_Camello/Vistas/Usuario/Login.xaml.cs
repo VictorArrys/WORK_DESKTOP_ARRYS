@@ -1,22 +1,9 @@
 ﻿using El_Camello.Modelo.dao;
-using El_Camello.Modelo.clases;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using El_Camello.Vistas.Administrador;
 using El_Camello.Vistas.Demandante;
 using El_Camello.Vistas.Aspirante;
-using El_Camello.Empleador;
 using El_Camello.Vistas.Empleador;
 using El_Camello.Configuracion;
 
