@@ -38,8 +38,14 @@ namespace El_Camello.Vistas.Aspirante
             contratacionesServicio = await ContratacionServicioDAO.GetContratacionesServicioAspirante(aspirante.IdAspirante, aspirante.Token);
             
             
-            
+
             //Se muestran las contrataciones en panatalla
+            Label lblContratacionesServicio = new Label();
+            lblContratacionesServicio.Content = "Contrataciones de servicio";
+            lblContratacionesServicio.FontSize = 16;
+            lblContratacionesServicio.FontWeight = FontWeights.Bold;
+            lblContratacionesServicio.HorizontalContentAlignment = HorizontalAlignment.Center;
+            pnlContrataciones.Children.Add(lblContratacionesServicio);
             foreach (ContratacionServicio contratacion in contratacionesServicio)
             {
                 ContratacionControl contratacionControl = new ContratacionControl();
@@ -50,12 +56,13 @@ namespace El_Camello.Vistas.Aspirante
 
         private void btnReportar_Click(object sender, RoutedEventArgs e)
         {
-
+            ReportarEmpleo ventanaReporteEmpleo = new ReportarEmpleo();
+            ventanaReporteEmpleo.ShowDialog();
         }
 
         private void btnEvaluar_Click(object sender, RoutedEventArgs e)
         {
-
+            EvaluacionEmpleador ventanaEvaluacion = new EvaluacionEmpleador();
         }
     }
 }

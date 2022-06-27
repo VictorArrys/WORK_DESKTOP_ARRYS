@@ -9,7 +9,7 @@ namespace El_Camello.Modelo.clases
     public class ReporteEmpleo
     {
         private int idReporte;
-        private int idAspiranteReporte;
+        private int idAspirante;
         private int idOfertaReportada;
         private string motivo;
         private int estatus;
@@ -21,7 +21,7 @@ namespace El_Camello.Modelo.clases
         private string nombreEmpleador;
 
         public int IdReporte { get => idReporte; set => idReporte = value; }
-        public int IdAspiranteReporte { get => idAspiranteReporte; set => idAspiranteReporte = value; }
+        public int IdAspirante { get => idAspirante; set => idAspirante = value; }
         public int IdOfertaReportada { get => idOfertaReportada; set => idOfertaReportada = value; }
         public string Motivo { get => motivo; set => motivo = value; }
         public int Estatus { get => estatus; set => estatus = value; }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:El_Camello.Vistas.Aspirante"
         mc:Ignorable="d"
-        Title="Consultar Contrataciones" MinHeight="450" MinWidth="800" WindowStartupLocation="CenterScreen">
+        Title="Consultar Contrataciones" MinHeight="600" MinWidth="900" WindowStartupLocation="CenterScreen">
     <DockPanel LastChildFill="True">
         <Grid DockPanel.Dock="Top"  Background="#FF062758" Opacity="0.85">
             <Label Content="Trabajos activos y concluidos"  Foreground="White" FontWeight="Bold" FontSize="18"/>
@@ -23,7 +23,7 @@
                 <Label x:Name="lblNombre" Content="Nombre empleo: " FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Margin="20,25,0,0" VerticalAlignment="Top" Width="385"/>
                 <Label x:Name="lblInicio" Content="Fecha inicio: " FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Margin="23,99,0,0" VerticalAlignment="Top" Width="227"/>
                 <Label x:Name="lblDireccion" Content="Dirección: " FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Margin="23,60,0,0" VerticalAlignment="Top" Width="440"/>
-                <Label x:Name="lblCantidadPago" Content="Cantidad Pago: " FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Margin="301,171,0,0" VerticalAlignment="Top" Width="210"/>
+                <Label x:Name="lblCantidadPago" Content="Cantidad Pago: " FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Margin="391,171,0,0" VerticalAlignment="Top" Width="210"/>
                 <Label x:Name="lblTipoPago" Content="Tipo pago: " FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Margin="23,171,0,0" VerticalAlignment="Top" Width="208"/>
                 <Label x:Name="lblDiasLaborales" Content="Dias Laborales: " FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Margin="23,210,0,0" VerticalAlignment="Top" Width="326"/>
                 <Label x:Name="lblFin" Content="Fecha Fin: " FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Margin="391,99,0,0" VerticalAlignment="Top" Width="210"/>

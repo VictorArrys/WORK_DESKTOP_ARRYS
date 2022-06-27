@@ -78,6 +78,8 @@ namespace El_Camello.Modelo.dao
 
         }
 
+        public static async Task<ContratacionEmpleo>
+
 
     }
 }

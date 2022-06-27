@@ -18,7 +18,7 @@ namespace El_Camello.Modelo.clases
 
         public ContratacionEmpleo()
         {
-            this.contratacionesAspirantes = new List<ContratacionEmpleoAspirante>();
+            contratacionesAspirantes = new List<ContratacionEmpleoAspirante>();
         }
 
         public List<ContratacionEmpleoAspirante> ContratacionesAspirantes { get => contratacionesAspirantes; set => contratacionesAspirantes = value; }
