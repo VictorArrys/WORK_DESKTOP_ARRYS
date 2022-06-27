@@ -251,7 +251,7 @@ namespace El_Camello.Vistas.Empleador
                     int idOfertaEmpleo = await OfertaEmpleoDAO.PostOfertaEmpleo(ofertaEmpleoNueva, token);
                     if (idOfertaEmpleo > 0)
                     {
-                        mensajes = new MensajesSistema("AccionExitosa", "Se ha registrado correctamente la oferta de empleo: " + ofertaEmpleoNueva.Nombre, "Registrar oferta de empleo", "Oferta de empleo registrada");
+                        mensajes = new MensajesSistema("AccionExitosa", "Se ha registrado correctamente la oferta de empleo: " + ofertaEmpleoNueva.Nombre);
                         mensajes.ShowDialog();
                         notificacion.actualizarCambios("Registrar oferta empleo");
                         this.Close();
@@ -309,7 +309,7 @@ namespace El_Camello.Vistas.Empleador
                     int actualizado = await OfertaEmpleoDAO.PutOfertaEmpleo(ofertaEmpleoModificada, token);
                     if (actualizado >= 1)
                     {
-                        mensajes = new MensajesSistema("AccionExitosa", "Se ha actualizado correctamente la oferta de empleo: " + ofertaEmpleoModificada.Nombre, "Actualizar oferta de empleo", "Oferta de empleo registrada");
+                        mensajes = new MensajesSistema("AccionExitosa", "Se ha actualizado correctamente la oferta de empleo: " + ofertaEmpleoModificada.Nombre);
                         mensajes.ShowDialog();
 
                         notificacion.actualizarCambios("Actualizar oferta empleo");

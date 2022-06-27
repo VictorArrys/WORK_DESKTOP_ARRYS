@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:El_Camello.Aspirante"
         mc:Ignorable="d"
         Title="PerfilAspirante" Height="496" Width="702" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
-    <Grid Margin="0,0,0,-6">
+    <Grid Margin="0,0,0,-6" Background="#FFDFDFDF">
         <Grid DockPanel.Dock="Top" Background="#FF062758" Opacity="0.85" VerticalAlignment="Top" Height="40" Grid.ColumnSpan="2">
             <Label Content="Consultar perfil de aspirante" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="22" Foreground="White" FontWeight="Bold" Margin="0,0,10,0"/>
         </Grid>
@@ -16,15 +16,15 @@
             </Grid.Background>
         </Grid>
         <Label Content="Nombre: " HorizontalAlignment="Left" Margin="27,73,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbAspirante" HorizontalAlignment="Left" Margin="27,99,0,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Width="293"/>
+        <TextBox x:Name="tbAspirante" HorizontalAlignment="Left" Margin="27,99,0,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Width="293" IsEnabled="False"/>
         <Label Content="Dirección: " HorizontalAlignment="Left" Margin="27,118,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbDireccion" HorizontalAlignment="Left" Margin="27,144,0,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Width="293"/>
+        <TextBox x:Name="tbDireccion" HorizontalAlignment="Left" Margin="27,144,0,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Width="293" IsEnabled="False"/>
         <Label Content="Correo electronico: " HorizontalAlignment="Left" Margin="27,170,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbCorreo" HorizontalAlignment="Left" Margin="27,196,0,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Width="293"/>
+        <TextBox x:Name="tbCorreo" HorizontalAlignment="Left" Margin="27,196,0,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Width="293" IsEnabled="False"/>
         <Label Content="Telefono: " HorizontalAlignment="Left" Margin="27,222,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbTelefono" HorizontalAlignment="Left" Margin="27,248,0,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Width="293"/>
+        <TextBox x:Name="tbTelefono" HorizontalAlignment="Left" Margin="27,248,0,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Top" Width="293" IsEnabled="False"/>
         <Label Content="Video: " HorizontalAlignment="Left" Margin="399,225,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.729,-1.693" Width="257" Background="Black" Foreground="White"/>
-        <DataGrid x:Name="dgOficios" d:ItemsSource="{Binding}" Margin="27,284,382,49" AutoGenerateColumns="False" IsReadOnly="true" Background="{x:Null}">
+        <DataGrid x:Name="dgOficios" d:ItemsSource="{Binding}" Margin="27,284,382,49" AutoGenerateColumns="False" IsReadOnly="true" Background="#FFF0F0F0">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Oficio" Binding= "{Binding NombreCategoria}" Width="150"/>
                 <DataGridTextColumn Header="Experiencia" Binding= "{Binding Experiencia}" Width="140"/>
