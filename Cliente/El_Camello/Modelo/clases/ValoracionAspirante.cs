@@ -11,6 +11,7 @@ namespace El_Camello.Modelo.clases
         private int idValoracionAspirante;
         private string nombreAspirante;
         private int evaluacionAspirante;
+        
         public int IdValoracionAspirante { get => idValoracionAspirante; set => idValoracionAspirante = value; }
         public string NombreAspirante { get => nombreAspirante; set => nombreAspirante = value; }
         public int EvaluacionAspirante { get => evaluacionAspirante; set => evaluacionAspirante = value; }

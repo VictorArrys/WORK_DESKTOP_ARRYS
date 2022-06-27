@@ -62,6 +62,11 @@ namespace El_Camello.Modelo.dao
                         usuario.Token = respuesta.Headers.GetValues("x-access-token").First();
 
                     }
+                    else if (respuesta.StatusCode == HttpStatusCode.Forbidden)
+                    {
+                        MessageBox.Show("Debido a los diferentes reportes que se presentan en tu perfil haz sido bloqueado indefinidamente del sistema", "¡AVISO!");
+                        MessageBox.Show("contacta al soporte técnico elcamello@outllok.com para resolver tu situación");
+                    }
                     else
                     {
                         respuestaAPI.gestionRespuestasApi("Iniciar sesion", respuesta);

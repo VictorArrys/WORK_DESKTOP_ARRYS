@@ -174,25 +174,29 @@ namespace El_Camello.Modelo.dao
                         string endpointFoto = string.Format("http://localhost:5000/v1/PerfilUsuarios/{0}/fotografia", idUsuario);
                         respuesta = await cliente.PatchAsync(endpointFoto, foto);
 
-                        if (respuesta.StatusCode == HttpStatusCode.OK && video)
+                        if (respuesta.StatusCode == HttpStatusCode.OK)
                         {
                             resultado = 0;
-                            MultipartFormDataContent videoEdicion = new MultipartFormDataContent();
-                            var contenidoVideo = new ByteArrayContent(aspirante.RegistroVideo);
-                            contenidoVideo.Headers.ContentType = MediaTypeHeaderValue.Parse("video/mp4");
-                            videoEdicion.Add(contenidoVideo, "video", "videoPerfilAspirante.mp4");
-
-                            string endpointVideo = string.Format("http://localhost:5000/v1/perfilAspirantes/{0}/video", idAspirante);
-                            respuesta = await cliente.PatchAsync(endpointVideo, videoEdicion);
-
-                            if (respuesta.StatusCode == HttpStatusCode.OK)
+                            if (video)
                             {
-                                resultado = 1;
+                                MultipartFormDataContent videoEdicion = new MultipartFormDataContent();
+                                var contenidoVideo = new ByteArrayContent(aspirante.RegistroVideo);
+                                contenidoVideo.Headers.ContentType = MediaTypeHeaderValue.Parse("video/mp4");
+                                videoEdicion.Add(contenidoVideo, "video", "videoPerfilAspirante.mp4");
+
+                                string endpointVideo = string.Format("http://localhost:5000/v1/perfilAspirantes/{0}/video", idAspirante);
+                                respuesta = await cliente.PatchAsync(endpointVideo, videoEdicion);
+
+                                if (respuesta.StatusCode == HttpStatusCode.OK)
+                                {
+                                    resultado = 1;
+                                }
+                                else
+                                {
+                                    respuestaAPI.gestionRespuestasApi("Post Aspirante/video", respuesta);
+                                }
                             }
-                            else
-                            {
-                                respuestaAPI.gestionRespuestasApi("Post Aspirante/video", respuesta);
-                            }
+                            
                         }
                     }
                     else

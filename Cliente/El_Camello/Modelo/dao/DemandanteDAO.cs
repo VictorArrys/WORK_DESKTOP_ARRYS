@@ -49,7 +49,7 @@ namespace El_Camello.Modelo.dao
                     JObject registroDemandante = JObject.Parse(body);
 
                     idUsuario = (int)registroDemandante["idPerfilUsuario"];
-                    idDemandante = (int)registroDemandante["idPerfilDemandantet "];
+                    idDemandante = (int)registroDemandante["idPerfilDemandante"];
 
                     MultipartFormDataContent foto = new MultipartFormDataContent();
                     var contenidoImagen = new ByteArrayContent(usuario.Fotografia);

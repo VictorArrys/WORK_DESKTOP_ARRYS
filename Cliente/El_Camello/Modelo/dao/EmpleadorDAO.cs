@@ -208,7 +208,6 @@ namespace El_Camello.Modelo.dao
                     {
                         clases.Empleador modificarEmpleador = new clases.Empleador();
                         JObject perfilEmpleador = JObject.Parse(body);
-                        MessageBox.Show(body.ToString());
                         idUsuario = (int)perfilEmpleador["idPerfilUsuario"];
                         idPerfilEmpleador = (int)perfilEmpleador["idPerfilEmpleador"];
 

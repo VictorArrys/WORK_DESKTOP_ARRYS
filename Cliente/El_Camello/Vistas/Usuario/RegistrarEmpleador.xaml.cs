@@ -102,41 +102,7 @@ namespace El_Camello.Vistas.Usuario
         {
             if (isNuevo)
             {
-                Uri uriImagen;
-                Modelo.clases.Usuario usuario = new Modelo.clases.Usuario();
-                Modelo.clases.Empleador empleador = new Modelo.clases.Empleador();
-
-                usuario.RutaFotografia = rutaImagen;
-                uriImagen = new Uri(usuario.RutaFotografia);
-                usuario.Fotografia = System.IO.File.ReadAllBytes(uriImagen.LocalPath);
-
-                empleador.NombreOrganizacion = tbNombreOrganizacion.Text;
-                empleador.NombreEmpleador = tbNombre.Text;
-                empleador.Direccion = tbDireccion.Text;
-                empleador.FechaNacimiento = (DateTime)dpFechaNacimiento.SelectedDate;
-                usuario.CorreoElectronico = tbCorreoElectronico.Text;
-                empleador.Telefono = tbTelefono.Text;
-                usuario.NombreUsuario = tbNombreUsuario.Text;
-                usuario.Clave = pbConstraseña.Password;
-                usuario.Estatus = 1;
-
-                int resultado = await EmpleadorDAO.PostEmpleador(usuario, empleador);
-
-                if (resultado == 1)
-                {
-                    MessageBox.Show("Registro en el sistema exitoso, favor de inciar con las credenciales registradas", "Operación exitosa");
-                    MessageBox.Show("Nombre Usuario: " + usuario.NombreUsuario + "\n" + "Constraseña" + usuario.Clave, "Credenciales");
-                    Login login = new Login();
-                    login.Show();
-                    this.Close();
-
-                }
-                else
-                {
-                    MessageBox.Show("Ocurrio un error al registrar tu perfil empleador", "¡Operación!");
-                }
-
-                /*if (validarCampos(isNuevo))
+                if (validarCampos(isNuevo))
                 {
                     Uri uriImagen;
                     Modelo.clases.Usuario usuario = new Modelo.clases.Usuario();
@@ -175,60 +141,14 @@ namespace El_Camello.Vistas.Usuario
                 else
                 {
                     MessageBox.Show("Al registrar tu perfil verifica que los campos no esten vacios. ", "¡Operación!");
-                }*/
-
-
-                
+                }
             }
             else
             {
-                Modelo.clases.Empleador modificarEmpleador = new Modelo.clases.Empleador();
+                if (validarCampos(isNuevo))
+                {
+                    Modelo.clases.Empleador modificarEmpleador = new Modelo.clases.Empleador();
 
-                if (nuevaFotografia)
-                {
-                    Uri uriImagen;
-                    modificarEmpleador.RutaFotografia = rutaImagen;
-                    uriImagen = new Uri(modificarEmpleador.RutaFotografia);
-                    modificarEmpleador.Fotografia = System.IO.File.ReadAllBytes(uriImagen.LocalPath);
-                }
-                else
-                {
-                    byte[] fotografia;
-                    fotografia = empleador.Fotografia;
-                    modificarEmpleador.Fotografia = fotografia;
-                }
-
-                modificarEmpleador.NombreOrganizacion = tbNombreOrganizacion.Text;
-                modificarEmpleador.NombreEmpleador = tbNombre.Text;
-                modificarEmpleador.Direccion = tbDireccion.Text;
-                modificarEmpleador.FechaNacimiento = (DateTime)dpFechaNacimiento.SelectedDate;
-                modificarEmpleador.CorreoElectronico = tbCorreoElectronico.Text;
-                modificarEmpleador.Telefono = tbTelefono.Text;
-                modificarEmpleador.NombreUsuario = tbNombreUsuario.Text;
-                modificarEmpleador.Clave = pbConstraseña.Password;
-                modificarEmpleador.Estatus = empleador.Estatus;
-                modificarEmpleador.IdPerfilusuario = empleador.IdPerfilusuario;
-                modificarEmpleador.IdPerfilEmpleador = empleador.IdPerfilEmpleador;
-                modificarEmpleador.Token = empleador.Token;
-
-                int resultado = await EmpleadorDAO.putEmpleador(modificarEmpleador);
-                if (resultado == 1)
-                {
-                    Modelo.clases.Usuario usuario = null;
-                    usuario = await UsuarioDAO.getUsuario(modificarEmpleador.IdPerfilusuario, modificarEmpleador.Token);
-                    usuario.Token = modificarEmpleador.Token;
-                    notificacion.actualizarInformacion(usuario);
-                    MessageBox.Show("Actualización de tu perfil exitosa", "Operacion");
-                    this.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Ocurrio un error al modificar tu perfil", "¡Operación!");
-                    this.Close();
-                }
-
-                /*if (validarCampos(isNuevo))
-                {
                     if (nuevaFotografia)
                     {
                         Uri uriImagen;
@@ -272,17 +192,14 @@ namespace El_Camello.Vistas.Usuario
                         this.Close();
                     }
                 }
-                else
-                {
-                    MessageBox.Show("Al modificar tu perfil verifica que los campos no esten vacios. ", "¡Operación!");
-                }*/
-                
             }
+            
         }
 
         private bool validarCampos(bool isNuevo)
         {
             bool validar = false;
+            DateTime fechaActual = DateTime.Now;
             if (isNuevo)
             {
                 if (tbNombreOrganizacion.Text == "")
@@ -301,38 +218,62 @@ namespace El_Camello.Vistas.Usuario
                 {
                     validar = false;
                 }
-                else if (tbCorreoElectronico.Text == "")
+                else if (dpFechaNacimiento.SelectedDate >= fechaActual)
                 {
                     validar = false;
+                    MessageBox.Show("Tu fecha de nacimiento no puede ser mayor a la fecha actual", "¡Operación!");
                 }
-                else if (tbTelefono.Text == "")
+                else if (dpFechaNacimiento.SelectedDate < fechaActual)
                 {
-                    validar = false;
-                }
-                else if (tbNombreUsuario.Text == "")
-                {
-                    validar = false;
-                }
-                else if (pbConstraseña.Password != "" || pbConfirmarContraseña.Password != "")
-                {
-                    if (pbConstraseña.Password != pbConfirmarContraseña.Password)
+                    DateTime nacimiento = (DateTime)dpFechaNacimiento.SelectedDate;
+                    int edad = DateTime.Today.AddTicks(-nacimiento.Ticks).Year - 1;
+
+                    if (edad < 18)
                     {
-                        if (pbConstraseña.Password != pbConfirmarContraseña.Password)
+                        MessageBox.Show("Para poder completar tu registro se debera tener con un minimo de 18 años cumplidos", "¡Operación!");
+                        validar = false;
+                    }
+                    else
+                    {
+                        if (tbCorreoElectronico.Text == "")
                         {
-                            MessageBox.Show("Por favor introducir la misma contraseña en ambos campos para confirmar", "¡Operacion!");
                             validar = false;
                         }
-                        else if (imgFotografiaEmpleador.Source == null)
+                        else if (tbTelefono.Text == "")
                         {
-                            MessageBox.Show("Por favor seleccionar una foto de perfil para tu cuenta, preferentemente una fotografia personal", "¡Operación!");
                             validar = false;
                         }
-                        else
+                        else if (tbTelefono.Text == "")
                         {
-                            validar = true;
+                            validar = false;
+                        }
+                        else if (tbTelefono.Text.Count() >= 11 || tbTelefono.Text.Count() < 10)
+                        {
+                            MessageBox.Show("Tu número telefonico debera ser exactamente de 10 digitos","¡Operación!");
+                            validar = false;
+                        }
+                        else if (tbNombreUsuario.Text == "")
+                        {
+                            validar = false;
+                        }
+                        else if (pbConstraseña.Password != "" || pbConfirmarContraseña.Password != "")
+                        {
+                            if (pbConstraseña.Password != pbConfirmarContraseña.Password)
+                            {
+                                MessageBox.Show("Por favor introducir la misma contraseña en ambos campos para confirmar", "¡Operacion!");
+                                validar = false;
+                            }
+                            else if (imgFotografiaEmpleador.Source == null)
+                            {
+                                MessageBox.Show("Por favor seleccionar una foto de perfil para tu cuenta, preferentemente una fotografia personal", "¡Operación!");
+                                validar = false;
+                            }
+                            else
+                            {
+                                validar = true;
+                            }
                         }
                     }
-                    validar = true;
                 }
             }
             else
@@ -353,34 +294,67 @@ namespace El_Camello.Vistas.Usuario
                 {
                     validar = false;
                 }
-                else if (tbCorreoElectronico.Text == "")
+                else if (dpFechaNacimiento.SelectedDate >= fechaActual)
                 {
                     validar = false;
+                    MessageBox.Show("Tu fecha de nacimiento no puede ser mayor a la fecha actual", "¡Operación!");
                 }
-                else if (tbTelefono.Text == "")
+                else if (dpFechaNacimiento.SelectedDate < fechaActual)
                 {
-                    validar = false;
-                }
-                else if (tbNombreUsuario.Text == "")
-                {
-                    validar = false;
-                }else if (pbConstraseña.Password != "" || pbConfirmarContraseña.Password != "")
-                {
-                    if (pbConstraseña.Password != pbConfirmarContraseña.Password)
+                    DateTime nacimiento = (DateTime)dpFechaNacimiento.SelectedDate;
+                    int edad = DateTime.Today.AddTicks(-nacimiento.Ticks).Year - 1;
+
+                    if (edad < 18)
                     {
-                        if (pbConstraseña.Password != pbConfirmarContraseña.Password)
+                        MessageBox.Show("Para poder completar tu registro se debera tener con un minimo de 18 años cumplidos", "¡Operación!");
+                        validar = false;
+                    }
+                    else
+                    {
+                        if (tbCorreoElectronico.Text == "")
                         {
-                            MessageBox.Show("Por favor introducir la misma contraseña en ambos campos para confirmar", "¡Operacion!");
                             validar = false;
                         }
-                        else if (imgFotografiaEmpleador.Source == null)
+                        else if (tbTelefono.Text == "")
                         {
-                            MessageBox.Show("Por favor seleccionar una foto de perfil para tu cuenta, preferentemente una fotografia personal", "¡Operación!");
                             validar = false;
                         }
-                        else
+                        else if (tbTelefono.Text == "")
                         {
-                            validar = true;
+                            validar = false;
+                        }
+                        else if (tbTelefono.Text.Count() >= 11 || tbTelefono.Text.Count() < 10)
+                        {
+                            MessageBox.Show("Tu número telefonico debera ser exactamente de 10 digitos", "¡Operación!");
+                            validar = false;
+                        }
+                        else if (tbNombreUsuario.Text == "")
+                        {
+                            validar = false;
+                        }
+                        else if (pbConstraseña.Password != "" || pbConfirmarContraseña.Password != "")
+                        {
+                            if (pbConstraseña.Password != pbConfirmarContraseña.Password)
+                            {
+                                MessageBox.Show("Por favor introducir la misma contraseña en ambos campos para confirmar", "¡Operacion!");
+                                validar = false;
+                            }
+                            else if (imgFotografiaEmpleador.Source == null)
+                            {
+                                MessageBox.Show("Por favor seleccionar una foto de perfil para tu cuenta, preferentemente una fotografia personal", "¡Operación!");
+                                validar = false;
+                            }
+                            else if (tbNombreOrganizacion.Text == empleador.NombreOrganizacion && tbNombre.Text == empleador.NombreEmpleador && tbDireccion.Text == empleador.Direccion &&
+                                tbCorreoElectronico.Text == empleador.CorreoElectronico && tbTelefono.Text == empleador.Telefono && tbNombreUsuario.Text == empleador.NombreUsuario &&
+                                pbConstraseña.Password == empleador.Clave && pbConfirmarContraseña.Password == empleador.Clave)
+                            {
+                                MessageBox.Show("Antes de actualizar tu perfil es necesario modificar almenos un campo.", "¡Operación!");
+                                validar = false;
+                            }
+                            else
+                            {
+                                validar = true;
+                            }
                         }
                     }
                 }

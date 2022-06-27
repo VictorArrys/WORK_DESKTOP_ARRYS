@@ -394,10 +394,16 @@ namespace El_Camello.Vistas.Usuario
                             tbtelefono.MaxLength = 10;
                             validar = false;
                         }
+                        else if (tbtelefono.Text.Count() >= 11 || tbtelefono.Text.Count() < 10)
+                        {
+                            MessageBox.Show("Tu número telefonico debera ser exactamente de 10 digitos", "¡Operación!");
+                            validar = false;
+                        }
                         else if (tbNombreUsuario.Text == "")
                         {
                             validar = false;
-                        }else if (pbClave.Password != "" || pbClaveConfirmacion.Password != "")
+                        }
+                        else if (pbClave.Password != "" || pbClaveConfirmacion.Password != "")
                         {
                             if (pbClave.Password != pbClaveConfirmacion.Password)
                             {
@@ -466,7 +472,11 @@ namespace El_Camello.Vistas.Usuario
                         }
                         else if (tbtelefono.Text == "")
                         {
-                            tbtelefono.MaxLength = 10;
+                            validar = false;
+                        }
+                        else if (tbtelefono.Text.Count() >= 11 || tbtelefono.Text.Count() < 10)
+                        {
+                            MessageBox.Show("Tu número telefonico debera ser exactamente de 10 digitos", "¡Operación!");
                             validar = false;
                         }
                         else if (tbNombreUsuario.Text == "")

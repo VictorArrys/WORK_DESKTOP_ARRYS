@@ -120,7 +120,7 @@ namespace El_Camello.Modelo.dao
         }
 
 
-        public static async Task<JObject> GetOfertaEmpleoCompuesta(int idOfertaEmpleo, string token)
+        private static async Task<JObject> GetOfertaEmpleoCompuesta(int idOfertaEmpleo, string token)
         {
 
             MensajesSistema errorMessage;
@@ -236,7 +236,6 @@ namespace El_Camello.Modelo.dao
             return ofertasEmpleosGet;
         }
 
-
         public static async Task<int> PostOfertaEmpleo(OfertaEmpleo ofertaEmpleoNueva, string token)
         {
 
@@ -332,7 +331,7 @@ namespace El_Camello.Modelo.dao
 
         }
 
-        public static async Task<int> PostFotografiasOfertaEmpleo(int idOfertaEmpleo, List<byte[]> fotografias)
+        private static async Task<int> PostFotografiasOfertaEmpleo(int idOfertaEmpleo, List<byte[]> fotografias)
         {
             MensajesSistema errorMessage;
             int resultado = -1;
@@ -378,7 +377,7 @@ namespace El_Camello.Modelo.dao
             return resultado;
         }
 
-        public static async Task<List<FotografiaOferta>> GetFotografiasOfertaEmpleo(int idOfertaEmpleo)
+        private static async Task<List<FotografiaOferta>> GetFotografiasOfertaEmpleo(int idOfertaEmpleo)
         {
             MensajesSistema errorMessage;
             List<FotografiaOferta> listaFotografias = new List<FotografiaOferta>();
@@ -445,7 +444,7 @@ namespace El_Camello.Modelo.dao
             return listaFotografias;
         }
 
-        public static async Task<int> PutFotografiasOfertaEmpleo(int idOfertaEmpleo, List<FotografiaOferta> fotografias, List<byte[]> fotosEditadas)
+        private static async Task<int> PutFotografiasOfertaEmpleo(int idOfertaEmpleo, List<FotografiaOferta> fotografias, List<byte[]> fotosEditadas)
         {
             MensajesSistema errorMessage;
             int resultado = -1;
@@ -594,8 +593,6 @@ namespace El_Camello.Modelo.dao
             return res;
 
         }
-
-
 
 
 
