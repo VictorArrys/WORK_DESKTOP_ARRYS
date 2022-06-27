@@ -100,8 +100,19 @@ namespace El_Camello.Modelo.dao
                     {
                         string body = await respuesta.Content.ReadAsStringAsync();
 
-                        JArray objetoCreado = JsonConvert.DeserializeObject<JArray>(body);
-                        
+                        JArray jArrayContrataciones = JsonConvert.DeserializeObject<JArray>(body);
+                        foreach (var jContratacion in jArrayContrataciones)
+                        {
+                            ContratacionEmpleo contratacion = new ContratacionEmpleo();
+                            contratacion.IdContratacion = (int)jContratacion["idContratacionEmpleo"];
+                            contratacion.IdOfertaEmpleo = (int)jContratacion["idOfertaEmpleo"];
+                            contratacion.NombteOfertaEmpleo = (string)jContratacion["nombreOfertaEmpleo"];
+                            contratacion.NombreEmpleador = (string)jContratacion["nombreEmpleador"];
+                            contratacion.Estatus = (int)jContratacion["estatus"];
+                            contratacion.FechaContratacion = (DateTime)jContratacion["fechaContratacion"];
+                            contratacion.FechaFinalizacionContratacion = (DateTime)jContratacion["fechaFinalizacion"];
+                            listaContrataciones.Add(contratacion);
+                        }
                         
 
                     }

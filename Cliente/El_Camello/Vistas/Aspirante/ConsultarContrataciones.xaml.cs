@@ -88,6 +88,7 @@ namespace El_Camello.Vistas.Aspirante
         {
             //Cargar contratacion empleo en pantalla
             int idConversacion = ((ContratacionControl)e.Source).ContratacionEmpleo.IdContratacion;
+            MessageBox.Show($"id contratacion {idConversacion}");
             
         }
     }
