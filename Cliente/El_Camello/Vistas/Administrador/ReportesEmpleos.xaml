@@ -17,7 +17,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-           
+
             <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1" Margin="10" >
                 <DockPanel LastChildFill="true">
                     <Label DockPanel.Dock="Top" Content="Empleos reportados" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26"/>
@@ -34,7 +34,7 @@
 
             <Border Grid.Column="1" Margin="10" BorderBrush="Black" BorderThickness="1">
                 <Grid>
-                    <Button x:Name="btnAprobar" Content="Aprobar" HorizontalAlignment="Left" Margin="110,480,0,0" VerticalAlignment="Top" FontSize="16" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Click="aceptarReporte">
+                    <Button x:Name="btnAprobar" Content="Aprobar" HorizontalAlignment="Left" Margin="77,457,0,0" FontSize="16" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Click="aceptarReporte">
                         <Button.Background>
                             <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
                         </Button.Background>
@@ -42,7 +42,7 @@
                             <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
                         </Button.BorderBrush>
                     </Button>
-                    <Button x:Name="btnRechazar" Content="Rechazar" HorizontalAlignment="Left" Margin="220,480,10,0" VerticalAlignment="Top" FontSize="16" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Click="rechazarReporte">
+                    <Button x:Name="btnRechazar" Content="Rechazar" HorizontalAlignment="Left" Margin="233,457,0,0" VerticalAlignment="Top" FontSize="16" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Click="rechazarReporte">
                         <Button.Background>
                             <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
                         </Button.Background>
@@ -55,30 +55,30 @@
 
                     <Label Content="Empleador:" Margin="10,104,10,0" VerticalAlignment="Top"  Height="27" Background="Black" Foreground="White"/>
                     <Label x:Name="lbNombreEmpleador"  Content="Victor Manuel Arredondo Reyes"  Margin="10,131,10,0" VerticalAlignment="Top"  Background="{x:Null}" FontStyle="Normal"/>
-                    
+
                     <Label Content="Fecha de reporte: " Margin="10,162,10,0" VerticalAlignment="Top" Height="26" Background="Black" Foreground="White"/>
                     <Label x:Name="lbFecha"  Content="12-jun-2022" Margin="10,188,10,0" VerticalAlignment="Top" Background="{x:Null}" FontStyle="Normal"/>
-                    
+
                     <Label Content="Descripción de la oferta de empleo:" Margin="10,232,10,0" VerticalAlignment="Top" Height="26" Background="Black" Foreground="White"/>
                     <TextBlock x:Name="tbDescripcion" Margin="10,262,10,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="72" IsEnabled="False"/>
-                    
+
                     <Label Content="Razón del reporte:" Margin="10,338,10,0" VerticalAlignment="Top" Height="26" Background="Black" Foreground="White"/>
                     <TextBlock x:Name="tbReporte" Margin="10,364,10,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="66" IsEnabled="False"/>
-                    
-                    
-                    
 
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
+
+
+
+
+
+
+
+
+
+
+
                 </Grid>
             </Border>
         </Grid>
-        
+
     </DockPanel>
 </Page>

@@ -7,7 +7,7 @@
         xmlns:System="clr-namespace:System;assembly=System.Runtime" 
         x:Class="El_Camello.Vistas.Empleador.OfertasEmpleo"
         mc:Ignorable="d"
-        Title="OfertasEmpleo" Height="535" Width="1068" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Menu empleador" Height="535" Width="1068" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid Margin="0,0,0,-16">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="126*"/>

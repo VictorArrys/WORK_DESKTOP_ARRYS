@@ -400,7 +400,7 @@ namespace El_Camello.Vistas.Empleador
                                     else
                                     {
                                         valido = false;
-                                        mensajes = new MensajesSistema("AccionInvalida", "No se puede agregar una oferta de empleo sin fotografias", "Guardar oferta de empleo", "Para guardar una oferta de empleo debe ingresar 3 fotografías obligatoriamente");
+                                        mensajes = new MensajesSistema("AccionInvalida", "No se puede agregar una oferta de empleo con menos de 3 fotografias", "Guardar oferta de empleo", "Para guardar una oferta de empleo debe ingresar 3 fotografías obligatoriamente");
                                         mensajes.ShowDialog();
                                     }
                                 }

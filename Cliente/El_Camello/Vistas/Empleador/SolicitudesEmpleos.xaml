@@ -50,7 +50,7 @@
         <DataGrid x:Name="dgVacantesEnUso" d:ItemsSource="{Binding}" Margin="46,224,360,60" AutoGenerateColumns="False" IsReadOnly="true" SelectionChanged="dgVacantesEnUso_SelectionChanged" Grid.ColumnSpan="2" Grid.Row="1">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Aspirante" Binding= "{Binding Nombre}" Width="250"/>
-                <DataGridTextColumn Header="Feche registro" Binding= "{Binding FechaRegistro}" Width="100"/>
+                <DataGridTextColumn Header="Fecha registro" Binding= "{Binding FechaRegistro}" Width="100"/>
                 <DataGridTextColumn Header="Estado" Binding= "{Binding Estatus}" Width="100"/>
             </DataGrid.Columns>
         </DataGrid>
