@@ -1,14 +1,17 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
 
 namespace El_Camello.Configuracion
 {
     public class Settings
     {
-        private static string INIPath = "./ElCamello.ini";
+        private static string INIPath = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + Path.DirectorySeparatorChar + "ElCamello.ini";
 
-        public static string ElCamelloURL;
+        private static string elCamelloURL;
 
         private static INI archivoINI = new INI(INIPath);
+
+        public static string ElCamelloURL { get => elCamelloURL; private set => elCamelloURL = value; }
 
         public static void CargarConfiguracion()
         {
