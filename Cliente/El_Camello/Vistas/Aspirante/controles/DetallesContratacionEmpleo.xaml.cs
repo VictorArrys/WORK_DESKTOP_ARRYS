@@ -86,8 +86,8 @@ namespace El_Camello.Vistas.Aspirante.controles
             {
                 case 1:
                     lblEstatus.Content = "Estatus: Em proceso";
-                    btnEvaluar.IsEnabled = false;
-                    btnReportar.IsEnabled = false;
+                    btnEvaluar.IsEnabled = true;// false;
+                    btnReportar.IsEnabled = true;//false;
                     break;
                 case 0:
                     lblEstatus.Content = "Estatus: Finalizada";
@@ -115,7 +115,7 @@ namespace El_Camello.Vistas.Aspirante.controles
 
         private void btnReportar_Click(object sender, RoutedEventArgs e)
         {
-            ReportarEmpleo ventanaReporteEmpleo = new ReportarEmpleo();
+            ReportarEmpleo ventanaReporteEmpleo = new ReportarEmpleo(aspirante, contratacionDetallada.Item1);
             ventanaReporteEmpleo.ShowDialog();
         }
 
