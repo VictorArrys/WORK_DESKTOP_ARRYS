@@ -16,7 +16,6 @@ namespace El_Camello.Vistas.Empleador
     public partial class OfertasEmpleo : Window, observadorRespuesta
     {
         private int idPerfilEmpleador;
-        private string token;
         List<OfertaEmpleo> ofertasTabla = new List<OfertaEmpleo>();
         Modelo.clases.Empleador empleador = null;
         Modelo.clases.Usuario usuario = null;
@@ -24,12 +23,12 @@ namespace El_Camello.Vistas.Empleador
 
         public OfertasEmpleo(Modelo.clases.Usuario usuarioConectado)
         {
-            this.token = usuarioConectado.Token;
 
             InitializeComponent();
             if (usuarioConectado.Estatus == 1)
             {
-                cargarInformacionUsuario(usuarioConectado);                
+                cargarInformacionUsuario(usuarioConectado);
+                usuario = usuarioConectado;
                 
             }
             else
@@ -52,7 +51,7 @@ namespace El_Camello.Vistas.Empleador
             
         }
 
-        private async void CargarOfertasTabla()
+        private async void CargarOfertasTabla(String token)
         {
             //aqui pasar el token que viene desde el inicio de seción
             try
@@ -122,7 +121,7 @@ namespace El_Camello.Vistas.Empleador
             
             idPerfilEmpleador = empleador.IdPerfilEmpleador;
 
-            CargarOfertasTabla();
+            CargarOfertasTabla(usuarioConectado.Token);
             btnActivarPerfil.IsEnabled = false;
         }
 
@@ -144,8 +143,8 @@ namespace El_Camello.Vistas.Empleador
             if (opcionSeleccionada == MessageBoxResult.OK)
             {
                 MessageBox.Show("Tu perfil se desactivará y no se podra mostrar tus peticiones de servicio, podrás volver actiuvar tu perfil activando el boton 'Activar perfil'", "Advertencia!");
-                int resultado = await UsuarioDAO.patchDeshabilitar(empleador.IdPerfilusuario, empleador.Token);
-                if (resultado == 1)
+                Tuple<int, string> resultado = await UsuarioDAO.patchDeshabilitar(empleador.IdPerfilusuario, empleador.Token);
+                if (resultado.Item1 == 1)
                 {
                     Login login = new Login();
                     login.Show();
@@ -160,11 +159,9 @@ namespace El_Camello.Vistas.Empleador
             if (opcionSeleccionada == MessageBoxResult.OK)
             {
                 MessageBox.Show("Tu perfil esta por activarse. Por favor espera un momento'", "Advertencia!");
-                int resultado = await UsuarioDAO.patchHabilitar(usuario.IdPerfilusuario, token);
-                if (resultado == 1)
+                Tuple<int, string> resultado = await UsuarioDAO.patchHabilitar(usuario.IdPerfilusuario, usuario.Token);
+                if (resultado.Item1 == 1)
                 {
-                    cargarInformacionUsuario(usuario);
-                    CargarOfertasTabla();
 
                     btnEditarPerfil.IsEnabled = true;
                     btnDesactivarPerfil.IsEnabled = true;
@@ -175,6 +172,9 @@ namespace El_Camello.Vistas.Empleador
                     btnConsultarSolicitudes.IsEnabled = true;
                     btnRegistrarOferta.IsEnabled = true;
                     btnModificarOferta.IsEnabled = true;
+                    usuario.Token = resultado.Item2;
+                    cargarInformacionUsuario(usuario);
+                    CargarOfertasTabla(usuario.Token);
                 }
             }
         }
@@ -187,7 +187,7 @@ namespace El_Camello.Vistas.Empleador
 
         private void btnRegistrarOferta_Click(object sender, RoutedEventArgs e)
         {
-            RegistroOfertaEmpleo ventanaRegistroOferta = new RegistroOfertaEmpleo(this,idPerfilEmpleador, token);
+            RegistroOfertaEmpleo ventanaRegistroOferta = new RegistroOfertaEmpleo(this,idPerfilEmpleador, usuario.Token);
             ventanaRegistroOferta.ShowDialog();
             //actualizar tabla
         }
@@ -200,7 +200,7 @@ namespace El_Camello.Vistas.Empleador
             {
                 OfertaEmpleo ofertaEmpleoConsultar = ofertasTabla[indiceSeleccion];
 
-                ConsultarOfertaEmpleo ventanaConsultarOferta = new ConsultarOfertaEmpleo(ofertaEmpleoConsultar.IdOfertaEmpleo, token);
+                ConsultarOfertaEmpleo ventanaConsultarOferta = new ConsultarOfertaEmpleo(ofertaEmpleoConsultar.IdOfertaEmpleo, usuario.Token);
                 ventanaConsultarOferta.ShowDialog();
             }
             else
@@ -219,7 +219,7 @@ namespace El_Camello.Vistas.Empleador
                 OfertaEmpleo ofertaEmpleoEditar = ofertasTabla[indiceSeleccion];
 
 
-                RegistroOfertaEmpleo ventanaActualizarOferta = new RegistroOfertaEmpleo(this, idPerfilEmpleador, ofertaEmpleoEditar.IdOfertaEmpleo, token);
+                RegistroOfertaEmpleo ventanaActualizarOferta = new RegistroOfertaEmpleo(this, idPerfilEmpleador, ofertaEmpleoEditar.IdOfertaEmpleo, usuario.Token);
                 ventanaActualizarOferta.ShowDialog();
 
             }
@@ -240,7 +240,7 @@ namespace El_Camello.Vistas.Empleador
             {
                 OfertaEmpleo ofertaEmpleoEditar = ofertasTabla[indiceSeleccion];
 
-                SolcitudesEmpleos ventanaSolicitudes = new SolcitudesEmpleos(token, ofertaEmpleoEditar.IdOfertaEmpleo, ofertaEmpleoEditar.Vacantes);
+                SolcitudesEmpleos ventanaSolicitudes = new SolcitudesEmpleos(usuario.Token, ofertaEmpleoEditar.IdOfertaEmpleo, ofertaEmpleoEditar.Vacantes);
                 ventanaSolicitudes.ShowDialog();
             }
             else
@@ -264,11 +264,11 @@ namespace El_Camello.Vistas.Empleador
             {
                 case "Registrar oferta empleo":
                     ofertasTabla.Clear();
-                    CargarOfertasTabla();
+                    CargarOfertasTabla(usuario.Token);
                     break;
                 case "Actualizar oferta empleo":
                     ofertasTabla.Clear();
-                    CargarOfertasTabla();
+                    CargarOfertasTabla(usuario.Token);
                     break;
             };
         }
