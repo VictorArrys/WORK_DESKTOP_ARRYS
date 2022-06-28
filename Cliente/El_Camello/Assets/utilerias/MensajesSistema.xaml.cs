@@ -9,7 +9,6 @@ namespace El_Camello.Assets.utilerias
     {
         private string tipoError;
         private string mensaje;
-        private int confirmacionAccion = 0;
         private string ubicacion;
         private string detalles;
 
@@ -31,6 +30,7 @@ namespace El_Camello.Assets.utilerias
             btnOk.IsEnabled = false;
             tbDetalles.IsEnabled = false;
             tbUbicacion.IsEnabled = false;
+            tbMensaje.IsEnabled = false;
 
 
         }
@@ -63,7 +63,6 @@ namespace El_Camello.Assets.utilerias
                     lbTipoMensaje.ContentStringFormat = "Acción no permitida";
                     winMensaje.Title = "Alerta de acción invalida";
                     btnOk.IsEnabled = true;
-                    tbUbicacion.IsEnabled = true;
                     accionInvalida();
 
 
@@ -86,10 +85,10 @@ namespace El_Camello.Assets.utilerias
 
         public void accionInvalida()
         {
+            imgAccion.Source = null;
+            imgError.Source = null;
             lbTipoMensaje.Content = "Mensaje informativo";
             btnOk.IsEnabled = true;
-            tbDetalles.IsEnabled = true;
-            tbUbicacion.IsEnabled = true;
 
             tbMensaje.Text = "Mensaje: " + mensaje;
             tbUbicacion.Text = "Ubicación: " + ubicacion;
@@ -98,11 +97,11 @@ namespace El_Camello.Assets.utilerias
 
         public void mensajeError()
         {
+            imgAccion.Source = null;
+            imgAlerta.Source = null;
             lbTipoMensaje.Content = "Se presento un error";
             winMensaje.Title = "Error";
             btnOk.IsEnabled = true;
-            tbDetalles.IsEnabled = true;
-            tbUbicacion.IsEnabled = true;
 
             tbMensaje.Text = "Mensaje: " + mensaje;
             tbUbicacion.Text = "Ubicación: " + ubicacion;
@@ -112,15 +111,14 @@ namespace El_Camello.Assets.utilerias
 
         public void mensajeExito()
         {
+            imgAlerta.Source = null;
+            imgError.Source = null;
             lbTipoMensaje.ContentStringFormat = "Acción exitosa";
             winMensaje.Title = "Acción completada";
             btnOk.IsEnabled = true;
-            tbUbicacion.IsEnabled = false;
 
             lbTipoMensaje.Content = "Se ha completado la acción";
             btnOk.IsEnabled = true;
-            tbDetalles.IsEnabled = true;
-            tbUbicacion.IsEnabled = true;
 
             tbMensaje.Text = "Mensaje: " + mensaje;
             tbUbicacion.Text = "Acción: " + ubicacion;

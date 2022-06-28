@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:El_Camello.Vistas.Empleador"
         mc:Ignorable="d"
-        Title="RegistroOfertaEmpleo" Height="550" Width="811"  WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="RegistroOfertaEmpleo" Height="550" Width="811"  WindowStartupLocation="CenterScreen" ResizeMode="CanResizeWithGrip">
 
     <Grid Margin="0,0,0,7">
         <Grid DockPanel.Dock="Top" RenderTransformOrigin="0.496,0.438" Margin="0,0,0,484">

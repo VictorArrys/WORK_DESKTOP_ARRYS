@@ -1,6 +1,8 @@
 ﻿using El_Camello.Assets.utilerias;
+using El_Camello.Modelo.clases;
 using El_Camello.Modelo.dao;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
@@ -30,14 +32,15 @@ namespace El_Camello.Aspirante
         {
             obtenerAspirante();
 
-
+           
         }
 
         private async void obtenerAspirante()
         {
+            List<Categoria> categorias = new List<Categoria>();
             usuario = await UsuarioDAO.getUsuario(idUsuarioAspirante, token);
             aspiranteConsultado = await AspiranteDAO.GetAspirante(idUsuarioAspirante, token);
-            //aspiranteConsultado.Video = await AspiranteDAO.GetVideo(idUsuarioAspirante, token);
+            aspiranteConsultado.Video = await AspiranteDAO.GetVideo(aspiranteConsultado.IdAspirante, token);
 
             tbAspirante.Text = aspiranteConsultado.NombreAspirante;
             tbAspirante.IsEnabled = false;
@@ -48,10 +51,23 @@ namespace El_Camello.Aspirante
             tbTelefono.Text = aspiranteConsultado.Telefono;
             tbTelefono.IsEnabled = false;
             cargarImagen(usuario.Fotografia);
+            categorias = await CategoriaDAO.GetCategorias();
+            for (int x = 0; x < aspiranteConsultado.Oficios.Count; x++)
+            {
+                for (int y = 0; y < categorias.Count; y++)
+                {
+                    if (categorias[y].IdCategoria == aspiranteConsultado.Oficios[x].IdCategoria)
+                    {
+                        aspiranteConsultado.Oficios[x].NombreCategoria = categorias[y].NombreCategoria;
+                        break;
+                    }
+                }
+            }
+
             dgOficios.ItemsSource = aspiranteConsultado.Oficios;
 
-            /*
             aspiranteConsultado.RutaVideo = "";
+
             do
             {
                 aspiranteConsultado.RutaVideo = System.IO.Path.GetTempFileName().Replace(".tmp", ".mp4");
@@ -59,7 +75,8 @@ namespace El_Camello.Aspirante
 
             MemoryStream_toFile.MemoryStreamToFile(aspiranteConsultado.Video, aspiranteConsultado.RutaVideo);
             meVideoAspirante.Source = new Uri(aspiranteConsultado.RutaVideo);
-            */
+            meVideoAspirante.Volume = 0.5;
+
 
         }
 

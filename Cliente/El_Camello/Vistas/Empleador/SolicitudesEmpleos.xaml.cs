@@ -87,7 +87,6 @@ namespace El_Camello.Vistas.Empleador
 
         private async void dgSolicitudes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            List<Oficio> oficios;
             btnAprobar.IsEnabled = true;
             btnRechazar.IsEnabled = true;
             btnVerMas.IsEnabled = true;
@@ -103,8 +102,23 @@ namespace El_Camello.Vistas.Empleador
                 lbNombreAspirante.Content = informacionAspirante.NombreAspirante;
                 lbDireccion.Content = informacionAspirante.Direccion;
                 lbTelefono.Content = informacionAspirante.Telefono;
-                oficios = informacionAspirante.Oficios;
-                dgOficios.ItemsSource = oficios;
+
+                List<Categoria> categorias = new List<Categoria>();
+                categorias = await CategoriaDAO.GetCategorias();
+                for (int x = 0; x < informacionAspirante.Oficios.Count; x++)
+                {
+                    for (int y = 0; y < categorias.Count; y++)
+                    {
+                        if (categorias[y].IdCategoria == informacionAspirante.Oficios[x].IdCategoria)
+                        {
+                            informacionAspirante.Oficios[x].NombreCategoria = categorias[y].NombreCategoria;
+                            break;
+                        }
+                    }
+                }
+
+                dgOficios.ItemsSource = informacionAspirante.Oficios;
+
             }
 
         }
@@ -224,7 +238,6 @@ namespace El_Camello.Vistas.Empleador
 
         private async void dgVacantesEnUso_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            List<Oficio> oficios;
             btnAprobar.IsEnabled = true;
             btnRechazar.IsEnabled = true;
             btnVerMas.IsEnabled = true;
@@ -239,8 +252,23 @@ namespace El_Camello.Vistas.Empleador
                 lbNombreAspirante.Content = informacionAspirante.NombreAspirante;
                 lbDireccion.Content = informacionAspirante.Direccion;
                 lbTelefono.Content = informacionAspirante.Telefono;
-                oficios = informacionAspirante.Oficios;
-                dgOficios.ItemsSource = oficios;
+
+                List<Categoria> categorias = new List<Categoria>();
+                categorias = await CategoriaDAO.GetCategorias();
+                for (int x = 0; x < informacionAspirante.Oficios.Count; x++)
+                {
+                    for (int y = 0; y < categorias.Count; y++)
+                    {
+                        if (categorias[y].IdCategoria == informacionAspirante.Oficios[x].IdCategoria)
+                        {
+                            informacionAspirante.Oficios[x].NombreCategoria = categorias[y].NombreCategoria;
+                            break;
+                        }
+                    }
+                }
+
+                dgOficios.ItemsSource = informacionAspirante.Oficios;
+
             }
 
         }

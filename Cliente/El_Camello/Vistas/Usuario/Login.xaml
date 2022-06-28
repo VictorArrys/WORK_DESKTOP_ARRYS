@@ -7,17 +7,23 @@
         mc:Ignorable="d"
         Title="El Camello" Height="550" Width="500" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <DockPanel LastChildFill="True">
-        <Grid DockPanel.Dock="Top" Background="#FF062758" Opacity="0.85" VerticalAlignment="Top" Height="50">
+        <Grid DockPanel.Dock="Top" Background="#FF062758" Opacity="0.85" Height="50">
             <Label Content="El Camello" Foreground="White" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center"/>
         </Grid>
         <Grid DockPanel.Dock="Bottom" Background="#FF062758" Opacity="0.85" VerticalAlignment="Bottom" Height="50" Margin="0,0,0,20"></Grid>
-        <Grid>
-            <Label Content="Usuario" FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="51,116,0,0"/>
-            <TextBox x:Name="tbNombreUsuario" FontSize="16" Width="200" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,121,69,0"/>
+        <Grid Background="#FF1D2A3C">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="39*"/>
+                <ColumnDefinition Width="11*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="179*"/>
+                <RowDefinition Height="28*"/>
+            </Grid.RowDefinitions>
+            <Label Content="Usuario" FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="62,117,0,0" RenderTransformOrigin="0.533,0.96" FontWeight="Bold" Foreground="White"/>
 
-            <Label Content="Contraseña" FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="51,166,0,0"/>
-            <PasswordBox x:Name="pbClave" FontSize="16" Width="200"  VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,171,69,0" />
-            <Button x:Name="btnIniciarSesion" FontSize="16" Content="Iniciar Sesión" HorizontalAlignment="Left" Margin="193,236,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.801,0.694" Foreground="White" Click="btnIniciarSesion_Click">
+            <Label Content="Contraseña" FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="62,202,0,0" RenderTransformOrigin="0.395,0.737" FontWeight="Bold" Foreground="White"/>
+            <Button x:Name="btnIniciarSesion" FontSize="16" Content="Iniciar Sesión" HorizontalAlignment="Left" Margin="176,301,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.801,0.694" Foreground="White" Click="btnIniciarSesion_Click" Height="35" Width="154">
                 <Button.Background>
                     <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
                 </Button.Background>
@@ -25,15 +31,29 @@
                     <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
                 </Button.BorderBrush>
             </Button>
-            <Button x:Name="btnResgistrarse" FontSize="16" Content="Registrarse" HorizontalAlignment="Center" Margin="0,358,0,0" Foreground="White" VerticalAlignment="Top" Click="btnResgistrarse_Click" >
-                <Button.Background>
-                    <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
-                </Button.Background>
+            <Image x:Name="img" HorizontalAlignment="Left" Source="/Assets/imagenes/Logo.png" Height="162" Margin="173,8,0,0" VerticalAlignment="Top" Width="160"/>
+            <Button x:Name="btnResgistrarse" FontSize="16" Content="No tiene una cuenta, vaya a registrarse" HorizontalAlignment="Left" Foreground="White" VerticalAlignment="Top" Click="btnResgistrarse_Click" Width="330" Height="35" RenderTransformOrigin="0.536,1.058" Background="#FF371919" Margin="85,351,0,0" Grid.RowSpan="2" Grid.ColumnSpan="2" >
                 <Button.BorderBrush>
                     <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
                 </Button.BorderBrush>
             </Button>
 
+            <Grid DockPanel.Dock="Top" Opacity="0.85" Margin="62,150,55,151" Grid.ColumnSpan="2">
+                <Grid.Background>
+                    <ImageBrush AlignmentX="Left" ImageSource="/Assets/imagenes/user.png" Stretch="Uniform"/>
+                </Grid.Background>
+                <TextBox x:Name="tbNombreUsuario"  FontSize="16" Width="315" VerticalAlignment="Top" HorizontalAlignment="Left" Height="40" TextWrapping="NoWrap" Foreground="Black" Margin="68,7,0,0" Background="White"/>
+            </Grid>
+
+
+            <Grid DockPanel.Dock="Top" Opacity="0.85" Margin="62,238,55,62" Grid.ColumnSpan="2">
+                <Grid.Background>
+                    <ImageBrush AlignmentX="Left" ImageSource="/Assets/imagenes/password.png" Stretch="Uniform"/>
+                </Grid.Background>
+                <PasswordBox x:Name="pbClave" FontSize="16" Width="317"  VerticalAlignment="Center" HorizontalAlignment="Left" Margin="66,0,0,0" Height="40" Foreground="Black" Background="White" />
+            </Grid>
         </Grid>
+
+
     </DockPanel>
 </Window>

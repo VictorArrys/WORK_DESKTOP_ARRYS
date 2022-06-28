@@ -17,25 +17,22 @@
         <Label Content="Tipo de pago:" HorizontalAlignment="Left" Margin="10,136,0,0" VerticalAlignment="Top"/>
         <Label Content="Pago: " HorizontalAlignment="Left" Margin="10,182,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
         <TextBox x:Name="lbPago" HorizontalAlignment="Left" Margin="137,186,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Top" Width="235" Grid.RowSpan="2" IsEnabled="False"/>
-        <Grid RenderTransformOrigin="0.496,0.438" Margin="0,0,0,152">
-            <Grid.Background>
-                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
-            </Grid.Background>
-            <Button Content="Volver" HorizontalAlignment="Left" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Margin="756,13,0,0" Click="cerrarVentana_Click">
-                <Button.Background>
-                    <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
-                </Button.Background>
-                <Button.BorderBrush>
-                    <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
-                </Button.BorderBrush>
-            </Button>
-        </Grid>
         <Grid RenderTransformOrigin="0.496,0.438" Margin="0,237,0,0" Grid.Row="1">
             <Grid.Background>
                 <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
             </Grid.Background>
         </Grid>
-        <Label Content="Consultar oferta de empleo" HorizontalAlignment="Left" Margin="291,-2,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="26"/>
+        <Grid Background="#FF062758" Opacity="0.85" VerticalAlignment="Top" Height="40" Grid.ColumnSpan="3">
+            <Label Content="Consultar oferta de empleo" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="22" Foreground="White" FontWeight="Bold" Margin="0,0,10,0"/>
+        </Grid>
+        <Button Content="Volver" HorizontalAlignment="Left" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Margin="756,13,0,0" Click="cerrarVentana_Click">
+            <Button.Background>
+                <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
+            </Button.Background>
+            <Button.BorderBrush>
+                <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
+            </Button.BorderBrush>
+        </Button>
         <TextBox x:Name="lbTipoPago" HorizontalAlignment="Left" Margin="137,144,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Top" Width="235" IsEnabled="False"/>
         <TextBox x:Name="lbCategoria" HorizontalAlignment="Left" Margin="137,98,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Top" Width="235" IsEnabled="False"/>
         <Label Content="Fecha de contratación: " HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top" Grid.Row="1"/>
