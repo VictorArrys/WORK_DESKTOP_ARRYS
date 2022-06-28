@@ -183,7 +183,7 @@ namespace El_Camello.Modelo.dao
                 }
                 catch (HttpRequestException excepcionCapturada)
                 {
-                    MensajesSistema errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Evaluar aspirante", excepcionCapturada.Message);
+                    MensajesSistema errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Consultar detalles de contratación", excepcionCapturada.Message);
                     errorMessage.ShowDialog();
                 }
 
