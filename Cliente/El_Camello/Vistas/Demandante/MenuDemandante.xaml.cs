@@ -121,7 +121,7 @@ namespace El_Camello.Vistas.Demandante
             }
             else
             {
-                Console.WriteLine("no pasa nada");
+                MessageBox.Show("Occurio un error al desativar tu perfil, reinicia sesión o intenta mas tarde", "¡Operación!");
             }
         }
 
