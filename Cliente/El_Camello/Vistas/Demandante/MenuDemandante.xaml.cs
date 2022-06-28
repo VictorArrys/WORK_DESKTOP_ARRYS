@@ -27,6 +27,7 @@ namespace El_Camello.Vistas.Demandante
                 demandante = new Modelo.clases.Demandante();
                 CargarPerfilDemandante(usuarioConectado);
                 btnActivarPerfil.IsEnabled = false;
+                usuario = usuarioConectado;
             }
             else
             {
@@ -110,8 +111,8 @@ namespace El_Camello.Vistas.Demandante
             if (opcionSeleccionada == MessageBoxResult.OK)
             {
                 MessageBox.Show("Tu perfil se desactivará y no se podra mostrar tus peticiones de servicio, podrás volver actiuvar tu perfil activando el boton 'Activar perfil'", "Advertencia!");
-                int resultado = await UsuarioDAO.patchDeshabilitar(demandante.IdPerfilusuario, demandante.Token);
-                if (resultado == 1)
+                Tuple<int, string> resultado = await UsuarioDAO.patchDeshabilitar(demandante.IdPerfilusuario, demandante.Token);
+                if (resultado.Item1 == 1)
                 {
                     Login login = new Login();
                     login.Show();
@@ -172,8 +173,8 @@ namespace El_Camello.Vistas.Demandante
             if (opcionSeleccionada == MessageBoxResult.OK)
             {
                 MessageBox.Show("Tu perfil esta por activarse. Por favor espera un momento'", "Advertencia!");
-                int resultado = await UsuarioDAO.patchHabilitar(usuario.IdPerfilusuario, usuario.Token);
-                if (resultado == 1)
+                Tuple<int, string> resultado = await UsuarioDAO.patchHabilitar(usuario.IdPerfilusuario, usuario.Token);
+                if (resultado.Item1 == 1)
                 {
                     btnActivarPerfil.IsEnabled = false;
                     btnConsultarSolicitudes.IsEnabled = true;
@@ -182,6 +183,7 @@ namespace El_Camello.Vistas.Demandante
                     btnMensajeria.IsEnabled = true;
                     btnDesactivar.IsEnabled = true;
                     btnEditarPerfil.IsEnabled = true;
+                    usuario.Token = resultado.Item2;
                     CargarPerfilDemandante(usuario);
                 }
             }

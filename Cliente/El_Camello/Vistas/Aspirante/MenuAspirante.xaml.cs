@@ -14,15 +14,14 @@ namespace El_Camello.Vistas.Aspirante
     {
         Modelo.clases.Aspirante perfilAspirante = null;
         Modelo.clases.Usuario usuario = null;
-        string token = null;
         public MenuAspirante(Modelo.clases.Usuario usuarioConectado)
         {
             InitializeComponent();
-            this.token = usuarioConectado.Token;
             perfilAspirante = new Modelo.clases.Aspirante();
             if (usuarioConectado.Estatus == 1)
             {
                 CargarMenuAspirante(usuarioConectado);
+                btnActivarPerfil.IsEnabled = false;
             }
             else
             {
@@ -39,6 +38,7 @@ namespace El_Camello.Vistas.Aspirante
 
                 MessageBox.Show("En este momento esta desactivado tu perfil, para volver acivarlo presiona 'Activar perfil.'", "¡Advetencia!");
                 usuario = usuarioConectado;
+
             }
             
         }
@@ -46,7 +46,8 @@ namespace El_Camello.Vistas.Aspirante
         private async void CargarMenuAspirante(Modelo.clases.Usuario usuarioConectado)
         {
             int idPerfil = usuarioConectado.IdPerfilusuario;
-            perfilAspirante = await AspiranteDAO.GetAspirante(idPerfil, token);
+            MessageBox.Show(usuarioConectado.Token);
+            perfilAspirante = await AspiranteDAO.GetAspirante(idPerfil, usuarioConectado.Token);
             perfilAspirante.Clave = usuarioConectado.Clave;
             perfilAspirante.Estatus = usuarioConectado.Estatus;
             perfilAspirante.IdPerfilusuario = usuarioConectado.IdPerfilusuario;
@@ -112,8 +113,8 @@ namespace El_Camello.Vistas.Aspirante
             if (opcionSeleccionada == MessageBoxResult.OK)
             {
                 MessageBox.Show("Tu perfil se desactivará y no se podra mostrar tus peticiones de servicio, podrás volver actiuvar tu perfil activando el boton 'Activar perfil'", "Advertencia!");
-                int resultado = await UsuarioDAO.patchDeshabilitar(perfilAspirante.IdPerfilusuario, token);// por checar
-                if (resultado == 1)
+                Tuple<int, string> resultado = await UsuarioDAO.patchDeshabilitar(perfilAspirante.IdPerfilusuario,perfilAspirante.Token);// por checar
+                if (resultado.Item1 == 1)
                 {
                     Login login = new Login();
                     login.Show();
@@ -128,8 +129,8 @@ namespace El_Camello.Vistas.Aspirante
             if (opcionSeleccionada == MessageBoxResult.OK)
             {
                 MessageBox.Show("Tu perfil esta por activarse. Por favor espera un momento'", "Advertencia!");
-                int resultado = await UsuarioDAO.patchHabilitar(usuario.IdPerfilusuario, token); // verificar parametros
-                if (resultado == 1)
+                Tuple<int, string> resultado = await UsuarioDAO.patchHabilitar(usuario.IdPerfilusuario, usuario.Token); // verificar parametros
+                if (resultado.Item1 == 1)
                 {
                     btnEditarPerfil.IsEnabled = true;
                     btnDesactivarPerfil.IsEnabled = true;
@@ -140,6 +141,8 @@ namespace El_Camello.Vistas.Aspirante
                     btnMensajeria.IsEnabled = true;
                     btnSolicitudesServicio.IsEnabled = true;
                     dgOfertasEmpleo.IsEnabled = true;
+                    btnActivarPerfil.IsEnabled = false;
+                    usuario.Token = resultado.Item2;
                     CargarMenuAspirante(usuario);
                 }
             }
