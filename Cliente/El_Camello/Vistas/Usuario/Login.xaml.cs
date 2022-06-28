@@ -14,18 +14,14 @@ namespace El_Camello.Vistas.Usuario
     /// </summary>
     public partial class Login : Window
     {
-        Uri fileUri1;
         public Login()
         {
-
             InitializeComponent();
             Settings.CargarConfiguracion();
         }
 
         private async void btnIniciarSesion_Click(object sender, RoutedEventArgs e)  // listo en cliente
         {
-            
-            
             string nombreUsuario = tbNombreUsuario.Text;
             string clave = pbClave.Password;
             if (tbNombreUsuario.Text == "" || pbClave.Password == "")
@@ -61,7 +57,6 @@ namespace El_Camello.Vistas.Usuario
                             break;
                     }
                 }
-
             }
         }
 

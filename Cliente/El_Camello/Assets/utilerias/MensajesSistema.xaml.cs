@@ -17,6 +17,8 @@ namespace El_Camello.Assets.utilerias
         {
             this.tipoError = tipoError;
             this.mensaje = mensaje;
+            ubicacion = "";
+            detalles = "";
             iniciarComponentes();
             tipoMensaje();
 

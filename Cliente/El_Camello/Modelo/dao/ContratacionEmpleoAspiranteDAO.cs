@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace El_Camello.Modelo.dao
 {
@@ -93,18 +94,18 @@ namespace El_Camello.Modelo.dao
                 {
                     HttpResponseMessage respuesta = await cliente.GetAsync(endpoint);
                     RespuestasAPI respuestaAPI = new RespuestasAPI();
-
+                    string body = await respuesta.Content.ReadAsStringAsync();
 
                     if (respuesta.StatusCode == HttpStatusCode.OK)
                     {
-                        string body = await respuesta.Content.ReadAsStringAsync();
+                        
 
-                        JArray jArrayContrataciones = JsonConvert.DeserializeObject<JArray>(body);
+                        JArray jArrayContrataciones = JArray.Parse(body);
                         foreach (var jContratacion in jArrayContrataciones)
                         {
                             ContratacionEmpleo contratacion = new ContratacionEmpleo();
-                            contratacion.IdContratacion = (int)jContratacion["idContratacionEmpleo"];
-                            contratacion.IdOfertaEmpleo = (int)jContratacion["idOfertaEmpleo"];
+                            contratacion.IdContratacion = jContratacion["idContratacionEmpleo"] != null && (jContratacion["idContratacionEmpleo"].Type == JTokenType.Integer) ? (int)jContratacion["idContratacionEmpleo"] : 0;
+                            contratacion.IdOfertaEmpleo = jContratacion["idOfertaEmpleo"] != null && jContratacion["idOfertaEmpleo"].Type == JTokenType.Integer ? (int)jContratacion["idOfertaEmpleo"] : 0;
                             contratacion.NombteOfertaEmpleo = (string)jContratacion["nombreOfertaEmpleo"];
                             contratacion.NombreEmpleador = (string)jContratacion["nombreEmpleador"];
                             contratacion.Estatus = (int)jContratacion["estatus"];
@@ -131,8 +132,65 @@ namespace El_Camello.Modelo.dao
             }
 
             return listaContrataciones;
-        } 
+        }
+
+        public static async Task<Tuple<ContratacionEmpleo, OfertaEmpleo>> GetContratacionAspirante(int idAspirante, int idContratacion, string token)
+        {
+            ContratacionEmpleo contratacion = new ContratacionEmpleo();
+            OfertaEmpleo ofertaEmpleo = new OfertaEmpleo();
+
+            using (var cliente = new HttpClient())
+            {
+                cliente.DefaultRequestHeaders.Add("x-access-token", token);
+
+                string endpoint = $"http://localhost:5000/v1/perfilAspirantes/{idAspirante}/contratacionesEmpleo/{idContratacion}";
+
+                try
+                {
+                    HttpResponseMessage respuesta = await cliente.GetAsync(endpoint);
+                    RespuestasAPI respuestaAPI = new RespuestasAPI();
+                    string responseBody = await respuesta.Content.ReadAsStringAsync();
+
+                    JObject jContratacion = JObject.Parse(responseBody);
+                    if (respuesta.StatusCode == HttpStatusCode.OK)
+                    {
+                        contratacion.IdContratacion = (int)jContratacion["idContratacion"];
+                        contratacion.Estatus = (int)jContratacion["estatus"];
+                        
+                        
+                        ofertaEmpleo.Nombre = (string)jContratacion["nombreEmpleo"];
+                        ofertaEmpleo.CategoriaEmpleo = (string)jContratacion["categoriaEmpleo"];
+                        ofertaEmpleo.Direccion = (string)jContratacion["direccion"];
+                        ofertaEmpleo.DiasLaborales = (string)jContratacion["diasLaborales"];
+                        
+                        string horaInicio = (string)jContratacion["horaInicio"];
+                        string horaFin = (string)jContratacion["horaFin"];
+
+                        ofertaEmpleo.HoraInicio = TimeOnly.Parse(horaInicio);
+                        ofertaEmpleo.HoraFin = TimeOnly.Parse(horaFin);
+                        ofertaEmpleo.TipoPago = (string)jContratacion["tipoPago"];
+                        ofertaEmpleo.CantidadPago = (int)jContratacion["cantidadPago"];
+                        ofertaEmpleo.FechaInicio = (DateTime)jContratacion["fechaContratacion"];
+                        ofertaEmpleo.FechaFinalizacion = (DateTime)jContratacion["fechaFinalizacion"];
+                        ofertaEmpleo.Descripcion = (string)jContratacion["descripcion"];
+                        return Tuple.Create(contratacion, ofertaEmpleo);
+                    }
+                    else
+                    {
+                        respuestaAPI.gestionRespuestasApi("Consultar contratación", respuesta);
+                    }
+
+                }
+                catch (HttpRequestException excepcionCapturada)
+                {
+                    MensajesSistema errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Evaluar aspirante", excepcionCapturada.Message);
+                    errorMessage.ShowDialog();
+                }
 
 
+            }
+
+            return null;
+        }
     }
 }

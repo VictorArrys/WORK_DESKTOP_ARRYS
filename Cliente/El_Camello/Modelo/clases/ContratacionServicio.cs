@@ -21,6 +21,7 @@ namespace El_Camello.Modelo.clases
             fechaContratacion = DateTime.Now;
             fechaFinalizacion = DateTime.Now;
             valoracionAspirante = 0;
+            tituloEmpleo = "";
         }
 
         public int IdContratacionServicio { get => idContratacionServicio; set => idContratacionServicio = value; }
