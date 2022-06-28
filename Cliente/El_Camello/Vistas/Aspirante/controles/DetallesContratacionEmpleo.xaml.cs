@@ -85,9 +85,9 @@ namespace El_Camello.Vistas.Aspirante.controles
             switch(contratacionDetallada.Item1.Estatus)
             {
                 case 1:
-                    lblEstatus.Content = "Estatus: Em proceso";
-                    btnEvaluar.IsEnabled = true;// false;
-                    btnReportar.IsEnabled = true;//false;
+                    lblEstatus.Content = "Estatus: En proceso";
+                    btnEvaluar.IsEnabled = false;
+                    btnReportar.IsEnabled = false;
                     break;
                 case 0:
                     lblEstatus.Content = "Estatus: Finalizada";
@@ -109,7 +109,7 @@ namespace El_Camello.Vistas.Aspirante.controles
 
         private void btnEvaluar_Click(object sender, RoutedEventArgs e)
         {
-            EvaluacionEmpleador ventanaEvaluacion = new EvaluacionEmpleador();
+            EvaluacionEmpleador ventanaEvaluacion = new EvaluacionEmpleador(aspirante, contratacionDetallada.Item1.IdContratacion, contratacionDetallada.Item1.NombteOfertaEmpleo, contratacionDetallada.Item1.NombreEmpleador);
             ventanaEvaluacion.ShowDialog();
         }
 

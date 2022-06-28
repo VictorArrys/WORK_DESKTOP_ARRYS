@@ -192,5 +192,51 @@ namespace El_Camello.Modelo.dao
 
             return null;
         }
+
+        public static async Task<int> PatchEvaluarEmpleador(int idAspirante, int idContratacion, int puntuacion, string token)
+        {
+            int resultado = 0;
+
+            ContratacionEmpleo contratacion = new ContratacionEmpleo();
+            OfertaEmpleo ofertaEmpleo = new OfertaEmpleo();
+
+            using (var cliente = new HttpClient())
+            {
+                cliente.DefaultRequestHeaders.Add("x-access-token", token);
+
+                JObject cuerpoSolicitud = new JObject
+                    {
+                        {"puntuacion", puntuacion }
+                    };
+
+                var requestBody = new StringContent(cuerpoSolicitud.ToString(), Encoding.UTF8, "application/json");
+
+                string endpoint = $"http://localhost:5000/v1/perfilAspirantes/{idAspirante}/contratacionesEmpleo/{idContratacion}/evaluarEmpleador";
+
+                try
+                {
+                    HttpResponseMessage respuesta = await cliente.PatchAsync(endpoint, requestBody);
+                    RespuestasAPI respuestaAPI = new RespuestasAPI();
+                    string responseBody = await respuesta.Content.ReadAsStringAsync();
+
+                    JObject jContratacion = JObject.Parse(responseBody);
+                    if (respuesta.StatusCode == HttpStatusCode.OK)
+                    {
+                        resultado = 1;
+                    }
+                    else
+                    {
+                        respuestaAPI.gestionRespuestasApi("Evaluaci{on de empleador", respuesta);
+                    }
+
+                }
+                catch (HttpRequestException excepcionCapturada)
+                {
+                    MensajesSistema errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Consultar detalles de contratación", excepcionCapturada.Message);
+                    errorMessage.ShowDialog();
+                }
+            }
+            return resultado;
+        }
     }
 }
