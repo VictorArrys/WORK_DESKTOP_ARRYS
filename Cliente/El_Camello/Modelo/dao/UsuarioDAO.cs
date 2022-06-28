@@ -14,7 +14,7 @@ namespace El_Camello.Modelo.dao
 {
     internal class UsuarioDAO
     {
-        public static async Task<Usuario> iniciarSesion(string nombreUsuario, string clave) 
+        public static async Task<Usuario> iniciarSesion(string nombreUsuario, string clave)
         {
             Usuario usuario = new Usuario();
             using (var cliente = new HttpClient())
@@ -24,7 +24,7 @@ namespace El_Camello.Modelo.dao
                 {
                     HttpResponseMessage respuesta = await cliente.GetAsync(endpoint);
                     RespuestasAPI respuestaAPI = new RespuestasAPI();
-                    
+
 
                     if (respuesta.StatusCode == HttpStatusCode.OK)
                     {
@@ -84,7 +84,7 @@ namespace El_Camello.Modelo.dao
 
             return usuario;
         }
-        
+
         public static async Task<Usuario> getUsuario(int idUsuario, string token)// listo cliente
         {
             Usuario usuario = new Usuario();
@@ -142,7 +142,7 @@ namespace El_Camello.Modelo.dao
                 }
             }
 
-                return usuario;
+            return usuario;
         }
 
         public static async Task<List<clases.Usuario>> getUsuarios(string token) // listo cliente
@@ -158,7 +158,7 @@ namespace El_Camello.Modelo.dao
                     string body = await respuesta.Content.ReadAsStringAsync();
                     RespuestasAPI respuestaAPI = new RespuestasAPI();
 
-                    if(respuesta.StatusCode == HttpStatusCode.OK){
+                    if (respuesta.StatusCode == HttpStatusCode.OK) {
                         JArray arrayUsuarios = JArray.Parse(body);
                         foreach (var item in arrayUsuarios)
                         {
@@ -191,7 +191,7 @@ namespace El_Camello.Modelo.dao
             return usuarios;
         }
 
-        public static async Task<int> patchDeshabilitar(int idUsuario,string token) // Listo cliente
+        public static async Task<Tuple<int, string>> patchDeshabilitar(int idUsuario, string token) // Listo cliente
         {
             int resultado = -1;
             using (var cliente = new HttpClient())
@@ -208,6 +208,7 @@ namespace El_Camello.Modelo.dao
                     if (respuesta.StatusCode == HttpStatusCode.OK)
                     {
                         resultado = 1;
+                        token = respuesta.Headers.GetValues("x-access-token").First();
                     }
                     else
                     {
@@ -224,10 +225,10 @@ namespace El_Camello.Modelo.dao
                     cliente.Dispose();
                 }
             }
-            return resultado;
+            return Tuple.Create(resultado, token);
         }
 
-        public static async Task<int> patchHabilitar(int idUsuario,string token)// listo cliente
+        public static async Task<Tuple<int, string>> patchHabilitar(int idUsuario,string token)// listo cliente
         {
             int resultado = -1;
             using (var cliente = new HttpClient())
@@ -244,6 +245,7 @@ namespace El_Camello.Modelo.dao
                     if (respuesta.StatusCode == HttpStatusCode.OK)
                     {
                         resultado = 1;
+                        token = respuesta.Headers.GetValues("x-access-token").First();
                     }
                     else
                     {
@@ -259,7 +261,7 @@ namespace El_Camello.Modelo.dao
                     cliente.Dispose();
                 }
             }
-            return resultado;
+            return Tuple.Create(resultado, token);
         }
     }
 }
