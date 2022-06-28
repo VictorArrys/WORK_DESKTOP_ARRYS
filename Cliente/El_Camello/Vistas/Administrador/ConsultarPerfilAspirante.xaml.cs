@@ -59,22 +59,6 @@ namespace El_Camello.Vistas.Administrador
 
             dgOficios.ItemsSource = aspirante.Oficios;
 
-<<<<<<< HEAD
-
-
-            aspirante.RutaVideo = "";
-
-            
-            do
-            {
-                aspirante.RutaVideo = System.IO.Path.GetTempFileName().Replace(".tmp", ".mp4");
-            } while (System.IO.File.Exists(aspirante.RutaVideo));
-            
-            MemoryStream_toFile.MemoryStreamToFile(aspirante.Video, aspirante.RutaVideo);
-            meVideoAspirante.Source = new Uri(aspirante.RutaVideo);
-            meVideoAspirante.Volume = 0.5;
-            dgOficios.ItemsSource = aspirante.Oficios;
-=======
             if (aspirante.Video != null)
             {
                 aspirante.RutaVideo = "";
@@ -88,8 +72,6 @@ namespace El_Camello.Vistas.Administrador
                 meVideoAspirante.Source = new Uri(aspirante.RutaVideo);
                 meVideoAspirante.Volume = 0.5;
             }
-            
->>>>>>> a78dc6bde69978fad47eacb3763dd6dce8e9e088
         }
 
         private void cargarImagen(byte[] fotografia)

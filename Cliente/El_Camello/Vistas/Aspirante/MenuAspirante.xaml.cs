@@ -46,7 +46,6 @@ namespace El_Camello.Vistas.Aspirante
         private async void CargarMenuAspirante(Modelo.clases.Usuario usuarioConectado)
         {
             int idPerfil = usuarioConectado.IdPerfilusuario;
-            MessageBox.Show(usuarioConectado.Token);
             perfilAspirante = await AspiranteDAO.GetAspirante(idPerfil, usuarioConectado.Token);
             perfilAspirante.Clave = usuarioConectado.Clave;
             perfilAspirante.Estatus = usuarioConectado.Estatus;
