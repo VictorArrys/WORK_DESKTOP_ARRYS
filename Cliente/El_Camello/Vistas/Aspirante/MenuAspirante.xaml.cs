@@ -30,10 +30,8 @@ namespace El_Camello.Vistas.Aspirante
                 btnMensajeria.IsEnabled = false;
                 btnSolicitudesEmpleo.IsEnabled = false;
                 btnContratacionesServicios.IsEnabled = false;
-                btnValoraciones.IsEnabled = false;
                 btnMensajeria.IsEnabled = false;
                 btnSolicitudesServicio.IsEnabled = false;
-                dgOfertasEmpleo.IsEnabled = false;
                 
 
                 MessageBox.Show("En este momento esta desactivado tu perfil, para volver acivarlo presiona 'Activar perfil.'", "¡Advetencia!");
@@ -136,10 +134,8 @@ namespace El_Camello.Vistas.Aspirante
                     btnMensajeria.IsEnabled = true;
                     btnSolicitudesEmpleo.IsEnabled = true;
                     btnContratacionesServicios.IsEnabled = true;
-                    btnValoraciones.IsEnabled = true;
                     btnMensajeria.IsEnabled = true;
                     btnSolicitudesServicio.IsEnabled = true;
-                    dgOfertasEmpleo.IsEnabled = true;
                     btnActivarPerfil.IsEnabled = false;
                     usuario.Token = resultado.Item2;
                     CargarMenuAspirante(usuario);
