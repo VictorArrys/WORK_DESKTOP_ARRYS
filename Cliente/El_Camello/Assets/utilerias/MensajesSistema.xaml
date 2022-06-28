@@ -21,12 +21,12 @@
         <Rectangle x:Name="cdBarraTitulo" Fill="#FF075E8C" Height="36" VerticalAlignment="Top" Grid.ColumnSpan="3" Margin="0,0,-76,0"/>
         <Button x:Name="btnOk" Content="OK" HorizontalAlignment="Left" Margin="185,54,0,0" VerticalAlignment="Top" Background="#FF0089D2" Foreground="White" Height="36" Width="100" Click="enterado" FontFamily="Consolas" FontWeight="Bold" RenderTransformOrigin="0.65,0.501" Grid.Column="1" Grid.Row="2"/>
         <Label x:Name="lbTipoMensaje" Content="sss" HorizontalAlignment="Center" Margin="0,4,0,0" VerticalAlignment="Top" Width="394" Foreground="#FF091B35" FontFamily="Consolas" FontSize="20" FontWeight="Bold" Height="32" Grid.Column="1"/>
-        <Image x:Name="imgError" Grid.Column="1" Margin="354,0,0,137" Source="/Assets/imagenes/error.png" HorizontalAlignment="Left" Width="51" Grid.ColumnSpan="2"/>
-        <Image x:Name="imgAlerta" Grid.Column="1" Margin="346,0,5,137" Source="/Assets/imagenes/alerta.png"/>
-        <Image x:Name="imgAccion" Grid.Column="1" Margin="345,0,4,137" Source="/Assets/imagenes/exito.png"/>
+        <Image x:Name="imgError" Grid.Column="1" Margin="8,43,0,47" Source="/Assets/imagenes/error.png" HorizontalAlignment="Left" Width="89"/>
+        <Image x:Name="imgAlerta" Grid.Column="1" Margin="-2,36,299,48" Source="/Assets/imagenes/alerta.png"/>
+        <Image x:Name="imgAccion" Grid.Column="1" Margin="4,41,305,47" Source="/Assets/imagenes/exito.png"/>
 
         <TextBlock x:Name="tbMensaje" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="10,23,0,0" TextWrapping="Wrap" Text="Mensaje: " VerticalAlignment="Top" Width="459" Height="61" Background="{x:Null}" Foreground="White" IsEnabled="False" Grid.Row="1"/>
-        <TextBlock x:Name="tbUbicacion" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="10,117,0,0" TextWrapping="Wrap" Text="Ubicación: " VerticalAlignment="Top" Width="459" Height="47" Background="{x:Null}" Foreground="White" IsEnabled="False"/>
+        <TextBlock x:Name="tbUbicacion" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="8,135,0,0" TextWrapping="Wrap" Text="Ubicación: " VerticalAlignment="Top" Width="459" Height="47" Background="{x:Null}" Foreground="White" IsEnabled="False" Grid.RowSpan="2"/>
         <TextBlock x:Name="tbDetalles" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Detalles: " VerticalAlignment="Top" Width="450" Height="52" Background="{x:Null}" Foreground="White" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="10,91,0,0" IsEnabled="False" Grid.RowSpan="2"/>
 
     </Grid>

@@ -63,11 +63,12 @@ namespace El_Camello.Vistas.Administrador
 
             aspirante.RutaVideo = "";
 
+            
             do
             {
                 aspirante.RutaVideo = System.IO.Path.GetTempFileName().Replace(".tmp", ".mp4");
             } while (System.IO.File.Exists(aspirante.RutaVideo));
-
+            
             MemoryStream_toFile.MemoryStreamToFile(aspirante.Video, aspirante.RutaVideo);
             meVideoAspirante.Source = new Uri(aspirante.RutaVideo);
             meVideoAspirante.Volume = 0.5;

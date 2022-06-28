@@ -71,8 +71,9 @@ namespace El_Camello.Aspirante
             do
             {
                 aspiranteConsultado.RutaVideo = System.IO.Path.GetTempFileName().Replace(".tmp", ".mp4");
-            } while (System.IO.File.Exists(aspiranteConsultado.RutaVideo));
 
+            } while (System.IO.File.Exists(aspiranteConsultado.RutaVideo));
+            aspiranteConsultado.RutaVideo = System.IO.Path.GetTempFileName().Replace(".tmp", ".mp4");
             MemoryStream_toFile.MemoryStreamToFile(aspiranteConsultado.Video, aspiranteConsultado.RutaVideo);
             meVideoAspirante.Source = new Uri(aspiranteConsultado.RutaVideo);
             meVideoAspirante.Volume = 0.5;
