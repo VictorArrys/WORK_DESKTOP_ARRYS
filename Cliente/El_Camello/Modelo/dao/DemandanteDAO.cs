@@ -149,7 +149,6 @@ namespace El_Camello.Modelo.dao
                     if (respuesta.StatusCode == HttpStatusCode.OK)
                     {
                         JObject perfilDemandante = JObject.Parse(body);
-                        MessageBox.Show(body);
                         idUsuario = (int)perfilDemandante["idPerfilUsuario"];
                         idDemandante = (int)perfilDemandante["idPerfilDemandante"];
 
