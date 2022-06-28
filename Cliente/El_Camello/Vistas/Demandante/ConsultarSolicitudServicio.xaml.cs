@@ -8,10 +8,11 @@ namespace El_Camello.Vistas.Demandante
     public partial class ConsultarSolicitudServicio : Window
     {
         
-        Modelo.clases.Demandante demandante = null;
+        Modelo.clases.Demandante demandante;
         public ConsultarSolicitudServicio(Modelo.clases.Demandante demandante)
         {
             InitializeComponent();
+            this.demandante = demandante; 
             cargarTablaServicios(demandante.IdPerfilusuario);
         }
 

@@ -49,7 +49,6 @@ namespace El_Camello.Assets.utilerias
         public bool textFieldEntero(TextBox tbValidar)
         {
             limpiarTextField(tbValidar);
-            int entero;
             bool esEntero = validarTieneLetras(tbValidar.Text);
             if (!esEntero)
             {
@@ -263,10 +262,5 @@ namespace El_Camello.Assets.utilerias
 
             return estaVacio;
         }
-
-
-
-
-
     }
 }

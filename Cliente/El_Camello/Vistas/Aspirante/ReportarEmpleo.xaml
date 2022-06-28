@@ -14,7 +14,7 @@
         <Grid>
             <Label Content="Descripción del report:e" FontSize="14" Margin="10" VerticalAlignment="top" FontWeight="Bold" />
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="20,40,20,60">
-                <TextBox x:Name="txtDescripcion" AcceptsReturn="true" AcceptsTab="True" FontSize="14" TextWrapping="Wrap" />
+                <TextBox x:Name="txtDescripcion" MaxLength="500" AcceptsReturn="true" AcceptsTab="True" FontSize="14" TextWrapping="Wrap" />
             </ScrollViewer>
             <Button x:Name="btnEnviarReporte" Content="Enviar reporte" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="00,0,110,20" FontSize="14" FontWeight="Bold" Foreground="White" Click="btnEnviarReporte_Click" >
                 <Button.BorderBrush>

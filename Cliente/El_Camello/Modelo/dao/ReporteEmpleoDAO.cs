@@ -158,7 +158,7 @@ namespace El_Camello.Modelo.dao
 
 
         //Aspirante
-        public static async Task<ReporteEmpleo> PostReporteEmpleo(ReporteEmpleo nuevoReporte, string token)
+        public static async Task<ReporteEmpleo> PostReporteEmpleo(ReporteEmpleo nuevoReporte, int idContratacion ,string token)
         {
             ReporteEmpleo reporte = new ReporteEmpleo();
             RespuestasAPI respuestaAPI = new RespuestasAPI();
@@ -175,19 +175,19 @@ namespace El_Camello.Modelo.dao
                     {
                         {"idPerfilAspirante", nuevoReporte.IdAspirante },
                         {"motivo", nuevoReporte.Motivo },
-                        {"idOfertaEmpleo", nuevoReporte.IdOfertaReportada }
+                        {"idContratacion", idContratacion }
                     };
 
                     var data = new StringContent(cuerpoSolicitud.ToString(), Encoding.UTF8, "application/json");
                     HttpResponseMessage respuesta = await cliente.PostAsync(endpoint, data);
 
-                    if (respuesta.StatusCode == HttpStatusCode.OK)
+                    if (respuesta.StatusCode == HttpStatusCode.Created)
                     {
                         string responseBody = await respuesta.Content.ReadAsStringAsync();
 
                         JObject jReporte = JObject.Parse(responseBody);
                         reporte.IdReporte = (int)jReporte["idReporteEmpleo"];
-                        reporte.IdAspirante = (int)jReporte["idPerfilAspirante"];
+                        reporte.IdAspirante = (int)jReporte["idAspirante"];
                         reporte.IdOfertaReportada = (int)jReporte["idOfertaEmpleo"];
                         reporte.Motivo = (string)jReporte["motivo"];
                         reporte.Estatus = (int)jReporte["estatus"];
@@ -196,7 +196,7 @@ namespace El_Camello.Modelo.dao
                     }
                     else
                     {
-                        respuestaAPI.gestionRespuestasApi("Post registrar reporte", respuesta);
+                        respuestaAPI.gestionRespuestasApi("Registrar reporte de empleo", respuesta);
                     }
 
                 }

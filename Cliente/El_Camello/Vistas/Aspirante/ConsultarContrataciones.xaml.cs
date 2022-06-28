@@ -1,6 +1,7 @@
 ﻿using El_Camello.Modelo.clases;
 using El_Camello.Modelo.dao;
 using El_Camello.Vistas.Aspirante.controles;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,19 +19,22 @@ namespace El_Camello.Vistas.Aspirante
         public ConsultarContrataciones(Modelo.clases.Aspirante aspirante)
         {
             InitializeComponent();
-            this.aspirante = aspirante;
+            this.Aspirante = aspirante;
             CargarContrataciones();
         }
 
+        public Modelo.clases.Aspirante Aspirante { get => aspirante; set => aspirante = value; }
+
         private async void CargarContrataciones()
         {
+            ctrlContratacionDetallada.Aspirante = aspirante;
             //consulta contrataciones empleo y contrataciones servicio
             List<ContratacionServicio> contratacionesServicio = new List<ContratacionServicio>();
-            contratacionesServicio = await ContratacionServicioDAO.GetContratacionesServicioAspirante(aspirante.IdAspirante, aspirante.Token);
+            contratacionesServicio = await ContratacionServicioDAO.GetContratacionesServicioAspirante(Aspirante.IdAspirante, Aspirante.Token);
             
             //Consulta contrataciones de ofertas de empleo
             List<ContratacionEmpleo> contratacionesEmpleo = new List<ContratacionEmpleo>();
-            contratacionesEmpleo = await ContratacionEmpleoAspiranteDAO.GetContraracionesEmpleoAspirante(aspirante.IdAspirante, aspirante.Token);
+            contratacionesEmpleo = await ContratacionEmpleoAspiranteDAO.GetContraracionesEmpleoAspirante(Aspirante.IdAspirante, Aspirante.Token);
 
 
             //Se muestran las contrataciones en panatalla
@@ -44,7 +48,7 @@ namespace El_Camello.Vistas.Aspirante
             {
                 ContratacionControl contratacionControl = new ContratacionControl();
                 contratacionControl.ContratacionEmpleo = contratacion;
-                contratacionControl.MouseLeftButtonUp += CtrlContratacion_Click;
+                contratacionControl.MouseLeftButtonUp += CtrlContratacionEmpleo_Click;
                 pnlContrataciones.Children.Add(contratacionControl);
             }
 
@@ -63,24 +67,28 @@ namespace El_Camello.Vistas.Aspirante
             }
         }
 
-        private void btnReportar_Click(object sender, RoutedEventArgs e)
-        {
-            ReportarEmpleo ventanaReporteEmpleo = new ReportarEmpleo();
-            ventanaReporteEmpleo.ShowDialog();
-        }
-
-        private void btnEvaluar_Click(object sender, RoutedEventArgs e)
-        {
-            EvaluacionEmpleador ventanaEvaluacion = new EvaluacionEmpleador();
-        }
 
 
-        private async void CtrlContratacion_Click(object sender, MouseButtonEventArgs e)
+        private async void CtrlContratacionEmpleo_Click(object sender, MouseButtonEventArgs e)
         {
             //Cargar contratacion empleo en pantalla
-            int idConversacion = ((ContratacionControl)e.Source).ContratacionEmpleo.IdContratacion;
-            MessageBox.Show($"id contratacion {idConversacion}");
+            ctrlContratacionDetallada.Visibility = Visibility.Visible;
+            int idContratacionSeleccionada = ((ContratacionControl)e.Source).ContratacionEmpleo.IdContratacion;
+            Tuple<ContratacionEmpleo, OfertaEmpleo> contratacionEmpleo = await ContratacionEmpleoAspiranteDAO.GetContratacionAspirante(Aspirante.IdAspirante, idContratacionSeleccionada, Aspirante.Token);
+
+            MostrarDetallesContratacionEmpleo(contratacionEmpleo);   
+        }
+
+        private async void CtrlContratacionServicio_Click(object sender, MouseButtonEventArgs e)
+        {
+            //Cargar contratacion empleo en pantalla
+            ctrlContratacionDetallada.Visibility = Visibility.Hidden;
             
+        }
+
+        private void MostrarDetallesContratacionEmpleo(Tuple<ContratacionEmpleo, OfertaEmpleo> contratacionEmpleo)
+        {
+            ctrlContratacionDetallada.ContratacionDetallada = contratacionEmpleo;
         }
     }
 }

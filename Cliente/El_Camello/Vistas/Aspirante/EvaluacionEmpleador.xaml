@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:El_Camello.Vistas.Aspirante"
         mc:Ignorable="d"
-        Title="Evaluación de empleador" ResizeMode="NoResize" d:DesignHeight="320" d:DesignWidth="340">
+        Title="Evaluación de empleador" ResizeMode="NoResize" Height="320" Width="340">
     <DockPanel LastChildFill="True">
         <Grid DockPanel.Dock="Top" Background="#FF062758" Opacity="0.85">
             <Label Margin="10,5,10,0" VerticalAlignment="Top" >
@@ -25,7 +25,7 @@
                 <ComboBoxItem>5 punto</ComboBoxItem>
             </ComboBox>
 
-            <Button x:Name="btnEnviarValoracion" Content="Enviar valoración" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="00,0,110,20" FontSize="14" FontWeight="Bold" Foreground="White" >
+            <Button x:Name="btnEnviarValoracion" Content="Enviar valoración" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="00,0,110,20" FontSize="14" FontWeight="Bold" Foreground="White" Click="btnEnviarValoracion_Click" >
                 <Button.BorderBrush>
                     <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
                 </Button.BorderBrush>
@@ -33,7 +33,7 @@
                     <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
                 </Button.Background>
             </Button>
-            <Button x:Name="btnCancelar" Content="Cancelar" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="00,0,20,20" FontSize="14" FontWeight="Bold" Foreground="White" >
+            <Button x:Name="btnCancelar" Content="Cancelar" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="00,0,20,20" FontSize="14" FontWeight="Bold" Foreground="White" Click="btnCancelar_Click" >
                 <Button.BorderBrush>
                     <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
                 </Button.BorderBrush>
