@@ -31,6 +31,8 @@ namespace El_Camello.Vistas.Demandante
         {
             solicitudesServicio = await SolicitudServicioDAO.GetSolicitudesDemandante(demandante.IdDemandante, demandante.Token);
             contratacionesServicio = await ContratacionServicioDAO.GetContratacionesServicio(demandante.IdDemandante, demandante.Token);
+            dgSolicitudes.ItemsSource = solicitudesServicio;
+            dgContrataciones.ItemsSource = contratacionesServicio;
         }
 
         private void btnRegresar_Click(object sender, RoutedEventArgs e)
