@@ -114,17 +114,17 @@ namespace El_Camello.Vistas.Empleador
             int valoracion = -1;
             if (indiceSeleccion >= 0)
             {
-                int posicion = 0;
                 foreach (var contratado in ofertaEmpleoConsulta.ContratacionEmpleo.ContratacionesAspirantes)
                 {
-                    if (contratados[posicion].IdUsuario == contratado.IdUsuario)
+                    if (contratados[indiceSeleccion].IdUsuario == contratado.IdUsuario)
                     {
                         valoracion = contratado.ValoracionAspirante;
-                        aspiranteEvaluar = contratados[indiceSeleccion];
+                        aspiranteEvaluar = contratado;
                        
                     }
 
                 }
+
                 if (valoracion == 0)
                 {
 

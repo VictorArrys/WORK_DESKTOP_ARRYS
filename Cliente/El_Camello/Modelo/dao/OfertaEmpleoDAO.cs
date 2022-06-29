@@ -293,7 +293,7 @@ namespace El_Camello.Modelo.dao
 
                         JObject objetoCreado = JsonConvert.DeserializeObject<JObject>(body);
                         int idCreado = (int)objetoCreado["idOfertaEmpleo"];
-                        res = ofertaEmpleoCreada.IdOfertaEmpleo;
+                        res = idCreado;
 
 
                         int resultadoCrearFotos = await PostFotografiasOfertaEmpleo(idCreado, ofertaEmpleoNueva.Fotografias);
