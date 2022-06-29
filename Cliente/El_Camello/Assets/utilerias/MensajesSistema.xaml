@@ -25,9 +25,11 @@
         <Image x:Name="imgAlerta" Grid.Column="1" Margin="-2,36,299,48" Source="/Assets/imagenes/alerta.png"/>
         <Image x:Name="imgAccion" Grid.Column="1" Margin="4,41,305,47" Source="/Assets/imagenes/exito.png"/>
 
-        <TextBlock x:Name="tbMensaje" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="10,23,0,0" TextWrapping="Wrap" Text="Mensaje: " VerticalAlignment="Top" Width="459" Height="61" Background="{x:Null}" Foreground="White" IsEnabled="False" Grid.Row="1"/>
-        <TextBlock x:Name="tbUbicacion" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="8,135,0,0" TextWrapping="Wrap" Text="Ubicación: " VerticalAlignment="Top" Width="459" Height="47" Background="{x:Null}" Foreground="White" IsEnabled="False" Grid.RowSpan="2"/>
-        <TextBlock x:Name="tbDetalles" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Detalles: " VerticalAlignment="Top" Width="450" Height="52" Background="{x:Null}" Foreground="White" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="10,91,0,0" IsEnabled="False" Grid.RowSpan="2"/>
+        <TextBlock x:Name="tbMensaje" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="10,23,0,0" TextWrapping="WrapWithOverflow" Text="Mensaje: " VerticalAlignment="Top" Width="450" Height="61" Background="{x:Null}" Foreground="White" IsEnabled="False" Grid.Row="1"/>
+        <TextBlock x:Name="tbUbicacion" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="8,135,0,0" TextWrapping="WrapWithOverflow" Text="Ubicación: " VerticalAlignment="Top" Width="452" Height="47" Background="{x:Null}" Foreground="White" IsEnabled="False" Grid.RowSpan="2"/>
+        <TextBlock x:Name="tbDetalles" HorizontalAlignment="Left" TextWrapping="WrapWithOverflow" Text="Detalles: " VerticalAlignment="Top" Width="450" Height="52" Background="{x:Null}" Foreground="White" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="10,91,0,0" IsEnabled="False" Grid.RowSpan="2"/>
+        <Image x:Name="imgProhibido" Grid.Column="1" Margin="8,40,300,43" Source="/Assets/imagenes/prohibido.png"/>
+        <Image x:Name="imgDuplicado" Grid.Column="1" Margin="6,39,302,43" Source="/Assets/imagenes/duplicado.png"/>
 
     </Grid>
 </Window>

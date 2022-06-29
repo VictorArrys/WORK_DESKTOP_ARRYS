@@ -47,7 +47,7 @@ namespace El_Camello.Assets.utilerias
                 case HttpStatusCode.UnprocessableEntity:
                     respuestaObjectBody = JObject.Parse(respuestaBody);
                     string duplicado = (string)respuestaObjectBody["type error"]["message"];
-                    errorMessage = new MensajesSistema("Error", "Registro duplicado, no se puede registrar de nuevo", ubicacion, duplicado);
+                    errorMessage = new MensajesSistema("Duplicado", "Registro duplicado, no se puede registrar de nuevo", ubicacion, duplicado);
                     errorMessage.ShowDialog();
                     break;
             }

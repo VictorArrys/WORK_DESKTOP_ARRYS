@@ -57,8 +57,14 @@ namespace El_Camello.Vistas.Empleador
             try
             {
                 ofertasTabla = await OfertaEmpleoDAO.GetOfertasEmpleos(idPerfilEmpleador, token);
+                if (ofertasTabla.Count == 0)
+                {
 
-                dgOfertasEmpleo.ItemsSource = ofertasTabla;
+                }
+                else
+                {
+                    dgOfertasEmpleo.ItemsSource = ofertasTabla;
+                }
             }
             catch (Exception exceptionGetList)
             {

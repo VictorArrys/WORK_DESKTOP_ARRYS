@@ -8,11 +8,12 @@
         Title="RegistroOfertaEmpleo" Height="550" Width="811"  WindowStartupLocation="CenterScreen" ResizeMode="CanResizeWithGrip">
 
     <Grid Margin="0,0,0,7">
-        <Grid DockPanel.Dock="Top" RenderTransformOrigin="0.496,0.438" Margin="0,0,0,484">
-            <Label x:Name="lbAccion" Content="Registro de oferta de empleo" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="26" Height="44"/>
-            <Grid.Background>
-                <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
-            </Grid.Background>
+        <Grid Background="#FF062758" Opacity="0.85" VerticalAlignment="Top" Height="40" Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="411*"/>
+                <ColumnDefinition Width="400*"/>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="lbAccion" Content="Registro oferta empleo" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="22" Foreground="White" FontWeight="Bold" Margin="0,0,10,0" Grid.ColumnSpan="2"/>
         </Grid>
         <Grid DockPanel.Dock="Bottom" RenderTransformOrigin="0.496,0.438" Margin="0,469,0,10">
             <Grid.Background>

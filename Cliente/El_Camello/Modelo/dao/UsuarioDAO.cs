@@ -68,7 +68,7 @@ namespace El_Camello.Modelo.dao
 
                     else if (respuesta.StatusCode == HttpStatusCode.Forbidden)
                     {
-                        mensajes = new MensajesSistema("AccionInvalida", "Debido a los diferentes reportes que se presentan en tu perfil haz sido bloqueado indefinidamente del sistema", "Iniciar sesión", "Contacta al soporte técnico elcamello@outllok.com para resolver tu situación");
+                        mensajes = new MensajesSistema("Prohibido", "Debido a los diferentes reportes que se presentan en tu perfil haz sido bloqueado indefinidamente del sistema", "Iniciar sesión", "Contacta al soporte técnico elcamello@outllok.com para resolver tu situación");
                         mensajes.ShowDialog();
                     }
                     else
@@ -79,7 +79,8 @@ namespace El_Camello.Modelo.dao
                 }
                 catch (HttpRequestException ex)
                 {
-                    MessageBox.Show("La conexión no se puede establecer en este momento, intente mas tarde", "Inciciar Sesión.");
+                    mensajes = new MensajesSistema("Error", "La conexión no se puede establecer en este momento, intente mas tarde", ex.StackTrace, ex.Message);
+                    mensajes.ShowDialog();
                 }
                 finally
                 {
@@ -94,6 +95,7 @@ namespace El_Camello.Modelo.dao
 
         public static async Task<Usuario> getUsuario(int idUsuario, string token)// listo cliente
         {
+            MensajesSistema errorMessage;
             Usuario usuario = new Usuario();
             using (var cliente = new HttpClient())
             {
@@ -139,9 +141,10 @@ namespace El_Camello.Modelo.dao
                         respuestaAPI.gestionRespuestasApi("get usuario", respuesta);
                     }
                 }
-                catch (HttpRequestException)
+                catch (HttpRequestException ex)
                 {
-                    MessageBox.Show("Conexion en este momento no disponible", "¡Operacion!");
+                    errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Obtener usuario", ex.Message);
+                    errorMessage.ShowDialog();
                 }
                 finally
                 {
@@ -154,6 +157,7 @@ namespace El_Camello.Modelo.dao
 
         public static async Task<List<clases.Usuario>> getUsuarios(string token) // listo cliente
         {
+            MensajesSistema errorMessage;
             List<clases.Usuario> usuarios = new List<clases.Usuario>();
             using (var cliente = new HttpClient())
             {
@@ -185,9 +189,10 @@ namespace El_Camello.Modelo.dao
                     }
 
                 }
-                catch (HttpRequestException)
+                catch (HttpRequestException ex)
                 {
-                    MessageBox.Show("Conexion en este momento no disponible", "¡Operacion!");
+                    errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Obtener lista de usuarios", ex.Message);
+                    errorMessage.ShowDialog();
                 }
                 finally
                 {
@@ -200,6 +205,7 @@ namespace El_Camello.Modelo.dao
 
         public static async Task<Tuple<int, string>> patchDeshabilitar(int idUsuario, string token) // Listo cliente
         {
+            MensajesSistema errorMessage;
             int resultado = -1;
             using (var cliente = new HttpClient())
             {
@@ -223,9 +229,10 @@ namespace El_Camello.Modelo.dao
                     }
 
                 }
-                catch (HttpRequestException)
+                catch (HttpRequestException ex)
                 {
-                    MessageBox.Show("Conexion en este momento no disponible", "¡Operacion!");
+                    errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Deshabilitar usuario", ex.Message);
+                    errorMessage.ShowDialog();
                 }
                 finally
                 {
@@ -237,6 +244,7 @@ namespace El_Camello.Modelo.dao
 
         public static async Task<Tuple<int, string>> patchHabilitar(int idUsuario,string token)// listo cliente
         {
+            MensajesSistema errorMessage;
             int resultado = -1;
             using (var cliente = new HttpClient())
             {
@@ -259,9 +267,10 @@ namespace El_Camello.Modelo.dao
                         respuestaAPI.gestionRespuestasApi("patch habilitar", respuesta);
                     }
                 }
-                catch (HttpRequestException)
+                catch (HttpRequestException ex)
                 {
-                    MessageBox.Show("Conexion en este momento no disponible", "¡Operacion!");
+                    errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Habilitar usuario", ex.Message);
+                    errorMessage.ShowDialog();
                 }
                 finally
                 {

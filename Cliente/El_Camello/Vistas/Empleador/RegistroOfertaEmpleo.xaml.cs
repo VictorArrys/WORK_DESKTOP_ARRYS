@@ -116,14 +116,7 @@ namespace El_Camello.Vistas.Empleador
                 mensajes = new MensajesSistema("Error", "Hubo un error al cargar la oferta de empleo, favor de intentar más tarde", exception.StackTrace, exception.Message);
                 mensajes.ShowDialog();
             }
-            
-            try
-            {
-                
-            }catch(Exception e)
-            {
-                MessageBox.Show(e.Message);
-            }
+          
 
         }
 
@@ -243,7 +236,7 @@ namespace El_Camello.Vistas.Empleador
                     int idOfertaEmpleo = await OfertaEmpleoDAO.PostOfertaEmpleo(ofertaEmpleoNueva, token);
                     if (idOfertaEmpleo > 0)
                     {
-                        mensajes = new MensajesSistema("AccionExitosa", "Se ha registrado correctamente la oferta de empleo: " + ofertaEmpleoNueva.Nombre);
+                        mensajes = new MensajesSistema("AccionExitosa", "Se ha registrado correctamente la oferta de empleo", "Registro de oferta de empleo", "Se ha registrado la oferta de empleo: " + ofertaEmpleoNueva.Nombre);
                         mensajes.ShowDialog();
                         notificacion.actualizarCambios("Registrar oferta empleo");
                         this.Close();
@@ -301,7 +294,7 @@ namespace El_Camello.Vistas.Empleador
                     int actualizado = await OfertaEmpleoDAO.PutOfertaEmpleo(ofertaEmpleoModificada, token);
                     if (actualizado >= 1)
                     {
-                        mensajes = new MensajesSistema("AccionExitosa", "Se ha actualizado correctamente la oferta de empleo: " + ofertaEmpleoModificada.Nombre);
+                        mensajes = new MensajesSistema("AccionExitosa", "Se ha actualizado correctamente la oferta de empleo","Actualizar oferta de empleo", "Se ha actualizado la oferta de empleo: " + ofertaEmpleoModificada.Nombre);
                         mensajes.ShowDialog();
 
                         notificacion.actualizarCambios("Actualizar oferta empleo");

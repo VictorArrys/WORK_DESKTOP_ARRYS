@@ -74,9 +74,10 @@ namespace El_Camello.Modelo.dao
                         respuestaAPI.gestionRespuestasApi("Post Empleador", respuesta);
                     }
                 }
-                catch (HttpRequestException)
+                catch (HttpRequestException ex)
                 {
-                    MessageBox.Show("Conexion en este momento no disponible", "¡Operacion!");
+                    MensajesSistema errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Guardar empleador", ex.Message);
+                    errorMessage.ShowDialog();
                 }  
             }
             
@@ -114,9 +115,10 @@ namespace El_Camello.Modelo.dao
                         respuestaAPI.gestionRespuestasApi("Get Empleador", respuesta);
                     }
                 }
-                catch (HttpRequestException)
+                catch (HttpRequestException ex)
                 {
-                    MessageBox.Show("Conexion en este momento no disponible", "¡Operacion!");
+                    MensajesSistema errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Obtener usuario empleador", ex.Message);
+                    errorMessage.ShowDialog();
                 }
             }
 
@@ -161,9 +163,10 @@ namespace El_Camello.Modelo.dao
                         respuestaAPI.gestionRespuestasApi("Get Empleadores", respuesta);
                     }
                 }
-                catch (HttpRequestException)
+                catch (HttpRequestException ex)
                 {
-                    MessageBox.Show("Conexion en este momento no disponible", "¡Operacion!");
+                    MensajesSistema errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Obtener lista de empleadores", ex.Message);
+                    errorMessage.ShowDialog();
                 }
             }
 
@@ -235,9 +238,10 @@ namespace El_Camello.Modelo.dao
 
 
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Conexion en este momento no disponible", "¡Operacion!");
+                    MensajesSistema errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Modificar usuario empleador", ex.Message);
+                    errorMessage.ShowDialog();
                 }
             }
 

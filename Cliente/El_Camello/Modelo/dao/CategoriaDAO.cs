@@ -47,7 +47,9 @@ namespace El_Camello.Modelo.dao
                 }
                 catch (HttpRequestException ex)
                 {
-                    MessageBox.Show("servidor desconectado, no se puede establecer conexion");
+                    MensajesSistema errorMessage;
+                    errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Obtener lista de categorias", ex.Message);
+                    errorMessage.ShowDialog();
                 }
 
 
@@ -91,7 +93,9 @@ namespace El_Camello.Modelo.dao
                 }
                 catch (HttpRequestException ex)
                 {
-                    MessageBox.Show("servidor desconectado, no se puede establecer conexion");
+                    MensajesSistema errorMessage;
+                    errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Guardar categoria", ex.Message);
+                    errorMessage.ShowDialog();
                 }
 
 
@@ -124,7 +128,9 @@ namespace El_Camello.Modelo.dao
                 }
                 catch (HttpRequestException ex)
                 {
-                    MessageBox.Show("servidor desconectado, no se puede establecer conexion");
+                    MensajesSistema errorMessage;
+                    errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Borrar categoria", ex.Message);
+                    errorMessage.ShowDialog();
                 }
 
 
@@ -168,7 +174,9 @@ namespace El_Camello.Modelo.dao
                 }
                 catch (HttpRequestException ex)
                 {
-                    MessageBox.Show("servidor desconectado, no se puede establecer conexion");
+                    MensajesSistema errorMessage;
+                    errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Editar categoria", ex.Message);
+                    errorMessage.ShowDialog();
                 }
 
 

@@ -20,7 +20,7 @@ namespace El_Camello.Modelo.dao
 
         public static async Task<int> PostAspirante(Usuario usuario, clases.Aspirante aspirante) //listo cliente
         {
-
+            
             int resultado = -1;
             int idUsuario = -1;
             int idAspirante = -1;
@@ -103,7 +103,9 @@ namespace El_Camello.Modelo.dao
                 }
                 catch (HttpRequestException ex)
                 {
-                    MessageBox.Show("Conexion en este momento no disponible", "¡Operacion!");
+                    MensajesSistema errorMessage;
+                    errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Guardar usuario aspirante", ex.Message);
+                    errorMessage.ShowDialog();
                 }
                 finally
                 {
@@ -205,9 +207,11 @@ namespace El_Camello.Modelo.dao
                     }
 
                 }
-                catch (HttpRequestException)
+                catch (HttpRequestException ex)
                 {
-                    MessageBox.Show("servidor desconectado, no se puede establecer conexion");
+                    MensajesSistema errorMessage;
+                    errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Editar usuario aspirante", ex.Message);
+                    errorMessage.ShowDialog();
                 }
                 finally
                 {
@@ -259,9 +263,11 @@ namespace El_Camello.Modelo.dao
                     }
 
                 }
-                catch (HttpRequestException)
+                catch (HttpRequestException ex)
                 {
-                    MessageBox.Show("servidor desconectado, no se puede establecer conexion");
+                    MensajesSistema errorMessage;
+                    errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Obtener usuario aspirante", ex.Message);
+                    errorMessage.ShowDialog();
                 }
                 finally
                 {
@@ -319,9 +325,11 @@ namespace El_Camello.Modelo.dao
                         respuestaAPI.gestionRespuestasApi("Get Aspirantes", respuesta);
                     }
                 }
-                catch (HttpRequestException)
+                catch (HttpRequestException ex)
                 {
-                    MessageBox.Show("servidor desconectado, no se puede establecer conexion");
+                    MensajesSistema errorMessage;
+                    errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Obtener lista aspirantes", ex.Message);
+                    errorMessage.ShowDialog();
                 }
                 finally
                 {
@@ -360,9 +368,11 @@ namespace El_Camello.Modelo.dao
 
 
                 }
-                catch (HttpRequestException)
+                catch (HttpRequestException ex)
                 {
-                    MessageBox.Show("servidor desconectado, no se puede establecer conexion");
+                    MensajesSistema errorMessage;
+                    errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Recuperar video de aspirante", ex.Message);
+                    errorMessage.ShowDialog();
                 }
                 finally
                 {

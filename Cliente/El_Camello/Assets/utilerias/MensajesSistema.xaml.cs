@@ -60,9 +60,6 @@ namespace El_Camello.Assets.utilerias
 
                 case "AccionInvalida":
 
-                    lbTipoMensaje.ContentStringFormat = "Acción no permitida";
-                    winMensaje.Title = "Alerta de acción invalida";
-                    btnOk.IsEnabled = true;
                     accionInvalida();
 
 
@@ -71,6 +68,15 @@ namespace El_Camello.Assets.utilerias
 
                     mensajeExito();
 
+                    break;
+                case "Prohibido":
+
+                    mensajeProhibido();
+
+                    break;
+                case "Duplicado":
+
+                    mensajeDuplicado();
 
                     break;
                 default:
@@ -85,9 +91,15 @@ namespace El_Camello.Assets.utilerias
 
         public void accionInvalida()
         {
+
+            imgDuplicado.Source = null;
+            imgProhibido.Source = null;
             imgAccion.Source = null;
             imgError.Source = null;
             lbTipoMensaje.Content = "Mensaje informativo";
+
+            winMensaje.Title = "Alerta de acción invalida";
+            btnOk.IsEnabled = true;
             btnOk.IsEnabled = true;
 
             tbMensaje.Text = "Mensaje: " + mensaje;
@@ -97,6 +109,8 @@ namespace El_Camello.Assets.utilerias
 
         public void mensajeError()
         {
+            imgDuplicado.Source = null;
+            imgProhibido.Source = null;
             imgAccion.Source = null;
             imgAlerta.Source = null;
             lbTipoMensaje.Content = "Se presento un error";
@@ -111,13 +125,50 @@ namespace El_Camello.Assets.utilerias
 
         public void mensajeExito()
         {
+            imgDuplicado.Source = null;
+            imgProhibido.Source = null;
             imgAlerta.Source = null;
             imgError.Source = null;
-            lbTipoMensaje.ContentStringFormat = "Acción exitosa";
-            winMensaje.Title = "Acción completada";
+            winMensaje.Title = "Acción existosa";
             btnOk.IsEnabled = true;
 
             lbTipoMensaje.Content = "Se ha completado la acción";
+            btnOk.IsEnabled = true;
+
+            tbMensaje.Text = "Mensaje: " + mensaje;
+            tbUbicacion.Text = "Acción: " + ubicacion;
+            tbDetalles.Text = "Resultado: " + detalles;
+
+        }
+
+        public void mensajeProhibido()
+        {
+            imgDuplicado.Source = null;
+            imgAccion.Source = null;
+            imgAlerta.Source = null;
+            imgError.Source = null;
+            winMensaje.Title = "Prohibido";
+            btnOk.IsEnabled = true;
+
+            lbTipoMensaje.Content = "Contenido bloqueado";
+            btnOk.IsEnabled = true;
+
+            tbMensaje.Text = "Mensaje: " + mensaje;
+            tbUbicacion.Text = "Acción: " + ubicacion;
+            tbDetalles.Text = "Resultado: " + detalles;
+
+        }
+
+        public void mensajeDuplicado()
+        {
+            imgAccion.Source = null;
+            imgProhibido.Source = null;
+            imgAlerta.Source = null;
+            imgError.Source = null;
+            winMensaje.Title = "Petición no aceptada";
+            btnOk.IsEnabled = true;
+
+            lbTipoMensaje.Content = "No se ha aceptado la petición";
             btnOk.IsEnabled = true;
 
             tbMensaje.Text = "Mensaje: " + mensaje;

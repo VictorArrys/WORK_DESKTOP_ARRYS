@@ -1,4 +1,5 @@
-﻿using El_Camello.Configuracion;
+﻿using El_Camello.Assets.utilerias;
+using El_Camello.Configuracion;
 using El_Camello.Modelo.clases;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -51,7 +52,9 @@ namespace El_Camello.Modelo.dao
                 }
                 catch (HttpRequestException ex)
                 {
-                    MessageBox.Show("servidor desconectado, no se puede establecer conexion");
+                    MensajesSistema errorMessage;
+                    errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Obtener conversaciones aspirante", ex.Message);
+                    errorMessage.ShowDialog();
                 }
             }
 

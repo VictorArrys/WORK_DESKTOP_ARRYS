@@ -105,9 +105,10 @@ namespace El_Camello.Modelo.dao
                         respuestaAPI.gestionRespuestasApi("Get Demandante", respuesta);
                     }
                 }
-                catch (HttpRequestException)
+                catch (HttpRequestException ex)
                 {
-                    MessageBox.Show("verificar servidor");
+                    MensajesSistema errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Obtener demandante", ex.Message);
+                    errorMessage.ShowDialog();
                 }
 
             }
@@ -168,9 +169,10 @@ namespace El_Camello.Modelo.dao
                     }
 
                 }
-                catch (HttpRequestException)
+                catch (HttpRequestException ex)
                 {
-                    MessageBox.Show("verificar servidor");
+                    MensajesSistema errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Consultar imagenes de oferta de empleo", ex.Message);
+                    errorMessage.ShowDialog();
                 }
             }
 

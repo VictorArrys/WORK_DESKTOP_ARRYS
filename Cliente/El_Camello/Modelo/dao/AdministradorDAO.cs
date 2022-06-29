@@ -16,6 +16,7 @@ namespace El_Camello.Modelo.dao
     {
         public static async Task<clases.Administrador> getAdministrador(int idUsuario, string token) // listo cliente
         {
+            MensajesSistema errorMessage;
             clases.Administrador administrador = new clases.Administrador();
             using (var cliente = new HttpClient())
             {
@@ -41,9 +42,10 @@ namespace El_Camello.Modelo.dao
                         respuestaAPI.gestionRespuestasApi("Get Administrador", respuesta);
                     }
                 }
-                catch (HttpRequestException)
+                catch (HttpRequestException ex)
                 {
-                    MessageBox.Show("Conexion en este momento no disponible", "¡Operacion!");
+                    errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Obtener administrador", ex.Message);
+                    errorMessage.ShowDialog();
                 }
                 finally
                 {
@@ -56,6 +58,7 @@ namespace El_Camello.Modelo.dao
 
         public static async Task<List<clases.Administrador>> getAdministradores(string token) // listo cliente
         {
+            MensajesSistema errorMessage;
             List<clases.Administrador> administradores = new List<clases.Administrador>();
             using (var cliente = new HttpClient())
             {
@@ -88,9 +91,10 @@ namespace El_Camello.Modelo.dao
                     }
 
                 }
-                catch (HttpRequestException)
+                catch (HttpRequestException ex)
                 {
-                    MessageBox.Show("Conexion en este momento no disponible", "¡Operacion!");
+                    errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Obtener lista de empleadores", ex.Message);
+                    errorMessage.ShowDialog();
                 }
                 finally
                 {
@@ -103,6 +107,7 @@ namespace El_Camello.Modelo.dao
 
         public static async Task<int> putAdministrador(clases.Administrador administrador) // listo cliente
         {
+            MensajesSistema errorMessage;
             int resultado = -1;
             int idUsuario = -1;
             int idPerfilAdministrador = -1;
@@ -139,9 +144,10 @@ namespace El_Camello.Modelo.dao
                     }
 
                 }
-                catch (HttpRequestException)
+                catch (HttpRequestException ex)
                 {
-
+                    errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Editar perfil administrador", ex.Message);
+                    errorMessage.ShowDialog();
                 }
                 finally
                 {

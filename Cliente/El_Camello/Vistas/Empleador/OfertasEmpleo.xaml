@@ -15,10 +15,10 @@
             <ColumnDefinition Width="229*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="105*"/>
-            <RowDefinition Height="18*"/>
-            <RowDefinition Height="218*"/>
-            <RowDefinition Height="184*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="111*"/>
+            <RowDefinition Height="94*"/>
         </Grid.RowDefinitions>
         <Grid.Background>
             <SolidColorBrush Color="#FFDFDFDF" Opacity="1"/>
@@ -31,7 +31,7 @@
                 <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
             </Rectangle.Fill>
         </Rectangle>
-        <DataGrid x:Name="dgOfertasEmpleo" Margin="334,54,10,92" Grid.RowSpan="4" Grid.ColumnSpan="3" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeRows="False" IsReadOnly="True" AutoGenerateColumns="False">
+        <DataGrid x:Name="dgOfertasEmpleo" Margin="334,54,10,92" Grid.RowSpan="4" Grid.ColumnSpan="3" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeRows="False" IsReadOnly="True" AutoGenerateColumns="False" Background="White">
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nombre del empleo" Binding= "{Binding Nombre}" Width="320"/>

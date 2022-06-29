@@ -10,11 +10,14 @@
 
   <ItemGroup>
     <None Remove="Assets\imagenes\alerta.png" />
+    <None Remove="Assets\imagenes\duplicado.png" />
     <None Remove="Assets\imagenes\error.png" />
     <None Remove="Assets\imagenes\exito.png" />
+    <None Remove="Assets\imagenes\prohibido.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\imagenes\duplicado.png" />
     <Resource Include="Assets\imagenes\exito.png" />
   </ItemGroup>
 
@@ -29,6 +32,7 @@
     <Resource Include="Assets\imagenes\error.png" />
     <Resource Include="Assets\imagenes\Logo.png" />
     <Resource Include="Assets\imagenes\password.png" />
+    <Resource Include="Assets\imagenes\prohibido.png" />
     <Resource Include="Assets\imagenes\user.png" />
   </ItemGroup>
 

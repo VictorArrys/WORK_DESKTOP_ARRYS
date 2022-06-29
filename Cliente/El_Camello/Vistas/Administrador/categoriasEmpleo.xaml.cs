@@ -1,4 +1,5 @@
-﻿using El_Camello.Modelo.clases;
+﻿using El_Camello.Assets.utilerias;
+using El_Camello.Modelo.clases;
 using El_Camello.Modelo.dao;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,10 +40,12 @@ namespace El_Camello.Vistas.Administrador
 
         private async void btnRegistrarCategoria_Click(object sender, RoutedEventArgs e)
         {
+            MensajesSistema errorMessage;
 
             if (tbNombreCategoria.Text == "")
             {
-                MessageBox.Show("Favor de llenar el campo requerido", "Campo Vacio");
+                errorMessage = new MensajesSistema("AccionInvalida", "Campos invalidos o vacios", "Registrar categoria de empleo", "Favor de llenar el campo requerido");
+                errorMessage.ShowDialog();
             }
             else
             {
@@ -50,13 +53,15 @@ namespace El_Camello.Vistas.Administrador
                 int resultado = await CategoriaDAO.PostCategoria(nombre, token);
                 if (resultado == 1)
                 {
-                    MessageBox.Show("Categoria registrada con éxito", "¡Operación!");
+                    errorMessage = new MensajesSistema("AccionExitosa", "Categoria registrada con exito", "Registrar categoria de empleo", "Se registro la categoria: " + nombre);
+                    errorMessage.ShowDialog();
                     limpiarCampos();
                     CargarCategorias();
                 }
                 else
                 {
-                    MessageBox.Show("Ocurrio un error al registrar una nueva categoría", "¡Operación!");
+                    errorMessage = new MensajesSistema("Error", "Ocurrio un error al registrar la categoria", "Registro de categoria de empleo", "La categoria no se registro");
+                    errorMessage.ShowDialog();
                 }
             }
         }
@@ -65,18 +70,21 @@ namespace El_Camello.Vistas.Administrador
 
         private async void btnEliminarCategoria_Click(object sender, RoutedEventArgs e)
         {
-
+            MensajesSistema errorMessage;
             int id = categoriaSeleccionada.IdCategoria;
             int resultado = await CategoriaDAO.DeleteCategoria(id, token);
             if (resultado == 1)
             {
-                MessageBox.Show("Categoria eliminada con éxito", "¡Operación!");
+                errorMessage = new MensajesSistema("AccionExitosa", "Categoria eliminada con éxito", "Eliminar categoria de empleo", "Se elimino la categoria");
+                errorMessage.ShowDialog();
                 limpiarCampos();
                 CargarCategorias();
             }
             else
             {
-                MessageBox.Show("Ocurrio un error al eliminar la categoría seleccionada, verificar si la categoria esta en uso por otro usuario", "¡Operación!");
+                errorMessage = new MensajesSistema("Error", "No se pudo eliminar la categoria", "Registro de categoria de empleo", "Ocurrio un error al eliminar la categoría seleccionada, verificar si la categoria esta en uso por otro usuario");
+                errorMessage.ShowDialog();
+               
             }
             
         }
