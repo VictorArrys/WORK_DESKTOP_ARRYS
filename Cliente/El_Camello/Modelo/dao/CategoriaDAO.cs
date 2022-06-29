@@ -141,7 +141,7 @@ namespace El_Camello.Modelo.dao
             {
                 
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = String.Format("{0}/v1/categoriasEmpleo/{0}", Settings.ElCamelloURL, categoria.IdCategoria);
+                string endpoint = String.Format("{0}/v1/categoriasEmpleo/{1}", Settings.ElCamelloURL, categoria.IdCategoria);
 
                 try
                 {

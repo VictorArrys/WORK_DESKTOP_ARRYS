@@ -235,7 +235,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = String.Format("{0}/v1/perfilUsuarios/{0}/habilitar", Settings.ElCamelloURL,idUsuario);
+                string endpoint = String.Format("{0}/v1/perfilUsuarios/{1}/habilitar", Settings.ElCamelloURL,idUsuario);
 
                 try
                 {
