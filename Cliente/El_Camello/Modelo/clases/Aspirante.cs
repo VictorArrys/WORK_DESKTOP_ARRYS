@@ -16,6 +16,7 @@ namespace El_Camello.Modelo.clases
         private MemoryStream video;
         private byte[] registroVideo;
         private string rutaVideo;
+        private int valoracionPromedio;
 
         public int IdAspirante { get => idAspirante; set => idAspirante = value; }
         public int IdUsuario { get => idUsuario; set => idUsuario = value; }
@@ -26,6 +27,7 @@ namespace El_Camello.Modelo.clases
         public string RutaVideo { get => rutaVideo; set => rutaVideo = value; }
         public MemoryStream Video { get => video; set => video = value; }
         public byte[] RegistroVideo { get => registroVideo; set => registroVideo = value; }
+        public int ValoracionPromedio { get => valoracionPromedio; set => valoracionPromedio = value; }
         internal List<Oficio> Oficios { get => oficios; set => oficios = value; }
     }
 }

@@ -273,14 +273,22 @@ namespace El_Camello.Modelo.dao
             return aspirante;
         }
 
-        public static async Task<List<clases.Aspirante>> GetAspirantes(string token) // listo api
+        public static async Task<List<clases.Aspirante>> GetAspirantes(string token)
+        {
+            return await GetAspirantes(0, token);
+        }
+
+        public static async Task<List<clases.Aspirante>> GetAspirantes(int idCategoria , string token) // listo api
         {
             List<clases.Aspirante> aspirantes = new List<clases.Aspirante>();
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
                 string endpoint = string.Format("http://localhost:5000/v1/perfilAspirantes");
-
+                if (idCategoria > 0 )
+                {
+                    endpoint += $"?idCategoria={idCategoria}";  
+                }
                 try
                 {
                     HttpResponseMessage respuesta = await cliente.GetAsync(endpoint);
@@ -300,6 +308,7 @@ namespace El_Camello.Modelo.dao
                             aspirante.IdAspirante = (int)item["idPerfilAspirante"];
                             aspirante.NombreAspirante = (string)item["nombre"];
                             aspirante.Telefono = (string)item["telefono"];
+                            aspirante.ValoracionPromedio = (int)item["valoracionPromedio"];
                             aspirantes.Add(aspirante);
                         }
                      

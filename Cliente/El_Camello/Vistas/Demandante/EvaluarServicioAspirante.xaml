@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:El_Camello.Vistas.Demandante"
         mc:Ignorable="d"
-        Title="EvaluarServicioAspirante" Height="437" Width="372" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Evaluar Servicio de Aspirante" Height="437" Width="372" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid Background="#FFDFDFDF">
         <StackPanel Margin="98,54,98,204" Background="White"/>
         <TextBox HorizontalAlignment="Center" Margin="0,275,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="166" Height="65" BorderBrush="Black"/>

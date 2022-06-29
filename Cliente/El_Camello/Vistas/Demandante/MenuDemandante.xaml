@@ -21,7 +21,7 @@
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.Background>
         </Button>
-        <Button x:Name="btnConsultarValoraciones" Content="Valoraciones" HorizontalAlignment="Left" Margin="641,91,0,0" VerticalAlignment="Top" Width="87" Height="41" FontSize="14" FontWeight="Bold" Foreground="White" Click="btnConsultarValoraciones_Click">
+        <Button x:Name="btnSolicitarServicio" Content="Solicitar &#xA;Servicio" HorizontalAlignment="Left" Margin="641,91,0,0" VerticalAlignment="Top" Width="87" Height="41" FontSize="14" FontWeight="Bold" Foreground="White" Click="btnSolicitarServicio_Click" >
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>
