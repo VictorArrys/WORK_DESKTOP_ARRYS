@@ -91,13 +91,6 @@ namespace El_Camello.Vistas.Aspirante
             Show();
         }
 
-        private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
-        {
-            Usuario.Login ventanaLogin = new Usuario.Login();
-            ventanaLogin.Show();
-            this.Close();
-        }
-
         private void btnEditarPerfil_Click(object sender, RoutedEventArgs e)
         {
             RegistrarAspirante registrarAspirante = new RegistrarAspirante(perfilAspirante, this);
@@ -172,6 +165,13 @@ namespace El_Camello.Vistas.Aspirante
             Hide();
             ventanaBuscarOfertaEmpleo.ShowDialog();
             Show();
+        }
+
+        private void btnCerrarSesion1_Click(object sender, RoutedEventArgs e)
+        {
+            Login login = new Login();
+            login.Show();
+            this.Close();
         }
     }
 }

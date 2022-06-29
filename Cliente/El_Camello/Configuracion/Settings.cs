@@ -44,7 +44,7 @@ namespace El_Camello.Configuracion
 
         private static void SetDefaultURL()
         {
-            archivoINI.EscribirINI("Settings", "URL", "http://localhost:5000");
+            archivoINI.EscribirINI("Settings", "URL", "https://elcamello.azurewebsites.net");
         }
     }
 }

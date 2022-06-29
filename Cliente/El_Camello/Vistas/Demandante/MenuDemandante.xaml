@@ -5,15 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:El_Camello.Vistas.Demandante"
         mc:Ignorable="d"
-        Title="MenuDemandante" Height="545" Width="1026" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="MenuDemandante" Height="323" Width="768" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid Background="#FFDFDFDF">
-        <StackPanel Margin="22,50,844,342" Background="Snow" Width="163" Height="133">
+        <StackPanel Margin="22,52,590,124" Background="Snow">
             <Image  x:Name="imgFoto" Height="133" Width="162"/>
         </StackPanel>
         <Button x:Name="btnEditarPerfil" Content="Editar Perfil" HorizontalAlignment="Left" Margin="183,59,0,0" VerticalAlignment="Top" FontStyle="Italic" BorderBrush="#FFDFDFDF" Background="#FFDFDFDF" FontWeight="Normal" Click="btnEditarPerfil_Click"/>
         <Button x:Name="btnDesactivar" Content="Desactivar Perfil" HorizontalAlignment="Left" Margin="183,90,0,0" VerticalAlignment="Top" FontStyle="Italic" BorderBrush="#FFDFDFDF" Background="#FFDFDFDF" FontWeight="Normal" Click="btnDesactivar_Click"/>
         <Button x:Name="btnActivarPerfil" Content="Activar Perfil" HorizontalAlignment="Left" Margin="184,119,0,0" VerticalAlignment="Top" FontStyle="Italic" BorderBrush="#FFDFDFDF" Background="#FFDFDFDF" FontWeight="Normal" Click="btnActivarPerfil_Click"/>
-        <Button x:Name="btnConsultarSolicitudes" Content=" Consultar &#xA;Solicitudes" HorizontalAlignment="Left" Margin="513,90,0,0" VerticalAlignment="Top" Width="87" Height="41" FontSize="14" FontWeight="Bold" Foreground="White" Click="btnConsultarSolicitudes_Click">
+        <Button x:Name="btnConsultarSolicitudes" Content=" Consultar &#xA;Solicitudes" HorizontalAlignment="Left" Margin="360,103,0,0" VerticalAlignment="Top" Width="87" Height="41" FontSize="14" FontWeight="Bold" Foreground="White" Click="btnConsultarSolicitudes_Click">
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>
@@ -21,7 +21,7 @@
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.Background>
         </Button>
-        <Button x:Name="btnSolicitarServicio" Content="Solicitar &#xA;Servicio" HorizontalAlignment="Left" Margin="641,91,0,0" VerticalAlignment="Top" Width="87" Height="41" FontSize="14" FontWeight="Bold" Foreground="White" Click="btnSolicitarServicio_Click" >
+        <Button x:Name="btnSolicitarServicio" Content="Solicitar &#xA;Servicio" HorizontalAlignment="Left" Margin="505,103,0,0" VerticalAlignment="Top" Width="87" Height="41" FontSize="14" FontWeight="Bold" Foreground="White" Click="btnSolicitarServicio_Click" >
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>
@@ -29,7 +29,7 @@
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.Background>
         </Button>
-        <Button x:Name="btnMensajeria" Content="Mensajería" HorizontalAlignment="Left" Margin="777,92,0,0" VerticalAlignment="Top" Width="87" Height="41" FontSize="14" FontWeight="Bold" Foreground="White" Click="btnMensajeria_Click">
+        <Button x:Name="btnMensajeria" Content="Mensajería" HorizontalAlignment="Left" Margin="652,103,0,0" VerticalAlignment="Top" Width="87" Height="41" FontSize="14" FontWeight="Bold" Foreground="White" Click="btnMensajeria_Click">
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>
@@ -37,10 +37,7 @@
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.703"/>
             </Button.Background>
         </Button>
-        <DataGrid x:Name="dgAspirantes" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="22,223,22,40"/>
-        <Label Content="Categoría:" HorizontalAlignment="Left" Margin="23,192,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold"/>
-        <ComboBox x:Name="cbCategorias" HorizontalAlignment="Left" Margin="104,196,0,0" VerticalAlignment="Top" Width="182" SelectionChanged="cambioCategoria"/>
-        <Rectangle HorizontalAlignment="Center" Height="41" VerticalAlignment="Top" Width="1026">
+        <Rectangle HorizontalAlignment="Left" Height="41" VerticalAlignment="Top" Width="769" Margin="0,1,0,0">
             <Rectangle.Stroke>
                 <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
             </Rectangle.Stroke>
@@ -48,7 +45,7 @@
                 <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
             </Rectangle.Fill>
         </Rectangle>
-        <Rectangle HorizontalAlignment="Center" Height="15" VerticalAlignment="Bottom" Width="1026" Margin="0,107,0,0">
+        <Rectangle HorizontalAlignment="Center" Height="15" VerticalAlignment="Top" Width="768" Margin="0,293,0,0">
             <Rectangle.Stroke>
                 <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
             </Rectangle.Stroke>
@@ -56,8 +53,8 @@
                 <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
             </Rectangle.Fill>
         </Rectangle>
-        <Label x:Name="lbNombreDemandante" Content="Nombre Demandante" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="White" FontStyle="Italic" Width="867"/>
-        <Button x:Name="btnCerrarSesion" Content="Cerrar Sesión" HorizontalAlignment="Left" Margin="893,4,0,0" VerticalAlignment="Top" Width="104" Height="33" FontSize="14" FontWeight="Bold" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="btnCerrarSesion_Click"/>
+        <Label x:Name="lbNombreDemandante" Content="Nombre Demandante" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="White" FontStyle="Italic" Width="669"/>
+        <Button x:Name="btnCerrarSesion" Content="Cerrar Sesión" HorizontalAlignment="Left" Margin="652,4,0,0" VerticalAlignment="Top" Width="104" Height="33" FontSize="14" FontWeight="Bold" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="btnCerrarSesion_Click"/>
 
     </Grid>
 </Window>

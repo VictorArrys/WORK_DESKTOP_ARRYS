@@ -85,10 +85,8 @@ namespace El_Camello.Vistas.Demandante
             CargarImagen(demandante.Fotografia);
 
             categorias = await CategoriaDAO.GetCategorias();
-            cbCategorias.ItemsSource = categorias;
             aspirantes = await AspiranteDAO.GetAspirantes(demandante.Token);
             lbNombreDemandante.Content = "Usuario:" + demandante.NombreDemandante;
-            dgAspirantes.ItemsSource = aspirantes;
 
         }
        
@@ -146,14 +144,6 @@ namespace El_Camello.Vistas.Demandante
             Show();
         }
 
-        
-
-        private void cambioCategoria(object sender, SelectionChangedEventArgs e)
-        {
-            int seleccion = cbCategorias.SelectedIndex;
-            //MessageBox.Show(categorias[seleccion].ToString());
-           
-        }
 
         private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
         {
