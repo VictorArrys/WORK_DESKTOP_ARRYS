@@ -18,7 +18,7 @@
             </Grid.ColumnDefinitions>
 
 
-            <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1" Margin="10" >
+            <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1" Margin="10" MinHeight="300" >
                 <DockPanel LastChildFill="true">
                     <Label DockPanel.Dock="Top" Content="Empleos reportados" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26"/>
                     <DataGrid x:Name="dgReportes" d:ItemsSource="{Binding}" Margin="20" AutoGenerateColumns="False" IsReadOnly="true" SelectionChanged="dgReportes_SelectionChanged">

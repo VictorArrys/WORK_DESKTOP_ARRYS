@@ -37,11 +37,11 @@ namespace El_Camello.Modelo.dao
                             ContratacionServicio contratacionServicio = new ContratacionServicio();
                             contratacionServicio.IdContratacionServicio = (int)item["idContratacionServicio"];
                             contratacionServicio.Demandante.IdDemandante = (int)item["idPerfilDemandante"];
-                            contratacionServicio.FechaFinalizacion = (DateTime)item["fechaFinalizacion"];
+                            contratacionServicio.FechaFinalizacion = item["fechaFinalizacion"].Type == JTokenType.Null ? DateTime.MinValue : (DateTime)item["fechaFinalizacion"];
                             contratacionServicio.Estatus = (int)item["estatus"];
                             contratacionServicio.FechaContratacion = (DateTime)item["fechaContratacion"];
                             contratacionServicio.ValoracionAspirante = (int)item["valoracionDemandante"];
-                            contratacionServicio.Aspirante.IdAspirante = (int)item["idPerfilAspirant"];
+                            contratacionServicio.Aspirante.IdAspirante = (int)item["idPerfilAspirante"];
                             contratacionesServicio.Add(contratacionServicio);
 
                         }

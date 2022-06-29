@@ -47,9 +47,16 @@ namespace El_Camello.Vistas.Demandante
             cargarTablaServicios(demandante.IdDemandante, demandante.Token);
         }
 
-        private void btnFinalizar_Click(object sender, RoutedEventArgs e)
+        private async void btnFinalizar_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("solicitudFinalizada");
+
+            int resultado = await ContratacionServicioDAO.finalizar(demandante.IdDemandante, this.contratacionSeleccionada.IdContratacionServicio, demandante.Token);
+            
+            if (resultado == 1)
+            {
+                MessageBox.Show("Contratación finalizada");
+            }
+            
             cargarTablaServicios(demandante.IdDemandante, demandante.Token);
         }
 
@@ -57,7 +64,7 @@ namespace El_Camello.Vistas.Demandante
         {
             if (dgContrataciones.SelectedIndex > -1)
             {
-                ContratacionServicio contratacionSeleccionada = (ContratacionServicio)dgContrataciones.SelectedItem;
+                contratacionSeleccionada = (ContratacionServicio)dgContrataciones.SelectedItem;
                 if (contratacionSeleccionada.Estatus == 0)
                 {
                     btnFinalizar.IsEnabled = true;
