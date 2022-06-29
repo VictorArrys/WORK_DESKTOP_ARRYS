@@ -32,5 +32,23 @@ namespace El_Camello.Modelo.clases
         public DateTime FechaFinalizacion { get => fechaFinalizacion; set => fechaFinalizacion = value; }
         public int ValoracionAspirante { get => valoracionAspirante; set => valoracionAspirante = value; }
         public string TituloEmpleo { get => tituloEmpleo; set => tituloEmpleo = value; }
+        public string EstatusSolicitud
+        {
+            get
+            {
+                if (estatus == 0)
+                {
+                    return "En proceso";
+                }
+                else if (estatus == 1)
+                {
+                    return "Finalizada";
+                }
+                else
+                {
+                    return "";
+                }
+            }
+        }
     }
 }

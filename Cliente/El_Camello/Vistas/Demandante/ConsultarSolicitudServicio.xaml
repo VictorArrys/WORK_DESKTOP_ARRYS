@@ -7,9 +7,22 @@
         mc:Ignorable="d"
         Title="ConsultarSolicitudServicio" Height="683" Width="1141" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid Background="#FFDFDFDF">
-        <DataGrid x:Name="dgContrataciones" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="44,87,44,333" SelectionChanged="dgContratacionesCambio"/>
+        <DataGrid x:Name="dgContrataciones" Margin="44,87,44,333" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" CanUserSortColumns="False" AutoGenerateColumns="False" SelectionChanged="dgContratacionesCambio">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Fecha de contratación" Binding= "{Binding FechaContratacion}" Width="140"/>
+                <DataGridTextColumn Header="Fecha de Finalización" Binding= "{Binding FechaFinalizacion}" Width="97"/>
+            </DataGrid.Columns>
+        </DataGrid>
         <Label Content="Contrataciones de Servicio:" HorizontalAlignment="Left" Margin="40,59,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-        <DataGrid x:Name="dgSolicitudes" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="45,384,44,29"/>
+        <DataGrid x:Name="dgSolicitudes" Margin="45,384,44,29" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" CanUserSortColumns="False" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                
+                <DataGridTextColumn Header="Titulo Contratación" Binding= "{Binding Titulo}" Width="200"/>
+                <DataGridTextColumn Header="Descripcion" Binding= "{Binding Descripcion}" Width="160"/>
+                <DataGridTextColumn Header="Estatus" Binding= "{Binding EstatusSolicitud}" Width="140"/>
+                <DataGridTextColumn Header="Fecha de registro" Binding= "{Binding FechaRegistro}" Width="97"/>
+            </DataGrid.Columns>
+        </DataGrid>
         <Label Content="Solicitudes realizadas:" HorizontalAlignment="Left" Margin="42,355,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <Button x:Name="btnFinalizar" Content="Finalizar" HorizontalAlignment="Left" Margin="733,53,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Height="29" Width="83" Foreground="White" Click="btnFinalizar_Click">
             <Button.BorderBrush>
