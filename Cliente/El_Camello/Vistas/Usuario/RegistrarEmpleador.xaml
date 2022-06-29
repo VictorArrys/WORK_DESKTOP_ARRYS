@@ -33,7 +33,7 @@
         <TextBox x:Name="tbNombre" Margin="199,115,564,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" BorderBrush="Black"/>
         <TextBox x:Name="tbDireccion" Margin="199,197,564,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" BorderBrush="Black"/>
         <TextBox x:Name="tbCorreoElectronico" Margin="199,360,564,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" BorderBrush="Black"/>
-        <TextBox x:Name="tbTelefono" Margin="199,441,564,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" BorderBrush="Black"/>
+        <TextBox x:Name="tbTelefono" MaxLength="10" Margin="199,441,564,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" BorderBrush="Black"/>
         <Label Content="*  Campos obligatorios" HorizontalAlignment="Left" Margin="656,112,0,0" VerticalAlignment="Top" FontSize="10" FontWeight="Bold" Opacity="0.8" FontStyle="Italic"/>
         <DatePicker x:Name="dpFechaNacimiento" HorizontalAlignment="Left" Margin="199,281,0,0" VerticalAlignment="Top" Width="200"/>
         <Label Content="Sube aquí tu fotografía. " HorizontalAlignment="Left" Margin="443,72,0,0" VerticalAlignment="Top" FontSize="11" FontWeight="Bold" Height="25" Opacity="0.75"/>

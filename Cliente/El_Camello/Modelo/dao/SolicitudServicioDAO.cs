@@ -1,4 +1,5 @@
 ﻿using El_Camello.Assets.utilerias;
+using El_Camello.Configuracion;
 using El_Camello.Modelo.clases;
 using Newtonsoft.Json.Linq;
 using System;
@@ -27,7 +28,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = $"http://localhost:5000/v1/perfilDemandantes/{idDemandante}/solicitudesServicios";
+                string endpoint = $"{Settings.ElCamelloURL}/v1/perfilDemandantes/{idDemandante}/solicitudesServicios";
 
                 try
                 {
@@ -71,7 +72,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = $"http://localhost:5000/v1/perfilAspirantes/{idAspirante}/solicitudesServicios";
+                string endpoint = $"{Settings.ElCamelloURL}/v1/perfilAspirantes/{idAspirante}/solicitudesServicios";
                 switch (estatus)
                 {
                     case 1:
@@ -138,7 +139,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = $"http://localhost:5000/v1/perfilAspirantes/{idAspirante}/solicitudesServicios/{idSolicitud}";
+                string endpoint = $"{Settings.ElCamelloURL}/v1/perfilAspirantes/{idAspirante}/solicitudesServicios/{idSolicitud}";
                 try
                 {
                     HttpResponseMessage respuesta = await cliente.GetAsync(endpoint);
@@ -190,7 +191,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = $"http://localhost:5000/v1/perfilAspirantes/{idAspirante}/solicitudesServicios/{idSolicitud}/aceptada";
+                string endpoint = $"{Settings.ElCamelloURL}/v1/perfilAspirantes/{idAspirante}/solicitudesServicios/{idSolicitud}/aceptada";
                 try
                 {
                     HttpResponseMessage respuesta = await cliente.PatchAsync(endpoint,null);
@@ -227,7 +228,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = $"http://localhost:5000/v1/perfilAspirantes/{idAspirante}/solicitudesServicios/{idSolicitud}/rechazada";
+                string endpoint = $"{Settings.ElCamelloURL}/v1/perfilAspirantes/{idAspirante}/solicitudesServicios/{idSolicitud}/rechazada";
                 try
                 {
                     HttpResponseMessage respuesta = await cliente.PatchAsync(endpoint, null);

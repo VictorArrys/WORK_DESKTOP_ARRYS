@@ -15,7 +15,7 @@
         <TextBox x:Name="tbNombreDemandante" HorizontalAlignment="Left" Margin="195,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Height="24" SelectionOpacity="1" BorderBrush="#FF020202"/>
         <TextBox x:Name="tbDireccion" HorizontalAlignment="Left" Margin="195,172,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Height="24" BorderBrush="Black"/>
         <TextBox x:Name="tbCorreoElectronico" HorizontalAlignment="Left" Margin="195,336,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Height="24" BorderBrush="Black"/>
-        <TextBox x:Name="tbTelefono" HorizontalAlignment="Left" Margin="195,417,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Height="24" BorderBrush="Black"/>
+        <TextBox x:Name="tbTelefono" MaxLength="10" HorizontalAlignment="Left" Margin="195,417,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Height="24" BorderBrush="Black"/>
         <DatePicker x:Name="dpFechaNacimiento" HorizontalAlignment="Left" Margin="195,260,0,0" VerticalAlignment="Top" Width="164"/>
         <StackPanel Margin="442,97,353,303" Background="#FFFDFDFD">
             <Image x:Name="imgFotografiaDemandante" Height="128" Width="170"/>

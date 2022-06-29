@@ -1,4 +1,5 @@
-﻿using El_Camello.Modelo.clases;
+﻿using El_Camello.Configuracion;
+using El_Camello.Modelo.clases;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -20,7 +21,7 @@ namespace El_Camello.Modelo.dao
             List<Conversacion> conversaciones = new List<Conversacion>();
             using (var cliente = new HttpClient())
             {
-                string endpoint = $"http://localhost:5000/v1/perfilAspirantes/{idAspirante}/conversaciones";
+                string endpoint = $"{Settings.ElCamelloURL}/v1/perfilAspirantes/{idAspirante}/conversaciones";
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
                 try
                 {
@@ -65,7 +66,7 @@ namespace El_Camello.Modelo.dao
             Conversacion conversacion = new Conversacion();
             using (var cliente = new HttpClient())
             {
-                string endpoint = $"http://localhost:5000/v1/perfilAspirantes/{idAspirante}/conversaciones/{idConversacion}";
+                string endpoint = $"{Settings.ElCamelloURL}/v1/perfilAspirantes/{idAspirante}/conversaciones/{idConversacion}";
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
                 try
                 {
@@ -116,7 +117,7 @@ namespace El_Camello.Modelo.dao
             {
                 try
                 {
-                    string endpoint = $"http://localhost:5000/v1/perfilAspirantes/{idAspirante}/conversaciones/{idConversacion}";
+                    string endpoint = $"{Settings.ElCamelloURL}/v1/perfilAspirantes/{idAspirante}/conversaciones/{idConversacion}";
                     cliente.DefaultRequestHeaders.Add("x-access-token", token);
 
                     JObject cuerpoJson = new JObject();
@@ -198,7 +199,7 @@ namespace El_Camello.Modelo.dao
             Conversacion conversacion = new Conversacion();
             using (var cliente = new HttpClient())
             {
-                string endpoint = $"http://localhost:5000/v1/perfilDemandantes/{idDemandante}/conversaciones/{idConversacion}";
+                string endpoint = $"{Settings.ElCamelloURL}/v1/perfilDemandantes/{idDemandante}/conversaciones/{idConversacion}";
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
                 try
                 {
@@ -247,7 +248,7 @@ namespace El_Camello.Modelo.dao
             {
                 try
                 {
-                    string endpoint = $"http://localhost:5000/v1/perfilDemandantes/{idDemandante}/conversaciones/{idConversacion}";
+                    string endpoint = $"{Settings.ElCamelloURL}/v1/perfilDemandantes/{idDemandante}/conversaciones/{idConversacion}";
                     cliente.DefaultRequestHeaders.Add("x-access-token", token);
 
                     JObject cuerpoJson = new JObject();
@@ -327,7 +328,7 @@ namespace El_Camello.Modelo.dao
             Conversacion conversacion = new Conversacion();
             using (var cliente = new HttpClient())
             {
-                string endpoint = $"http://localhost:5000/v1/perfilEmpleadores/{idEmpleador}/conversaciones/{idConversacion}";
+                string endpoint = $"{Settings.ElCamelloURL}/v1/perfilEmpleadores/{idEmpleador}/conversaciones/{idConversacion}";
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
                 try
                 {
@@ -376,7 +377,7 @@ namespace El_Camello.Modelo.dao
             {
                 try
                 {
-                    string endpoint = $"http://localhost:5000/v1/perfilEmpleadores/{idEmpleador}/conversaciones/{idConversacion}";
+                    string endpoint = $"{Settings.ElCamelloURL}/v1/perfilEmpleadores/{idEmpleador}/conversaciones/{idConversacion}";
                     cliente.DefaultRequestHeaders.Add("x-access-token", token);
 
                     JObject cuerpoJson = new JObject();

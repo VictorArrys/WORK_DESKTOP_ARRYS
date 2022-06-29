@@ -1,4 +1,5 @@
 ﻿using El_Camello.Assets.utilerias;
+using El_Camello.Configuracion;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -19,7 +20,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = String.Format("http://localhost:5000/v1/perfilAdministradores/{0}", idUsuario);
+                string endpoint = String.Format("{0}/v1/perfilAdministradores/{1}", Settings.ElCamelloURL, idUsuario);
 
                 try
                 {
@@ -59,7 +60,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = "http://localhost:5000/v1/perfilAdministradores";
+                string endpoint = $"{Settings.ElCamelloURL}/v1/perfilAdministradores";
 
                 try
                 {
@@ -109,7 +110,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", administrador.Token);
-                string endpoint = string.Format("http://localhost:5000/v1/perfilAdministradores/{0}", administrador.IdPerfilAdministrador);
+                string endpoint = string.Format("{0}/v1/perfilAdministradores/{1}", Settings.ElCamelloURL, administrador.IdPerfilAdministrador);
 
                 try
                 {

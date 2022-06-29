@@ -11,6 +11,7 @@ using System.Windows;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using El_Camello.Assets.utilerias;
+using El_Camello.Configuracion;
 
 namespace El_Camello.Modelo.dao
 {
@@ -26,7 +27,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 
-                string endpoint = "http://localhost:5000/v1/perfilAspirantes";
+                string endpoint = $"{Settings.ElCamelloURL}/v1/perfilAspirantes";
                 HttpRequestMessage cuerpoMensaje = new HttpRequestMessage();
 
                 try
@@ -124,7 +125,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", aspirante.Token);
-                string endpoint = string.Format("http://localhost:5000/v1/perfilAspirantes/{0}", aspirante.IdAspirante);
+                string endpoint = string.Format("{0}/v1/perfilAspirantes/{1}", Settings.ElCamelloURL, aspirante.IdAspirante);
 
                 try
                 {
@@ -223,7 +224,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = string.Format("http://localhost:5000/v1/perfilAspirantes/{0}", idUsuarioAspirante);
+                string endpoint = string.Format("{0}/v1/perfilAspirantes/{1}", Settings.ElCamelloURL, idUsuarioAspirante);
 
                 try
                 {
@@ -284,7 +285,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = string.Format("http://localhost:5000/v1/perfilAspirantes");
+                string endpoint = string.Format("{0}/v1/perfilAspirantes", Settings.ElCamelloURL);
                 if (idCategoria > 0 )
                 {
                     endpoint += $"?idCategoria={idCategoria}";  
@@ -337,7 +338,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = string.Format("http://localhost:5000/v1/perfilAspirantes/{0}/video", idAspirante);
+                string endpoint = string.Format("{0}/v1/perfilAspirantes/{1}/video", Settings.ElCamelloURL, idAspirante);
 
                 try
                 {

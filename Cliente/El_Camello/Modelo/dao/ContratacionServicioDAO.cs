@@ -1,4 +1,5 @@
 ﻿using El_Camello.Assets.utilerias;
+using El_Camello.Configuracion;
 using El_Camello.Modelo.clases;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -23,7 +24,7 @@ namespace El_Camello.Modelo.dao
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
 
-                string endpoint = $"http://localhost:5000/v1/perfilAspirantes/{idAspirante}/contratacionesServicios";
+                string endpoint = $"{Settings.ElCamelloURL}/v1/perfilAspirantes/{idAspirante}/contratacionesServicios";
 
                 try
                 {

@@ -1,4 +1,5 @@
 ﻿using El_Camello.Assets.utilerias;
+using El_Camello.Configuracion;
 using El_Camello.Modelo.clases;
 using Newtonsoft.Json.Linq;
 using System;
@@ -21,7 +22,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = "http://localhost:5000/v1/reportesEmpleo";
+                string endpoint = $"{Settings.ElCamelloURL}/v1/reportesEmpleo";
 
                 try
                 {
@@ -81,7 +82,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = "http://localhost:5000/v1/reportesEmpleo/" + idReporteEmpleo + "/aceptado";
+                string endpoint = $"{Settings.ElCamelloURL}/v1/reportesEmpleo/{idReporteEmpleo}/aceptado";
 
                 try
                 {
@@ -166,7 +167,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = "http://localhost:5000/v1/reportesEmpleo";
+                string endpoint = $"{Settings.ElCamelloURL}/v1/reportesEmpleo";
 
                 try
                 {  
