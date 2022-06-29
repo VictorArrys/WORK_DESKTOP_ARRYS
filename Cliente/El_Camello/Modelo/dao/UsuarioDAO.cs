@@ -17,6 +17,7 @@ namespace El_Camello.Modelo.dao
     {
         public static async Task<Usuario> iniciarSesion(string nombreUsuario, string clave)
         {
+            MensajesSistema mensajes;
             Usuario usuario = new Usuario();
             using (var cliente = new HttpClient())
             {
@@ -59,11 +60,16 @@ namespace El_Camello.Modelo.dao
                         usuario.NombreUsuario = (string)user["nombre"];
                         usuario.Token = respuesta.Headers.GetValues("x-access-token").First();
 
+                    }else if(respuesta.StatusCode == HttpStatusCode.NotFound)
+                    {
+                        mensajes = new MensajesSistema("AccionInvalida", "Credenciales incorrectas o usuario no existente", "Iniciar sesión", "Verifique sus credenciales o cree una cuenta si no tiene una");
+                        mensajes.ShowDialog();
                     }
+
                     else if (respuesta.StatusCode == HttpStatusCode.Forbidden)
                     {
-                        MessageBox.Show("Debido a los diferentes reportes que se presentan en tu perfil haz sido bloqueado indefinidamente del sistema", "¡AVISO!");
-                        MessageBox.Show("contacta al soporte técnico elcamello@outllok.com para resolver tu situación");
+                        mensajes = new MensajesSistema("AccionInvalida", "Debido a los diferentes reportes que se presentan en tu perfil haz sido bloqueado indefinidamente del sistema", "Iniciar sesión", "Contacta al soporte técnico elcamello@outllok.com para resolver tu situación");
+                        mensajes.ShowDialog();
                     }
                     else
                     {

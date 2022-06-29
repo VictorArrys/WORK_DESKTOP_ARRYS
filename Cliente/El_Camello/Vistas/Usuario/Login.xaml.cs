@@ -6,6 +6,7 @@ using El_Camello.Vistas.Demandante;
 using El_Camello.Vistas.Aspirante;
 using El_Camello.Vistas.Empleador;
 using El_Camello.Configuracion;
+using El_Camello.Assets.utilerias;
 
 namespace El_Camello.Vistas.Usuario
 {
@@ -22,11 +23,13 @@ namespace El_Camello.Vistas.Usuario
 
         private async void btnIniciarSesion_Click(object sender, RoutedEventArgs e)  // listo en cliente
         {
+            MensajesSistema mensajes;
             string nombreUsuario = tbNombreUsuario.Text;
             string clave = pbClave.Password;
             if (tbNombreUsuario.Text == "" || pbClave.Password == "")
             {
-                MessageBox.Show("Por favor, llenar los campos mostrados", "¡Operacion!");
+                mensajes = new MensajesSistema("AccionInvalida", "Por favor, llena los campos mostrados", "Iniciar sesión", "Se requieren ambos campos");
+                mensajes.ShowDialog();
             }
             else
             {
@@ -59,7 +62,6 @@ namespace El_Camello.Vistas.Usuario
                 }
             }
         }
-
         private void btnResgistrarse_Click(object sender, RoutedEventArgs e)
         {
             RegistroPerfil menuRegistro = new RegistroPerfil();

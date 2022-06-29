@@ -158,8 +158,6 @@ namespace El_Camello.Vistas.Empleador
 
                 PerfilAspirante perfilAspirante = new PerfilAspirante(aspiranteConsultar.IdUsuario, token);
                 perfilAspirante.ShowDialog();
-                /*EvaluarApirante ventanaEvaluar = new EvaluarApirante(aspiranteEvaluar, token);
-                ventanaEvaluar.ShowDialog();*/
             }
             else
             {

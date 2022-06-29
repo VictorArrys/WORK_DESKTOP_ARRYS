@@ -194,19 +194,18 @@ namespace El_Camello.Vistas.Empleador
 
         }
 
+
+
         private async void consultarAspirante(object sender, RoutedEventArgs e)
         {
             int indiceSeleccion = dgSolicitudes.SelectedIndex;
 
             if (indiceSeleccion >= 0)
             {
-                SolicitudEmpleo aspiranteConsultar = solicitudesPendientes[indiceSeleccion];               
-                
+                SolicitudEmpleo aspiranteConsultar = solicitudesPendientes[indiceSeleccion];
+
                 PerfilAspirante perfilAspirante = new PerfilAspirante(aspiranteConsultar.IdUsuarioAspirante, token);
                 perfilAspirante.ShowDialog();
-                /*
-                ConsultarPerfilAspirante consultarAspirante = new ConsultarPerfilAspirante(usuarioConsultar, token);
-                consultarAspirante.ShowDialog();*/
             }
             else
             {
@@ -215,15 +214,8 @@ namespace El_Camello.Vistas.Empleador
                 {
                     SolicitudEmpleo aspiranteConsultar = solicitudesAceptadas[indiceSeleccionVacantesUso];
 
-                    /*Modelo.clases.Aspirante informacionAspirante = await AspiranteDAO.GetAspirante(aspiranteConsultar.IdUsuarioAspirante, token);
-                    Modelo.clases.Usuario usuarioConsultar = new Modelo.clases.Usuario();
-                    usuarioConsultar.IdPerfilusuario = informacionAspirante.IdPerfilusuario;*/
-
                     PerfilAspirante perfilAspirante = new PerfilAspirante(aspiranteConsultar.IdUsuarioAspirante, token);
                     perfilAspirante.ShowDialog();
-                    /*
-                    ConsultarPerfilAspirante consultarAspirante = new ConsultarPerfilAspirante(usuarioConsultar, token);
-                    consultarAspirante.ShowDialog();*/
                 }
                 else
                 {
