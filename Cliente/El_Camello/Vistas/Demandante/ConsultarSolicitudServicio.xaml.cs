@@ -23,11 +23,11 @@ namespace El_Camello.Vistas.Demandante
             contratacionesServicio = new List<ContratacionServicio>();
             btnFinalizar.IsEnabled = false;
             btnEvaluar.IsEnabled = false;
-            cargarTablaServicios(demandante.IdPerfilusuario);
+            cargarTablaServicios(demandante.IdDemandante, demandante.Token);
 
         }
 
-        private async void cargarTablaServicios(int idUsuario)
+        private async void cargarTablaServicios(int idUsuario, string token)
         {
             solicitudesServicio = await SolicitudServicioDAO.GetSolicitudesDemandante(demandante.IdDemandante, demandante.Token);
             contratacionesServicio = await ContratacionServicioDAO.GetContratacionesServicio(demandante.IdDemandante, demandante.Token);
@@ -42,15 +42,13 @@ namespace El_Camello.Vistas.Demandante
         {
             EvaluarServicioAspirante evaluarServicioAspirante = new EvaluarServicioAspirante(contratacionSeleccionada, demandante);
             evaluarServicioAspirante.ShowDialog();
+            cargarTablaServicios(demandante.IdDemandante, demandante.Token);
         }
 
         private void btnFinalizar_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult opcionSeleccionada = MessageBox.Show("hola","hol2", MessageBoxButton.OKCancel);
-            if (opcionSeleccionada == MessageBoxResult.OK)
-            {
-
-            }
+            MessageBox.Show("solicitudFinalizada");
+            cargarTablaServicios(demandante.IdDemandante, demandante.Token);
         }
 
         private void dgContratacionesCambio(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
