@@ -33,8 +33,7 @@ namespace El_Camello.Vistas.Demandante
             {
                 btnActivarPerfil.IsEnabled = true;
                 btnConsultarSolicitudes.IsEnabled = false;
-                btnConsultarValoraciones.IsEnabled = false;
-                btnConsultarValoraciones.IsEnabled = false;
+                btnSolicitarServicio.IsEnabled = false;
                 btnMensajeria.IsEnabled = false;
                 btnDesactivar.IsEnabled = false;
                 btnEditarPerfil.IsEnabled = false;
@@ -178,8 +177,7 @@ namespace El_Camello.Vistas.Demandante
                 {
                     btnActivarPerfil.IsEnabled = false;
                     btnConsultarSolicitudes.IsEnabled = true;
-                    btnConsultarValoraciones.IsEnabled = true;
-                    btnConsultarValoraciones.IsEnabled = true;
+                    btnSolicitarServicio.IsEnabled = true;
                     btnMensajeria.IsEnabled = true;
                     btnDesactivar.IsEnabled = true;
                     btnEditarPerfil.IsEnabled = true;
@@ -188,6 +186,14 @@ namespace El_Camello.Vistas.Demandante
                 }
             }
 
+        }
+
+        private void btnSolicitarServicio_Click(object sender, RoutedEventArgs e)
+        {
+            BuscarAspiranteServicio venatanaBuscarAspirantes = new BuscarAspiranteServicio(demandante);
+            Hide();
+            venatanaBuscarAspirantes.ShowDialog();
+            Show();
         }
     }
 }

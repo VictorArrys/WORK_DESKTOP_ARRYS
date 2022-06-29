@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace El_Camello.Modelo.dao
@@ -15,12 +16,51 @@ namespace El_Camello.Modelo.dao
         public static async Task<List<SolicitudServicio>> GetSolicitudesDemandante()
         {
             
-        }
-
-        public static async Task<bool> PostSolicitudServicio()
-        {
-
         }*/
+
+        public static async Task<int> PostSolicitudServicio(SolicitudServicio solicitud, int idDemandante, string token)
+        {
+            int resultado = 0;
+            ReporteEmpleo reporte = new ReporteEmpleo();
+            RespuestasAPI respuestaAPI = new RespuestasAPI();
+
+            using (var cliente = new HttpClient())
+            {
+                cliente.DefaultRequestHeaders.Add("x-access-token", token);
+                string endpoint = $"http://localhost:5000/v1/perfilDemandantes/{idDemandante}/solicitudesServicios";
+
+                try
+                {
+                    JObject cuerpoSolicitud = new JObject
+                    {
+                        {"idAspirante", solicitud.Aspirante.IdAspirante },
+                        {"titulo", solicitud.Titulo },
+                        {"descripcion", solicitud.Descripcion }
+                    };
+
+                    var data = new StringContent(cuerpoSolicitud.ToString(), Encoding.UTF8, "application/json");
+                    HttpResponseMessage respuesta = await cliente.PostAsync(endpoint, data);
+
+                    if (respuesta.StatusCode == HttpStatusCode.Created)
+                    {
+                        resultado = 1;
+                    }
+                    else
+                    {
+                        respuestaAPI.gestionRespuestasApi("Registrar solicitud para aspirante", respuesta);
+                    }
+
+                }
+                catch (HttpRequestException exception)
+                {
+                    MensajesSistema errorMessage = new MensajesSistema("Error", "Servidor desconectado, no se puede establecer conexion", "Registrar reporte de empleo", exception.Message);
+                    errorMessage.ShowDialog();
+                }
+
+
+            }
+            return resultado;
+        }
 
         //Aspirante
 
