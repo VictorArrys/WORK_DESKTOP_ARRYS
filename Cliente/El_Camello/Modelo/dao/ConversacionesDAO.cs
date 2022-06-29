@@ -160,7 +160,7 @@ namespace El_Camello.Modelo.dao
             List<Conversacion> conversaciones = new List<Conversacion>();
             using (var cliente = new HttpClient())
             {
-                string endpoint = $"http://localhost:5000/v1/perfilDemandantes/{idDemandante}/conversaciones";
+                string endpoint = $"{Settings.ElCamelloURL}/v1/perfilDemandantes/{idDemandante}/conversaciones";
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
                 try
                 {
@@ -290,7 +290,7 @@ namespace El_Camello.Modelo.dao
             List<Conversacion> conversaciones = new List<Conversacion>();
             using (var cliente = new HttpClient())
             {
-                string endpoint = $"http://localhost:5000/v1/perfilEmpleadores/{idEmpleador}/conversaciones";
+                string endpoint = $"{Settings.ElCamelloURL}/v1/perfilEmpleadores/{idEmpleador}/conversaciones";
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
                 try
                 {

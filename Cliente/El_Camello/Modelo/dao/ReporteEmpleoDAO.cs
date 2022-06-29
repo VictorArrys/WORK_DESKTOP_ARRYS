@@ -125,7 +125,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = "http://localhost:5000/v1/reportesEmpleo/" + idReporteEmpleo + "/rechazado";
+                string endpoint = $"{Settings.ElCamelloURL}/v1/reportesEmpleo/" + idReporteEmpleo + "/rechazado";
 
                 try
                 {

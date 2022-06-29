@@ -57,7 +57,7 @@ namespace El_Camello.Modelo.dao
                         contenidoImagen.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
                         foto.Add(contenidoImagen, "fotografia", "fotografiaPerfilEmpleador.jpg");
 
-                        string endpointFoto = string.Format("http://localhost:5000/v1/PerfilUsuarios/{0}/fotografia", idUsuario);
+                        string endpointFoto = $"{Settings.ElCamelloURL}/v1/PerfilUsuarios/{idUsuario}/fotografia";
                         respuesta = await cliente.PatchAsync(endpointFoto, foto);
 
                         if (respuesta.StatusCode == HttpStatusCode.OK)

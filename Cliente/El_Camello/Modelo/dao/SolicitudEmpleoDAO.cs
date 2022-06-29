@@ -193,7 +193,7 @@ namespace El_Camello.Modelo.dao
                     var data = new StringContent(cuerpoSolicitud.ToString(), Encoding.UTF8, "application/json");
 
                     cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                    string endpoint = $"http://localhost:5000/v1/ofertasEmpleo-A/{idOfertaEmpleo}/solicitarVacante";
+                    string endpoint = $"{Settings.ElCamelloURL}/v1/ofertasEmpleo-A/{idOfertaEmpleo}/solicitarVacante";
 
 
                     HttpResponseMessage respuesta = await cliente.PostAsync(endpoint, data);

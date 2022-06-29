@@ -71,7 +71,7 @@ namespace El_Camello.Modelo.dao
                         contenidoImagen.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
                         foto.Add(contenidoImagen, "fotografia", "fotografiaPerfilAspirante.jpg");
 
-                        string endpointFoto = string.Format("http://localhost:5000/v1/PerfilUsuarios/{0}/fotografia", idUsuario);
+                        string endpointFoto = $"{Settings.ElCamelloURL}/v1/PerfilUsuarios/{idUsuario}/fotografia";
                         respuesta = await cliente.PatchAsync(endpointFoto, foto);
 
                         if (respuesta.StatusCode == HttpStatusCode.OK)
@@ -81,7 +81,7 @@ namespace El_Camello.Modelo.dao
                             contenidoVideo.Headers.ContentType = MediaTypeHeaderValue.Parse("video/mp4");
                             video.Add(contenidoVideo, "video", "videoPerfilAspirante.mp4");
 
-                            string endpointVideo = string.Format("http://localhost:5000/v1/perfilAspirantes/{0}/video", idAspirante);
+                            string endpointVideo = $"{Settings.ElCamelloURL}/v1/perfilAspirantes/{idAspirante}/video";
                             respuesta = await cliente.PatchAsync(endpointVideo, video);
 
                             if (respuesta.StatusCode == HttpStatusCode.OK)
@@ -173,7 +173,7 @@ namespace El_Camello.Modelo.dao
                         contenidoImagen.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
                         foto.Add(contenidoImagen, "fotografia", "fotografiaPerfilAspirante.jpg");
 
-                        string endpointFoto = string.Format("http://localhost:5000/v1/PerfilUsuarios/{0}/fotografia", idUsuario);
+                        string endpointFoto = $"{Settings.ElCamelloURL}/v1/PerfilUsuarios/{idUsuario}/fotografia";
                         respuesta = await cliente.PatchAsync(endpointFoto, foto);
 
                         if (respuesta.StatusCode == HttpStatusCode.OK)
@@ -186,7 +186,7 @@ namespace El_Camello.Modelo.dao
                                 contenidoVideo.Headers.ContentType = MediaTypeHeaderValue.Parse("video/mp4");
                                 videoEdicion.Add(contenidoVideo, "video", "videoPerfilAspirante.mp4");
 
-                                string endpointVideo = string.Format("http://localhost:5000/v1/perfilAspirantes/{0}/video", idAspirante);
+                                string endpointVideo = $"{Settings.ElCamelloURL}/v1/perfilAspirantes/{idAspirante}/video";
                                 respuesta = await cliente.PatchAsync(endpointVideo, videoEdicion);
 
                                 if (respuesta.StatusCode == HttpStatusCode.OK)
