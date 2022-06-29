@@ -1,4 +1,5 @@
 ﻿using El_Camello.Assets.utilerias;
+using El_Camello.Configuracion;
 using El_Camello.Modelo.clases;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -23,7 +24,7 @@ namespace El_Camello.Modelo.dao
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
 
-                string endpoint = string.Format("http://localhost:5000/v1/contratacionesEmpleo/{0}?idAspirante={1}", idOfertaEmpleo,idAspirante);
+                string endpoint = string.Format("{0}/v1/contratacionesEmpleo/{1}?idAspirante={2}", Settings.ElCamelloURL, idOfertaEmpleo,idAspirante);
 
                 try
                 {
@@ -88,7 +89,7 @@ namespace El_Camello.Modelo.dao
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
 
-                string endpoint = $"http://localhost:5000/v1/perfilAspirantes/{idAspirante}/contratacionesEmpleo";
+                string endpoint = $"{Settings.ElCamelloURL}/v1/perfilAspirantes/{idAspirante}/contratacionesEmpleo";
 
                 try
                 {
@@ -143,7 +144,7 @@ namespace El_Camello.Modelo.dao
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
 
-                string endpoint = $"http://localhost:5000/v1/perfilAspirantes/{idAspirante}/contratacionesEmpleo/{idContratacion}";
+                string endpoint = $"{Settings.ElCamelloURL}/v1/perfilAspirantes/{idAspirante}/contratacionesEmpleo/{idContratacion}";
 
                 try
                 {
@@ -211,7 +212,7 @@ namespace El_Camello.Modelo.dao
 
                 var requestBody = new StringContent(cuerpoSolicitud.ToString(), Encoding.UTF8, "application/json");
 
-                string endpoint = $"http://localhost:5000/v1/perfilAspirantes/{idAspirante}/contratacionesEmpleo/{idContratacion}/evaluarEmpleador";
+                string endpoint = $"{Settings.ElCamelloURL}/v1/perfilAspirantes/{idAspirante}/contratacionesEmpleo/{idContratacion}/evaluarEmpleador";
 
                 try
                 {

@@ -1,4 +1,5 @@
 ﻿using El_Camello.Assets.utilerias;
+using El_Camello.Configuracion;
 using El_Camello.Modelo.clases;
 using Newtonsoft.Json.Linq;
 using System;
@@ -19,7 +20,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = "http://localhost:5000/v1/estadisticas/estadisticasUsoPlataforma";
+                string endpoint = $"{Settings.ElCamelloURL}/v1/estadisticas/estadisticasUsoPlataforma";
 
                 try
                 {
@@ -73,7 +74,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = "http://localhost:5000/v1/estadisticas/estadisiticasEmpleos";
+                string endpoint = $"{Settings.ElCamelloURL}/v1/estadisticas/estadisiticasEmpleos";
 
                 try
                 {
@@ -126,7 +127,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = "http://localhost:5000/v1/estadisticas/ofertasEmpleo";
+                string endpoint = $"{ Settings.ElCamelloURL }/v1/estadisticas/ofertasEmpleo";
 
                 try
                 {
@@ -178,7 +179,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = "http://localhost:5000/v1/estadisticas/valoracionesAspirantes";
+                string endpoint = $"{Settings.ElCamelloURL}/v1/estadisticas/valoracionesAspirantes";
 
                 try
                 {
@@ -245,7 +246,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = "http://localhost:5000/v1/estadisticas/valoracionesEmpleadores";
+                string endpoint = $"{Settings.ElCamelloURL}/v1/estadisticas/valoracionesEmpleadores";
 
                 try
                 {

@@ -1,4 +1,5 @@
 ﻿using El_Camello.Assets.utilerias;
+using El_Camello.Configuracion;
 using El_Camello.Modelo.clases;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -24,7 +25,7 @@ namespace El_Camello.Modelo.dao
             {
                 try
                 {
-                    string endpoint = "http://localhost:5000/v1/perfilEmpleadores";
+                    string endpoint = $"{Settings.ElCamelloURL}/v1/perfilEmpleadores";
                     HttpRequestMessage cuerpoMensaje = new HttpRequestMessage();
                     JObject objeto = new JObject();
                     objeto.Add("clave", usuario.Clave);
@@ -88,7 +89,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = string.Format("http://localhost:5000/v1/perfilEmpleadores/{0}", idUsuarioEmpleador);
+                string endpoint = string.Format("{0}/v1/perfilEmpleadores/{1}", Settings.ElCamelloURL, idUsuarioEmpleador);
 
                 try
                 {
@@ -128,7 +129,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = string.Format("http://localhost:5000/v1/perfilEmpleadores");
+                string endpoint = string.Format("{0}/v1/perfilEmpleadores", Settings.ElCamelloURL);
 
                 try
                 {
@@ -179,7 +180,7 @@ namespace El_Camello.Modelo.dao
                 try
                 {
                     cliente.DefaultRequestHeaders.Add("x-access-token", empleador.Token);
-                    string endpoint = string.Format("http://localhost:5000/v1/perfilEmpleadores/{0}", empleador.IdPerfilEmpleador);
+                    string endpoint = string.Format("{0}/v1/perfilEmpleadores/{1}", Settings.ElCamelloURL, empleador.IdPerfilEmpleador);
 
                     HttpRequestMessage cuerpoMensaje = new HttpRequestMessage();
                     JObject objeto = new JObject();
@@ -215,7 +216,7 @@ namespace El_Camello.Modelo.dao
                         contenidoImagen.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
                         foto.Add(contenidoImagen, "fotografia", "fotografiaPerfilEmpleador.jpg");
 
-                        string endpointfoto = String.Format("http://localhost:5000/v1/PerfilUsuarios/{0}/fotografia", empleador.IdPerfilusuario);
+                        string endpointfoto = String.Format("{0}/v1/PerfilUsuarios/{1}/fotografia", Settings.ElCamelloURL, empleador.IdPerfilusuario);
                         respuesta = await cliente.PatchAsync(endpointfoto, foto);
 
                         if (respuesta.StatusCode == HttpStatusCode.OK)

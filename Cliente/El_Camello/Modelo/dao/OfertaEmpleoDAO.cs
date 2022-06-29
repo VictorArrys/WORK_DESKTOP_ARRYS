@@ -10,6 +10,7 @@ using System.Windows;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using El_Camello.Assets.utilerias;
+using El_Camello.Configuracion;
 
 namespace El_Camello.Modelo.dao
 {
@@ -130,7 +131,7 @@ namespace El_Camello.Modelo.dao
 
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
 
-                string endpoint = string.Format("http://localhost:5000/v1/ofertasEmpleo-E/" + idOfertaEmpleo);
+                string endpoint = string.Format("{0}/v1/ofertasEmpleo-E/{1}", Settings.ElCamelloURL, idOfertaEmpleo);
                 try
                 {
                     HttpResponseMessage respuesta = await cliente.GetAsync(endpoint);
@@ -173,7 +174,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = "http://localhost:5000/v1/ofertasEmpleo-E?idPerfilEmpleador=" + idEmpleador;
+                string endpoint = $"{Settings.ElCamelloURL}/v1/ofertasEmpleo-E?idPerfilEmpleador={idEmpleador}";
 
                 try
                 {
@@ -244,7 +245,7 @@ namespace El_Camello.Modelo.dao
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
 
-                string endpoint = "http://localhost:5000/v1/ofertasEmpleo-E";
+                string endpoint = $"{Settings.ElCamelloURL}/v1/ofertasEmpleo-E";
 
                 try
                 {
@@ -345,7 +346,7 @@ namespace El_Camello.Modelo.dao
                         var contenidoImagen = new ByteArrayContent(foto);
                         contenidoImagen.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
                         fotoOfertaEmpleo.Add(contenidoImagen, "fotografia", "fotografiaOferta.jpg");
-                        string endpointfoto = string.Format("http://localhost:5000/v1/ofertasEmpleo-E/" + idOfertaEmpleo + "/fotografia");
+                        string endpointfoto = string.Format(Settings.ElCamelloURL + "/v1/ofertasEmpleo-E/" + idOfertaEmpleo + "/fotografia");
 
                         HttpResponseMessage respuestaFoto = await cliente.PostAsync(endpointfoto, fotoOfertaEmpleo);
                         RespuestasAPI respuestaAPI = new RespuestasAPI();
@@ -381,7 +382,7 @@ namespace El_Camello.Modelo.dao
             List<FotografiaOferta> listaFotografias = new List<FotografiaOferta>();
             using (var cliente = new HttpClient())
             {
-                string endpointfoto = string.Format("http://localhost:5000/v1/ofertasEmpleo-E/" + idOfertaEmpleo + "/fotografia");
+                string endpointfoto = string.Format(Settings.ElCamelloURL + "/v1/ofertasEmpleo-E/" + idOfertaEmpleo + "/fotografia");
 
                 try
                 {                    
@@ -460,7 +461,7 @@ namespace El_Camello.Modelo.dao
                         var contenidoImagen = new ByteArrayContent(foto);
                         contenidoImagen.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
                         fotoOfertaEmpleo.Add(contenidoImagen, "fotografia", "fotografiaOferta.jpg");
-                        string endpointfoto = "http://localhost:5000/v1/ofertasEmpleo-E/" + idOfertaEmpleo + "/" + fotografias[contador].IdFotografia + "/fotografia";
+                        string endpointfoto = Settings.ElCamelloURL + "/v1/ofertasEmpleo-E/" + idOfertaEmpleo + "/" + fotografias[contador].IdFotografia + "/fotografia";
 
                         HttpResponseMessage respuestaFoto = await cliente.PutAsync(endpointfoto, fotoOfertaEmpleo);
                         RespuestasAPI respuestaAPI = new RespuestasAPI();
@@ -501,7 +502,7 @@ namespace El_Camello.Modelo.dao
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
 
-                string endpoint = string.Format("http://localhost:5000/v1/ofertasEmpleo-E/{0}", ofertaEmpleoEdicion.IdOfertaEmpleo);
+                string endpoint = string.Format("{0}/v1/ofertasEmpleo-E/{1}", Settings.ElCamelloURL, ofertaEmpleoEdicion.IdOfertaEmpleo);
 
                 try
                 {
@@ -603,7 +604,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = $"http://localhost:5000/v1/ofertasEmpleo-A?categoriasEmpleo={String.Join(',', listaIdCategorias)}";
+                string endpoint = $"{Settings.ElCamelloURL}/v1/ofertasEmpleo-A?categoriasEmpleo={String.Join(',', listaIdCategorias)}";
 
                 try
                 {
@@ -662,7 +663,7 @@ namespace El_Camello.Modelo.dao
                 using (var cliente = new HttpClient())
                 {
                     cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                    string endpoint = $"http://localhost:5000/v1/ofertasEmpleo-A/{idOfertaEmpleo}";
+                    string endpoint = $"{Settings.ElCamelloURL}/v1/ofertasEmpleo-A/{idOfertaEmpleo}";
                     HttpResponseMessage respuesta = await cliente.GetAsync(endpoint);
                     RespuestasAPI respuestaAPI = new RespuestasAPI();
                     if (respuesta.StatusCode == HttpStatusCode.OK)

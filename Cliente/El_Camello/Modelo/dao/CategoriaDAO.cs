@@ -1,4 +1,5 @@
 ﻿using El_Camello.Assets.utilerias;
+using El_Camello.Configuracion;
 using El_Camello.Modelo.clases;
 using Newtonsoft.Json.Linq;
 using System;
@@ -18,7 +19,7 @@ namespace El_Camello.Modelo.dao
             List<Categoria> categorias = new List<Categoria>();
             using (var cliente = new HttpClient())
             {
-                string endpoint = "http://localhost:5000/v1/categoriasEmpleo";
+                string endpoint = $"{Settings.ElCamelloURL}/v1/categoriasEmpleo";
 
                 try
                 {
@@ -62,7 +63,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = "http://localhost:5000/v1/categoriasEmpleo";
+                string endpoint = $"{Settings.ElCamelloURL}/v1/categoriasEmpleo";
 
                 try
                 {
@@ -104,7 +105,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = String.Format("http://localhost:5000/v1/categoriasEmpleo/{0}", idCategoria);
+                string endpoint = String.Format("{0}/v1/categoriasEmpleo/{1}", Settings.ElCamelloURL, idCategoria);
                 try
                 {
                     HttpResponseMessage respuesta = await cliente.DeleteAsync(endpoint);
@@ -140,7 +141,7 @@ namespace El_Camello.Modelo.dao
             {
                 
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = String.Format("http://localhost:5000/v1/categoriasEmpleo/{0}", categoria.IdCategoria);
+                string endpoint = String.Format("{0}/v1/categoriasEmpleo/{0}", Settings.ElCamelloURL, categoria.IdCategoria);
 
                 try
                 {

@@ -1,5 +1,6 @@
 ﻿using El_Camello.Assets.utilerias;
 using El_Camello.Modelo.clases;
+using El_Camello.Configuracion;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -19,7 +20,7 @@ namespace El_Camello.Modelo.dao
             Usuario usuario = new Usuario();
             using (var cliente = new HttpClient())
             {
-                string endpoint = string.Format("http://localhost:5000/v1/iniciarSesion?nombreUsuario={0}&clave={1}", nombreUsuario, clave);
+                string endpoint = string.Format("{0}/v1/iniciarSesion?nombreUsuario={1}&clave={2}", Settings.ElCamelloURL,nombreUsuario, clave);
                 try
                 {
                     HttpResponseMessage respuesta = await cliente.GetAsync(endpoint);
@@ -91,7 +92,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = string.Format("http://localhost:5000/v1/PerfilUsuarios/{0}", idUsuario);
+                string endpoint = string.Format("{0}/v1/PerfilUsuarios/{1}", Settings.ElCamelloURL, idUsuario);
 
                 try
                 {
@@ -151,7 +152,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = "http://localhost:5000/v1/perfilUsuarios";
+                string endpoint = $"{Settings.ElCamelloURL}/v1/perfilUsuarios";
                 try
                 {
                     HttpResponseMessage respuesta = await cliente.GetAsync(endpoint);
@@ -197,7 +198,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = String.Format("http://localhost:5000/v1/perfilUsuarios/{0}/deshabilitar", idUsuario);
+                string endpoint = String.Format("{0}/v1/perfilUsuarios/{1}/deshabilitar", Settings.ElCamelloURL,idUsuario);
 
                 try
                 {
@@ -234,7 +235,7 @@ namespace El_Camello.Modelo.dao
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Add("x-access-token", token);
-                string endpoint = String.Format("http://localhost:5000/v1/perfilUsuarios/{0}/habilitar", idUsuario);
+                string endpoint = String.Format("{0}/v1/perfilUsuarios/{0}/habilitar", Settings.ElCamelloURL,idUsuario);
 
                 try
                 {
