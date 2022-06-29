@@ -2,7 +2,7 @@
 
 namespace El_Camello.Modelo.clases
 {
-    internal class ContratacionServicio
+    public class ContratacionServicio
     {
         private int idContratacionServicio;
         private Demandante demandante;

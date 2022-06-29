@@ -7,11 +7,11 @@
         mc:Ignorable="d"
         Title="ConsultarSolicitudServicio" Height="683" Width="1141" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid Background="#FFDFDFDF">
-        <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="44,87,44,333"/>
+        <DataGrid x:Name="dgContrataciones" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="44,87,44,333" SelectionChanged="dgContratacionesCambio"/>
         <Label Content="Contrataciones de Servicio:" HorizontalAlignment="Left" Margin="40,59,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-        <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="45,384,44,29"/>
+        <DataGrid x:Name="dgSolicitudes" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="45,384,44,29"/>
         <Label Content="Solicitudes realizadas:" HorizontalAlignment="Left" Margin="42,355,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-        <Button Content="Finalizar" HorizontalAlignment="Left" Margin="733,53,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Height="29" Width="83" Foreground="White" Click="Button_Click">
+        <Button x:Name="btnFinalizar" Content="Finalizar" HorizontalAlignment="Left" Margin="733,53,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Height="29" Width="83" Foreground="White" Click="btnFinalizar_Click">
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>
@@ -30,8 +30,8 @@
             </Rectangle.Fill>
         </Rectangle>
         <Label Content="Solicitudes de Servicio" HorizontalAlignment="Left" Margin="10,3,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" FontStyle="Italic" Foreground="White"/>
-        <Button Content="Regresar" Margin="1034,5,24,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Height="29" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontStyle="Italic" Click="Button_Click_2"/>
-        <Button Content="Evaluar" HorizontalAlignment="Left" Margin="831,53,0,0" VerticalAlignment="Top" Width="89" Height="29" FontSize="14" FontWeight="Bold" Foreground="White" Click="Button_Click_1">
+        <Button x:Name="btnRegresar" Content="Regresar" Margin="1034,5,24,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Height="29" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontStyle="Italic" Click="btnRegresar_Click"/>
+        <Button x:Name="btnEvaluar" Content="Evaluar" HorizontalAlignment="Left" Margin="831,53,0,0" VerticalAlignment="Top" Width="89" Height="29" FontSize="14" FontWeight="Bold" Foreground="White" Click="btnEvaluar_Click">
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>

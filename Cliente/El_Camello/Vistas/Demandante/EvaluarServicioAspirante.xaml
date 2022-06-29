@@ -5,13 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:El_Camello.Vistas.Demandante"
         mc:Ignorable="d"
-        Title="Evaluar Servicio de Aspirante" Height="437" Width="372" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Evaluar Servicio de Aspirante" Height="256" Width="372" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid Background="#FFDFDFDF">
-        <StackPanel Margin="98,54,98,204" Background="White"/>
-        <TextBox HorizontalAlignment="Center" Margin="0,275,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="166" Height="65" BorderBrush="Black"/>
-        <Label Content="Descripción de la evaluación:" HorizontalAlignment="Center" Margin="0,242,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
-        <Label Content="Aqui va lo de la evaluacion XD" HorizontalAlignment="Center" Margin="0,215,0,0" VerticalAlignment="Top"/>
-        <Button Content="Enviar Evaluación" HorizontalAlignment="Center" Margin="0,348,0,0" VerticalAlignment="Top" Foreground="White">
+        <Button x:Name="btnEvaluar" Content="Enviar Evaluación" HorizontalAlignment="Left" Margin="133,174,0,0" VerticalAlignment="Top" Foreground="White" Click="btnEvaluar_Click">
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.7"/>
             </Button.BorderBrush>
@@ -30,5 +26,7 @@
             </Rectangle.Fill>
         </Rectangle>
         <Label Content="Evaluación" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Foreground="White" FontStyle="Italic"/>
+        <Label Content="Puntuación:" HorizontalAlignment="Left" Margin="44,87,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cbEvaluacion" HorizontalAlignment="Left" Margin="138,91,0,0" VerticalAlignment="Top" Width="120"/>
     </Grid>
 </Window>

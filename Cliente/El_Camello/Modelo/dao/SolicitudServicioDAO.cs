@@ -13,11 +13,51 @@ namespace El_Camello.Modelo.dao
 {
     public class SolicitudServicioDAO
     {
-        /*/Demandante
-        public static async Task<List<SolicitudServicio>> GetSolicitudesDemandante()
+        public static async Task<List<SolicitudServicio>> GetSolicitudesDemandante(int idDemandante, string token)
         {
-            
-        }*/
+            List<SolicitudServicio> solicitudesServicios = new List<SolicitudServicio>();
+
+            using (var cliente = new HttpClient())
+            {
+                cliente.DefaultRequestHeaders.Add("x-access-token", token);
+
+                try
+                {
+                    string endpoint = $"{Settings.ElCamelloURL}/v1/perfilDemandantes/{idDemandante}/solicitudesServicios";
+                    HttpResponseMessage respuesta = await cliente.GetAsync(endpoint);
+                    RespuestasAPI respuestaAPI = new RespuestasAPI();
+
+                    if (respuesta.StatusCode == HttpStatusCode.OK)
+                    {
+                        string body = await respuesta.Content.ReadAsStringAsync();
+
+                        JArray solicitudesServicio = JArray.Parse(body);
+                        foreach (JObject item in solicitudesServicio)
+                        {
+                            SolicitudServicio solicitudServicio = new SolicitudServicio();
+                            solicitudServicio.IdSolicitudServicio = (int)item["idSolicitudServicio"];
+                            solicitudServicio.Titulo = (string)item["titulo"];
+                            solicitudServicio.Descripcion = (string)item["descripcion"];
+                            solicitudServicio.Estatus = (int)item["estatus"];
+                            solicitudServicio.FechaRegistro = (DateTime)item["fechaRegistro"];
+                            solicitudServicio.Aspirante.IdAspirante = (int)item["idPerfilAspirante"];
+                            solicitudServicio.Demandante.IdDemandante = (int)item["idPerfilDemandante"];
+                            solicitudesServicios.Add(solicitudServicio);
+                        }
+                    }
+                    else
+                    {
+                        respuestaAPI.gestionRespuestasApi("GetSolicitudesEmpleo", respuesta);
+                    }
+                }
+                catch (HttpRequestException)
+                {
+
+                }
+            }
+
+            return solicitudesServicios;
+        }
 
         public static async Task<int> PostSolicitudServicio(SolicitudServicio solicitud, int idDemandante, string token)
         {
