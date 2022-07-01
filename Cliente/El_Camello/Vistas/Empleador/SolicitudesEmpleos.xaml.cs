@@ -42,9 +42,6 @@ namespace El_Camello.Vistas.Empleador
             btnRechazar.IsEnabled = false;
             btnVerMas.IsEnabled = false;
             recuperarSolicitudes();
-            lbVacantesUso.Content = "Ocupadas: " + solicitudesAceptadas.Count;
-
-            lbVacantesLibres.Content = "Vacantes: " + vacantes;
 
         }
 
@@ -75,6 +72,7 @@ namespace El_Camello.Vistas.Empleador
 
             dgVacantesEnUso.ItemsSource = solicitudesAceptadas;
             
+
             solicitudesPendientes = solicitudes.FindAll(
             delegate (SolicitudEmpleo solicitudAceptada)
             {
@@ -82,6 +80,11 @@ namespace El_Camello.Vistas.Empleador
             }
             );
             dgSolicitudes.ItemsSource = solicitudesPendientes;
+
+
+            lbVacantesUso.Content = "Ocupadas: " + solicitudesAceptadas.Count;
+
+            lbVacantesLibres.Content = "Vacantes: " + vacantes;
 
         }
 
@@ -140,7 +143,7 @@ namespace El_Camello.Vistas.Empleador
                     {
                         mensajes = new MensajesSistema("AccionExitosa", "La acción que ha realizado se completo correctamente", "Aceptar solcitud", "Se ha aceptado la solicitud de empleo");
                         mensajes.ShowDialog();
-                        vacantes--;
+                        vacantes --;
                         cargarSolicitudes();
                     }
                     else

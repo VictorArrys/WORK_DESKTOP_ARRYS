@@ -9,22 +9,23 @@
     <Grid Margin="0,0,0,-6">
         <Grid.RowDefinitions>
             <RowDefinition Height="109*"/>
-            <RowDefinition Height="421*"/>
+            <RowDefinition Height="140*"/>
+            <RowDefinition Height="281*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="123"/>
             <ColumnDefinition Width="737"/>
         </Grid.ColumnDefinitions>
 
-        <Grid RenderTransformOrigin="0.496,0.438" Margin="0,388,0,0" Grid.ColumnSpan="2" Grid.Row="1">
+        <Grid RenderTransformOrigin="0.496,0.438" Margin="0,248,0,0" Grid.ColumnSpan="2" Grid.Row="2">
             <Grid.Background>
                 <SolidColorBrush Color="#FF062758" Opacity="0.85"/>
             </Grid.Background>
         </Grid>
-        <Rectangle HorizontalAlignment="Left" Height="199" Margin="25,66,0,0" Stroke="Black" VerticalAlignment="Top" Width="495" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
-        <Rectangle HorizontalAlignment="Left" Height="198" Margin="25,185,0,0" Stroke="Black" VerticalAlignment="Top" Width="495" Grid.ColumnSpan="2" Grid.Row="1"/>
-        <Rectangle HorizontalAlignment="Left" Height="426" Margin="416,66,0,0" Stroke="Black" VerticalAlignment="Top" Width="310" Grid.Column="1" Grid.RowSpan="2"/>
-        <Button x:Name="btnAprobar" Content="Aprobar" HorizontalAlignment="Left" Margin="515,351,0,0" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Click="aceptarEmpleado" Grid.Column="1" Height="20" Grid.Row="1">
+        <Rectangle HorizontalAlignment="Left" Height="199" Margin="25,66,0,0" Stroke="Black" VerticalAlignment="Top" Width="495" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
+        <Rectangle HorizontalAlignment="Left" Height="202" Margin="25,41,0,0" Stroke="Black" VerticalAlignment="Top" Width="495" Grid.ColumnSpan="2" Grid.Row="2"/>
+        <Rectangle HorizontalAlignment="Left" Height="426" Margin="416,66,0,0" Stroke="Black" VerticalAlignment="Top" Width="310" Grid.Column="1" Grid.RowSpan="3"/>
+        <Button x:Name="btnAprobar" Content="Aprobar" HorizontalAlignment="Left" Margin="515,211,0,0" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Click="aceptarEmpleado" Grid.Column="1" Height="20" Grid.Row="2">
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
             </Button.Background>
@@ -32,7 +33,7 @@
                 <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
             </Button.BorderBrush>
         </Button>
-        <Button x:Name="btnRechazar" Content="Rechazar" HorizontalAlignment="Left" Margin="623,351,0,0" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Click="rechazarEmpleado" Grid.Column="1" Height="20" Grid.Row="1">
+        <Button x:Name="btnRechazar" Content="Rechazar" HorizontalAlignment="Left" Margin="623,211,0,0" VerticalAlignment="Top" Width="94" Foreground="White" RenderTransformOrigin="-1.106,7.116" Click="rechazarEmpleado" Grid.Column="1" Height="20" Grid.Row="2">
             <Button.Background>
                 <SolidColorBrush Color="#FF0089D2" Opacity="0.695"/>
             </Button.Background>
@@ -40,31 +41,31 @@
                 <SolidColorBrush Color="#FF022D3D" Opacity="0.1"/>
             </Button.BorderBrush>
         </Button>
-        <DataGrid x:Name="dgSolicitudes" d:ItemsSource="{Binding}" Margin="46,108,360,285" AutoGenerateColumns="False" IsReadOnly="true" SelectionChanged="dgSolicitudes_SelectionChanged" Grid.ColumnSpan="2" Grid.RowSpan="2">
+        <DataGrid x:Name="dgSolicitudes" d:ItemsSource="{Binding}" Margin="46,108,360,4" AutoGenerateColumns="False" IsReadOnly="true" SelectionChanged="dgSolicitudes_SelectionChanged" Grid.ColumnSpan="2" Grid.RowSpan="2">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Aspirante" Binding= "{Binding Nombre}" Width="250"/>
                 <DataGridTextColumn Header="Fecha registro" Binding= "{Binding FechaRegistro}" Width="100"/>
                 <DataGridTextColumn Header="Estado" Binding= "{Binding Estatus}" Width="100"/>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="dgVacantesEnUso" d:ItemsSource="{Binding}" Margin="46,224,360,60" AutoGenerateColumns="False" IsReadOnly="true" SelectionChanged="dgVacantesEnUso_SelectionChanged" Grid.ColumnSpan="2" Grid.Row="1">
+        <DataGrid x:Name="dgVacantesEnUso" d:ItemsSource="{Binding}" Margin="46,84,360,60" AutoGenerateColumns="False" IsReadOnly="true" SelectionChanged="dgVacantesEnUso_SelectionChanged" Grid.ColumnSpan="2" Grid.Row="2">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Aspirante" Binding= "{Binding Nombre}" Width="250"/>
                 <DataGridTextColumn Header="Fecha registro" Binding= "{Binding FechaRegistro}" Width="100"/>
                 <DataGridTextColumn Header="Estado" Binding= "{Binding Estatus}" Width="100"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Label Content="Solicitudes" HorizontalAlignment="Left" Margin="9,66,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26" Grid.Column="1" Height="42" Width="143"/>
-        <Label Content="Vacantes ocupadas" HorizontalAlignment="Left" Margin="6,179,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26" Grid.Column="1" Height="45" Width="240" Grid.Row="1"/>
-        <Label Name="lbVacantesUso" Content="Ocupadas : ?" HorizontalAlignment="Left" Margin="259,193,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="12" Grid.Column="1" Height="26" Width="80" Grid.Row="1"/>
+        <Label Content="Solicitudes" HorizontalAlignment="Left" Margin="46,66,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="26" Height="42" Width="143" Grid.ColumnSpan="2"/>
+        <Label Content="Vacantes ocupadas" HorizontalAlignment="Left" Margin="46,0,0,196" VerticalAlignment="Bottom" Foreground="Black" FontWeight="Bold" FontSize="26" Height="38" Width="240" Grid.Row="2" Grid.ColumnSpan="2"/>
+        <Label Name="lbVacantesUso" Content="Ocupadas : ?" HorizontalAlignment="Left" Margin="228,56,0,0" VerticalAlignment="Top" Foreground="#FF7F2020" FontWeight="Bold" FontSize="12" Grid.Column="1" Height="26" Width="149" Grid.Row="2"/>
         <Label Content="Aspirante: " HorizontalAlignment="Left" Margin="416,104,0,0" VerticalAlignment="Top" Width="310" Background="Black" Foreground="White" Grid.Column="1" Height="26" Grid.RowSpan="2"/>
         <Label x:Name="lbNombreAspirante" Content="[Nombre]" HorizontalAlignment="Left" Margin="419,26,0,0" VerticalAlignment="Top" Width="307" Grid.Column="1" Height="26" Grid.Row="1"/>
         <Label Content="Telefono: " HorizontalAlignment="Left" Margin="416,55,0,0" VerticalAlignment="Top" Width="310" Background="Black" Foreground="White" Grid.Column="1" Height="26" Grid.Row="1"/>
         <Label x:Name="lbTelefono" Content="[Telefono]" HorizontalAlignment="Left" Margin="416,86,0,0" VerticalAlignment="Top" Width="310" Grid.Column="1" Height="26" Grid.Row="1"/>
         <Label Content="Dirección: " HorizontalAlignment="Left" Margin="416,112,0,0" VerticalAlignment="Top" Width="310" Background="Black" Foreground="White" Grid.Column="1" Height="26" Grid.Row="1"/>
-        <Label x:Name="lbDireccion" Content="[Dirección]" HorizontalAlignment="Left" Margin="419,140,0,0" VerticalAlignment="Top" Width="307" Height="48" Grid.Column="1" Grid.Row="1"/>
-        <Label Content="Oficios: " HorizontalAlignment="Left" Margin="416,188,0,0" VerticalAlignment="Top" Width="310" Background="Black" Foreground="White" Grid.Column="1" Height="26" Grid.Row="1"/>
-        <Label x:Name="lbVacantesLibres" Content="Vacantes: ?" HorizontalAlignment="Left" Margin="259,72,0,0" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="12" Grid.Column="1" Height="26" Width="71"/>
+        <Label x:Name="lbDireccion" Content="[Dirección]" HorizontalAlignment="Left" Margin="419,140,0,0" VerticalAlignment="Top" Width="307" Height="48" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2"/>
+        <Label Content="Oficios: " HorizontalAlignment="Left" Margin="416,48,0,0" VerticalAlignment="Top" Width="310" Background="Black" Foreground="White" Grid.Column="1" Height="26" Grid.Row="2"/>
+        <Label x:Name="lbVacantesLibres" Content="Vacantes: ?" HorizontalAlignment="Left" Margin="228,78,0,0" VerticalAlignment="Top" Foreground="#FF7F2020" FontWeight="Bold" FontSize="12" Grid.Column="1" Height="26" Width="149" Background="White"/>
         <Label Content="Información detallada" HorizontalAlignment="Left" Margin="416,67,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="20" RenderTransformOrigin="0.208,0.685" Width="310" Background="#FF062758" Height="37" Grid.Column="1"/>
         <Button x:Name="btnVerMas" Content="Ver más" HorizontalAlignment="Left" VerticalAlignment="Top" Width="71" Foreground="White" RenderTransformOrigin="-1.106,7.116" Margin="646,76,0,0" Click="consultarAspirante" Grid.Column="1" Height="20">
             <Button.Background>
@@ -75,7 +76,7 @@
             </Button.BorderBrush>
         </Button>
         <Label x:Name="lbMensaje" Content="" HorizontalAlignment="Left" Margin="25,0,0,0" VerticalAlignment="Center" Foreground="Black" FontWeight="Bold" FontSize="12" Height="23" Grid.ColumnSpan="2" Width="495"/>
-        <DataGrid x:Name="dgOficios" d:ItemsSource="{Binding}" Margin="426,219,20,85" AutoGenerateColumns="False" IsReadOnly="true" Grid.Column="1" Background="{x:Null}" Grid.Row="1">
+        <DataGrid x:Name="dgOficios" d:ItemsSource="{Binding}" Margin="426,79,20,85" AutoGenerateColumns="False" IsReadOnly="true" Grid.Column="1" Background="{x:Null}" Grid.Row="2">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Oficio" Binding= "{Binding NombreCategoria}" Width="150"/>
                 <DataGridTextColumn Header="Experiencia" Binding= "{Binding Experiencia}" Width="140"/>
