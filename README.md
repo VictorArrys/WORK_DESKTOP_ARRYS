@@ -15,19 +15,21 @@
 Breve descripción de lo que hace tu proyecto y su propósito.
 
 ## Características Principales
-- Característica 1
-- Característica 2
-- ...
+| Característica           | Descripción                                    |
+| ------------------------ | ---------------------------------------------- |
+| Característica 1         | Detalles de la Característica 1.               |
+| Característica 2         | Detalles de la Característica 2.               |
+| ...                      | ...                                            |
 
 ## Tecnologías Utilizadas
-- C# .NET 6.0
-- Node.js
-- MySQL
+- **C# .NET 6.0**
+- **Node.js**
+- **MySQL**
 - ...
 
 ## Instalación
 1. Clona el repositorio: `git clone https://github.com/VictorArrys/WORK_DESKTOP_ARRYS.git`
-2. Asegúrate de tener .NET 6.0 instalado.
+2. Asegúrate de tener .NET 6.0 instalado. [Descargar e instalar .NET 6.0](https://learn.microsoft.com/es-es/dotnet/)
 3. Otros pasos de instalación...
 
 ## Uso
@@ -64,7 +66,7 @@ Correo Electrónico: vctmanuel.arrys@gmail.com
 En preproducción.
 
 ## Documentación
-Encuentra más detalles en nuestra [documentación](URL_DE_LA_DOCUMENTACION).
+Encuentra más detalles en nuestra [documentación](https://arrysservicesgroup.atlassian.net/wiki/spaces/SD/pages/11010057?atlOrigin=eyJpIjoiZjJiZDlkNmRmMTE4NGU0OWI4NGQ0YjM2MzA1ZTdiMWIiLCJwIjoiYyJ9).
 
 ## Agradecimientos
 Agradecimientos a quienes han contribuido al proyecto.
