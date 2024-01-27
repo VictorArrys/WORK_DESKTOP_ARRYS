@@ -3,8 +3,8 @@
 </p>
 
 <p align="center"> Información de documentación .NET   
-  <a href="URL_DEL_BADGE_TRAVIS"><img src="https://learn.microsoft.com/es-es/dotnet/" alt="Build Status"> -> </a> <p align="center"> Documentación de .NET: Obtén información sobre cómo usar .NET para crear aplicaciones en cualquier plataforma mediante C#, F#, y Visual Basic. Examina referencias de API, código de ejemplo, tutoriales y mucho más. </p> 
-  <a href="URL_DEL_BADGE_PACKAGIST"><img src="https://learn.microsoft.com/es-es/visualstudio/windows/?view=vs-2022" alt="Total Downloads"> -> </a> <p align="center"> Documentación de Visual Studio: Aprende a usar Visual Studio para desarrollar aplicaciones, servicios y herramientas en el idioma de tu elección para tus dispositivos y plataformas.  </p> 
+  <a href="https://learn.microsoft.com/es-es/dotnet/"><img src="https://andrewlock.net/content/images/2021/banner_aspnetcore6.png" alt="Ir "> -> </a> <p align="center"> Documentación de .NET: Obtén información sobre cómo usar .NET para crear aplicaciones en cualquier plataforma mediante C#, F#, y Visual Basic. Examina referencias de API, código de ejemplo, tutoriales y mucho más. </p> 
+  <a href="https://learn.microsoft.com/es-es/visualstudio/windows/?view=vs-2022"><img src="https://cdn2.iconfinder.com/data/icons/metro-ui-icon-set/512/Visual_Studio_2012.png" alt="Ir "> -> </a> <p align="center"> Documentación de Visual Studio: Aprende a usar Visual Studio para desarrollar aplicaciones, servicios y herramientas en el idioma de tu elección para tus dispositivos y plataformas.  </p> 
 </p>
 
 # Nombre de tu Proyecto: WORK_DESKTOP_ARRYS
