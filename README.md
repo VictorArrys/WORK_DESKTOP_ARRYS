@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fgeekstorming.wordpress.com%2F2020%2F01%2F28%2Faventuras-net-condicionales%2F&psig=AOvVaw1GeWc4-tVV1NPSrw22WWnd&ust=1706407554286000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCKCHjNS9_IMDFQAAAAAdAAAAABAD" width="400">
+  <img src="https://geekstorming.files.wordpress.com/2019/12/7e49c-1mfohvi5b1xzkytxiaky7pq.png" width="400">
 </p>
 
 <p align="center"> Información de documentación .NET   
-  <a href="URL_DEL_BADGE_TRAVIS"><img src="https://learn.microsoft.com/es-es/dotnet/" alt="Build Status"> Documentación de .NET: Obtén información sobre cómo usar .NET para crear aplicaciones en cualquier plataforma mediante C#, F#, y Visual Basic. Examina referencias de API, código de ejemplo, tutoriales y mucho más. </a>
-  <a href="URL_DEL_BADGE_PACKAGIST"><img src="https://learn.microsoft.com/es-es/visualstudio/windows/?view=vs-2022" alt="Total Downloads"> Documentación de Visual Studio: Aprende a usar Visual Studio para desarrollar aplicaciones, servicios y herramientas en el idioma de tu elección para tus dispositivos y plataformas. </a>
+  <a href="URL_DEL_BADGE_TRAVIS"><img src="https://learn.microsoft.com/es-es/dotnet/" alt="Build Status"> -> </a> <p align="center"> Documentación de .NET: Obtén información sobre cómo usar .NET para crear aplicaciones en cualquier plataforma mediante C#, F#, y Visual Basic. Examina referencias de API, código de ejemplo, tutoriales y mucho más. </p> 
+  <a href="URL_DEL_BADGE_PACKAGIST"><img src="https://learn.microsoft.com/es-es/visualstudio/windows/?view=vs-2022" alt="Total Downloads"> -> </a> <p align="center"> Documentación de Visual Studio: Aprende a usar Visual Studio para desarrollar aplicaciones, servicios y herramientas en el idioma de tu elección para tus dispositivos y plataformas.  </p> 
 </p>
 
 # Nombre de tu Proyecto: WORK_DESKTOP_ARRYS
