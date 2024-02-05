@@ -29,7 +29,7 @@ namespace El_Camello.Configuracion
         private static void LeerINI()
         {
             string url = archivoINI.LeerINI("Settings", "URL");
-            if(url.Length == 0)
+            if (url.Length == 0)
             {
                 SetDefaultURL();
                 url = archivoINI.LeerINI("Settings", "URL");
@@ -44,7 +44,7 @@ namespace El_Camello.Configuracion
 
         private static void SetDefaultURL()
         {
-            archivoINI.EscribirINI("Settings", "URL", "https://elcamello.azurewebsites.net");
+            archivoINI.EscribirINI("Settings", "URL", "http://localhost:3000/worksystem_develop");
         }
     }
 }
